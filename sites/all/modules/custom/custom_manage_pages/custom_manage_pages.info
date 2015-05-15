@@ -1,0 +1,7 @@
+name= Custom Manage Pages
+description = Custom Manage Pages
+version = VERSION
+package = Custom
+core = 7.x
+project = "drupal"
+datestamp = "1352325357"

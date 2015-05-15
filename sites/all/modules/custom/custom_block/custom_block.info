@@ -1,0 +1,8 @@
+name= Custom Blocks
+description = Custom module for all custom blocks of the site
+version = VERSION
+package = Custom
+core = 7.x
+project = "drupal"
+datestamp = "1352325357"
+dependencies[] = ticketmaster_api

@@ -1,0 +1,5 @@
+/* DAI IE CSS Starts Here */
+.home-nextgamebg{width: 100%;}
+.calendar-calendar TH.days, .calendar-calendar .month-view .full TD.empty.date-box, .calendar-calendar .month-view .full TD.empty.single-day{background-color: transparent;}
+.modal.fade.in{top: -9px; left: -10px;}
+/* DAI IE CSS Ends Here */

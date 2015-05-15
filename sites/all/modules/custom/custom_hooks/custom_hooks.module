@@ -1,0 +1,683 @@
+<?php
+
+// @file
+
+class WeightEntityFieldQuery extends EntityFieldQuery {
+
+  /**
+   * apply some defaults to all instances of this object
+   */
+  public function __construct() {
+    $this->entityCondition('entity_type', 'node')
+     ->addTag('weight');
+  }
+
+  /**
+   * set weight tag
+   */
+  public function weight() {
+    $this->addTag('weight');
+    return $this;
+  }
+
+  /**
+   * Unset weight tag
+   */
+  public function clearWeight() {
+    unset($this->tags['weight']);
+  }
+}
+
+/**
+ * Implements hook_query_TAG_alter().
+ */
+function custom_hooks_query_weight_alter(QueryAlterableInterface $query) {
+  $query->join('weight_weights', 'w', 'node.nid = w.entity_id');
+  $query->fields('w', array('weight'));
+  $query->orderBy('w.weight', 'ASC');
+}
+
+/*
+ * Implementation of hook_form-alter to alter web form
+ */
+
+function custom_hooks_form_alter(&$form, &$form_state, $form_id) {
+  global $user,$base_url;
+  
+  if($form_id == 'video_node_form'){
+    
+	$form['title']['#disabled'] = TRUE;
+  }
+  if ($form_id == 'user_login') {
+    $form['name']['#title'] = 'ACCOUNT ID';
+    $form['form_description'] = array(
+    '#type' => 'item',
+    '#markup' => t('Use your Sacramento Kings Manager<br />Account ID and Password to Sign In.'),
+    '#weight' => -10,
+    );
+    $form['links']['#markup'] = "<div class='need_help'>". l(t('Need Help?'), 'trouble-signing') . "</div>";
+    $form['remember_me']['#title'] = t('Stay signed in');
+    $form['name']['#attributes']['tabindex'] = '1';
+    $form['pass']['#attributes']['tabindex'] = '1';
+    $form['remember_me']['#attributes']['tabindex'] = '3';
+    $form['links']['#weight'] = 112;
+    $form['remember_me']['#weight'] = 110;
+    $form['actions']['submit']['#value'] = 'Sign In';
+    $form['name']['#attributes']['placeholder'] = t( 'Account ID' );
+    $form['pass']['#attributes']['placeholder'] = t( 'Password' );
+  }
+  if ($form_id == 'webform_client_form_116') {
+    $form['#attributes']['autocomplete'] = 'off';
+    drupal_set_title(variable_get('rsvp_title', ''));
+    module_load_include('inc', 'webform', 'includes/webform.submissions');
+    $rsvp_access = tmapi_get_rsvp_access();
+    $node = node_load('116');
+    $user_limit_exceeded = _webform_submission_user_limit_check($node);
+    if (!variable_get('en_rsvp', 0)) {
+      return drupal_goto('<front>');
+      exit;
+    }
+    if (!$rsvp_access){
+       $check_pawp_submission = custom_pawp_check_cc_status(1);
+       if ((variable_get('en_pawp', 0)) && !$check_pawp_submission) {
+          return drupal_goto('pawp/nojs/form');
+          exit;
+        }
+    }
+    if($user_limit_exceeded) {
+      return drupal_goto('rsvp/error');
+      exit;
+    }
+    $form['submitted']['account_number']['#default_value'] = $user->name;
+    $form['submitted']['account_number']['#attributes']['readonly'] = 'readonly';
+    $form['submitted']['email_address']['#default_value'] = $user->mail;
+    //$form['submitted']['email_address']['#attributes']['readonly'] = 'readonly';
+    $form['submitted']['pre_game_field_passes']['#title'] = 'First Choice';
+    $form['submitted']['pre_game_field_passes_2']['#title'] = 'Second Choice';
+    $form['submitted']['post_game_field_passes']['#title'] = 'First Choice';
+    $form['submitted']['post_game_field_passes_2']['#title'] = 'Second Choice';
+    $form['submitted']['dallas_cowboys_practice']['#title'] = 'First Choice';
+    $form['submitted']['dallas_cowboys_practice_2']['#title'] = 'Second Choice';
+    $form['submitted']['terms']['#prefix'] = '<div class="webform-event-bg-wrapper">';
+    $form['submitted']['event_name']['#default_value'] = variable_get('rsvp_title', '');
+    $form['actions']['submit']['#prefix'] = '<a class="btn btn-primary no-thanks" href="/">No Thanks</a>';
+    $form['actions']['submit']['#suffix'] = '</div>';
+  }
+  if(isset($form['#node']) && $form['#node']->type == "promo_tile"){
+    $form_state['storage']['redirect_uri'] = '';
+  }
+  if(isset($form['#node']) && $form['#node']->type == "acct_rep"){ 
+    $form_state['storage']['redirect_uri'] = $base_url.'/contact-us#'.$form['#node']->nid;
+  }
+    //redirect only when new node created.
+	if ($form_id == 'acct_rep_node_form'){   
+	  if(!$form['nid']['#value']){
+		$form['actions']['submit']['#submit'][] = 'custom_hooknode_submit';		   
+	  }  
+	 }  
+}
+function custom_hooknode_submit($form, &$form_state){
+ //.$form_state['values']['nid'];
+ //@todo, we should redirect with nodeid
+ $form_state['redirect']= 'contact-us';
+}
+
+// Disable the ajax redirect.
+function custom_hooks_asaf_form_ajax_commands_alter(&$commands, $form, &$form_state, $form_id) {
+  $url = $form_state['storage']['redirect_uri'];
+  foreach($commands as $key => $command) {
+    if ($form['#node']->nid) {
+      if ($command['command'] == 'asafRedirect') {
+         if ($command['command'] == 'asafRedirect') {
+          $commands[$key]['href'] = $url;
+         }
+        //unset($commands[$key]);
+          break;
+      }
+    }
+  }
+}
+// These functions allow for subsequent saves without validation errors.
+function epic_ajax_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'promo_tile_node_form') {
+    // Ensure our own validation is called first to overcome the node changed error node.module: 971
+     array_unshift($form['#validate'], "custom_hooks_node_edit_validate");
+   }
+}
+function  custom_hooks_node_edit_validate($form,&$form_state){
+  // Update changed value to avoid node changed error node.module: 971
+   $form_state['values']['changed'] =  $form_state['node']->changed;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function custom_hooks_menu() {
+  $items = array();
+  $items['goto-account-manager'] = array(
+    'title' => 'Go to Account Manager',
+    'page callback' => 'custom_hooks_account_manager',
+    'access callback' => TRUE,
+    'file' => 'custom_hooks.api.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['cowboys-clear-cache'] = array(
+    'title' => 'Clear Cache',
+    'page callback' => 'custom_hooks_clear_custom_cache',
+    'access callback' => TRUE,
+    'file' => 'custom_hooks.pages.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['forgot-password/%ctools_js'] = array(
+    'title' => 'Forgot Password',
+    'page callback' => 'custom_hooks_forgot_password_page',
+    'access callback' => TRUE,
+    'page arguments' => array(1),
+    'file' => 'custom_hooks.pages.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['parking-promo/%ctools_js'] = array(
+    'title' => 'Parking Promo',
+    'page callback' => 'custom_hooks_parking_promo_page',
+    'access callback' => TRUE,
+    'page arguments' => array(1),
+    'file' => 'custom_hooks.pages.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['birthday-wishes'] = array(
+    'title' => 'Happy Birthday',
+    'page callback' => 'custom_hooks_birthday_celebration',
+    'file' => 'custom_hooks.pages.inc',
+    'access arguments' => array('STH User'),
+    'type' => MENU_CALLBACK
+  );
+  return $items;
+}
+
+/**
+ * Implementation of hooks_menu_alter().
+ */
+function custom_hooks_menu_alter(&$items) {
+  unset($items['node/%node/pdf']);
+  $items['user/register']['access callback'] = FALSE;
+  $items['user/password']['access callback'] = FALSE;
+}
+
+/**
+* Implements hook_user_login().
+*/
+function custom_hooks_user_login(&$edit, $account) {
+    /*$destination = take_over_page();
+    if($destination) {
+        $_GET['destination'] = $destination;
+    }
+    else{
+        $_GET['destination'] = '';
+    }*/
+    
+//    module_load_include('inc', 'webform', 'includes/webform.submissions');
+//  // Check if PAWP enabled; If Yes we will redirect user to PAWP page
+//  $check_pawp_submission = custom_pawp_check_cc_status(1);
+//  // check if RSVP is enabled and user has access to it
+//  $rsvp = variable_get('en_rsvp', 0);
+//  $rsvp_access = tmapi_get_rsvp_access();
+//  $node = node_load('116');
+//  $user_limit_exceeded = _webform_submission_user_limit_check($node);
+//  $birthday_takeover_access = tm_user_birthday_access();
+//  $birthday = variable_get('en_birthday', 0);
+    $show_renew_popup = variable_get('show_renew_popup', '');
+    if ($show_renew_popup) {
+      $_GET['destination'] = 'goto-renew';
+    }
+//  //$user_session = isset($_SESSION['Drupal_visitor_pawp']) ? $_SESSION['Drupal_visitor_pawp'] : 0;
+//  if ($rsvp && $rsvp_access && !$user_limit_exceeded) {
+//    $_GET['destination'] = 'rsvp-form';
+//  }
+//  elseif ($birthday_takeover_access && $birthday) {
+//    $_GET['destination'] = 'birthday-wishes';
+//  }
+//  elseif ((variable_get('en_pawp', 0)) && !$check_pawp_submission) {
+//    $_GET['destination'] = 'pawp/nojs/form';
+//  }
+ //   elseif ($show_renew_popup) {
+//    $_GET['destination'] = 'renew';
+//  }
+//  else {
+//    $_GET['destination'] = '';
+//  }
+// Redirect user to profile page after the login.
+}
+
+function custom_hooks_node_view($node, $view_mode, $langcode) { 
+  if ($node->type == "event")  {
+    drupal_set_title('Membership Events');
+  }
+}
+/**
+ * Implementation of hooks_preprocess_page().
+ */
+function custom_hooks_init() {
+  $browser = isBrowserIE();
+  global $user;
+  
+  if (isset($browser) && $browser == '8.0' || $browser == '9.0' ) {
+    drupal_goto('browsersupport.html');
+  }
+    
+  $path = drupal_get_path('theme','sports');
+  //drupal_add_js($path.'/js/css3-mediaqueries.js');
+  
+  if (arg(0) == 'user' && $user->uid && user_access('STH User') && !user_access('administer site settings') && arg(1) != 'logout') {
+    drupal_goto('home');
+  }
+  $name = (isset($user->uid) && $user->uid) ? $user->name : 0;
+  $setting = array('custom_hooks' => array('custom_name' => $name));
+  drupal_add_js($setting, 'setting');
+}
+
+/**
+ * Implements hook_node_access().
+ */
+function custom_hooks_node_access($node, $op, $account) {
+  $type = is_string($node) ? $node : $node->type;
+  $types = array('acct_rep', 'home_banner');
+  if ($op == 'view' && in_array($type, $types) && $node->nid == arg(1)) {
+    if (user_access('create ' . $type . ' content', $account)) {
+      return NODE_ACCESS_ALLOW;
+    }
+    if (user_access('edit any ' . $type . ' content', $account) || (user_access('edit own ' . $type . ' content', $account) && ($account->uid == $node->uid))) {
+      return NODE_ACCESS_ALLOW;
+    }
+    return NODE_ACCESS_DENY;
+  }
+  // Returning nothing from this function would have the same effect.
+  return NODE_ACCESS_IGNORE;
+}
+
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function custom_hooks_entity_info_alter(&$entity_info) {
+  $entity_info['node']['view modes']['acct_rep_detail'] = array(
+    'label' => t('Account Representative Info'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['node']['view modes']['acct_rep_right'] = array(
+    'label' => t('Account Representative Right Block'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['node']['view modes']['acct_rep_box'] = array(
+    'label' => t('Account Representative Invoice Box'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['node']['view modes']['home_page_tout'] = array(
+    'label' => t('Home Page Tout'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['node']['view modes']['countdown_campaign_tile'] = array(
+    'label' => t('Countdown Campaign Tile'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['node']['view modes']['next_game'] = array(
+    'label' => t('Next Game'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['node']['view modes']['event_calendar'] = array(
+    'label' => t('Event Calendar Game'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['node']['view modes']['event_short'] = array(
+    'label' => t('Event Gallery Short Detail'),
+    'custom settings' => TRUE,
+  );
+  
+}
+
+/**
+ * Implements hook_preprocess_node()
+ */
+function custom_hooks_preprocess_node(&$vars) {
+  $node = $vars['node'];
+  global $user,$base_url;
+  $lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
+  // content type home
+  if ($node->type == 'home_page') {
+    $vars['title'] = '';
+    $node->title = '';
+  }
+  if ($node->type == 'stp_page' || $node->type == 'pdf') {
+    $vars['tab_page'] = isset($node->field_tab_page[$lang][0]['nid']) ? $node->field_tab_page[$lang][0]['nid'] : 0;
+    
+  }
+  if ($node->type == 'tab_page') {
+    $vars['tab_page'] = $node->nid;
+    
+  }
+  // countdown campaign tile
+  if ($node->type == 'countdown_campaign_tile' && $vars['view_mode'] == 'countdown_campaign_tile') {
+    $vars['remaining_time'] = custom_admin_days_left(isset($node->field_countdown_timer[$lang][0]['value']) && $node->field_countdown_timer[$lang][0]['value'] ? $node->field_countdown_timer[$lang][0]['value'] : '');
+    $vars['theme_hook_suggestions'][] = 'node__countdown_campaign_tile';
+  }
+  if ($node->type == 'promo_tile') {
+    global $user;
+    $logged_in = isset($node->field_for_logged_in[$lang][0]['value']) ? $node->field_for_logged_in[$lang][0]['value'] : 0;
+    $logged_off = isset($node->field_for_anonymous[$lang][0]['value']) ? $node->field_for_anonymous[$lang][0]['value'] : 0;
+    $vars['is_front'] = drupal_is_front_page();
+  }
+  // Account rep content type
+  if ($node->type == 'acct_rep' && ( $vars['view_mode'] == 'acct_rep_detail' || $vars['view_mode'] == 'acct_rep_right' || $vars['view_mode'] == 'acct_rep_box')) {
+    $fact_full = '';
+    $fact_right = '';
+    if ($vars['view_mode'] == 'acct_rep_detail') {
+      $vars['theme_hook_suggestions'][] = 'node__acct_rep_detail';
+    }
+    elseif ($vars['view_mode'] == 'acct_rep_right') {
+      $vars['theme_hook_suggestions'][] = 'node__acct_rep_right';
+    }
+    elseif ($vars['view_mode'] == 'acct_rep_box') {
+      $vars['theme_hook_suggestions'][] = 'node__acct_rep_box';
+    }
+  }
+  // Games content type
+  if ($node->type == 'games') {
+    $team_id = 0;
+    $vars['event']['class'] = 'game-away';
+    $vars['event']['stadium'] = isset($node->field_ground[$lang][0]['value']) ? $node->field_ground[$lang][0]['value'] : 0;
+    $vars['timezone'] = isset($node->field_time_zone[$lang][0]['value']) ? $node->field_time_zone[$lang][0]['value'] : 0;
+    $team_id = isset($node->field_opponent_team[$lang][0]['nid']) ? $node->field_opponent_team[$lang][0]['nid'] : 0;
+    $vars['home_score'] = (isset($node->field_home_score[$lang][0]['value']) && $node->field_home_score[$lang][0]['value']) ? $node->field_home_score[$lang][0]['value'] : '';
+    $vars['other_score'] = (isset($node->field_other_score[$lang][0]['value']) && $node->field_other_score[$lang][0]['value']) ? $node->field_other_score[$lang][0]['value'] : '';
+    $vars['event'] = array(
+      'date' => date('M j', $node->field_event_date[$lang][0]['value']),
+      'date_1' => date('M dS', $node->field_event_date[$lang][0]['value']),
+      'day' => date('l', $node->field_event_date[$lang][0]['value']),
+      'time' => date('g:i A', $node->field_event_date[$lang][0]['value']),
+      'timezone' => date('T', $node->field_event_date[$lang][0]['value'])
+    );
+    $vars['game_over'] = (time() > $node->field_event_date[$lang][0]['value']) ? 1 : 0;
+    $vars['home_score'] = (isset($node->field_team_score[$lang][0]['value']) && $node->field_team_score[$lang][0]['value']) ? $node->field_team_score[$lang][0]['value'] : 0;
+    $vars['other_score'] = (isset($node->field_other_team_score[$lang][0]['value']) && $node->field_other_team_score[$lang][0]['value']) ? $node->field_other_team_score[$lang][0]['value'] : 0;
+
+    if (isset($node->field_game_type[$lang][0]['value']) && $node->field_game_type[$lang][0]['value'] == 1) {
+      $vars['event']['class'] = 'game-home';
+    }
+    else {
+      $vars['event']['class'] = 'game-away';
+    }
+    
+    $vars['event']['home_game'] = (isset($node->field_game_type[$lang][0]['value']) && $node->field_game_type[$lang][0]['value']) ? $node->field_game_type[$lang][0]['value'] : 0;
+    $vars['event']['stadium'] = isset($node->field_ground[$lang][0]['value']) ? $node->field_ground[$lang][0]['value'] : '';
+    if ($vars['view_mode'] == 'next_game') {
+      $vars['other_team'] = get_team_info($team_id, 'teaser');
+      $vars['home_team'] = get_team_info(32, 'teaser');
+      $vars['theme_hook_suggestions'][] = 'node__next_game';
+    }
+    if ($vars['view_mode'] == 'event_calendar') {
+      $other_images = $home_images = array();
+      $home_images = get_team_info(32, 'event_calendar');
+      $other_images = get_team_info($team_id, 'event_calendar');
+      $vars['other_team_bg'] = $other_images['overlay_image'];
+      $vars['other_team'] = $other_images['logo'];
+      $vars['ipadother_team'] = $other_images['ipadlogo'];
+      $vars['other_team_abbr'] = $other_images['team_abbr'];
+      $vars['home_team_bg'] = $home_images['overlay_image'];
+      $vars['home_team'] = $home_images['logo'];
+      $vars['theme_hook_suggestions'][] = 'node__game_event_calendar';
+    }
+  }
+  // Games content type
+  if ($node->type == 'event') {
+    $vars['rsvp'] = (isset($node->field_event_date[$lang][0]['value']) && $node->field_event_date[$lang][0]['value'] > time()) ? 1 : 0;
+    $vars['event'] = array(
+      'date' => date('M dS', $node->field_event_date[$lang][0]['value']),
+      'day' => date('l', $node->field_event_date[$lang][0]['value']),
+      'time' => date('g:i A', $node->field_event_date[$lang][0]['value'])
+    );
+    if ($vars['view_mode'] == 'full') {
+      $vars['gallery'] = views_embed_view('gallery', 'block_1', $node->nid);
+      $vars['event_slider'] = views_embed_view('event_slider', 'block');
+      $vars['full_title'] = isset($node->field_full_event_title[$lang][0]['value']) ? $node->field_full_event_title[$lang][0]['value'] : '';
+    }
+    if ($vars['view_mode'] == 'event_short') {
+      $vars['theme_hook_suggestions'][] = 'node__sth_event_short';
+      $vars['image'] = isset($node->field_images[$lang][0]['uri']) ? theme('image_style', array('style_name' => 'event_slider_thumb', 'path' => $node->field_images[$lang][0]['uri'])) : '';
+    }
+    if ($vars['view_mode'] == 'event_calendar') {
+      $vars['event']['image'] = isset($node->field_images[$lang][0]['uri']) ? theme('image_style', array('style_name' => 'event_big_thumb', 'path' => $node->field_images[$lang][0]['uri'])) : '';
+      $vars['event']['description'] = isset($node->body[$lang][0]['value']) ? $node->body[$lang][0]['value'] : '';
+      $vars['theme_hook_suggestions'][] = 'node__sth_event_calendar';
+    }
+  }
+  // Promo tiles
+  if ($node->type == 'promo_tile' && $vars['view_mode'] == 'full') {
+    $vars['link'] = isset($node->field_link[$lang][0]['url']) ? $node->field_link[$lang][0]['url'] : '';
+    $vars['tile_type'] = isset($node->field_type[$lang][0]['value']) ? $node->field_type[$lang][0]['value'] : '';
+    $vars['daysleft'] = isset($node->field_date[$lang][0]['value']) ? custom_countdown_days_left(strtotime($node->field_date[$lang][0]['value'])) : '';
+    $vars['promo_title'] = isset($node->field_countdown_title[$lang][0]['value']) ? $node->field_countdown_title[$lang][0]['value'] : '';
+  }
+  // 3rd party events
+  if ($node->type == 'other_event' && $vars['view_mode'] == 'event_calendar') {
+    $vars['event'] = array(
+      'date' => date('M dS', $node->field_event_date[$lang][0]['value']),
+      'day' => date('l', $node->field_event_date[$lang][0]['value']),
+      'time' => date('g:i A', $node->field_event_date[$lang][0]['value'])
+    );
+    $vars['event']['image'] = isset($node->field_image[$lang][0]['uri']) ? theme('image', array('path' => $node->field_image[$lang][0]['uri'])) : '';
+    $vars['event']['iPadimage'] = isset($node->field_ipad_team_logo[$lang][0]['uri']) ? theme('image', array('path' => $node->field_ipad_team_logo[$lang][0]['uri'])) : '';
+    $vars['link'] = isset($node->field_link[$lang][0]['url']) ? $node->field_link[$lang][0]['url'] : '';
+    $vars['theme_hook_suggestions'][] = 'node__other_event_calendar';
+  }
+}
+
+function custom_countdown_days_left($end_date) {
+  $seconds_diff = $end_date - time();
+  $days = ceil($seconds_diff / 3600 / 24);
+  if ($days <= 0) {
+    $days = 0;
+  }
+  $days = (strlen($days) == 1)? '0' . $days : $days;
+  return format_plural($days, '<span class="timer-day">1</span> <span>day </span>', '<span class="timer-day">@count</span> <span>days</span>');
+}
+/**
+ * Implements hook_mail().
+ */
+function custom_hooks_mail($key, &$message, $params) {
+  if (isset($params['subject'])) {
+    $message['subject'] = $params['subject'];
+  }
+  if (isset($params['body'])) {
+    $message['body'][] = $params['body'];
+  }
+  if ($key == 'triggerkey') {
+    $file_content = file_get_contents($params['file']);
+    $attachments = array(
+      'filecontent' => $file_content,
+      'filename' => $params['filename'],
+      'filemime' => 'application/pdf'
+    );
+    $message['params']['attachments'][] = $attachments;
+  }
+}
+
+/**
+ * Implements hook_theme()
+ */
+
+function custom_hooks_theme($existing, $type, $theme, $path) {
+  return array(
+    'forgot_password' => array(
+      'arguments' => array(),
+      'template' => 'templates/tm-forgot-password'
+    ),
+    'birthday_celebration' => array(
+      'arguments' => array(),
+      'template' => 'templates/user-birthday-celebration'
+    ),
+  );
+}
+
+/**
+ * Function which will return full name of user
+ */
+function get_user_full_name($user) {
+  if ($user->uid) {
+    $user_info = get_user_info($user->name);
+    if (isset($user_info->acct_id) && $user_info->acct_id) {
+      if ($user_info->name_first) {
+        $name = $user_info->name_first . ' ' . $user_info->name_last ;
+      }
+      elseif (isset($user_info->name2_first) && $user_info->name2_first) {
+        $name = $user_info->name2_first . ' ' . $user_info->name2_last ;
+      }
+      elseif ($user_info->owner_name) {
+        $name = $user_info->owner_name;
+      }
+      elseif (isset($user_info->company_name) && $user_info->company_name) {
+        $name = $user_info->company_name ;
+      }
+      elseif (isset($user_info->name2_company) && $user_info->name2_company) {
+        $name = $user_info->name2_company ;
+      }  
+      return $name;
+    }
+    return $user->name;
+  }
+  return '';
+}
+
+ /*
+* Implements hook_css_alter()
+*/
+function custom_hooks_css_alter(&$css) {
+  if (isset($css['sites/all/themes/sports/css/webfonts.css'])) {
+    $css['sites/all/themes/sports/css/webfonts.css']['preprocess'] = 0;
+  }
+  if (isset($css['sites/all/themes/sports/css/ie7.css'])) {
+    $css['sites/all/themes/sports/css/ie7.css']['preprocess'] = 0;
+  }
+  if (isset($css['sites/all/themes/sports/css/ie8.css'])) {
+    $css['sites/all/themes/sports/css/ie8.css']['preprocess'] = 0;
+  }
+  if (isset($css['sites/all/themes/sports/css/ie.css'])) {
+    $css['sites/all/themes/sports/css/ie.css']['preprocess'] = 0;
+  }
+}
+
+function custom_hooks_views_query_alter(&$view, &$query) {
+  //simple example: change the order of the master display
+  //if you want to do it only  on a certain display add something 
+  // like  "&&$view->current_display == 'panel_page_1'"
+  if ($view->name == 'acct_reps' && $view->current_display == 'block') {
+    global $user;
+    $acct_id = isset($user->name) ? $user->name : 0;
+    $acct_rep_num = 1;
+    if (isset($acct_id)) {
+      $acct_manager = acct_rep_load($acct_id);
+      if (isset($acct_manager->acct_rep_num) && $acct_manager->acct_rep_num) {
+        $acct_rep_num = $acct_manager->acct_rep_num;
+      }
+    }
+    if (!(bool) db_query("SELECT rep.field_acct_rep_num_value FROM {node} n INNER JOIN {field_data_field_acct_rep_num} rep ON n.nid = rep.entity_id WHERE field_acct_rep_num_value = :rep_num and n.status = 1", array(':rep_num' => $acct_rep_num))->fetchField()) {
+      $acct_rep_num = 1;
+    }
+    $join = new views_join;
+    $join->table ='field_data_field_acct_rep_num';
+    $join->left_table = 'node';
+    $join->left_field = 'nid';
+    $join->field = 'entity_id';
+    $join->extra = array(0 => array('field' => 'entity_type', 'value' => 'node'), 1 => array('field' => 'field_acct_rep_num_value', 'value' => $acct_rep_num, 'numeric' => true));
+    $join->type = "LEFT";
+    $join->extra_type = 'AND';
+    $join->adjusted = 'TRUE';
+    // add the join
+    $view->query->table_queue['field_data_field_acct_rep_num'] = array('table' => 'field_data_field_acct_rep_num', 'num' => 1, 'alias' => 'act_rep', 'join' => $join, 'relationship' => 'node');
+    //$query->orderby[0] = array('field' =>'field_acct_rep_num_value', 'direction' => 'DESC');
+  }
+}
+
+function get_team_info($team_id = NULL, $view_mode = 'full') {
+  $img = '';
+  if (!empty($team_id)) {
+    $node = node_load($team_id);
+    $img = render(node_view($node, $view_mode));
+  }
+  if ($view_mode == 'event_calendar') {
+    $images['overlay_image'] = theme('image', array('path' => $node->field_overlay_image['und'][0]['uri']));
+    $images['logo'] = theme('image', array('path' => $node->field_image['und'][0]['uri']));
+    $images['ipadlogo'] = theme('image', array('path' => $node->field_ipad_team_logo['und'][0]['uri']));
+    $images['listlogo'] = theme('image', array('path' => $node->field_list_view_logo['und'][0]['uri']));
+    $images['team_abbr'] = isset($node->field_team_abbreviation['und'][0]['value']) ? $node->field_team_abbreviation['und'][0]['value'] : '';
+    return $images;
+  }
+  return $img;
+}
+
+/**
+ * Implements hook_filter_info().
+ */
+function custom_hooks_filter_info() {
+  $filters['custom_hooks'] = array(
+    'title' => t('Insert Account Manager mail to link'),
+    'description' => t('Embed account manager into nodes using [accountrep:currentuser] tags.'),
+    'process callback' => '_custom_hooks_substitute_tags',
+    'tips callback' => 'custom_hooks_filter_tips',
+    'cache' => FALSE,
+  );
+
+  return $filters;
+}
+
+/**
+ * Tips callback for custom_download filter.
+ */
+function custom_hooks_filter_tips($filter, $format, $long = FALSE) {
+    return '<br />' . t(
+'<dl>
+<dt>Insert accountrep filter to embed the ticketholder account rep mail to link using tags. The tag syntax is relatively simple: [accountrep:currentuser]</dt>
+<dt>Insert user filter to embed the current logged in user\'s name. The tag syntax is: [account:currentuser]</dt>
+</dl>
+') . '<br />';
+}
+
+/**
+ * Helper function to replace the tag syntax with the actual view.
+ */
+function _custom_hooks_substitute_tags($text, $format) {
+  global $user;
+  $repmail = '';
+  if ($user->uid) {
+    // $repmail = get_acc_rep_mail($user->name);
+     $username = get_user_full_name($user);
+  }
+  if (!user_access('Editor')) {
+    if (preg_match_all("/\[accountrep:([^=\]]+)=?([^=\]]+)?=?([^\]]*)?\]/i", $text, $match)) {
+      foreach ($match[0] as $key => $value) {
+        $replace[] = (isset($repmail) && $repmail) ? $repmail : '';
+        $search[] = $value;
+      }
+      return str_replace($search, $replace, $text);
+    }
+    if (preg_match_all("/\[account:([^=\]]+)=?([^=\]]+)?=?([^\]]*)?\]/i", $text, $match)) {
+      foreach ($match[0] as $key => $value) {
+        $replace[] = (isset($username) && $username) ? $username : '';
+        $search[] = $value;
+      }
+      return str_replace($search, $replace, $text);
+    }
+  }
+  return $text;
+}
+
+function isBrowserIE(){
+  $isIE = preg_match("/MSIE ([0-9]{1,}[\.0-9]{0,})/",$_SERVER['HTTP_USER_AGENT'],$version);
+  if($isIE){
+    return $version[1];
+  }
+  return $isIE;
+
+}
+
+function mctest_ajax($form, $form_state) {
+  return $form;
+}

@@ -1,0 +1,62 @@
+<?php
+// @file
+/**
+ * Implements hook_menu()..
+ */
+
+function custom_cron_alert_menu() {
+  $items = array();
+    
+  $items['admin/manage/settings/cron_mail_settings'] = array(
+    'title' => 'Cron Alerts Mail Setting Form',
+    'description' => 'Cron Alerts Mail Setting Form',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_cron_mail_settings'),
+    'access arguments' => array('administer rss game feed import'),
+    'file' => 'custom_cron_mail_settings.import.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 19
+  );
+  return $items;
+}
+
+/**
+ * hook_mail
+ **/
+function custom_cron_alert_mail($key, &$message, $params) {
+    
+    //$options['language'] = $message['language'];
+    	
+    switch($key) {
+      case 'start':        
+        $langcode = $message['language']->language;
+        $cron_subject = variable_get('cron_start_subject', '');
+        $message['subject'] = $cron_subject;
+        $cron_start_body = variable_get('cron_start_body', '');
+        $message['body'][] = "
+		  <p>
+			".$cron_start_body['value']."
+		  </p>
+		  
+		  <p>
+			Site Admin<br>
+			Started Time: ".format_date(time())."
+		  </p>";
+        break;
+       case 'success':        
+        $langcode = $message['language']->language;
+        $cron_subject = variable_get('cron_success_subject', '');
+        $message['subject'] = $cron_subject;        
+        $cron_success_body = variable_get('cron_success_body', '');
+        $message['body'][] = "
+		  <p>
+			".$cron_success_body['value']."
+		  </p>
+		  
+		  <p>
+			Site Admin<br>
+			Started Time: ".format_date(time())."
+		  </p>";
+        break;
+    }
+  }

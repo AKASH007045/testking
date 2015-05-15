@@ -1,0 +1,81 @@
+<?php
+function custom_webform_init() {
+    drupal_add_js(drupal_get_path('module', 'custom_webform') .'/js/custom_webform.js');
+}
+ 
+function custom_webform_webform_select_options_info() {
+  $items = array();
+  
+  $items['home_game'] = array(
+    'title' => t('Home Games'),
+    'options callback' => 'custom_webform_homegame_list', //'custom_webform_homegame_list',    
+  );
+ 
+  return $items;
+}
+ 
+function custom_webform_homegame_list() {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'games')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_game_type', 'value', 1, '=')
+    ->fieldCondition('field_event_date', 'value', time(), '>');
+  $result = $query->execute();
+  
+  if($result){
+    $nids = array_keys($result['node']); 
+    $nodes = node_load_multiple($nids); 
+     
+    $list = array('none'=>'Select game');
+    foreach ($nodes as $node) {
+      $lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
+      $list[$node->nid] = $node->title . ' | ' . date('M dS T', $node->field_event_date[$lang][0]['value']);
+    }
+    
+    return $list;
+  }
+  else{
+    return null;
+  }
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function custom_webform_menu() {
+  $items = array();
+  
+  $items['get-game-list/%'] = array(
+    'page callback' => '_custom_webform_get_select_options',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  
+  return $items;
+}
+  
+function _custom_webform_get_select_options($arg1) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+          ->entityCondition('bundle', 'games')
+          ->propertyCondition('status', 1)
+          ->propertyCondition('nid', $arg1, '<>')
+          ->fieldCondition('field_game_type', 'value', 1, '=')
+          ->fieldCondition('field_event_date', 'value', time(), '>');
+ 
+  $result = $query->execute();
+  $nids = array_keys($result['node']); 
+  $nodes = node_load_multiple($nids); 
+ 
+  $list = '<option value="none" selected="selected">Select game</option>';
+  if($nodes){
+    foreach ($nodes as $node) {
+      $lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
+      $str = $node->title . ' | ' . date('M dS T', $node->field_event_date[$lang][0]['value']);
+      $list .= '<option value="'.$node->nid.'">'.$str.'</option>';
+    }
+  }
+  return drupal_json_output(array('html_output' => $list));
+}

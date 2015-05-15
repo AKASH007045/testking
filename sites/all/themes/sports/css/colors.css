@@ -1,0 +1,397 @@
+/* --------- default.css ------------- */
+/* ------------------------------------- */
+/* ------------------------------------- */
+/* ------------------------------------- */
+
+
+body {color: #fff;}
+.container a.click-here {color:#fff;}
+.global-blue, .page-invoice .page-header {color:#00295b;}
+
+.btn-default, .btn-light {color:#fff;}
+.btn-default, .button_blue a{
+	border: 1px solid #262523;
+	text-shadow: -1px 1px 0 rgba(0,0,0,0.3);
+	-webkit-box-shadow:0px 1px 0px rgba(255,255,255,0.8) inset;
+	-moz-box-shadow:0px 1px 0px rgba(255,255,255,0.8) inset;
+	box-shadow:0px 1px 0px rgba(255,255,255,0.8) inset;
+}
+.btn-light, .make-payment-wrapper button.form-submit{ border:1px solid #005a9a;
+-moz-box-shadow:inset 0px 1px 1px #70bbff;
+-webkit-box-shadow:inset 0px 1px 1px #70bbff;
+box-shadow:inset 0px 1px 1px #70bbff;
+}
+
+.btn-default:hover, .btn-light:hover, .button_blue a:hover,
+.btn-default:active, .btn-light:active, .button_blue a:active,
+.btn-default:focus, .btn-light:focus, .button_blue a:focus,
+.make-payment-wrapper button.form-submit:hover, .make-payment-wrapper button.form-submit:active, .make-payment-wrapper button.form-submit:focus{color:#fff; border:1px solid #039;}
+
+.navbar-default{border:none;border-top:2px solid #ffffff;/*-moz-box-shadow:inset 0 0 8px #d2d2d2;-webkit-box-shadow: inset 0 0 8px #d2d2d2;box-shadow:inset 0 0 8px #d2d2d2;*/box-shadow:none;}
+
+.navbar-default .navbar-nav > li > a, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus,
+.navbar-default .nav > li > a, .navbar-default .nav > li > a:hover, .navbar-default .navbar-nav>li>a:focus { color:#fff;}
+
+.dropdown-menu>li>a {color:#fff;}
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus,
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus { color:#fff;}
+
+.navbar-default .dropdown-menu {-moz-box-shadow: inset 0 -5px 18px rgba(0, 0, 0, .50), 0 3px 5px rgba(0, 0, 0, .30);
+  -webkit-box-shadow: inset 0 -5px 18px rgba(0, 0, 0, .50), 0 3px 5px rgba(0, 0, 0, .30);
+          box-shadow: inset 0 -5px 18px rgba(0, 0, 0, .50), 0 3px 5px rgba(0, 0, 0, .30);border:1px solid rgba(0,0,0,0.90);
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus,
+ .navbar-default .nav > li > a:hover, .navbar-default .navbar-nav >li >a:focus, .navbar-default .nav > .open > a, .navbar-default .nav > li.active > a,
+ .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus, .navHover,
+#webform-client-form-116 .form-actions button, .page-node-116.node-type-webform  #webform-client-form-116 .form-actions a.no-thanks, .navbar-default .navbar-nav>.active-trail>a.active-trail,
+.navbar-default .nav > li > a:focus{color:#fff;     
+border:1px solid rgba(0,0,0,0.9)!important;-webkit-box-shadow:rgba(222,222,222,1.0) 0px 1px 0px inset!important;-moz-box-shadow:rgba(222,222,222,1.0) 0px 1px 0px inset!important; box-shadow:rgba(222,222,222,1.0) 0px 1px 0px inset!important;text-shadow: -1px -1px 0 rgba(0,0,0,0.3);margin-top:-2px; padding:12px 15px 10px 15px;
+}
+.navbar-default .dropdown-menu{color:#fff;     
+border:1px solid rgba(0,0,0,0.9)!important;-webkit-box-shadow:rgba(222,222,222,0.75) 0px 1px 0px inset!important;-moz-box-shadow:rgba(222,222,222,0.75) 0px 1px 0px inset!important; box-shadow:rgba(222,222,222,0.75) 0px 1px 0px inset!important;text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+}
+.calendar-legend .calendar-legend-right > li a{color: #565658;}
+
+.calendar-legend .calendar-legend-right > li a.active, .calendar-legend .calendar-legend-right > li a:hover,
+#custom-pawp-sign-up .btn.btn-default{color: #fff;
+border: 1px solid rgba(0,0,0,0.9);
+-webkit-box-shadow: rgba(255,255,255,0.85) 0px 1px 0px inset;
+-moz-box-shadow: rgba(255,255,255,0.85) 0px 1px 0px inset;
+box-shadow: rgba(255,255,255,0.85) 0px 1px 0px inset;
+text-decoration: none;
+text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+}
+
+.navbar-default .navbar-right .region-user-info section.block .user-name{color:#00295b;}
+
+.container .jumbotron p, .container .jumbotron h1  {color:#fff;text-shadow:5px 0px 10px #333333;}
+
+.home-nextgamebg{border-top:1px solid #000000; border-bottom:1px solid #000000;
+ -moz-box-shadow: 0px -1px 2px rgba(0,0,0,0.1);
+-webkit-box-shadow: 0px -1px 2px rgba(0,0,0,0.1);
+box-shadow: 0px -1px 2px rgba(0,0,0,0.1);}
+
+.home-nextgamebg .nextgametx{text-shadow: 1px 0px 3px #333333;}
+.home-nextgamebg .nextgametx > a{color:#fff;}
+.promo-tile  .promo-box {border:1px solid #616161;}
+.promo-tile .promo-box .promo-countdown{color: #fff;}
+
+.promo-tile .tilehead a.social{border-left:1px solid #3a3b3f;color:#9f9f9f;}
+.promo-tile .tilehead a.social.active, .promo-tile  .tilehead a.social:hover{color:#fff;}
+.promo-tile .feed-details .feedtex .text-white{color:#fff;}
+
+.footer-copyright .copyright{color:#717171;}
+.footer-copyright .copyright a{color:#8c8c8c;}
+.footer-copyright .copyright a:hover{color:#717171;text-decoration:none;}
+
+.node-type-contact-us #node-368, .infohourbg, .page-node-27 #node-27, .page-node-14 #node-14, .view-press-releases, .main-wrap .region-content .node, .main-wrap .region-content .node-video .field-name-field-bottom-content {color:#fff;}
+
+.vjs-default-skin .vjs-big-play-button{border: 0.09em solid #fff;}
+
+.vjs-default-skin .vjs-big-play-button:before{color: rgba(249, 249, 249, 0.75);}
+
+.field-name-field-video.quickedit-processed {border: 2px solid #717174;}
+.field-widget-file-generic .form-type-managed-file .control-label{ color:#000;}
+
+#videojs-110-field-video-video, .node-type-video .node-video .vjs-default-skin{/*border-left: 2px solid #717174;border-right: 2px solid #717174;*/}
+
+.video-js video{border-left:solid 1px #717174; border-right:solid 1px #717174;}
+
+.node-type-benefits .node a{color: #000;}
+.container.main-wrap p.demo.demo1, .demo.demo1 .pgnum, .demo.demo1 .maxpg{color: #9e9e9e;}
+.next-previous{color: #fff;}
+
+.countdown-promo-tile-days{border: 1px solid rgba(224,224,224,0.3);}
+
+.countdown-promo-tile-title{text-shadow: 2px 2px 1px rgba(0, 0, 0, 1);}
+.promo-tile .tilehead{  
+ /* IE9 SVG, needs conditional override of 'filter' to 'none' */    
+-moz-box-shadow: 0px 0px 20px #000000;
+-webkit-box-shadow:0px 0px 20px #000000;
+box-shadow: 0px 0px 20px #000000;
+}
+
+#videojs-110-field-video-video, .node-type-video .node-video .vjs-default-skin{
+    /*border-left: 2px solid #717174;
+    border-right: 2px solid #717174;*/ border:1px solid #717174;
+}
+#block-views-tab-pages-block ul.nav-tabs li a:hover, #block-views-tab-pages-block ul.nav-tabs li.active a{color:#ffffff;}
+#block-views-tab-pages-block ul.nav-tabs li a{color:#9e9e9e;text-decoration:none;}
+#block-views-tab-pages-block ul.nav-tabs li{border-right:1px solid rgba(230,231,232,0.25)}
+#block-views-tab-pages-block ul.nav-tabs li:last-child{border:none}
+
+
+
+
+
+/* --------- style.css ------------- */
+/* ------------------------------------- */
+/* ------------------------------------- */
+/* ------------------------------------- */
+
+.having-trouble-box {color: #404040;border:1px solid #252525;}
+.having-trouble-box a{color:#5d35a6;}
+.having-trouble-box a:hover{color:#404040; text-decoration:none;}
+
+#user-login .form-type-textfield input, #user-login .form-type-password input{color: #333; border: 1px solid #cacaca;}
+
+#user-login .form-type-textfield.has-error input, #user-login .form-type-password.has-error input, #user-login .form-type-textfield input.error, #user-login .form-type-password input.error  {border: 1px solid #cc092f;}
+#user-login .form-type-textfield.has-success input, #user-login .form-type-password.has-success input {border: 1px solid #3c763d;}
+
+#user-login .alert-danger, .bv-form .help-block{color:#cc092f;}
+#user-login .alert-danger a {color:#cc092f;}
+
+.page-pawp-nojs-form-second #user-login.pawp-error #edit-actions .btn-default{
+	-webkit-box-shadow: #d20029 1px 1px 1px inset;    
+	-moz-box-shadow: #d20029 1px 1px 1px inset;    box-shadow: #d20029 1px 1px 1px inset;
+	   border: 1px solid #7f0019;
+}
+.pawp-request-form .has-error .form-control{color: #555;}
+.having-trouble-box .button_blue a {color:#fff;}
+#user-login #edit-form-description {color:#404040;}
+
+.pawp-request-form .pawp-cc-information-text{color: #000;}
+.pawp-request-form label{color: #000;}
+.pawp-request-form p, .pawp-request-form .conf-email{color: #000;}
+#custom-pawp-sign-up .btn.btn-default:hover, .page-node-116.node-type-webform  #webform-client-form-116 .form-actions button.form-submit:hover, 
+.page-node-116.node-type-webform  #webform-client-form-116 .form-actions a.no-thanks:hover{color: #fff;}
+.parking-promo-deadline.font18 a, #custom-pawp-tmapi-request-form > div > p a{color: #fff;}
+.page-invoice .navbar .logo-text { color:#fff;}
+.season-invoice-detail .ticketTable thead th {color:#00295b; border-bottom: 1px solid #b1b1b1;}
+.amountduewrap, .payment-user-form-wrapper, .payment-thankyou-wrapper, .payment-unsuccessful {color:#000;}
+.payment-thankyou-wrapper {color:#00295b;}
+.payment-unsuccessful{color:#cc092f;}
+#block-custom-block-invoice-page .accountnbr {color:#00295b;}
+.infoPanelwrap .dedicateserrep{border:1px solid #000; color:#fff;}
+.infoPanelwrap .dedicateserrep .imgpics img { border:2px solid #fff;}
+.infoPanelwrap .dedicateserrep h5.dsr{border-bottom:4px solid #fff;}
+
+.infoPanelwrap .acc-hol-name .mail {color:#fff;}
+.infoPanelwrap .acc-hol-name .useadd{color:#fff;}
+.payment-user-form-wrapper .form-control, .payment-amount-box .form-control{border:1px solid #717174;}
+.payment-user-form-wrapper .has-error .form-control, .payment-amount-box .has-error .form-control,
+.payment-user-form-wrapper .has-error .css3 .selectyzeValue, .payment-user-form-wrapper .has-error .css3 .selectyzeValue {border:1px solid #cc092f !important;}
+.payment-user-form-wrapper .form-group .DivSelectyze .selectyzeValue, 
+.payment-user-form-wrapper .conf-email .selectyzeValue {border:1px solid #717174;}
+
+.payment-user-form-wrapper .form-group .DivSelectyze .UlSelectize, .payment-user-form-wrapper .conf-email .UlSelectize {border:1px solid #717174;}
+.page-invoice-payment .main-wrap #block-system-main div.error{color:#cc092f;}
+
+.season-invoice-detail h3 { color:#00295b;}
+#block-views-acct-reps-block {border:1px solid rgba(0,0,0,0.75);}
+#block-views-acct-reps-block .imgpics img {border:solid 3px #fff;}
+#block-views-acct-reps-block .dedicated-representatives {border-bottom:4px solid #fff;}
+
+#block-views-acct-reps-block .profile-detail .namedetil a {color:#fff;}
+#block-views-acct-reps-block .profile-detail .namedetil .field-label {color:#9f9f9f;}
+.infohourbg .hour-imf .hour-dtl, .infohourbg .hour-imf .hour-dtl .mail{ color:#9f9f9f;}
+.main-wrap .view-tab-pages ul.nav-list li{border-right:1px solid #9e9e9e;}
+
+.main-wrap .view-tab-pages ul.nav-list li a {color:#9e9e9e;}
+.main-wrap .view-tab-pages ul.nav-list li a:hover, .main-wrap .view-tab-pages ul.nav-list li.active a {color:#fff;}
+
+.page-node-13 #node-13, .page-node-14 #node-14 {border: 1px solid #252525; color:#cc092f;}
+.page-pawp-nojs-form .promo-tile .tilehead a.social.active, .page-pawp-nojs-form .promo-tile .tilehead a.social:hover, .page-node-116 .promo-tile .tilehead a.social.active, .page-node-116 .promo-tile .tilehead a.social:hover{color:#9f9f9f;
+
+.page-node-116.node-type-webform h1.page-header {border-bottom: 1px solid #eee;}
+
+.page-node-116.node-type-webform #webform-client-form-116 input {border:1px solid #3b3b3b; color:#000;}
+.page-node-116.node-type-webform #webform-client-form-116 .css3 .selectyzeValue {color:#000;}
+
+ .page-node-116.node-type-webform #webform-client-form-116 .css3 .UlSelectize{border:1px solid #242424;}
+.page-node-116.node-type-webform #webform-client-form-116 .webform-event-bg-wrapper{color:#fff;}
+
+.page-node-116.node-type-webform #webform-client-form-116 .form-control::-webkit-input-placeholder { color:#000;}
+.page-node-116.node-type-webform #webform-client-form-116 .form-control::-moz-placeholder { color:#000;}
+.page-node-116.node-type-webform #webform-client-form-116 .form-control:-ms-input-placeholder {  color:#000;}
+.page-node-116.node-type-webform #webform-client-form-116 .form-control:-moz-placeholder {  color:#000;}
+
+.page-rsvp-success h1.page-header, .page-rsvp-error h1.page-header {border-bottom: 1px solid #eee;}
+
+.having-trouble-box a { color:#252525;}
+
+.page-birthday-wishes .container-fluid .birthday-celebration-wrapper h1{text-shadow:3px 0px 12px rgba(0, 0, 0, 1);}
+
+.main-wrap .highlighted{border:solid 1px #757678; color:#ffffff;}
+
+.home-tgl{border:solid 1px #757678;}
+
+.main-wrap ul.tabs--primary{border:solid 1px #757678; color:#ffffff;}
+
+.main-wrap .tabs-wrap-primary-user .view-option-user select{color:#000000;}
+
+.main-wrap .tabs-wrap-primary-user button.view-versions-btn, .main-wrap .tabs-wrap-primary-user button.publish-btn {border:1px solid #666;color:#fff;}
+
+.main-wrap .tabsoption-primary-user{border-bottom:1px solid #666;}
+.main-wrap .tabs-wrap-primary-user .tabsoption-primary-user label{color:#ffffff;}
+
+.main-wrap ul.tabs-primary-live li a{color:#ffffff;border:solid 1px transparent;}
+.main-wrap ul.tabs-primary-live li a:hover{color:#FFFFFF; border:solid 1px #000000;}
+.main-wrap ul.tabs-primary-live li a.active:hover{border:solid 1px transparent; color:#FFFFFF;}
+.main-wrap ul.tabs-primary-live li a.active{color:#FFFFFF;}
+.main-wrap ul.tabs-primary-live li a:focus{color:#FFFFFF; border:solid 1px transparent;}
+
+.main-wrap ul.tabs-primary-live li.view a.active, .main-wrap ul.tabs-primary-live li.edit a.active{color:#FFFFFF;}
+
+.contextual-links-region-active {outline:dashed 2px #0CE000;}
+.quickedit-field.quickedit-editable, .quickedit-field .quickedit-editable {box-shadow: 0 0 0 0px #999; outline:dashed 2px #0CE000;}
+
+.quickedit-button{text-shadow:0 1px 0 #fff;border-color:#dbdbdb;border-color:#ccc; color:#333333;}
+
+.quickedit-button.action-save{border-color:#2b669a}
+.quickedit-button.action-save:hover, .quickedit-button.action-save:focus {border:1px solid #2b669a;}
+.quickedit-toolbar-container .quickedit-button.action-cancel{border: 1px solid #a0a0a0;}
+#quickedit_modal .main p{color:#000000;}
+
+.main-wrap .region-content .node .quickedit-form-container .quickedit-highlighted{ box-shadow: 0 0 0 1px #999, 0 0 0 2px #999;}
+
+.node.node-site-page .table>thead>tr>th, .node.node-site-page .table>tbody>tr>th, .node.node-site-page .table>tfoot>tr>th, .node.node-site-page .table>thead>tr>td, .node.node-site-page .table>tbody>tr>td, .node.node-site-page .table>tfoot>tr>td, .node.node-site-page .table-striped>tbody>tr:nth-child(odd)>td, .node.node-site-page .table-striped>tbody>tr:nth-child(odd)>th {border-top:0px solid #ddd;}
+
+
+.node-promo_tile-form .link-attributes .control-label{color: #000000 !important;}
+
+#edit-field-pdf .file-widget a{color:#000000;}
+
+#block-views-tab-pages-block ul.nav-tabs li a:hover, #block-views-tab-pages-block ul.nav-tabs li.active a {color: #fff;}
+#block-views-tab-pages-block ul.nav-tabs li a {color: #9e9e9e;}
+#block-views-tab-pages-block ul.nav-tabs li {border-right: 1px solid #9e9e9e;}
+
+#modal_bootstrap .modal-header {border-bottom: 2px solid #949497;box-shadow: 0 0 10px #000d1d inset;color: #9e9e9e;}
+#modal_bootstrap .modal-dialog {border: 2px solid #949497;}
+
+#modal_bootstrap .mgTicket a{color:#9e9e9e;}
+#user-login .form-item-remember-me label, #user-login .need_help a {color: #000000;}
+.infoPanelwrap h2 .blueTxt{ color:#00295b;}
+.field-type-text-with-summary a { color:#fff;}
+
+.main-wrap .view-tab-pages ul.nav-list li a {color:#9e9e9e;}
+.main-wrap .view-tab-pages ul.nav-list li a:hover, .main-wrap .view-tab-pages ul.nav-list li.active a {color:#fff;}
+.main-wrap .tabs-wrap-primary-user button.view-versions-btn, .main-wrap .tabs-wrap-primary-user button.publish-btn {color:#fff;}
+.node-type-benefits .node a, .node-type-benefits .node a:hover, .view-press-releases ul li .views-field a, .view-press-releases ul li .views-field a:hover, .view-tab-pages .node a, .view-tab-pages .node a:hover, .page-node-90 .node a {color:#fff;}
+
+
+
+
+
+/*-----------main.css---------------*/
+/* ------------------------------------- */
+/* ------------------------------------- */
+/* ------------------------------------- */
+
+.view-header > ul li:first-child{ border-right:1px solid #9e9e9e;}
+.view-header > ul li.active{color:#fff;}
+.view-header > ul li a {color:#9e9e9e;}
+
+.calendar-calendar td, .calendar-calendar th.days, .calendar-calendar td.empty {border:1px solid #778087;}
+.sth-calendar .calendar-calendar thead tr, .sth-calendar .calendar-calendar th.days, .sth-calendar .month-view .full td.single-day.empty, 
+.sth-calendar .month-view .full td.date-box.empty {color: #cdd0d2;}
+
+#webform-client-form-116 input.error.form-control, #webform-client-form-116 textarea.error.form-control{border:1px solid #cc092f;color: #555;}
+.pouptopwrap .ppcntname {color:#fff;}
+
+.calendar-calendar .modal-dialog, #colorbox .modal-dialog{border:2px solid #949497;}
+
+.calendar-calendar .pptic-evt a.active,
+#colorbox .pptic-evt a.active,
+.event-gallary-big-box .modal-header .pptic-evt a.active{color: #fff;}
+
+.calendar-calendar .pptic-evt .mgTicket,
+.event-gallary-big-box .pptic-evt .mgTicket,
+#colorbox .pptic-evt .mgTicket{
+    border-right: 1px solid grey;
+}
+
+.calendar-calendar td{ color: #001836;}
+.calendar-calendar .cal-team-name{color: #D1D4D9; }
+.calendar-calendar .cal-time{color: #D1D4D9;}
+
+.calendar-calendar .month-view .full tr.single-day .game-away .cal-team-name,
+.calendar-calendar .month-view .full tr.single-day .game-away .cal-time{color: #001836;}
+
+.calendar-calendar .month-view .full td.game-home .inner div.day { color:#cdd0d2;}
+
+.date-box.future.game-home, .single-day.future.game-home{
+    color: #d1d4d9;
+}
+.calendar-legend span {color: #565658;}
+
+.event-gallary-big-box{border:2px solid #949497;}
+
+.calendar-calendar .modal-header,
+.event-gallary-big-box .modal-header,
+#colorbox .modal-header{
+    -moz-box-shadow: inset 0 0 10px #000d1d;
+   -webkit-box-shadow: inset 0 0 10px #000d1d;
+   box-shadow: inset 0 0 10px #000d1d;
+    border-bottom:2px solid #949497;
+    color: #9e9e9e;
+}
+
+.event-gallary-thumb-slider .view-event-slider .view-content ul .views-row{border: 2px solid #949497;}
+.event-gallary-thumb-slider .view-event-slider .view-content ul .views-row .tilehead a{color: #fff;}
+.nextgame-timer .countdownHolder > *{text-shadow: 2px 0px 5px #333333;}
+
+.countDiv{color: #fff; }
+.calendar-calendar .modal-header a,
+.event-gallary-big-box .modal-header a,
+#colorbox .modal-header a{
+    color: #9e9e9e;
+}
+.calendar-calendar .pptic-evt a.active,
+#colorbox .pptic-evt a.active,
+.event-gallary-big-box .modal-header .pptic-evt a.active{
+    color: #fff;
+}
+
+#user-login.pawp-error > h1, #user-login.pawp-error > p,
+#user-login.pawp-page-error > h1, #user-login.pawp-page-error > p{color: #cc092f;}
+
+#user-login.pawp-thank > h1, #user-login.pawp-thank > p{color: #00295b;}
+
+.page-pawp-nojs-form .block-custom-social-feed .tilehead a.social.active,
+.page-pawp-nojs-form .block-custom-social-feed .tilehead a.social:hover{
+    color: #9f9f9f;
+}
+
+.calendar-calendar .cal-game-result {
+color: #D1D4D9;
+}
+.calendar-calendar .game-away .cal-game-result {
+    color: #001836;
+}
+
+
+
+/*-----------inline-edit.css---------------*/
+/* ------------------------------------- */
+/* ------------------------------------- */
+/* ------------------------------------- */
+
+.promo-link-edit {color: #fff;border:solid 1px #000;}
+.indication-popup .modal-content{color:#fff;}
+.indication-popup .ctools-modal-dialog .modal-content {color:#000;}
+#modalContent .indication-popup .modal-header {border-bottom:rgba(229, 229, 229, 0.28);}
+.bottom-promo-tile .tile-image-form{color:#000; border-bottom:3px solid #666;}
+.bottom-promo-tile .tile-image-form  .title{border-bottom:1px solid #999999;}
+.bottom-promo-tile .tile-image-form  .node-promo_tile-form .form-type-textfield .form-text, 
+.bottom-promo-tile .node-form > div .field-widget-advanced-link .link-field-subrow,
+.bottom-promo-tile .tile-image-form  .node-promo_tile-form .field-name-field-image .image-widget,
+.bottom-promo-tile .tile-image-form  .node-promo_tile-form .field-name-field-image .help-block{color:#111;}
+.bottom-promo-tile .tile-image-form .title .popup-close{color:#787878;}
+.field-type-image button.btn-default, .field-type-file button.btn-default{border:#359a00;}
+
+#user-login.pawp-thank > #edit-actions > button.btn-default{ 
+    -webkit-box-shadow: #1C6CCB 1px 1px 1px inset;
+    -moz-box-shadow: #1C6CCB 1px 1px 1px inset;
+    box-shadow: #1C6CCB 1px 1px 1px inset; 
+    border: 1px solid #001938;
+}
+
+
+/*-----------calendar.css---------------*/
+/* ------------------------------------- */
+/* ------------------------------------- */
+/* ------------------------------------- */
+
+.page-season-schedule .list-view .view-content .panel-group .panel-heading .panel-title a:hover{color:#9e9e9e;}

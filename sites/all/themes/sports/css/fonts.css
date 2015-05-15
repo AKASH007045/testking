@@ -1,0 +1,295 @@
+@charset "utf-8";
+ CSS Document 
+/*-----------default.css---------------*/
+/* ------------------------------------- */
+/* ------------------------------------- */
+/* ------------------------------------- */
+
+@font-face {
+	font-family: 'oswaldbold';
+	src: url('../fonts/oswald.bold-webfont.eot');
+	src: url('../fonts/oswald.bold-webfont.eot?#iefix') format('embedded-opentype'),  url('../fonts/oswald.bold-webfont.woff') format('woff'),  url('../fonts/oswald.bold-webfont.ttf') format('truetype'),  url('../fonts/oswald.bold-webfont.svg#oswaldbold') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'oswaldregular';
+	src: url('../fonts/oswald.regular-webfont.eot');
+	src: url('../fonts/oswald.regular-webfont.eot?#iefix') format('embedded-opentype'),  url('../fonts/oswald.regular-webfont.woff') format('woff'),  url('../fonts/oswald.regular-webfont.ttf') format('truetype'),  url('../fonts/oswald.regular-webfont.svg#oswaldregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'VideoJS';
+	src: url('../fonts/vjs.eot');
+	src: url('../fonts/vjs.eot?#iefix') format('embedded-opentype'),  url('../fonts/vjs.woff') format('woff'),  url('../fonts/vjs.ttf') format('truetype')
+        ,url('../fonts/iona-medium-webfont.svg#iona-medium-webfont') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'iona-medium-webfont';
+	src: url('../fonts/2B6BAF_0_0.eot');
+	src: url('../fonts/2B6BAF_0_0.eot?#iefix') format('embedded-opentype'),  url('../fonts/2B6BAF_0_0.woff') format('woff'),  url('../fonts/2B6BAF_0_0.ttf') format('truetype');
+        <!--,url('../fonts/iona-medium-webfont.svg#iona-medium-webfont') format('svg');-->
+	font-weight: normal;
+	font-style: normal;
+}
+
+body{font-family:'oswaldregular', Arial, sans-serif;}
+h1, h2, h3, h4, h5, h6 {font-family:'oswaldregular', Arial, sans-serif;}
+.front .container h1, .page-home .container h1 {font-size:3.714em;}
+.container.main-wrap p, .page-press-releases .main-wrap .view-press-releases ul li, .page-node-368 .infoconttxt ul li {font-family:Arial, Helvetica, sans-serif;line-height:21px;}
+.btn-default, .btn-light {font-family:'oswaldregular', Arial, sans-serif;}
+
+.btn i.fa-chevron-right{font-size:14px;}
+.has-feedback .form-control-feedback {font-size:.6em;}
+.container .jumbotron p, #custom-pawp-sign-up .parking-promo-heading{font-size:1.57em;}
+
+.calendar-legend .calendar-legend-right > li a{font-family: 'Arial',Helvetica, Sans-serif;font-size: 1.0714em;font-weight: bold;}
+#webform-client-form-116 .form-actions button{font-size: 1.2857em;}
+
+.btn-default, .button_blue a{font-size:1.3em;}
+.navbar-default{font-size:1.0714em;}
+#block-custom-block-user-info {font-size:1.0714em;}
+.home-nextgamebg .nextgametx{font-size:1.4285em;}
+.countdown-promo-tile-days{font-size: 5.5714em;}
+
+.countdown-promo-tile-days > span.timer-day{font-size: 80px;}
+.countdown-promo-tile-days > span{font-size: 36px;}
+.countdown-promo-tile-title{ font-size:2.5em;text-transform:uppercase;color:#dddddd;}
+.promo-tile .tilehead span{font-size:1.428em;}
+.promo-tile .tilehead a.social{font-size: 1.1em;}
+
+.promo-tile .feed-details {font-family:Arial, oswaldregular, sans-serif;}
+.promo-tile .feed-details .feedtime{font-size:0.65em; font-weight:bold;}
+.promo-tile .feed-details .feedtex{font-size:0.65em;font-weight:bold;}
+.footer-copyright .copyright{font-size:9px;font-family:Arial, Helvetica, sans-serif; font-weight:bold; }
+.container .fa-3 { font-size:3em;}
+.vjs-default-skin .vjs-big-play-button{font-size: 4em;}
+.vjs-default-skin .vjs-big-play-button:before{font-family: 'VideoJS',Arial,Helvetica;}
+.container.main-wrap p.demo.demo1, .demo.demo1 .pgnum, .demo.demo1 .maxpg{font-family: 'oswaldregular', Arial, sans-serif;}
+.btn-default{
+	font-size:1.05em;
+	text-transform: none !important;
+}
+
+
+
+/*-----------style.css---------------*/
+/* ------------------------------------- */
+/* ------------------------------------- */
+/* ------------------------------------- */
+
+
+@font-face {font-family: 'arial_narrowbold';src: url('../fonts/arial_narrow_bold-webfont.eot');src: url('../fonts/arial_narrow_bold-webfont.eot?#iefix') format('embedded-opentype'),url('../fonts/arial_narrow_bold-webfont.woff') format('woff'),url('../fonts/arial_narrow_bold-webfont.ttf') format('truetype'),url('../fonts/arial_narrow_bold-webfont.svg#arial_narrowbold') format('svg');    font-weight: normal;font-style: normal;}
+.page-user .login_text_title, .forgot_text_title, .page-node-pawp-error .login_text_title, .page-node-pawp-thank .login_text_title{font-size:2em; line-height: 1.67em;}
+
+#user-login .form-type-textfield input, #user-login .form-type-password input{font-family: 'arial_narrowbold';font-weight: normal;font-size: 1em;}
+
+#user-login #edit-actions .btn-default, .having-trouble-box .button_blue a{font-family:Arial; font-weight:bold; text-transform:none;}
+
+.page-pawp-nojs-form.page-pawp-nojs-form-second .container-fluid #custom-pawp-tmapi-request-form > div > p:last-of-type, .page-pawp-nojs-form.page-pawp-nojs-form-third #custom-pawp-tmapi-request-form > div > p:last-of-type{ font-size: inherit;}
+
+#user-login .alert-danger, .bv-form .help-block{font-family:Arial, Helvetica, sans-serif; font-size:12px;}
+
+.pawp-request-form #edit-buttons .btn-default{font-family:Arial; font-weight:bold; text-transform:none;}
+
+#user-login #edit-form-description {font-family: 'arial_narrowbold';font-weight: normal;line-height: 1.22em;font-size:1.21em;}
+
+#user-login .form-item-remember-me label, #user-login .need_help a {font-size: .899em;}
+
+.page-pawp .container-fluid section h1{font-size: 3.7142em;}
+
+.page-pawp-nojs-form.page-pawp .container-fluid section h1{font-size: 2.5714em;}
+
+.pawp-request-form{font-family: Arial, Helvetica, sans-serif;}
+.pawp-request-form .pawp-cc-information-text{font-family: 'arial_narrowbold', Arial, Helvetica; font-size: 1.15em;}
+.pawp-request-form label{font-size: 1.0714em;}
+
+#custom-pawp-sign-up .btn.btn-default, .page-node-116.node-type-webform  #webform-client-form-116 .form-actions button.form-submit, .page-node-116.node-type-webform  #webform-client-form-116 .form-actions a.no-thanks{font-size: 20px; text-transform: none;}
+
+.parking-promo-deadline.font18{font-size: 1.5714em;}
+
+.parking-promo-deadline.font18 p{font-size:14px;}
+		
+.parking-promo-deadline.font18 a, #custom-pawp-tmapi-request-form > div > p a{text-decoration: underline;}	
+
+#custom-pawp-tmapi-request-form > div > p:last-of-type{font-size:1.5714em; font-family: 'oswaldregular', Arial, sans-serif;}
+
+.infoPanelwrap, .season-invoice-detail, .payment-amount-box, .thankyou-footer {font-family:Arial, oswaldregular, sans-serif;}
+
+.payment-amount-box .amount-due label, .payment-amount-box .amount-due .ttlamt {font-family: 'oswaldregular'; font-weight: normal;}
+
+.payment-amount-box .amount-due .ttlamt{font-size:1.855em;}
+
+.season-invoice-detail .ticketTable thead th{font-family:'oswaldregular';font-weight:normal;font-size:18px;}
+
+.amountduewrap, .payment-user-form-wrapper, .payment-thankyou-wrapper, .payment-unsuccessful{font-family:Arial, oswaldregular, sans-serif;}
+
+.payment-thankyou-wrapper{letter-spacing:1px;}
+.payment-unsuccessful{letter-spacing:1px;}
+
+.amountduewrap .amountdueinfo{font-weight:bold;}
+
+.amountduewrap .amountduettl .deadlineTxt{font-family:'oswaldregular', Arial, sans-serif; font-size:0.85em;}
+.infoPanelwrap h2, .amountduewrap h2{font-size:1.855em;}
+#block-custom-block-invoice-page .accountnbr{font-size:1.855em;}
+
+.infoPanelwrap .dedicateserrep{font-family:oswaldregular, Arial, sans-serif;}
+
+.infoPanelwrap .acc-hol-name .mail {font-size:.85em;}
+.infoPanelwrap .acc-hol-name .useadd{font-size:.85em;} 
+
+.payment-user-form-wrapper .conf-email {font-size:.85em;}
+
+.payment-user-form-wrapper .form-group .DivSelectyze .UlSelectize li a, .payment-user-form-wrapper .conf-email .UlSelectize li a {font-size:14px;}
+
+.page-invoice-payment .main-wrap #block-system-main div.error{font-size:.85em; font-family:Arial, Helvetica, sans-serif;}
+
+.page-invoice-payment .payment-user-form-wrapper .required-error {font-size: .85em;}
+.payment-thankyou-wrapper h2, .payment-unsuccessful h2 {font-size:22px;}
+
+.amountduewrap .amountdueinfo {font-weight:bold;}
+
+.node-type-benefits .node ul li, .view-tab-pages .node ul li, .page-node-90 .node ul li, body.page-node-86 .main-wrap .node ul.prkinfmt li ul {font-family:Arial, Helvetica, sans-serif;}
+
+.page-press-releases .main-wrap .view-press-releases ul li { font-family:Arial, Helvetica, sans-serif;}
+
+.view-press-releases ul li .views-field a, .view-press-releases ul li .views-field a:hover { font-weight:bold;}
+.container-fluid .sxtnpx{ font-size:16px;}
+
+.main-wrap .view-tab-pages ul.nav-list li a {font-size: 1.15em;}
+.page-node-116.node-type-webform #webform-client-form-116, .page-node-116.node-type-webform .error, .page-node-116.node-type-webform .alert-success{font-family:Arial, Helvetica, sans-serif;}
+.page-node-116.node-type-webform .error, .page-node-116.node-type-webform .alert-success {font-family:'oswaldregular', Arial, sans-serif;}
+
+.page-node-116.node-type-webform #webform-client-form-116 input {font-family:Arial, Helvetica, sans-serif;}
+.page-node-116.node-type-webform #webform-client-form-116 .css3 .selectyzeValue {font-family:Arial, Helvetica, sans-serif;}
+
+ .page-node-116.node-type-webform #webform-client-form-116 .css3 .UlSelectize{font-family:Arial, Helvetica, sans-serif;}
+ 
+ .page-node-88 .node table tr td {font-family:Arial, Helvetica, sans-serif;}
+ 
+ .page-node-116.node-type-webform #webform-client-form-116 input {font-family:Arial, Helvetica, sans-serif;}
+ 
+ .page-node-116.node-type-webform #webform-client-form-116 .css3 .selectyzeValue {font-family:Arial, Helvetica, sans-serif;}
+ 
+  .page-node-116.node-type-webform #webform-client-form-116 .css3 .UlSelectize{font-family:Arial, Helvetica, sans-serif; }
+  
+  .page-node-116.node-type-webform #webform-client-form-116 .webform-event-bg-wrapper #webform-component-terms .rsvp-select-event{font-family:'oswaldregular', Arial, sans-serif;}
+  .page-node-116.node-type-webform  #webform-client-form-116 .form-actions {font-family:'oswaldregular', Arial, sans-serif;}
+  .page-rsvp-success #user-login #edit-actions .btn-default, .page-rsvp-error #user-login #edit-actions .btn-default {font-family:'oswaldregular', Arial, sans-serif; font-size:1.433em; font-weight:normal;}
+  
+  .page-birthday-wishes .container-fluid .birthday-celebration-wrapper h1{font-size:52px; font-weight:normal;}
+  
+  .page-birthday-wishes .container-fluid .birthday-celebration-wrapper .form-dallas {font-family:'oswaldregular', Arial, sans-serif; font-size: 1.57em;}
+  
+  #modal_bootstrap .pptic-evt {font-size: 0.85em;}
+  #modal_bootstrap .modal-header {font-size: 1.7857em;}
+  .quickedit-validation-errors .messages.error {font-family:Arial, Helvetica, sans-serif; font-size:14px;}
+  #block-views-tab-pages-block ul.nav-tabs li a {font-size: 1.15em;}
+  .page-node-734 .node ul li{font-family: Arial,Helvetica,sans-serif;}
+  .node ul.prkinfmt li ul {font-family: Arial,Helvetica,sans-serif;}
+  .main-wrap ul.tabs-primary-live li a i{font-size:18px;}
+  
+  .main-wrap ul.tabs-primary-live li a{font-family:arial; font-size:14px;}
+  
+  .home-tgl{font-size:19px;}
+  .page-node-116.node-type-webform #webform-client-form-116 .webform-event-bg-wrapper #webform-component-terms > p{font-size:12px;}
+  
+  .page-node-116.node-type-webform #webform-client-form-116 input {font-style:italic;}
+.page-node-116.node-type-webform #webform-client-form-116 .css3 .selectyzeValue {font-style:italic;}
+
+
+
+
+/*-----------main.css---------------*/
+/* ------------------------------------- */
+/* ------------------------------------- */
+/* ------------------------------------- */
+
+.sth-calendar .calendar-calendar thead tr, .sth-calendar .calendar-calendar th.days, .sth-calendar .month-view .full td.single-day.empty, 
+.sth-calendar .month-view .full td.date-box.empty {font-size:1.41em;font-weight:normal;  text-transform: uppercase;line-height:1.68em;}
+
+.view-header .date-nav-wrapper .date-heading h3 {font-size: 2.6em; font-weight:normal; text-transform:uppercase;color:#c8c8c8;}
+
+.view-header .pager li.date-prev > a, .view-header .pager li.date-next > a,
+#block-views-acct-reps-block .view-acct-reps a.left,
+#block-views-acct-reps-block .view-acct-reps a.right {font-size:0px}
+
+.page-season-schedule .view-header .date-nav-wrapper li.date-prev {font-size: 12px;}
+.page-season-schedule .view-header .date-nav-wrapper li.date-next{font-size: 12px;}
+.pouptopwrap .sthevent-image .more-info,
+.event-gallary-big-box .sthevent-image .more-info{font-size: 14px;}
+
+.pouptopwrap .sthevent-image .rsvp-form,
+.event-gallary-big-box .sthevent-image .rsvp-form{font-size: 1em;    font-family:Arial, Helvetica, sans-serif;    font-weight: normal;}
+
+#webform-client-form-116 .webform-container-inline div.description{font-size: 0.7142em;}
+
+.pouptopwrap .ppcntname {font-size: 1.355em;}
+.pouptopwrap .topvscnt{font-size:3.333em;}
+
+.calendar-calendar .cal-team-name{font-size: 1.75em;font-weight: normal;}
+
+.calendar-calendar .cal-time{font-size: 1.75em;font-weight: normal;}
+
+.calendar-calendar .month-view .full tr.single-day .game-away .cal-team-name,
+.calendar-calendar .month-view .full tr.single-day .game-away .cal-time{font-weight: normal;}
+
+.calendar-calendar .month-view .full td .inner div.day, .calendar-calendar .month-view .full td .inner div.day a{font-size: 1.285em;}
+
+.calendar-calendar .pptic-evt,
+.event-gallary-big-box .pptic-evt,
+#colorbox .pptic-evt{font-size: 0.85em;text-transform: uppercase;}
+
+.calendar-legend span {font-size: 1em;font-family: 'Arial';font-weight: bold;text-transform: uppercase;}
+
+.calendar-calendar .modal-header,
+.event-gallary-big-box .modal-header,
+#colorbox .modal-header{font-size: 1.7857em;}
+
+.event-gallary-thumb-slider .view-event-slider .view-content ul .views-row .tilehead a{font-family:Arial, Helvetica, sans-serif; font-size: 1em;text-decoration:none;}
+
+.nextgame-timer .countdownHolder > *{font-family: 'iona-medium-webfont', Arial, sans-serif;}
+
+body.front .home-nextgamebg .nextgame-away{font-size: 2.2857em;}
+body.front .home-nextgamebg .nextgame-home{font-size: 1.4285em;}
+
+.nextgame-timer .date_label{letter-spacing: 0.1px; font-family:'oswaldregular', Arial, sans-serif;font-size: 11px;}
+
+.countDiv{font-size: 19px;}
+
+.digit, .digit.static{font-size: 31px;}
+
+#user-login.pawp-error > h1,
+#user-login.pawp-page-error > h1{font-size: 2.4285em;}
+#user-login.pawp-error > p, #user-login.pawp-thank > p, #user-login.pawp-page-error > p{font-size: 1.5714em; font-family: 'oswaldregular', Arial, sans-serif !important;}
+
+#user-login.pawp-thank > h1{font-size: 3.68em;}
+
+.calendar-calendar .cal-game-result {font-size: 1.75em;}
+
+#user-login.pawp-error #edit-form-description, #user-login.pawp-thank #edit-form-description, #user-login.pawp-page-error #edit-form-description{font-size: 0.65em; font-family: 'Arial',Helvetica;}
+
+
+
+
+/*-----------inline-edit.css---------------*/
+/* ------------------------------------- */
+/* ------------------------------------- */
+/* ------------------------------------- */
+
+.promo-link-edit {font-size:0;}
+.indication-popup #custom-admin-update-promo-tile-form .field-type-image label {font-weight:normal;}
+.indication-popup #custom-admin-update-promo-tile-form div.image-widget-data .file-size{font-family:arial;}
+.bottom-promo-tile .tile-image-form{font-family:Arial, Helvetica, sans-serif;}
+.bottom-promo-tile .tile-image-form .title .titletxt{font-style:italic;}
+
+.field-type-image button.btn-default, .field-type-file button.btn-default{font-family:Arial, Helvetica, sans-serif;font-size:14px;}
+.calendar-calendar .cal-game-result {font-weight: normal;}
+
+.calendar-calendar .cal-game-result {font-weight: normal;}
+.event-gallary-thumb-slider .view-event-slider .view-content ul .views-row .tilehead a:hover{text-decoration:none;}
+#block-views-acct-reps-block .textdtl{font-family:Arial, Helvetica, sans-serif;line-height:21px;}

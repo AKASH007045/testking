@@ -1,0 +1,67 @@
+
+body { margin:0;  padding:0; background:#fefefe;}
+#invoice-container { margin:0 auto; width:580px; position:relative; color:#000;}
+.invoice-header, .invoice-content, .invoice-footer, .payment-method, .one-pay-mtd{ float: left; width:100%; clear:both; position:relative;}
+#main-content .invoice-content h2 {font-size:18px; margin-bottom:8px; margin-top:0; line-height:20px; text-transform:uppercase; padding-bottom:0; color:#000;}
+#main-content .invoice-content h3 {font-size:14px; margin-bottom:6px; margin-top:0; line-height:16px; color:#0077C0; text-transform:uppercase;}
+.information-details{ float:left; width:100%; margin-top:20px;}
+.invoice-content .contact-information{ float:left; width:250px;}
+.invoice-content .account-information{ float:right; width:310px;}
+.invoice-content .account-information .name-details{ font-weight:bold;}
+.information-details .name-details{font-size:13px; color:#333; margin-bottom:5px;}
+.information-details .ht-details{ height:16px}
+.information-details .name-details .ques{font-size:12px; font-weight:normal;}
+.information-details .name-que-dtl{font-size:13px; color:#333; font-weight:normal; margin-bottom:5px;}
+.information-details .acnt-id{font-family:'Arial';}
+.invoice-content .account-information .name-details .acnt-id { font-weight:normal;}
+.invoice-content .season-event{ float:left; width:100%; border:0; border-collapse:separate;}
+.invoice-content .season-event th{ font-size:13px; color:#0077C0; text-align:center; text-transform:uppercase; padding:0 5px; border:0; vertical-align:top;}
+.invoice-content .season-event td{ font-size:12px; text-align:center; font-family:'Arial';}
+.invoice-content .season-event td.rht{text-align:right;}
+.invoice-content .season-event td.agn-lft, .invoice-content .season-event th.agn-lft{text-align:left;}
+.invoice-content .season-event thead, .invoice-content .season-event tr{ border:0;}
+
+.payment-summary{ float:left; width:100%; margin-top:25px; margin-bottom:12px; padding:10px 0 10px 0; border-top:2px solid #ccc; border-bottom:2px solid #ccc; clear:both;}
+.payment-summary p, .payment-method p, .parking-summary p, .parking-summary p, .parking-summary .pmt-opption p{ font-size:12px; float:left; width:100%; margin-top:0; margin-bottom:4px;}
+.payment-summary .renewed-memb, .payment-method .renewed-memb{margin-top:4px; margin-bottom:3px;}
+.payment-summary .check-box, .payment-method .check-box, .parking-summary .check-box {height:12px;width:12px; /*margin-right:6px;*/ display:inline-block; border:2px solid #000;}
+.payment-summary .payment-opp{font-size:8px;}
+.payment-method .slt-one{ margin-top:0;}
+.payment-method .card-numb{ margin-top:12px; margin-bottom:15px;}
+.payment-method .inv-mail, .parking-summary .geico { margin-bottom:10px;}
+.parking-summary .pmt-opption p{ font-size:11px;}
+
+
+
+
+/*------------------------renewal invoice------------------------------*/
+.parking-summary{ float:left; width:100%; margin-top:40px; margin-bottom:15px; clear:both;}
+.parking-summary .parking{ float:left; width:36%; padding-right:2%; border-right:3px solid #000; padding-bottom:70px;}
+#main-content .parking-summary .parking h3{ color:#000;}
+.parking-summary .pmt-opption{ float:right; width:58%;}
+.parking-summary .addit-pass{ margin-top:30px; margin-bottom:10px;}
+.parking-summary .pmt-opption .summarydtl { padding-bottom:3px;}
+.parking-summary .pmt-opption .ttl-invst{ float:left; display:block;}
+.parking-summary .pmt-opption .ttl-stc{ float:right; display:block; font-family:'Arial';}
+.parking-summary .pmt-opption .ad-ttl-inv { padding-top:6px; border-top:1px solid #000; margin-bottom:15px;}
+.parking-summary .pmt-opption .resale-crd { font-size:9px;}
+.parking-summary .pmt-opption .saveopp-blue { float:left; width:96%; padding:2%; background:#0077C0;}
+#main-content .parking-summary .pmt-opption h3{ color:#fff; margin-bottom:3px;}
+.parking-summary .pmt-opption .tix-accnt{ font-size:10px; font-weight:bold;color:#fff;}
+.one-pay-mtd .one-cnt-mtd{ float:left; width:100%; margin-bottom:3px; font-size:10px; line-height:15px;}
+.one-pay-mtd .one-cnt-mtd .one-numb-vlue{ float:left; margin-top:-3px; margin-right:9px; height:18px;}
+.one-pay-mtd .one-cnt-mtd .head-cnt{float:left; margin-right:3px; font-size:13px;text-transform:uppercase; font-weight:bold; line-height:15px; color:#000; vertical-align: text-bottom;}
+.one-pay-mtd .one-cnt-mtd .head-payfull{float:left; margin-right:3px; font-size:11px;text-transform:uppercase; font-weight:bold; line-height:15px; color:#000;}
+.one-pay-mtd .one-cnt-mtd .head-payred{float:left; margin-right:3px; font-size:11px;text-transform:uppercase; line-height:15px; font-family:'Arial';}
+.one-pay-mtd .one-cnt-mtd .check-box { float:left; height:12px;width:12px; margin-right:7px; border:2px solid #999;}
+.one-pay-mtd .excludes-prom{ float:left; width:96%; padding-left:3.5%; margin-bottom:15px; margin-top:15px; font-size:9px; line-height:15px; clear:both;}
+.one-pay-mtd .one-cnt-mtd .head-slt{font-size:12px;text-transform:uppercase; color:#0077C0; font-weight:bold;}
+.one-pay-mtd .one-cnt-mtd .visatext {float:left; font-size:12px; }
+.one-pay-mtd .card-numb{ font-size:12px; margin-top:10px; margin-bottom:12px;}
+.one-pay-mtd .one-cnt-mtd.cnln{ margin-bottom:0px;}
+.one-pay-mtd .one-cnt-mtd .elt-check {font-size:12px; }
+.one-pay-mtd .one-cnt-mtd.term-cnd {font-size:10px; line-height:11px; margin-bottom:20px; }
+.one-pay-mtd .one-cnt-mtd .term-cnd-red { font-family:'Arial';}
+.one-pay-mtd .tmcond{  font-size:12px; margin-top:10px; margin-bottom:35px;}
+.upgrade-add{ margin-top:20px; margin-bottom:10px; padding:25px 0 25px 0; border-top:2px solid #ccc; border-bottom:2px solid #ccc;}
+

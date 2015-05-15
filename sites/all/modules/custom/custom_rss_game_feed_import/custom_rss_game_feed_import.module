@@ -1,0 +1,198 @@
+<?php
+// @file
+
+/**
+ * Implements hook_permission().
+ */
+function custom_rss_game_feed_import_permission() {
+  return array(
+    'administer rss game feed import' => array(
+      'title' => 'Administer Ticketmaster Data Import',
+    )
+  );
+}
+
+/**
+ * Implements hook_menu()..
+ */
+
+function custom_rss_game_feed_import_menu() {
+  $items = array();
+  
+  $items['admin/ticketmaster/feed_import'] = array(
+    'title' => 'Game Feed Import',
+    'description' => 'Ticketmaster Game Event XML Feed Import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_rss_game_feed_import_events_import'),
+    'access arguments' => array('administer rss game feed import'),
+    'file' => 'custom_rss_game_feed_import.import.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/manage/settings/feed_import_settings'] = array(
+    'title' => 'Game Feed Import Settings',
+    'description' => 'Ticketmaster Game Event XML Feed Import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_rss_game_feed_import_settings'),
+    'access arguments' => array('administer rss game feed import'),
+    'file' => 'custom_rss_game_feed_import.import.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 19
+  );
+  
+  return $items;
+}
+
+/**
+ * Implements hook_cron().
+ *
+ * hook_cron() is the traditional (pre-Drupal 7) hook for doing "background"
+ * processing. It gets called every time the Drupal cron runs and must decide
+ */
+function custom_rss_game_feed_import_cron() {
+  // Default to an daily interval. Of course, cron has to be running at least
+  // daily for this to work.
+  $interval = variable_get('ticketmaster_cron_interval', 24*60*60);
+  // We usually don't want to act every time cron runs (which could be every
+  // minute) so keep a time for the next run in a variable.
+  if (variable_get('ticketmaster_run_cron', 1) == 1) {
+    if (time() >= variable_get('ticketmaster_cron_next_execution', 0)) {
+      // This is a silly example of a cron job.
+      // It just makes it obvious that the job has run without
+      // making any changes to your database.
+      module_load_include('inc', 'custom_rss_game_feed_import', 'custom_rss_game_feed_import.import');
+      custom_rss_game_feed_import_events_cron_import();
+      //variable_set('ticketmaster_cron_next_execution', time() + $interval);
+      watchdog('custom_rss_game_feed_import', 'custom_rss_game_feed_import game feed import cron run');
+    }
+  }
+}
+
+function custom_rss_game_feed_import_settings(){
+  $form = array();
+  
+  $preseason_game_feed_url = variable_get('preseason_game_feed_url', '');
+  $game_feed_url = variable_get('game_feed_url', '');
+  $form['game_feed_import_form'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Game Feed Import Settings Form')
+  );
+  $form['game_feed_import_form']['preseason_game_feed_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pre Season Game Feed Url'),
+    '#default_value' => $preseason_game_feed_url,
+    '#size' => 250,
+    '#maxlength' => 300,
+    '#required' => TRUE
+  );
+
+  $form['game_feed_import_form']['game_feed_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Game Feed Url'),
+    '#default_value' => $game_feed_url,
+    '#size' => 250,
+    '#maxlength' => 300,
+    '#required' => TRUE
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * function for XML Parsing
+ */
+function custom_rss_game_feed_import_xml2assoc($xml) {
+  $tree = null;
+  while($xml->read())
+    switch ($xml->nodeType) {
+      case XMLReader::END_ELEMENT: return $tree;
+      case XMLReader::ELEMENT:
+          $node = array('tag' => $xml->name, 'value' => $xml->isEmptyElement ? '' : custom_rss_game_feed_import_xml2assoc($xml));
+          if($xml->hasAttributes)
+              while($xml->moveToNextAttribute())
+                $node['attributes'][$xml->name] = $xml->value;
+          $tree[] = $node;
+      break;
+      case XMLReader::TEXT:
+      case XMLReader::CDATA:
+      $tree .= $xml->value;
+    }
+    return $tree;
+}
+
+function custom_rss_game_feed_import_parseFeedXml($feed_url=NULL){
+  if(isset($feed_url) && !empty($feed_url)){
+    $xml = new XMLReader();
+    if (fopen($feed_url, 'r')) {
+      $feed = file_get_contents($feed_url);
+    }	
+    $xml->XML($feed);
+    $assoc = custom_rss_game_feed_import_xml2assoc($xml);	
+    $xml->close();	
+    $node_arr = array();
+    $c = 0;
+    $g = 0;	
+    
+    foreach($assoc[0]['value'] as $gs) {
+      $c = 0;
+      $node_arr[$g]['attributes']['gid'] 			= (int)$gs['attributes']['gid'];
+      $node_arr[$g]['attributes']['gcode'] 		= $gs['attributes']['gcode'];
+      $node_arr[$g]['attributes']['seri'] 		= $gs['attributes']['seri'];
+      $node_arr[$g]['attributes']['is'] 		  = $gs['attributes']['is'];
+      $node_arr[$g]['attributes']['gdte'] 		= $gs['attributes']['gdte'];
+      $node_arr[$g]['attributes']['htm'] 	    = $gs['attributes']['htm'];
+      $node_arr[$g]['attributes']['vtm'] 	    = $gs['attributes']['vtm'];
+      $node_arr[$g]['attributes']['etm'] 			= $gs['attributes']['etm'];
+      $node_arr[$g]['attributes']['an'] 		  = $gs['attributes']['an'];
+      $node_arr[$g]['attributes']['ac'] 		  = $gs['attributes']['ac'];
+      $node_arr[$g]['attributes']['as'] 			= $gs['attributes']['as'];
+      $node_arr[$g]['attributes']['st'] 		  = $gs['attributes']['st'];
+      $node_arr[$g]['attributes']['stt'] 		  = $gs['attributes']['stt'];
+      foreach($gs['value'] as $gsv) {			
+        switch ($gsv['tag']){
+          case 'v':				
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['visiting'] 		= '1';
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['home'] 				= '0';
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['tid'] 				= $gsv['attributes']['tid'];
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['ta'] 					= $gsv['attributes']['ta'];
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['tn'] 					= $gsv['attributes']['tn'];
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['tc'] 					= $gsv['attributes']['tc'];
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['re'] 					= $gsv['attributes']['re'];
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['s'] 					= $gsv['attributes']['s'];
+            $c++;
+            break;
+            
+          case 'h':
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['home'] 				= '1';
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['visiting'] 		= '0';
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['tid'] 				= $gsv['attributes']['tid'];
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['ta'] 					= $gsv['attributes']['ta'];
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['tn'] 					= $gsv['attributes']['tn'];
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['tc'] 					= $gsv['attributes']['tc'];
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['re'] 					= $gsv['attributes']['re'];
+            $node_arr[$g]['child_elem'][$c][$gsv['tag']]['s'] 					= $gsv['attributes']['s'];
+            $c++;
+            break;
+        }			
+      }
+      $g++;		
+    }
+    $cnt = 0;
+    foreach ($node_arr as $val) {
+      $data[$cnt]['gamecode'] 							= $val['attributes']['gid'];
+      $data[$cnt]['stadium'] 								= $val['attributes']['an'];
+      $data[$cnt]['visiting-team'] 					= $val['child_elem'][0]['v']['ta'];
+      $data[$cnt]['visiting-team-score'] 		= $val['child_elem'][0]['v']['s'];
+      $data[$cnt]['home-team'] 							= $val['child_elem'][1]['h']['ta'];
+      $data[$cnt]['home-team-score'] 				= $val['child_elem'][1]['h']['s'];
+      $data[$cnt]['date'] 									= $val['attributes']['gdte'];
+      $data[$cnt]['time'] 									= trim(str_replace(array('ET', 'pm'), array('','PM'), $val['attributes']['gdte'] . ' ' . $val['attributes']['stt']));
+      //$data[$cnt]['time']                   = trim(str_replace(array('ET', 'pm', 'T'), array('','PM', ' '), $val['attributes']['vtm']));
+      $cnt++;
+    }
+    
+    return $data;
+  }
+  else{
+    return array();
+  }
+}

@@ -1,0 +1,30 @@
+<?php
+
+function custom_acc_rep_theme($existing, $type, $theme, $path) {
+  return array(
+    'acct_rep_node_form' => array(
+      'render element' => 'form',
+      'template' => 'acc-rep-node-form',
+      'path' => drupal_get_path('module', 'custom_acc_rep'),
+    ),
+  );
+}
+
+
+/**
+ * Preprocessor for theme('event_node_form').
+ */
+function template_preprocess_acct_rep_node_form(&$variables) {
+    $variables['sidebar'] = array();   // Put taxonomy fields in sidebar.
+    $variables['sidebar'][] = $variables['form']['field_tags'];
+    hide($variables['form']['field_tags']);
+    hide($variables['form']['actions']['preview']);
+    hide($variables['form']['actions']['delete']);
+    $variables['buttons'] = $variables['form']['actions'];
+    hide($variables['form']['actions']);
+  
+}
+
+function custom_acc_rep_overlay_child_initialize() {
+  drupal_add_js(drupal_get_path('module', 'custom_acc_rep') . '/overlay-custom-child.js');
+}

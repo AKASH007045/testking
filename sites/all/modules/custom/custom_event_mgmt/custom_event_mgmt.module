@@ -1,0 +1,97 @@
+<?php
+  
+ function custom_event_mgmt_theme($existing, $type, $theme, $path) {
+  return array(
+    'event_node_form' => array(
+      'render element' => 'form',
+      'template' => 'event-node-form',
+      // this will set to module/theme path by default:
+      'path' => drupal_get_path('module', 'custom_event_mgmt'),
+    ),
+  );
+}
+
+
+/**
+ * Preprocessor for theme('event_node_form').
+ */
+function template_preprocess_event_node_form(&$variables) {    
+    $variables['sidebar'] = array();   // Put taxonomy fields in sidebar.    
+	$variables['sidebar'][] = $variables['field_event_date'];    
+	hide($variables['field_event_date']);
+	
+    // Extract the form buttons, and put them in independent variable.
+	hide($variables['form']['actions']['preview']);
+	hide($variables['form']['actions']['delete']);
+    $variables['buttons'] = $variables['form']['actions'];	
+    hide($variables['form']['actions']);
+}
+
+function custom_event_mgmt_overlay_child_initialize() {
+  // Add our custom JavaScript.
+  drupal_add_js(drupal_get_path('module', 'custom_event_mgmt') . '/overlay-custom-child.js');  
+}
+
+/*
+ * hook_draggableviews_handler_native_arguments_alter();
+ * Purpose: change the weight of any node.
+*/
+function custom_event_mgmt_draggableviews_handler_native_arguments_alter(&$arguments, $view, &$form_values) {
+
+	if ($form_values){
+	 // The transaction opens here.
+	  $transaction = db_transaction();
+	  try {
+	  foreach ($form_values as $val) {  
+		$nid = $val['id'];
+		$weight = $val['weight'];
+		  db_update('weight_weights')
+		   ->fields(array(      
+		  'weight' => $weight,
+		  ))
+		  ->condition('entity_id', $nid)
+		  ->condition('entity_type', 'node')
+		  ->execute();
+	   }	  
+		  
+		  drupal_set_message(t('Sorting updated successfully'));  
+	  
+	  }
+	  catch (Exception $e) {
+		$transaction->rollback();	
+		drupal_set_message(t('Unable to sort...'));
+	  }  
+	}
+}
+
+/**
+ * hook_form_alter().
+ * Purpose: need to remove preview button,
+ *  need to add back button so, that user can navigation between listing and add or edit node
+ **/
+function custom_event_mgmt_form_alter(&$form, &$form_state, $form_id){
+ //print_r($form);
+  if ($form_id == 'node_delete_confirm'){
+	  if(isset($form['#node']->title) && $form['#node']->title){
+		$form['description']['#markup'] = 'Are you sure you want to delete "'.$form['#node']->title.'"?';
+	  }  
+ }
+ 
+  if(arg(0) == 'node' && (arg(1) == 'add' || arg(2) == 'edit')){
+  $weight = 50;  
+  $form['actions']['backtopage'] = array(
+      '#type' => 'button',
+      '#value'=>'Back',
+      '#weight' => $weight,
+      '#attributes' => array('onclick' => array('history.go(-1); return false;')),
+    );
+  }
+  //remove weight from PDF form  
+  if ($form_id == 'quickedit_field_form'){
+    unset($form['weight']);  
+ }
+ if ($form['#form_id'] == 'promo_tile_node_form' && arg(1) == 'add') {
+  $arg = arg(3);
+   $form['field_user_type']['und']['#default_value'] = $arg;
+ }
+}
