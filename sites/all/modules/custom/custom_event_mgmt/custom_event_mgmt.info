@@ -1,5 +1,0 @@
-name = Custom Event Management
-description = Handle Admin events as per the requirement.
-core = 7.x
-dependencies[] = ctools
-package = Custom

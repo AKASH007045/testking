@@ -1,7 +1,0 @@
-name= Custom take Over Pages
-description = Custom module for all take over pages of the site
-version = VERSION
-package = Custom
-core = 7.x
-project = "drupal"
-datestamp = "1352325357"

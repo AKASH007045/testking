@@ -1,7 +1,0 @@
-name= Custom Hooks
-description = Custom hooks module
-version = VERSION
-package = Custom
-core = 7.x
-project = "drupal"
-datestamp = "1352325357"

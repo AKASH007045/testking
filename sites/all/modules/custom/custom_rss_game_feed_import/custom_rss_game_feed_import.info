@@ -1,7 +1,0 @@
-name= Custom RSS Game Feed Import
-description = Custom RSS Game Feed Importer
-version = VERSION
-package = Custom
-core = 7.x
-project = "drupal"
-datestamp = "1352325357"

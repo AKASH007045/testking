@@ -1,6 +1,0 @@
-name = Custom Admin
-description = Custom Admin 
-package = Custom
-core = 7.x
-version = "7.x-0"
-core = "7.x"

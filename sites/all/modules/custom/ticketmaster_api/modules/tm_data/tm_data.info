@@ -1,9 +1,0 @@
-name= Ticketmaster Static Data
-description = Custom module for ticketmaster Static Data
-version = VERSION
-package = Custom
-core = 7.x
-project = "drupal"
-datestamp = "1352325357"
-dependencies[] = ticketmaster_api
-dependencies[] = custom_ticketmaster
