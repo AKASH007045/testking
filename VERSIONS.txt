@@ -1,0 +1,18 @@
+STP 1.1.1.0
+----------------------
+- Background Images
+- New Invoice template with Payment Plans
+- Editor box fixes
+- Event Gallery
+
+STP 1.0.0.0
+-----------------------
+- Inline Editing
+- New Invoice template with Payment Plans
+- Editor box fixes
+- Event Gallery
+- 
+
+STP 0.9
+----------------------
+- STP basi

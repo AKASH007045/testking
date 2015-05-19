@@ -1,0 +1,709 @@
+<?php
+
+// @file
+
+class WeightEntityFieldQuery extends EntityFieldQuery {
+
+  /**
+   * apply some defaults to all instances of this object
+   */
+  public function __construct() {
+    $this->entityCondition('entity_type', 'node')
+     ->addTag('weight');
+  }
+
+  /**
+   * set weight tag
+   */
+  public function weight() {
+    $this->addTag('weight');
+    return $this;
+  }
+
+  /**
+   * Unset weight tag
+   */
+  public function clearWeight() {
+    unset($this->tags['weight']);
+  }
+}
+
+/**
+ * Implements hook_query_TAG_alter().
+ */
+function custom_hooks_query_weight_alter(QueryAlterableInterface $query) {
+  $query->join('weight_weights', 'w', 'node.nid = w.entity_id');
+  $query->fields('w', array('weight'));
+  $query->orderBy('w.weight', 'ASC');
+}
+
+/*
+ * Implementation of hook_form-alter to alter web form
+ */
+
+function custom_hooks_form_alter(&$form, &$form_state, $form_id) {
+  global $user,$base_url;
+  $sitename = variable_get('site_name', 'STP');
+  if ($form_id == 'user_login') {
+    $form['name']['#title'] = 'ACCOUNT ID';
+    $form['form_description'] = array(
+    '#type' => 'item',
+    '#markup' => t('Use your !sitename Account Manager<br />Account ID and Password to Sign In.', array('!sitename' => $sitename)),
+    '#weight' => -10,
+    );
+    $form['links']['#markup'] = "<strong class='need_help'>". l(t('Need Help?'), 'trouble-signing') . "</strong>";
+    $form['remember_me']['#title'] = t('<strong>Stay signed in</strong>');
+    $form['name']['#attributes']['tabindex'] = '1';
+    $form['pass']['#attributes']['tabindex'] = '1';
+    $form['remember_me']['#attributes']['tabindex'] = '3';
+    $form['links']['#weight'] = 112;
+    $form['remember_me']['#weight'] = 110;
+    $form['actions']['submit']['#value'] = 'Sign In';
+    $form['name']['#attributes']['placeholder'] = t( 'Account ID' );
+    $form['pass']['#attributes']['placeholder'] = t( 'Password' );
+    drupal_set_title('Everything you need to know, one place.');
+  }
+  if(isset($form['#node']) && $form['#node']->type == "promo_tile" && $form['actions']['submit']['#value'] == 'Save') {
+    $form['actions']['submit']['#submit'][] = 'custom_node_save_redirect_submit';
+  }
+   if(isset($form['#node']) && $form['#node']->type == "take_over_pages") {
+    $form_state['storage']['redirect_uri'] = '';
+  }
+  if(isset($form['#node']) && $form['#node']->type == "acct_rep"){ 
+    $form_state['storage']['redirect_uri'] = '';
+  }
+  //redirect only when new node created.
+  if ($form_id == 'acct_rep_node_form') {
+    if(!$form['nid']['#value']){
+      $form['actions']['submit']['#submit'][] = 'custom_hooknode_submit';		   
+    }  
+  }  
+}
+function custom_hooknode_submit($form, &$form_state){
+ //.$form_state['values']['nid'];
+ //@todo, we should redirect with nodeid
+ $form_state['redirect']= 'contact-us';
+}
+
+function  custom_hooks_node_edit_validate($form,&$form_state){
+  // Update changed value to avoid node changed error node.module: 971
+   $form_state['values']['changed'] =  $form_state['node']->changed;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function custom_hooks_menu() {
+  $items = array();
+  $items['goto-account-manager'] = array(
+    'title' => 'Go to Account Manager',
+    'page callback' => 'custom_hooks_account_manager',
+    'access callback' => TRUE,
+    'file' => 'custom_hooks.api.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['cowboys-clear-cache'] = array(
+    'title' => 'Clear Cache',
+    'page callback' => 'custom_hooks_clear_custom_cache',
+    'access callback' => TRUE,
+    'file' => 'custom_hooks.pages.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['birthday-wishes'] = array(
+    'title' => 'Happy Birthday',
+    'page callback' => 'custom_hooks_birthday_celebration',
+    'file' => 'custom_hooks.pages.inc',
+    'access arguments' => array('STH User'),
+    'type' => MENU_CALLBACK
+  );
+  
+  $items['ajax/%node'] = array(
+    'title' => 'JSON ajaxified node',
+    'page callback' => 'ajaxified_node',
+    'page arguments' => array(1),
+    'file' => 'custom_hooks.pages.inc',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK
+  );
+  return $items;
+}
+
+/**
+ * Implementation of hooks_menu_alter().
+ */
+function custom_hooks_menu_alter(&$items) {
+  unset($items['node/%node/pdf']);
+  $items['user/register']['access callback'] = FALSE;
+  $items['user/password']['access callback'] = FALSE;
+  $items['admin/index']['access callback'] = FALSE;
+}
+
+
+
+function custom_hooks_node_view($node, $view_mode, $langcode) { 
+  if ($node->type == "event")  {
+    drupal_set_title('STH Events');
+  }
+}
+/**
+ * Implementation of hooks_preprocess_page().
+ */
+function custom_hooks_init() {
+  $detect = mobile_detect_get_object();
+  $is_mobile = $detect->isMobile();
+  $is_tablet = $detect->isTablet();
+  /*if ($is_mobile && !$is_tablet) {
+    if (arg(0) == 'calendar') {
+      drupal_goto('schedule');
+    }
+    if (arg(0) == 'my-calendar' || arg(0) == 'full-schedule') {
+      drupal_goto('season-schedule');
+    }
+  }
+  else {
+    if (arg(0) == 'sth-events') {
+      
+    }
+  }*/
+  $browser = isBrowserIE();
+  if (isset($browser) && ($browser == '8.0' || $browser == '7.0')) {
+    drupal_goto('browsersupport.html');
+  }
+  $path = drupal_get_path('theme','sports');
+  //drupal_add_js($path.'/js/css3-mediaqueries.js');
+  global $user;
+  if (arg(0) == 'user' && $user->uid && user_access('STH User') && !user_access('administer site settings') && arg(1) != 'logout') {
+    drupal_goto('home');
+  }
+  $name = (isset($user->uid) && $user->uid) ? $user->name : 0;
+  $sitename = variable_get('site_name','');
+  $calendar = variable_get('calendar','calendar');
+  $my_calendar = variable_get('my_calendar','my-calendar');
+  $full_calendar = variable_get('full_calendar','full-calendar');
+  $setting = array('custom_hooks' => array(
+    'custom_name' => $name,
+    'sitename' => $sitename,
+    'calendar' => $calendar,
+    'my_calendar' => $my_calendar,
+    'full_calendar' => $full_calendar,
+  ));
+  drupal_add_js($setting, 'setting');
+}
+
+/**
+ * Implements hook_node_access().
+ */
+function custom_hooks_node_access($node, $op, $account) {
+  $type = is_string($node) ? $node : $node->type;
+  $types = array('acct_rep', 'home_banner');
+  if ($op == 'view' && in_array($type, $types) && $node->nid == arg(1)) {
+    if (user_access('create ' . $type . ' content', $account)) {
+      return NODE_ACCESS_ALLOW;
+    }
+    if (user_access('edit any ' . $type . ' content', $account) || (user_access('edit own ' . $type . ' content', $account) && ($account->uid == $node->uid))) {
+      return NODE_ACCESS_ALLOW;
+    }
+    return NODE_ACCESS_DENY;
+  }
+  // Returning nothing from this function would have the same effect.
+  return NODE_ACCESS_IGNORE;
+}
+
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function custom_hooks_entity_info_alter(&$entity_info) {
+  $entity_info['node']['view modes']['acct_rep_detail'] = array(
+    'label' => t('Account Representative Info'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['node']['view modes']['acct_rep_right'] = array(
+    'label' => t('Account Representative Right Block'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['node']['view modes']['acct_rep_box'] = array(
+    'label' => t('Account Representative Invoice Box'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['node']['view modes']['home_page_tout'] = array(
+    'label' => t('Home Page Tout'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['node']['view modes']['countdown_campaign_tile'] = array(
+    'label' => t('Countdown Campaign Tile'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['node']['view modes']['next_game'] = array(
+    'label' => t('Next Game'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['node']['view modes']['event_calendar'] = array(
+    'label' => t('Event Calendar Game'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['node']['view modes']['event_short'] = array(
+    'label' => t('Event Gallery Short Detail'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['node']['view modes']['event_node'] = array(
+    'label' => t('Gallary Event Node'),
+    'custom settings' => TRUE,
+  );
+}
+
+/**
+ * Implements hook_preprocess_node()
+ */
+function custom_hooks_preprocess_node(&$vars) {
+  $node = $vars['node'];
+  global $user,$base_url;
+  $lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
+  // content type home
+  if ($node->type == 'home_page') {
+    $vars['title'] = '';
+    $node->title = '';
+  }
+  if ($node->type == 'stp_page' || $node->type == 'pdf' || $node->type == 'video') {
+    $vars['tab_page'] = isset($node->field_tab_page[$lang][0]['nid']) ? $node->field_tab_page[$lang][0]['nid'] : 0;
+    if (isset($vars['tab_page']) && $vars['tab_page']) {
+      $tab_pages = db_query("SELECT count(1) FROM {field_data_field_tab_page} t INNER JOIN {node} n on t.entity_id = n.nid WHERE t.field_tab_page_nid = :nid", array(':nid' => $vars['tab_page']))->fetchField();
+    //print_r($tab_pages);
+      $vars['tab_page_count'] = $tab_pages;
+    }
+    // Change the Menu link for tab pages
+    if (isset($vars['tab_page']) && $vars['tab_page']) {
+      $menu_link = custom_hooks_get_menu_id($node->nid);
+      if (isset($menu_link->mlid) && $menu_link->mlid) {
+        $menu = menu_link_load($menu_link->mlid);
+        $menu['link_path'] = 'node/' . $vars['tab_page'];
+        menu_link_save($menu);
+        watchdog('Menu', 'Navigation changed for page %page', array('%page' => $menu['link_title']), WATCHDOG_NOTICE);
+        drupal_goto($menu['link_path']);
+      }
+    }
+  }
+  if ($node->type == 'tab_page') {
+    $vars['tab_page'] = $node->nid;
+    //Check total count of pages in a tabbed page
+    $tab_pages = db_query("SELECT count(1) FROM {field_data_field_tab_page} t INNER JOIN {node} n on t.entity_id = n.nid WHERE t.field_tab_page_nid = :nid", array(':nid' => $node->nid))->fetchField();
+    //print_r($tab_pages);
+    $vars['tab_page_count'] = $tab_pages;
+  }
+  // countdown campaign tile
+  if ($node->type == 'countdown_campaign_tile' && $vars['view_mode'] == 'countdown_campaign_tile') {
+    $vars['remaining_time'] = custom_admin_days_left(isset($node->field_countdown_timer[$lang][0]['value']) && $node->field_countdown_timer[$lang][0]['value'] ? $node->field_countdown_timer[$lang][0]['value'] : '');
+    $vars['theme_hook_suggestions'][] = 'node__countdown_campaign_tile';
+  }
+  if ($node->type == 'promo_tile') {
+    global $user;
+    $logged_in = isset($node->field_for_logged_in[$lang][0]['value']) ? $node->field_for_logged_in[$lang][0]['value'] : 0;
+    $logged_off = isset($node->field_for_anonymous[$lang][0]['value']) ? $node->field_for_anonymous[$lang][0]['value'] : 0;
+    $vars['is_front'] = drupal_is_front_page();
+  }
+  // Account rep content type
+  if ($node->type == 'acct_rep' && ( $vars['view_mode'] == 'acct_rep_detail' || $vars['view_mode'] == 'acct_rep_right' || $vars['view_mode'] == 'acct_rep_box')) {
+    $fact_full = '';
+    $fact_right = '';
+    if ($vars['view_mode'] == 'acct_rep_detail') {
+      $vars['theme_hook_suggestions'][] = 'node__acct_rep_detail';
+    }
+    elseif ($vars['view_mode'] == 'acct_rep_right') {
+      $vars['theme_hook_suggestions'][] = 'node__acct_rep_right';
+    }
+    elseif ($vars['view_mode'] == 'acct_rep_box') {
+      $vars['theme_hook_suggestions'][] = 'node__acct_rep_box';
+    }
+  }
+  // Games content type
+  if ($node->type == 'games') {
+    $home_team_nid = db_query("SELECT n.entity_id FROM {field_data_field_home_team} n WHERE field_home_team_value = 1")->fetchField();
+    $team_id = 0;
+    $vars['event']['class'] = 'game-away';
+    $vars['event']['stadium'] = isset($node->field_ground[$lang][0]['value']) ? $node->field_ground[$lang][0]['value'] : 0;
+    $vars['timezone'] = isset($node->field_time_zone[$lang][0]['value']) ? $node->field_time_zone[$lang][0]['value'] : 0;
+    $team_id = isset($node->field_opponent_team[$lang][0]['nid']) ? $node->field_opponent_team[$lang][0]['nid'] : 0;
+    $vars['home_score'] = (isset($node->field_home_score[$lang][0]['value']) && $node->field_home_score[$lang][0]['value']) ? $node->field_home_score[$lang][0]['value'] : '';
+    $vars['other_score'] = (isset($node->field_other_score[$lang][0]['value']) && $node->field_other_score[$lang][0]['value']) ? $node->field_other_score[$lang][0]['value'] : '';
+    $vars['event'] = array(
+      'date' => date('M j', $node->field_event_date[$lang][0]['value']),
+      'date_1' => date('M dS', $node->field_event_date[$lang][0]['value']),
+      'day' => date('l', $node->field_event_date[$lang][0]['value']),
+      'time' => date('g:i A', $node->field_event_date[$lang][0]['value']),
+      'timezone' => date('T', $node->field_event_date[$lang][0]['value'])
+    );
+    $vars['game_over'] = (time() > $node->field_event_date[$lang][0]['value']) ? 1 : 0;
+    $vars['home_score'] = (isset($node->field_team_score[$lang][0]['value']) && $node->field_team_score[$lang][0]['value']) ? $node->field_team_score[$lang][0]['value'] : 0;
+    $vars['other_score'] = (isset($node->field_other_team_score[$lang][0]['value']) && $node->field_other_team_score[$lang][0]['value']) ? $node->field_other_team_score[$lang][0]['value'] : 0;
+    if (isset($node->field_game_type[$lang][0]['value']) && $node->field_game_type[$lang][0]['value'] == 1) {
+      $vars['event']['class'] = 'game-home';
+    }
+    else {
+      $vars['event']['class'] = 'game-away';
+    }
+    $vars['event']['home_game'] = (isset($node->field_game_type[$lang][0]['value']) && $node->field_game_type[$lang][0]['value']) ? $node->field_game_type[$lang][0]['value'] : 0;
+    $vars['event']['stadium'] = isset($node->field_ground[$lang][0]['value']) ? $node->field_ground[$lang][0]['value'] : '';
+    if ($vars['view_mode'] == 'next_game') {
+      $vars['other_team'] = get_team_info($team_id, 'teaser');
+      $vars['home_team'] = get_team_info($home_team_nid, 'teaser');
+      $vars['theme_hook_suggestions'][] = 'node__next_game';
+    }
+    if ($vars['view_mode'] == 'event_calendar') {
+      $other_images = $home_images = array();
+      $home_images = get_team_info($home_team_nid, 'event_calendar');
+      $other_images = get_team_info($team_id, 'event_calendar');
+      $vars['other_team_bg'] = $other_images['overlay_image'];
+      $vars['other_team'] = $other_images['logo'];
+      $vars['ipadother_team'] = $other_images['ipadlogo'];
+      $vars['other_team_abbr'] = $other_images['team_abbr'];
+      $vars['home_team_bg'] = $home_images['overlay_image'];
+      $vars['home_team'] = $home_images['logo'];
+      $vars['theme_hook_suggestions'][] = 'node__game_event_calendar';
+    }
+  }
+  // Games content type
+  if ($node->type == 'event') {
+     $vars['rsvp'] = (isset($node->field_is_rsvp_event[$lang][0]['value']) && $node->field_is_rsvp_event[$lang][0]['value']) ? $node->field_is_rsvp_event[$lang][0]['value'] : 0;
+     $vars['event'] = array(
+      'date' => date('M dS', $node->field_event_date[$lang][0]['value']),
+      'day' => date('l', $node->field_event_date[$lang][0]['value']),
+      'time' => date('g:i A', $node->field_event_date[$lang][0]['value'])
+    );
+    if ($vars['view_mode'] == 'full' || $vars['view_mode'] == 'event_node') {
+      $vars['gallery'] = views_embed_view('gallery', 'block_1', $node->nid);
+      $vars['event_slider'] = views_embed_view('event_slider', 'block', 1);
+      $vars['full_title'] = isset($node->field_full_event_title[$lang][0]['value']) ? $node->field_full_event_title[$lang][0]['value'] : '';
+      if ($user->uid == 0) {
+        $vars['event_slider'] = views_embed_view('event_slider', 'block_1', 1);
+      }
+      if (user_access()) {
+        $vars['event_slider'] = views_embed_view('event_slider', 'block');
+      }
+    }
+    if ($vars['view_mode'] == 'event_short') {
+      $vars['theme_hook_suggestions'][] = 'node__sth_event_short';
+      $vars['image'] = isset($node->field_images[$lang][0]['uri']) ? theme('image_style', array('style_name' => 'event_slider_thumb', 'path' => $node->field_images[$lang][0]['uri'])) : '';
+    }
+    if ($vars['view_mode'] == 'event_node') {
+      $vars['theme_hook_suggestions'][] = 'node__sth_event_node';
+    }
+    if ($vars['view_mode'] == 'event_calendar') {
+      $vars['event']['show_calendar'] = isset($node->field_calendar_event[$lang][0]['value']) ? $node->field_calendar_event[$lang][0]['value'] : 0;
+     $vars['gallery'] = views_embed_view('gallery', 'block_1', $node->nid);
+      $vars['event']['description'] = isset($node->body[$lang][0]['value']) ? $node->body[$lang][0]['value'] : '';
+      $vars['theme_hook_suggestions'][] = 'node__sth_event_calendar';
+    }
+  }
+  // Promo tiles
+  if ($node->type == 'promo_tile' && $vars['view_mode'] == 'full') {
+    $vars['link'] = isset($node->field_link[$lang][0]['url']) ? $node->field_link[$lang][0]['url'] : '';
+    $vars['tile_type'] = isset($node->field_type[$lang][0]['value']) ? $node->field_type[$lang][0]['value'] : '';
+    $vars['daysleft'] = isset($node->field_date[$lang][0]['value']) ? custom_countdown_days_left(strtotime($node->field_date[$lang][0]['value'])) : '';
+    $vars['promo_title'] = isset($node->field_countdown_title[$lang][0]['value']) ? $node->field_countdown_title[$lang][0]['value'] : '';
+  }
+  // 3rd party events
+  if ($node->type == 'other_event' && $vars['view_mode'] == 'event_calendar') {
+    $vars['event'] = array(
+      'date' => date('M dS', $node->field_event_date[$lang][0]['value']),
+      'day' => date('l', $node->field_event_date[$lang][0]['value']),
+      'time' => date('g:i A', $node->field_event_date[$lang][0]['value'])
+    );
+    $vars['event']['image'] = isset($node->field_image[$lang][0]['uri']) ? theme('image', array('path' => $node->field_image[$lang][0]['uri'])) : '';
+    $vars['event']['iPadimage'] = isset($node->field_ipad_team_logo[$lang][0]['uri']) ? theme('image', array('path' => $node->field_ipad_team_logo[$lang][0]['uri'])) : '';
+    $vars['link'] = isset($node->field_link[$lang][0]['url']) ? $node->field_link[$lang][0]['url'] : '';
+    $vars['theme_hook_suggestions'][] = 'node__other_event_calendar';
+  }
+}
+
+function custom_countdown_days_left($end_date) {
+  $seconds_diff = $end_date - time();
+  $days = ceil($seconds_diff / 3600 / 24);
+  if ($days <= 0) {
+    $days = 0;
+  }
+  $days = (strlen($days) == 1)? '0' . $days : $days;
+  return format_plural($days, '<span class="timer-day">1</span> <span>day </span>', '<span class="timer-day">@count</span> <span>days</span>');
+}
+/**
+ * Implements hook_mail().
+ */
+function custom_hooks_mail($key, &$message, $params) {
+  if (isset($params['subject'])) {
+    $message['subject'] = $params['subject'];
+  }
+  if (isset($params['body'])) {
+    $message['body'][] = $params['body'];
+  }
+  if ($key == 'triggerkey') {
+    $file_content = file_get_contents($params['file']);
+    $attachments = array(
+      'filecontent' => $file_content,
+      'filename' => $params['filename'],
+      'filemime' => 'application/pdf'
+    );
+    $message['params']['attachments'][] = $attachments;
+  }
+}
+
+/**
+ * Implements hook_theme()
+ */
+
+function custom_hooks_theme($existing, $type, $theme, $path) {
+  return array(
+    'forgot_password' => array(
+      'arguments' => array(),
+      'template' => 'templates/tm-forgot-password'
+    ),
+    'birthday_celebration' => array(
+      'arguments' => array(),
+      'template' => 'templates/user-birthday-celebration'
+    ),
+  );
+}
+
+/**
+ * Function which will return full name of user
+ */
+function get_user_full_name($user) {
+  if ($user->uid) {
+    $user_info = get_user_info($user->name);
+    if (isset($user_info->acct_id) && $user_info->acct_id) {
+      if ($user_info->name_first) {
+        $name = $user_info->name_first . ' ' . $user_info->name_last ;
+      }
+      elseif (isset($user_info->name2_first) && $user_info->name2_first) {
+        $name = $user_info->name2_first . ' ' . $user_info->name2_last ;
+      }
+      elseif ($user_info->owner_name) {
+        $name = $user_info->owner_name;
+      }
+      elseif (isset($user_info->company_name) && $user_info->company_name) {
+        $name = $user_info->company_name ;
+      }
+      elseif (isset($user_info->name2_company) && $user_info->name2_company) {
+        $name = $user_info->name2_company ;
+      }  
+      return $name;
+    }
+    return $user->name;
+  }
+  return '';
+}
+
+ /*
+* Implements hook_css_alter()
+*/
+function custom_hooks_css_alter(&$css) {
+  if (isset($css['sites/all/themes/sports/css/webfonts.css'])) {
+    $css['sites/all/themes/sports/css/webfonts.css']['preprocess'] = 0;
+  }
+  if (isset($css['sites/all/themes/sports/css/ie7.css'])) {
+    $css['sites/all/themes/sports/css/ie7.css']['preprocess'] = 0;
+  }
+  if (isset($css['sites/all/themes/sports/css/ie8.css'])) {
+    $css['sites/all/themes/sports/css/ie8.css']['preprocess'] = 0;
+  }
+  if (isset($css['sites/all/themes/sports/css/ie.css'])) {
+    $css['sites/all/themes/sports/css/ie.css']['preprocess'] = 0;
+  }
+}
+
+function custom_hooks_views_query_alter(&$view, &$query) {
+  //simple example: change the order of the master display
+  //if you want to do it only  on a certain display add something 
+  // like  "&&$view->current_display == 'panel_page_1'"
+  if ($view->name == 'acct_reps' && $view->current_display == 'block') {
+    global $user;
+    $acct_id = isset($user->name) ? $user->name : 0;
+    $acct_rep_num = 0;
+    if (isset($acct_id)) {
+      $acct_manager = acct_rep_load($acct_id);
+      if (isset($acct_manager->acct_rep_num) && $acct_manager->acct_rep_num) {
+        $acct_rep_num = $acct_manager->acct_rep_num;
+      }
+    }
+    if (!(bool) db_query("SELECT rep.field_acct_rep_num_value FROM {node} n INNER JOIN {field_data_field_acct_rep_num} rep ON n.nid = rep.entity_id WHERE field_acct_rep_num_value = :rep_num and n.status = 1", array(':rep_num' => $acct_rep_num))->fetchField()) {
+      $acct_rep_num = 1;
+    }
+    if ($acct_rep_num && isset($acct_manager->acct_rep_num) && $acct_manager->acct_rep_num) {
+      $join = new views_join;
+      $join->table ='field_data_field_acct_rep_num';
+      $join->left_table = 'node';
+      $join->left_field = 'nid';
+      $join->field = 'entity_id';
+      $join->extra = array(0 => array('field' => 'entity_type', 'value' => 'node'), 1 => array('field' => 'field_acct_rep_num_value', 'value' => $acct_rep_num, 'numeric' => true));
+      $join->type = "LEFT";
+      $join->extra_type = 'AND';
+      $join->adjusted = 'TRUE';
+      // add the join
+      $view->query->table_queue['field_data_field_acct_rep_num'] = array('table' => 'field_data_field_acct_rep_num', 'num' => 1, 'alias' => 'act_rep', 'join' => $join, 'relationship' => 'node');
+      $query->orderby[0] = array('field' =>'field_acct_rep_num_value', 'direction' => 'DESC');
+    }
+  }
+}
+
+function get_team_info($team_id = NULL, $view_mode = 'full') {
+  $img = '';
+  if (!empty($team_id)) {
+    $node = node_load($team_id);
+    $img = render(node_view($node, $view_mode));
+  }
+  if ($view_mode == 'event_calendar') {
+    $images['overlay_image'] = theme('image', array('path' => $node->field_overlay_image['und'][0]['uri']));
+    $images['logo'] = theme('image', array('path' => $node->field_image['und'][0]['uri']));
+    $images['ipadlogo'] = theme('image', array('path' => $node->field_ipad_team_logo['und'][0]['uri']));
+    $images['listlogo'] = theme('image', array('path' => $node->field_list_view_logo['und'][0]['uri']));
+    $images['team_abbr'] = isset($node->field_team_abbreviation['und'][0]['value']) ? $node->field_team_abbreviation['und'][0]['value'] : '';
+    return $images;
+  }
+  return $img;
+}
+
+/**
+ * Implements hook_filter_info().
+ */
+function custom_hooks_filter_info() {
+  $filters['custom_hooks'] = array(
+    'title' => t('Insert STP Tokens'),
+    'description' => t('Embed STP Tokens into nodes using [STP:ACCOUNT_REP], [STP:CURRENTUSER], [STP:ADD_DATE], [STP:ACCOUNT_ID] tags.'),
+    'process callback' => '_custom_hooks_substitute_tags',
+    'tips callback' => 'custom_hooks_filter_tips',
+    'cache' => FALSE,
+  );
+
+  return $filters;
+}
+
+/**
+ * Tips callback for custom_download filter.
+ */
+function custom_hooks_filter_tips($filter, $format = 'full_html', $long = FALSE) {
+    return '<br />' . t(
+'<dl>
+<dt>Insert account rep mail to link using tags: [STP:ACCOUNT_REP]</dt>
+<dt>Insert current logged in user\'s name. The tag syntax is: [STP:CURRENTUSER]</dt>
+<dt>Insert member since date to link using tags. The tag syntax is: [STP:ADD_DATE]</dt>
+<dt>Insert account id to link using tags. The tag syntax is: [STP:ACCOUNT_ID]</dt>
+</dl>
+') . '<br />';
+}
+
+/**
+ * Helper function to replace the tag syntax with the actual view.
+ */
+function _custom_hooks_substitute_tags($text, $filter, $format = 'full_html', $langcode, $cache, $cache_id) {
+  global $user;
+
+  $repmail = '';
+  if ($user->uid) {
+    $repmail = get_acc_rep_mail($user->name);
+    $username = get_user_full_name($user);
+    $user_info = get_user_info($user->name);
+    $add_date = (isset($user_info->add_date) && $user_info->add_date) ? date('Y', strtotime($user_info->add_date)): "";
+    $acct_id = (isset($user->name) && $user->name) ? $user->name : "";
+  }
+  if (!user_access('Editor')) {
+    if (preg_match_all("/\[STP:([^=\]]+)=?([^=\]]+)?=?([^\]]*)?\]/i", $text, $match)) {
+      foreach ($match[0] as $key => $value) {
+        if ($value == '[STP:CURRENTUSER]') {
+          $replace[] = (isset($username) && $username) ? $username : '';
+          $search[] = $value;
+        }
+        if ($value == '[STP:ADD_DATE]') {
+          $replace[] = (isset($add_date) && $add_date) ? $add_date : '';
+          $search[] = $value;
+        }
+	if ($value == '[STP:ACCOUNT_ID]') {
+          $replace[] = (isset($acct_id) && $acct_id) ? $acct_id : '';
+          $search[] = $value;
+        }
+	if ($value == '[STP:ACCOUNT_REP]') {
+          $replace[] = (isset($repmail) && $repmail) ? $repmail : '';
+          $search[] = $value;
+        }
+      }
+      return str_replace($search, $replace, $text);
+    }
+  }
+  return $text;
+}
+
+function isBrowserIE(){
+  $isIE = preg_match("/MSIE ([0-9]{1,}[\.0-9]{0,})/", $_SERVER['HTTP_USER_AGENT'], $version);
+  if($isIE){
+    return $version[1];
+  }
+  return $isIE;
+}
+
+function mctest_ajax($form, $form_state) {
+  return $form;
+}
+
+
+
+/**
+ * Returns HTML for help text based on file upload validators.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - description: The normal description for this field, specified by the
+ *     user.
+ *   - upload_validators: An array of upload validators as used in
+ *     $element['#upload_validators'].
+ *
+ * @ingroup themeable
+ */
+function custom_hooks_preprocess_file_upload_help(&$variables) {
+  $description = $variables['description'];
+  $upload_validators = $variables['upload_validators'];
+  if (isset($upload_validators['file_validate_image_resolution'])) {
+    $variables['description'] = '<strong>Image Specifications:</strong>' . ( $variables['description'] ? '<br/>' . $variables['description'] : '');
+  }
+
+}
+
+function custom_node_save_redirect_submit($form, &$form_state) {
+  if ($form_state['values']['submit'] != 'Delete') {
+    $form_state['redirect'] = '';
+  }
+}
+
+function custom_date_formats($format, $type = 'date') {
+  if ($type == 'time') {
+    if ($format == 'h:ia') {
+      return str_replace('h:ia', 'hh:mm am/pm', $format);
+    }
+    if ($format == 'H:i') {
+      return str_replace('H:i', 'hh:mm', $format);
+    }
+  }
+  if ($type == 'date') {
+    if ($format == 'm/d/Y') {
+      return str_replace('m/d/Y', 'mm/dd/yyyy', $format);
+    }
+    if ($format == 'Y-m-d') {
+      return str_replace('Y-m-d', 'yyyy-mm-dd', $format);
+    }
+  }
+  return $format;
+}
+
+/**
+ * function to fetch menu id of the node
+ * @param
+ * $nid node id of the node
+ * @return integer mlid of menu item if exist
+ * 
+ */
+function custom_hooks_get_menu_id($nid) {
+  $mlid = db_select('menu_links' , 'ml')
+  ->condition('ml.link_path', 'node/'. $nid)
+    ->condition('ml.menu_name', array('main-menu', 'menu-anonymous-menu'), 'IN')
+    ->fields('ml' , array('mlid', 'link_path'))
+    ->range(0, 1)
+    ->execute()
+    ->fetchObject();
+  return $mlid;
+}

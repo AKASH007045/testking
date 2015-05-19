@@ -1,0 +1,11 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+.node-take_over_pages-form .vertical-tabs,
+.filefield-sources-processed,
+.node-take_over_pages-form .btn-danger{display:none;}
+.take-over-pages-link-edit{z-index: 999}
+.node-take_over_pages-form .imageeditor-imagefield-processed{display:block;}
+/* Read only Promo tiles for PAWP*/

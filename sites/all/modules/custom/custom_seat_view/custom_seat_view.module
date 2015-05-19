@@ -1,0 +1,66 @@
+<?php
+// @file
+
+/**
+ * Implements hook_menu().
+ */
+function custom_seat_view_menu() {
+  $items = array();
+  $items['admin/manage/settings/3Dseat-view'] = array(
+    'title' => '3D Seat View',
+    'description' => '3D Seat View',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_seat_view_seat_view_settings'),
+    'access arguments' => array('administer site settings'),
+    'file' => 'custom_seat_view.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['3D-seat-view'] = array(
+    'title' => 'Seat View',
+    'description' => '3D Seat View',
+    'page callback' => 'custom_seat_view_get_html',
+    'access arguments' => array('STH User'),
+    'file' => 'custom_seat_view_block.block.inc',
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+/**
+ * Implements hook_block_info().
+ */
+function custom_seat_view_block_info() {
+  $blocks = array();
+  $blocks['custom_seat_view'] = array(
+    'info' => t('Seat View'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function custom_seat_view_block_view($delta) {
+  $block = array();
+  switch ($delta) {
+    case 'custom_seat_view':
+      case 'custom_seat_view_anon':
+	module_load_include('inc', 'custom_seat_view', 'custom_seat_view_block.block');
+	$block['subject'] = '';
+	$block['content'] = custom_seat_view_get_html();
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_theme()
+ */
+function custom_seat_view_theme($existing, $type, $theme, $path) {
+  return array(
+    'vv_seat_view' => array(
+      'variables' => array('seat_holds' => NULL),
+      'template' => 'templates/vv_seat_view'
+    ),
+  );
+}

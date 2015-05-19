@@ -1,0 +1,1336 @@
+/*Calender list view*/
+
+.page-season-schedule {
+  float: left;
+  width: 100%;
+}
+
+.page-season-schedule .view-content .panel-group .panel {
+  float:left;
+  width:100%;
+  margin-bottom:0.45em;
+  -moz-border-radius:0px;
+  -webkit-border-radius:0px; 
+  border-radius:0px;
+}
+
+.page-season-schedule .view-content .panel-group .panel-heading {
+  list-style: none;
+  padding: 0px 0px;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  float: left;
+  width: 100%;
+}
+
+.page-season-schedule .view-content .panel-group .panel-heading .panel-title {
+  font-size: 30px;
+}
+
+.page-season-schedule .view-content .panel-group .panel-heading .panel-title a {
+  float: left;
+  width: 100%;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child {
+  float: left;
+  padding-top: 14px;
+  padding-bottom: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: center;
+}
+
+.page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(1) {
+  width: 118px;
+}
+
+.page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(2) {
+  width: 180px;
+}
+
+.page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(3) {
+  width: 60px;
+}
+
+.page-season-schedule .view-content .panel-group .panel-collapse {
+  float: left;
+  width: 100%;
+  position: relative;
+}
+
+.page-season-schedule .view-content .panel-group .panel-collapse .panel-body {
+  border-top: none;
+  padding: 0;
+}
+
+.page-season-schedule .view-content .panel-group .panel-collapse .panel-body .toplogolft {
+  float: left;
+  width: 50%;
+}
+
+.page-season-schedule .view-content .panel-group .panel-collapse .panel-body .toplogorgt {
+  float: right;
+  width: 50%;
+}
+
+.page-season-schedule .view-content .panel-group .panel-collapse .panel-body .topvscnt {
+  position: absolute;
+  top: 100px;
+  left: 47.5%;
+  text-align: center;
+  font-size: 2.2em;
+  transition: none;
+  z-index: 999;
+}
+
+.page-season-schedule .view-content .panel-group .panel-collapse .panel-body .bottom-text-wrap {
+  position: absolute;
+  bottom: 10px;
+  left: 5%;
+  width: 90%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(4) {
+  width: 190px;
+  padding: 0px;
+}
+
+.page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(1),
+.page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(2) {
+  min-width: 106px;
+}
+
+.page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(5) {
+  width: 52px;
+}
+
+.page-season-schedule .view-content .panel-group {
+  width: 100%;
+  margin: 0 auto 0px auto;
+  padding: 0;
+  max-width: 610px;
+}
+
+.calendar-legend .cal-home-legend {
+  position: relative;
+}
+
+.calendar-legend .cal-home-legend:before {
+  position: absolute;
+  width: 20px;
+  height: 17px;
+  content: "";
+  left: 0;
+  top: 0;
+}
+
+/*Seat View*/
+.vr-seat-view-wrapper .content .seatview-dd {
+  float: left;
+  width: 100%;
+  text-transform: uppercase;
+  border-bottom: none;
+}
+
+.vr-seat-view-wrapper .content .seatview-dd ul li, .vr-seat-view-wrapper .content .seat-vv-info li a span ul li, .vr-seat-view-wrapper .content .seatview-dd .mInfo {
+  margin: 0;
+  padding: 8px 2px 9px 15px;
+  float: left;
+  font-size: 18px;
+}
+
+.vr-seat-view-wrapper .content .seatview-dd ul, .vr-seat-view-wrapper .content .seat-vv-info li a span ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vr-seat-view-wrapper, .view-seat-information .node-page {
+  clear: both;
+  float: left;
+  width: 100%;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.vr-seat-view-wrapper #vrholder {
+  z-index: 9;
+  position: relative;
+  min-height: 350px;
+  border-top: none;
+  float: left;
+}
+
+.vr-seat-view-wrapper .content .seatview-dd ul li:last-child {
+  padding: 6px 15px;
+  cursor: pointer;
+}
+
+.vr-seat-view-wrapper .content .seatview-dd .mInfo {
+  float: right;
+  padding-right: 15px;
+}
+
+.vr-seat-view-wrapper .vrview-reset-view {
+  position: absolute;
+  right: 0;
+  top: 44%;
+  z-index: 9;
+  font-size: 2.5em;
+  padding: 0 20px;
+  line-height: 1.8em;
+}
+
+.view-port-dimantion {
+  position: absolute;
+  bottom: 10px;
+  left: 44%;
+  z-index: 9;
+}
+
+.vr-seat-view-wrapper .content .seat-vv-info {
+  display: none;
+  position: absolute;
+  top: 42px;
+  left: 0;
+  margin: 0;
+  padding: 0 0 0 1px;
+  z-index: 20;
+  width: 100%;
+  max-height: 150px;
+  max-width: 449px;
+  overflow: auto;
+  list-style: none;
+}
+
+.vr-seat-view-wrapper .content .seatview-dd ul li:first-child, .vr-seat-view-wrapper .content .seat-vv-info li a span ul li:first-child {
+  min-width: 164px;
+}
+
+.vr-seat-view-wrapper .content .seatview-dd ul li:nth-child(2), .vr-seat-view-wrapper .content .seat-vv-info li a span ul li:nth-child(2) {
+  min-width: 98px;
+}
+
+.vr-seat-view-wrapper .content .seatview-dd ul li:nth-child(3), .vr-seat-view-wrapper .content .seat-vv-info li a span ul li:nth-child(3) {
+  min-width: 138px;
+  border-right: none;
+}
+
+.vr-seat-view-wrapper #preloader {
+  position: absolute;
+  left: 0;
+  top: 40%;
+  text-align: center;
+  width: 100%;
+}
+
+.vr-seat-view-wrapper .content .seat-vv-info li a span ul li:last-child {
+  display: none;
+}
+
+.vr-seat-view-wrapper .content .seatview-dd ul li:last-child i {
+  font-size: 26px;
+}
+
+.vr-seat-view-wrapper .content .seat-vv-info li a {
+  text-transform: uppercase;
+  text-decoration: none;
+  display: block;
+  float: left;
+  width: 100%;
+}
+
+/*STH Events*/
+.sthevent-image .carousel-inner img {
+  margin-top: 70px;
+}
+
+/** User Login Start here */
+.ticket_cloud_logo {
+  text-align: center;
+  margin-top: 18px;
+}
+
+.page-user .login_text_title,
+.forgot_text_title {
+  text-align: center;
+  /*margin-top:25px; font-size:2em; line-height: 1.67em;*/
+}
+
+#user-login {
+  padding: 37px 45px 58px 45px;
+  max-width: 403px;
+  margin: 0 auto 100px auto;
+}
+
+.having-trouble-box {
+  padding: 49px 45px 51px 45px;
+  max-width: 403px;
+  margin: 0 auto 100px auto;
+}
+
+#user-login .form-type-textfield input,
+#user-login .form-type-password input {
+  padding: 5px 9px 5px 18px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-weight: normal;
+  font-size: 1em;
+}
+
+h4.element-invisible {
+  text-align: center !important;
+}
+
+.having-trouble-box .button_blue a {
+  display: block;
+  margin: 26px auto 0 auto;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#user-login #edit-form-description {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 31px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-weight: normal;
+  line-height: 1.22em;
+  font-size: 18px;
+}
+
+.page-user #user-login #edit-actions {
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.page-user #user-login .form-item-name label,
+.page-user #user-login .form-item-pass label,
+#user-login .alert-danger .close,
+form#user-login .form-item-remember-me span input {
+  display: none;
+}
+
+#user-login .form-item-remember-me label {
+  padding-left: 0;
+}
+
+#user-login .form-item-remember-me {
+  float: left;
+  width: 130px;
+  margin-top: 0px;
+  margin-left: 0;
+}
+
+#user-login .need_help {
+  float: right;
+  margin: 0 1px 0 1px;
+}
+
+form#user-login .form-item-remember-me span {
+  float: left;
+  margin: 2px 0 0 0;
+  overflow: hidden;
+  display: block;
+  width: 22px;
+  height: 18px;
+}
+
+form#user-login .form-item-remember-me span.active {
+  background-position: 0 0;
+}
+
+/** Benefit Start Here */
+.container-fluid .main-wrap .node,
+body.page-user .container-fluid .main-wrap .region-content,
+.container-fluid .main-wrap .node .quickedit-field.quickedit-editable {
+  min-height: 620px;
+}
+
+.container-fluid .main-wrap .node.node-video .quickedit-field.quickedit-editable {
+  min-height: 500px;
+  top: 0px;
+  left: 0px;
+}
+
+.node-type-benefits .main-wrap .region-content .node,
+.main-wrap .region-content .node {
+  padding-top: 80px;
+  padding-left: 80px;
+  padding-right: 80px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.node-type-benefits .node ul {
+  padding-left: 20px;
+  margin-top: 30px;
+}
+
+.page-node-1175 .main-wrap .region-content .node {
+  background: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.node-type-contact-us .container-fluid .main-wrap .node,
+body.front .container-fluid .main-wrap .node,
+body.page-home .container-fluid .main-wrap .node {
+  min-height: 20px;
+}
+
+.view-tab-pages .node ul li ul {
+  padding-left: 20px;
+}
+
+.container-fluid .sxtnpx {
+  font-size: 16px;
+}
+
+#block-views-acct-reps-block {
+  padding: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#block-views-acct-reps-block .profile-detail {
+  width: 84%;
+  margin: 0 auto 10px auto;
+  position: relative;
+  min-height: 142px;
+}
+
+#block-views-acct-reps-block .profile-detail .namedetil {
+  float: left;
+  width: 100%;
+  padding-left: 135px;
+  margin-top: 10px;
+}
+
+#block-views-acct-reps-block .imgpics {
+  left: -10px;
+  top: 0;
+  position: absolute;
+}
+
+/*#block-views-acct-reps-block .profile-detail .col-fixed:last-child {margin-top:-40px;}*/
+#block-views-acct-reps-block .slider-wrap-detail .textdtl p:last-child {
+  margin-bottom: 0;
+}
+
+#block-views-acct-reps-block .dedicated-representatives {
+  float: left;
+  padding-bottom: 5px;
+  padding-left: 11px;
+  padding-right: 70px;
+  margin-left: 122px;
+  margin-bottom: 0;
+  margin-top: 5px;
+  clear: both;
+}
+
+#block-views-acct-reps-block .profile-detail .namedetil .field {
+  margin-bottom: 10px;
+}
+
+#block-views-acct-reps-block .profile-detail .namedetil a {
+  margin-bottom: 10px;
+  display: inline-block;
+  clear: both;
+}
+
+#block-views-acct-reps-block .profile-detail .namedetil .field-label {
+  font-weight: normal;
+  float: left;
+}
+
+#block-views-acct-reps-block .view-acct-reps a.left,
+#block-views-acct-reps-block .view-acct-reps a.right {
+  top: 41px;
+}
+
+.infohourbg h4 {
+  text-transform: inherit;
+}
+
+.infohourbg .hour-imf .hour-dtl,
+.infohourbg .hour-imf .hour-dtl .mail {
+  text-decoration: none;
+  word-wrap: break-word;
+}
+
+.node-type-contact-us .infoconttxt {
+  padding: 0px 22px 0px 22px;
+}
+
+#block-views-acct-reps-block .node-acct-rep {
+  margin-bottom: 0;
+}
+
+#block-views-acct-reps-block .carousel-inner > .item {
+  min-height: 315px;
+}
+
+.node-type-contact-us .container-fluid > section.main-wrap .block-system{
+  padding-bottom: 30px;
+}
+
+.node-type-contact-us .main-wrap .node-contact-us {
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.infohourbg {
+  margin-bottom: 25px;
+}
+
+.node-type-contact-us h3,
+.node-type-contact-us h4 {
+  text-transform: capitalize;
+}
+
+/** Contact Us End here */
+/** Global Tab here */
+.main-wrap .view-tab-pages ul.nav-list {
+  float: left;
+  margin-top: 10px;
+}
+
+.main-wrap .view-tab-pages ul.nav-list li {
+  display: inline-block;
+  margin-left: -4px;
+}
+
+.main-wrap .view-tab-pages ul.nav-list li:last-child {
+  border-right: none;
+}
+
+.main-wrap .view-tab-pages ul.nav-list li a {
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: 1.15em;
+}
+
+.page-menus .main-wrap .view-tab-pages ul.nav-list {
+  margin-left: 31%;
+}
+
+.page-club-map .main-wrap .view-tab-pages ul.nav-list {
+  margin-left: 21%;
+}
+
+.page-stadium-maps .main-wrap .view-tab-pages ul.nav-list {
+  margin-left: 3.5%;
+}
+
+.node-tab-page .field-name-field-type {
+  visibility: hidden;
+}
+
+#workbench-moderation-moderate-form select {
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.node-type-take-over-pages .promo-tile {
+  opacity: .5;
+  filter: alpha(opacity=50);
+  z-index: 100;
+}
+
+.node-type-take-over-pages .promo-tile a.promo-link:hover .first {
+  display: block !important;
+}
+
+.node-type-take-over-pages .promo-box a,
+.node-type-take-over-pages .promo-box a.promo-link,
+body.node-type-take-over-pages .bottom-promo-tile .bg-page-link-edit {
+  pointer-events: none !important;
+  cursor: default;
+}
+
+.page-birthday-wishes .container-fluid .main-wrap .page-header {
+  visibility: hidden;
+  margin-bottom: 0px;
+}
+
+.page-birthday-wishes .container-fluid .birthday-celebration-wrapper {
+  min-height: 450px;
+  margin-bottom: 68px;
+  text-align: center;
+}
+
+.page-birthday-wishes .container-fluid .birthday-celebration-wrapper h1 {
+  margin-top: 0px;
+  margin-bottom: 4px;
+  font-size: 52px;
+  text-shadow: 3px 0px 12px black;
+  letter-spacing: 3px;
+  font-weight: normal;
+}
+
+.page-birthday-wishes .container-fluid .birthday-celebration-wrapper h1:first-child {
+  text-transform: none;
+}
+
+.page-birthday-wishes .container-fluid .birthday-celebration-wrapper .form-dallas {
+  font-size: 1.57em;
+  letter-spacing: 0.015em;
+  margin-bottom: 70px;
+  margin-top: 5px;
+}
+
+.node-promo_tile-form .field-type-datetime legend.panel-heading {
+  width: 83px;
+  margin-top: 0;
+  line-height: 0.8em;
+}
+
+.main-wrap .highlighted {
+  padding: 0;
+  position: fixed;
+  right: 0px;
+  top: 12%;
+  width: 250px;
+  z-index: 101;
+}
+
+.main-wrap .highlighted section {
+  position: relative;
+}
+
+.main-wrap .highlighted .tabs-wrap-primary-user {
+  padding: 10px 10px 16px;
+}
+
+.home-tgl span.bg {
+  right: 0;
+  bottom: -1px;
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  display: none;
+}
+
+.main-wrap .highlighted.slide {
+  right: -250px;
+}
+
+.home-tgl {
+  border-right: none;
+  left: -26px;
+  line-height: inherit;
+  padding: 0 13px;
+  position: absolute;
+  top: 0;
+  font-size: 19px;
+  cursor: pointer;
+  display: block;
+  height: 100%;
+}
+
+.stp-editor-links .home-tgl {
+  left: -26px;
+}
+
+.main-wrap ul.tabs--primary {
+  padding: 10px 10px 8px 15px;
+  right: 0;
+  top: 12%;
+  width: 166px;
+  border: 2px solid #03F;
+}
+
+.tabs-wrap-primary-user ul.tabs-primary-live.nav-tabs {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  width: 100%;
+  float: left;
+  border-bottom: 0;
+}
+
+.tabs-wrap-primary-user ul li {
+  float: left;
+}
+
+.page-home .tabs-wrap-primary-user ul.page-name li:first-child {
+  width: 85px;
+}
+
+.tabs-wrap-primary-user ul.page-name li:first-child {
+  width: 50px;
+}
+
+.tabs-wrap-primary-user ul.tabs--primary li:first-child {
+  width: 70px;
+}
+
+.tabs-wrap-primary-user ul.page-name {
+  margin-bottom: 10px;
+  padding-left: 0;
+  list-style-type: none;
+  overflow: hidden;
+  border-bottom: solid 1px #616161;
+  padding-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.main-wrap .tabs-wrap-primary-user .view-option-user select {
+  width: 130px;
+  display: inline;
+}
+
+.tabs-wrap-primary-user ul.page-name li:last-child {
+  max-width: 170px;
+}
+
+.main-wrap .tabs-wrap-primary-user ul.tabs--primary {
+  padding: 0px;
+  margin: 0px;
+  border: 0;
+  display: block;
+  top: 0;
+  width: auto;
+}
+
+.main-wrap .tabs-wrap-primary-user ul.tabs-primary-live .live {
+  margin-top: 5px;
+  width: 77px;
+}
+
+.main-wrap .tabs-wrap-primary-user button.view-versions-btn,
+.main-wrap .tabs-wrap-primary-user button.publish-btn {
+  width: 100%;
+  float: left;
+  margin-top: 10px;
+  padding: 6px 0;
+}
+
+.main-wrap .tabsoption-primary-user {
+  overflow: hidden;
+}
+
+.page-home .main-wrap .tabsoption-primary-user {
+  margin-bottom: 10px;
+}
+
+.main-wrap .tabs-wrap-primary-user .tabsoption-primary-user label {
+  font-weight: normal;
+  min-width: 60px;
+  margin-right: 15px;
+}
+
+.node-type-tab-page .view-tab-pages .nav-tabs {
+  text-align: center;
+}
+
+.node-type-tab-page .view-tab-pages .nav-tabs li {
+  float: none;
+}
+
+.main-wrap ul.tabs-primary-live li a {
+  border-radius: 6px;
+  cursor: pointer;
+  display: block;
+  line-height: 20px;
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-right: 5px;
+  background-color: transparent;
+  border: solid 1px transparent;
+}
+
+.main-wrap ul.tabs-primary-live li a i {
+  font-size: 19px;
+  float: left;
+  margin-right: 3px;
+  margin-top: 1px;
+}
+
+/*End nav-tabs images*/
+.main-wrap ul.nav-tabs li.edit,
+.main-wrap ul.nav-tabs li.live-edit {
+  margin: 0 0 3px 0px;
+}
+
+.field-name-field-welcome-text .field-item.even,
+.field-name-field-video,
+.field-name-field-page-body,
+.field-name-body .field-item.even,
+.field-name-field-pdf,
+.node-contact-us .field-name-field-top-content .field-item.even,
+.node-contact-us .field-name-field-bottom-content .field-item.even {
+  top: 0 !important;
+  left: 0 !important;
+  padding: 0 !important;
+  margin-bottom: 0 !important;
+  width: auto !important;
+}
+
+/*.main-wrap .region-content .node .quickedit-form-container .quickedit-highlighted {width:100%;}
+.main-wrap .region-content .node.node-site-page .quickedit-form-container .quickedit-highlighted {width:100%;max-width:inherit;box-shadow: none;}
+.main-wrap .region-content .node.node-site-page.quickedit-entity-active .quickedit-editor-is-popup {left:0 !important;top:0 !important;}
+.main-wrap .region-content .node .quickedit-form-container .quickedit-highlighted .form-managed-file .form-submit.btn-danger {float:right;margin-top:-9px;}
+.node.node-site-page .draggable a.tabledrag-handle {margin-left: -1.7em;padding-right:.2em;}*/
+.table-responsive a.tabledrag-handle .handle,
+.node.node-site-page .draggable a.tabledrag-handle .handle {
+  background-position: 6px 6px;
+  height: 22px;
+  width: 22px;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+
+.table-responsive a.tabledrag-handle-hover .handle,
+.node.node-site-page .draggable a.tabledrag-handle-hover .handle {
+  background-position: 6px -14px;
+}
+
+/*Pagination*/
+article.node-site-page .field .field-items .field-item.active,
+.node.node-site-page div.field-items div.field-item.active {
+  display: block;
+}
+
+/*Contact Us*/
+body.node-type-contact-us .container-fluid .main-wrap .node {
+  min-height: 20px;
+}
+
+.node.node-site-page form .field-multiple-table td.field-multiple-drag {
+  width: 0px;
+}
+
+/*Inner pages slide*/
+.page-tabs, article.node-site-page .field .field-items .field-item,
+.node.node-site-page div.field-items div.field-item,
+.node.node-site-page form .field-multiple-table td.field-multiple-drag .text-warning {
+  display: none;
+}
+
+.node.node-site-page .field-multiple-table .cke_toolbar_break {
+  clear: none;
+}
+
+/*MMW Editor */
+.node.node-site-page .quickedit-form .form-wrapper,
+.node.node-site-page .quickedit-form form {
+  margin: 0;
+  padding: 0;
+}
+
+.page-home .field-name-field-welcome-text .quickedit-editable {
+  overflow-y: auto;
+  max-height: 230px;
+}
+
+.node.node-site-page .panel-body,
+.node.node-site-page .ckeditor_links,
+.node.node-site-page .tabledrag-toggle-weight-wrapper,
+.node.node-site-page #field-page-body-values thead,
+#quickedit-field-form #edit-submit,
+#edit-ctype,
+.payment-user-form-wrapper .form-item-exp-date .help-block,
+.make-payment-wrapper .form-item-amount .help-block,
+.node-type-take-over-pages .promo-tile a.promo-link:hover .second,
+html.js div.contextual-links-wrapper,
+div.contextual-links-wrapper, button.form-submit div {
+  display: none !important;
+}
+
+ 
+/*tabing in game day info*/
+article.node-tab-page, .tab-page-list-wrapper {
+  display: none;
+}
+
+#block-views-tab-pages-block ul.nav-tabs li a {
+  font-size: 1.15em;
+  padding-left: 30px;
+  padding-right: 30px;
+  border: 0;
+}
+
+#block-views-tab-pages-block ul.nav-tabs li {
+  display: inline-block;
+  margin-left: 0;
+}
+
+#block-views-tab-pages-block ul.nav-tabs {
+  margin-bottom: 0;
+  padding-top: 10px;
+}
+
+#block-views-tab-pages-block ul.nav-tabs li:last-child {
+  border-right: none;
+}
+
+.main-wrap .region-content .view-tab-pages .node.node-pdf,
+.node-type-tab-page .view-tab-pages .node-stp-page, .node-type-tab-page .node.node-video {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.node-type-tab-page .main-wrap .node.node-video .field-name-field-bottom-content{background:none; padding:0;}
+.quickedit-validation-errors .messages.error {
+  font-size: 14px;
+  padding: 6px;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.quickedit-validation-error .messages.error ul li {
+  margin-bottom: 0;
+}
+
+.input-group {
+  display: inherit;
+}
+
+.quickedit-form-container,
+.quickedit-editable form {
+  cursor: default;
+}
+
+#overlay .form-control.form-file {
+  width: 88%;
+}
+
+/*firefox CSS hack*/
+@-moz-document url-prefix() {
+  .form-control.form-file {
+    padding: 4px;
+    height: auto;
+  }
+}
+/*Model Box Overlay*/
+#modal_bootstrap .poupatstud {
+  float: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 65%;
+}
+
+#modal_bootstrap .pptic-evt {
+  float: left;
+  font-size: 0.85em;
+  text-align: right;
+  text-transform: uppercase;
+  width: 35%;
+}
+
+.modal-dialog {
+  width: 988px;
+}
+
+#modal_bootstrap .modal-dialog .modal-content {
+  border: medium none;
+  border-radius: 0;
+  overflow: hidden;
+  /*height:519px;*/
+}
+
+#modal_bootstrap .modal-dialog {
+  left: 0;
+  margin: auto;
+  top: 0;
+  width: 992px;
+}
+
+#modal_bootstrap .modal-dialog.game-popup-dialog .modal-body {
+  padding-top: 70px;
+}
+
+#modal_bootstrap .pptic-evt .closePopup {
+  cursor: pointer;
+  height: 28px;
+  width: 29px;
+  float: right;
+  box-shadow: none;
+  border: 0;
+  margin-top: 5px;
+}
+
+#modal_bootstrap {
+  position: fixed;
+  left: 50%;
+  margin-left: -496px;
+  top: 50%;
+  margin-top: -261px;
+  z-index: 9999;
+}
+
+body {
+  padding-right: 0 !important;
+}
+
+#modal_bootstrap .mgTicket {
+  display: inline-block;
+  padding: 0 15px;
+}
+
+.page-season-schedule .mth-list {
+  top: -61px;
+}
+
+/*Admin section for events*/
+.event-link-edit {
+  position: absolute;
+  left: 48%;
+  z-index: 10;
+}
+
+.event-link-edit a {
+  padding: 0px 5px;
+  width: 24px;
+  display: inline-block;
+  height: 22px;
+  overflow: hidden;
+}
+
+/*Create page*/
+.takeover-btn-wrap {
+  text-align: center;
+}
+
+.takeover-btn-wrap .tk-btn {
+  display: inline-block;
+}
+
+.takeover-btn-wrap .to-btn1 {
+  margin-right: 8px;
+}
+
+.node-type-take-over-pages #block-system-main {
+  position: relative;
+  min-height: 585px;
+}
+
+.node-type-take-over-pages .to-body {
+  margin-bottom: 50px;
+}
+
+.node-type-take-over-pages .to-btm-txt {
+  margin-top: 50px;
+}
+
+.node-type-take-over-pages .tk-btn .field-item {
+  text-align: center;
+}
+
+.main-wrap div.filefield-sources-list a.active {
+  font-weight: normal;
+}
+
+.node-type-take-over-pages .container-fluid .main-wrap .node .quickedit-field.quickedit-editable {
+  min-height: inherit;
+}
+
+.front .quickedit-validation-errors {
+  position: absolute;
+  top: -62px;
+  width: 50%;
+  right: -5px;
+  z-index: 9999;
+}
+
+.front .quickedit-validation-errors .messages.error {
+  width: 100%;
+}
+
+.page-3d-seat-view .vr-seat-view-wrapper #preloader {
+  text-align: center;
+}
+
+.main-wrap .view-seat-information .node-page {
+  padding: 12px 22px 22px 22px;
+  clear: both;
+  min-height: 150px;
+}
+
+.page-node-1174 .node.node-page, .page-node-1173 .node.node-page,
+.page-403 .node.node-page,
+.page-403 .node.node-page {
+  min-height: 370px;
+  max-width: 470px;
+  margin: 0 auto 40px auto;
+}
+
+.page-node-1174 .node.node-page p, .page-node-1173 .node.node-page p,
+.page-403 .node.node-page p,
+.page-403 .node.node-page p {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  font-size: 1.2em;
+}
+
+div.messages {
+  background-position: 8px 12px;
+}
+
+#overlay-content {
+  padding: 15px;
+}
+
+.page-update-custom-background .main-wrap {
+  padding: 0;
+}
+
+.page-update-custom-background .badge {
+  background: none;
+  font-weight: normal;
+}
+
+.page-update-custom-background .btn-danger {
+  float: right;
+}
+
+.page-update-custom-background .image-widget-data .form-group {
+  display: inline-block;
+}
+
+.page-update-custom-background .node-form > div .form-actions .btn-success {
+  position: inherit;
+}
+
+.page-update-custom-background .container-fluid.main-container {
+  background: none;
+}
+
+.page-update-custom-background #overlay .form-control.form-file {
+  width: 448px;
+}
+
+.page-update-custom-background #overlay-close:before {
+  content: "X";
+  position: absolute;
+  right: 0;
+  top:0px;
+  width: 100%;
+  height:26px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+  padding-top: 2px;
+}
+
+/*Cross Icons Start*/
+.title .popup-close {
+  position: relative;
+  float: right;
+  height: 16px;
+  text-decoration: none;
+  min-width: 2.5em;
+  min-height: 2.24em;
+  margin-top: -6px;
+  text-indent: -9999px;
+}
+
+.title .popup-close:before {
+  height: 100%;
+  width: 100%;
+  content: "";
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+/*Save Button Start*/
+.node-form > div .form-actions .btn-success {
+  position: absolute;
+  top: 4px;
+  right: 55px;
+}
+
+.imageeditor div.aviary-feather {
+  position: relative;
+}
+
+.imageeditor div.aviary-feather:hover,
+.field-type-image button.btn-default:hover,
+.field-type-file button.btn-default:hover {
+  border-radius: 6px;
+}
+
+/*Default blue button*/
+.container-fluid {
+  min-width: 768px;
+}
+
+.btn.btn-default,button.quickedit-button,.imageeditor div.aviary-feather,.title .popup-close,.button_blue a,.global-button,.page-invoice-payment .btn-default.return-home,.page-pawp .container-fluid .main-wrap section.block form#custom-pawp-sign-up button#btn-default{
+  border-radius: 4px;
+  padding:0 20px;
+  font-size: 1.2em;
+  text-align: center;
+  text-transform: none;
+  outline:none; line-height:33px;
+}
+
+.page-user-login button.btn-default,
+.button_blue a {
+  width: 100%;
+}
+
+.node-type-take-over-pages .tk-btn .field-item a {
+  min-width: 205px;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: none;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/*Text Field*/
+input.form-control,
+select.form-control,
+.form-item-title .counter,
+#user-login .alert-danger,
+.help-block,
+select {
+  font-size: 12px;
+}
+
+select.form-control {
+  padding: 0;
+}
+
+input.form-control {
+  padding-left: 5px;
+}
+
+.bottom-promo-tile .field-type-list-text .form-control {
+  width: 360px;
+  float: right;
+}
+
+.bottom-promo-tile .field-name-field-link .link-attributes .control-label {
+  font-size: 13px;
+}
+
+.quickedit-form {
+  width: 100.5%;
+  max-width: none;
+  margin: 3px 0 0 -2px;
+}
+
+.node-type-video #quickedit-entity-toolbar {
+  max-width: 975px !important;
+}
+
+#edit-field-pdf .btn-danger, #edit-field-video .btn-danger {
+  float: right;
+  margin: -5px 0 7px;
+}
+
+.quickedit-form .form-wrapper {
+  margin: 0 0.4em 0 0.5em;
+}
+
+.quickedit-toolbar-container .quickedit-button.action-cancel {
+  margin-right: 7px;
+}
+
+.quickedit .icon-close::before {  top: 7px;}
+
+input[type="radio"], input[type="checkbox"] {  margin-top: 2px;}
+
+.quickedit-toolgroup .file {
+  margin-top: 3px;
+  display: inline-block;
+  float: left;
+  margin-right: 5px;
+}
+
+/*Admin Top Section*/
+#admin-menu-wrapper {  padding: 0;}
+
+#admin-menu > div > .dropdown > li > a {
+  margin-top: 4px;
+  line-height: 22px;
+}
+#admin-menu .dropdown li li.expandable ul { margin-top:-24px;}
+#admin-menu .dropdown .admin-menu-icon > a {
+  margin: 8px 5px 0 10px;
+}
+
+#admin-menu .dropdown .admin-menu-action a {
+  line-height: 15px;
+  margin-top: 7px;
+}
+
+.home-tgl .sidekick-label {
+  display: block;
+  left: 0;
+  top: 50%;
+  width: 24px;
+  height: 65px;
+}
+
+.home-tgl .fa {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  margin-left: 8px;
+}
+
+.wrapper-icon-sidekick {
+  margin-top: 1px;
+  position: absolute;
+  top: 0;
+  left: 1px;
+}
+
+.stp-editor-links .tabs-wrap-primary-user {  padding: 10px;}
+
+.page-season-schedule .view-content .panel-group .panel-heading .panel-title a.collapsed span.list-view-child:nth-child(5),
+.page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(5) {
+  background: none;
+  padding: 0 5px;
+}
+
+.page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(5) i {
+  font-size: 2em;
+}
+
+.page-season-schedule .list-view .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(5) i {
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+}
+
+.page-season-schedule .view-content .panel-group .panel-heading .panel-title a.collapsed span.list-view-child:nth-child(5) i {
+  transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
+}
+
+.vr-seat-view-wrapper .content .seatview-dd.seatview-dd-active ul li:last-child i {
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+}
+
+.promo-tile .tilehead a.social.active, .promo-tile .tilehead a.social:hover {  cursor: pointer;}
+
+.quickedit-field.quickedit-editable, .quickedit-field .quickedit-editable { word-wrap: break-word;}
+
+/*******************CK editor Image upload changes*********************/
+.promo-link-edit-hidden, .page-update-custom-background header, .page-update-custom-background footer, .page-update-custom-background h1.page-header, .page-update-custom-background .tabbable, .page-update-custom-background .node-form > div .form-actions .btn-success span, .page-update-custom-background .field-name-field-images, .quickedit-toolbar-container > .quickedit-toolbar-pointer, .page-update-custom-background a.bg-page-link-edit, .page-update-custom-background #block-views-tab-pages-block, .page-update-custom-background .field-name-field-video, .page-update-custom-background .field-name-field-pdf, .page-update-custom-background .field-name-field-for-logged-in {
+  display: none;
+}
+
+body.node-type-take-over-pages header {
+  visibility: hidden;
+}

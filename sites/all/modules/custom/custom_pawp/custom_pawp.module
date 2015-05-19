@@ -1,0 +1,106 @@
+<?php
+
+
+/**
+ * Implements hook_menu().
+ */
+function custom_pawp_menu() {
+  $items = array();
+  $items['admin/manage/settings/pawp'] = array(
+    'title' => 'Pay As We Play',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_pawp_form_setting'),
+    'access arguments' => array('administer site settings'),
+    'file' => 'custom_pawp.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['pawp/%ctools_js/form'] = array(
+    'title' => 'Pay As We Play',
+    'page callback' => 'tmapi_pawp_multistep_form',
+    'page arguments' => array(1),
+    'access arguments' => array('STH User'),
+    'file' => 'custom_pawp.api.inc',
+    'type' => MENU_CALLBACK,
+  );
+   $items['pawp/error'] = array(
+    'title' => 'Pay As We Play',
+    'page callback' => 'tmapi_pawp_error_page',
+    'access arguments' => array('STH User'),
+    'file' => 'custom_pawp.api.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['rsvp/success'] = array(
+    'title' => 'RSVP Success',
+    'page callback' => 'tmapi_pawp_rsvp_success',
+    'access arguments' => array('STH User'),
+    'file' => 'custom_pawp.api.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['rsvp/error'] = array(
+    'title' => 'RSVP Error',
+    'page callback' => 'tmapi_pawp_rsvp_error',
+    'access arguments' => array('STH User'),
+    'file' => 'custom_pawp.api.inc',
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+/**
+ * Implements hook_theme()
+ */
+
+function custom_pawp_theme($existing, $type, $theme, $path) {
+  return array(
+    'tm_pawp_success' => array(
+      'arguments' => array('name' => NULL, 'acct_id' => NULL, 'cc_num' => NULL),
+      'template' => 'templates/tm-pawp-success'
+    ),
+    'tm_pawp_error' => array(
+      'arguments' => array('name' => NULL, 'acct_id' => NULL, 'cc_num' => NULL),
+      'template' => 'templates/tm-pawp-error'
+    ),
+    'tm_pawp_page_error' => array(
+      'arguments' => array('name' => NULL, 'acct_id' => NULL, 'cc_num' => NULL),
+      'template' => 'templates/tm-pawp-page-error'
+    ),
+    'rsvp_success' => array(
+      'arguments' => array(),
+      'template' => 'templates/rsvp-success'
+    ),
+    'rsvp_error' => array(
+      'arguments' => array(),
+      'template' => 'templates/rsvp-error'
+    ),
+  );
+}
+
+function custom_pawp_check_cc_status($status = 1) {
+  global $user;
+  $acct_id = $user->name;
+  if (isset($acct_id) && $acct_id) {
+    return (bool) db_select('tm_pawp_data')
+    ->fields('tm_pawp_data', array('result'))
+    ->condition('acct_id', $acct_id)
+    ->condition('result', $status, '=')
+    ->condition('command', 'customer_update', '=')
+    ->range(0, 1)
+    ->execute()
+    ->fetchField();
+  }
+  return 0;
+}
+
+function _pawp_update_tm_transcation_table($data, $response = '') {
+  global $user;
+  db_insert('tm_pawp_data')
+  ->fields(array(
+    'cc_type' => (isset($data['ctype']) && $data['ctype']) ? $data['ctype'] : '',
+    'cc_num' => (isset($data['cc_num']) && $data['cc_num']) ? '************'. substr($data['cc_num'], -4, 4) : '',
+    'exp_date' => (isset($data['exp_date']) && $data['exp_date']) ? $data['exp_date'] : '',
+    'acct_id' => (isset($data['acct_id']) && $data['acct_id']) ? $data['acct_id'] : $user->name,
+    'timestamp' => time(),
+    'email_addr' => isset($data['email']) ? $data['email'] : $user->mail,
+    'command' => $data['command'],
+    'result' => $data['result'],
+    'tm_raw_response' => $response))->execute();
+}

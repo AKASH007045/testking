@@ -1,0 +1,57 @@
+<?php
+define('DRUPAL_STH_USER', 4);
+define('DRUPAL_STH_CLUB_USER', 5);
+// @file
+
+/**
+ * Implements hook_permission().
+ */
+function custom_ticketmaster_permission() {
+  return array(
+    'administer ticketmaster import' => array(
+      'title' => 'Administer Ticketmaster Data Import',
+    ),
+    'STH User' => array(
+      'title' => 'Ticketmaster STH User',
+    ),
+    'Editor' => array(
+      'title' => 'Site Editor',
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu()..
+ */
+
+function custom_ticketmaster_menu() {
+  $items = array();
+  $items['admin/ticketmaster'] = array(
+    'title' => 'Ticketmaster',
+    'description' => 'Ticketmaster Import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_ticketmaster_import_customer'), 
+    'access arguments' => array('administer ticketmaster import'),
+    'file' => 'custom_ticketmaster.import.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['admin/ticketmaster/import'] = array(
+    'title' => 'Customer Data Import',
+    'description' => 'Ticketmaster Customer Import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_ticketmaster_import_customer'),
+    'access arguments' => array('administer ticketmaster import'),
+    'file' => 'custom_ticketmaster.import.inc',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+  /*$items['admin/ticketmaster/clean-data'] = array(
+    'title' => 'Clean User Data',
+    'description' => 'Clean User data',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_ticketmaster_clean_data'),
+    'access arguments' => array('administer ticketmaster import'),
+    'file' => 'custom_ticketmaster.import.inc',
+    'type' => MENU_LOCAL_TASK,
+  );*/
+  return $items;
+}

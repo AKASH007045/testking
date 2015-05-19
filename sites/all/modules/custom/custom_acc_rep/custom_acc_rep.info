@@ -1,0 +1,4 @@
+name = Custom Account rep
+description = Module for edit Account rep using the Overlay.
+core = 7.x
+package = Custom

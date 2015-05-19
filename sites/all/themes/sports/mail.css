@@ -1,0 +1,11 @@
+body{
+		font-family:Arial, Helvetica, sans-serif;
+		font-size:12px;
+		color:#666666;}
+
+td .label{
+	font-size:14px;
+	color:#0099cc;
+	text-transform:uppercase;
+	padding-left: 55px;
+	font-weight: bold;}

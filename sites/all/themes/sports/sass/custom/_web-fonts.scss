@@ -1,0 +1,11 @@
+@include font-face ('oswaldbold','oswald.bold-webfont','#oswaldbold');
+@include font-face ('oswaldregular','oswald.regular-webfont','#oswaldregular');
+@include font-face ('iona-medium-webfont','2B6BAF_0_0','#iona-medium-webfont');
+@include font-face ('VideoJS','vjs','#VideoJS');
+
+
+.nextgame-timer .countdownHolder > *{font-family: "iona-medium-webfont";}
+
+.navbar, .username, h1, h2, h3, h4, h5, h6, .promo-box .tilehead, .promo-countdown, .nextgame-timer .date_label, .home-nextgamebg, .season-invoice-detail .ticketTable tbody tr.head td, .page-invoice-payment .form-item-payment-plan-id label.control-label, .nav-tabs, .namedetil, .modal-header, .bg-page-link-edit, .home-tgl, .sth-calendar .calendar-calendar th.days, .button_blue a, buttons, .btn, table td, .season-invoice-detail .ticketTable tbody tr.head td{font-family: "oswaldregular", Arial;}
+
+#overlay h1, #overlay h2, #overlay h3, #overlay h4, #overlay h5, #overlay h6, #overlay buttons, #overlay .btn, #edit-field-pdf .btn, #edit-field-video .btn {font-family:Arial,sans-serif !important;} 

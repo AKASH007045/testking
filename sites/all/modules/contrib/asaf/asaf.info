@@ -1,0 +1,16 @@
+name = Asaf (ajax submit for any form)
+core = 7.x
+
+files[] = asaf.module
+files[] = asaf.admin.inc
+files[] = asaf.pages.inc
+files[] = tests/asaf.test
+
+configure = admin/config/system/asaf
+
+; Information added by drupal.org packaging script on 2013-09-30
+version = "7.x-1.1+4-dev"
+core = "7.x"
+project = "asaf"
+datestamp = "1380554433"
+

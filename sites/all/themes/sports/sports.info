@@ -1,0 +1,110 @@
+name = STP Bootstrap theme
+description = A Bootstrap Sub-theme.
+core = 7.x
+base theme = bootstrap
+
+
+;;;;;;;;;;;;;;;;;;;;;;; Regions ;;;;;;;;;;;;;;;;;;;;;
+
+regions[navigation]     = 'Navigation'
+regions[header]         = 'Top Bar'
+regions[highlighted]    = 'Highlighted'
+regions[help]           = 'Help'
+regions[content]        = 'Content'
+regions[sidebar_first]  = 'Primary'
+regions[sidebar_second] = 'Secondary'
+regions[footer_top]     = 'Footer Top'
+regions[footer]         = 'Footer Copyright'
+regions[page_top]       = 'Page top'
+regions[page_bottom]    = 'Page bottom'
+regions[promo_tile]     = 'Promo Tile'
+regions[social]         = 'Social Feed'
+regions[user_info]      = 'User Menu'
+regions[main_menu]      = 'Main Menu'
+regions[game_next]      = 'Next Game'
+regions[welcome]        = 'Welcome Headline Text'
+regions[social]         = 'Social Feed'
+regions[user_name]      = 'User Name'
+
+;;;;;;;;;;;;;;;;;;;;;;; Stylesheets ;;;;;;;;;;;;;;;;;;;;;
+
+stylesheets[all][] = 'css/bootstrap.css'
+stylesheets[all][] = 'css/custom-style.css'
+stylesheets[all][] = 'css/features.css'
+
+scripts[] = 'js/lib/cbrowser.js'
+scripts[] = 'js/lib/alertify.min.js'
+scripts[] = 'js/lib/jquery.tinycarousel.min.js'
+scripts[] = 'js/lib/bootstrapValidator.js'
+scripts[] = 'js/lib/tweenlite.js'
+scripts[] = 'js/lib/jquery.easing.1.3.js'
+scripts[] = 'js/lib/Selectyze.jquery.min.js'
+scripts[] = 'js/lib/placeholders.min.js'
+scripts[] = 'js/lib/jquery.cookie.js'
+scripts[] = 'js/lib/jquery.cycle.all.js'
+scripts[] = 'js/lib/shortcut.js'
+
+scripts[] = 'js/custom_pdf/pdf-ie9.js'
+
+scripts[] = 'js/common.js'
+scripts[] = 'js/scriptlets.js'
+
+scripts[] = 'js/calendar/calendarpopup.js'
+scripts[] = 'js/calendar/multiple_events.js'
+
+scripts[] = 'js/navigation/menu_highlight.js'
+
+scripts[] = 'js/admin/lib_functions.js'
+scripts[] = 'js/admin/editor.js'
+
+scripts[] = 'js/validations/validations_common.js'
+scripts[] = 'js/validations/custom_invoice.js'
+scripts[] = 'js/validations/custom_pawp.js'
+scripts[] = 'js/validations/custom_user_login.js'
+
+scripts[] = 'js/global/custom.js'
+
+scripts[] = 'js/devicefixes.js'
+scripts[] = 'js/videojs/videojsiefix.js'
+
+scripts[] = 'js/custom_features.js'
+scripts[] = 'js/google_analytics/code_analytics.js'
+scripts[] = 'js/google_analytics/analytics_helper.js'
+scripts[] = 'js/google_analytics/custom_analytics.js'
+
+
+; For information on choosing the desired method, please read the Drupal
+; Bootstrap sub-theme "how-to" documentation:
+; https://drupal.org/node/1978010
+
+; ;----------------------------------
+; ; METHOD 1: Bootstrap Source Files
+; ;----------------------------------
+; 
+; ;;;;;;;;;;;;;;;;;;;;; ;; Scripts; ;;;;;;;;;;;;;;;;;;;;;
+; 
+; scripts[] = 'bootstrap/js/affix.js'
+; scripts[] = 'bootstrap/js/alert.js'
+; scripts[] = 'bootstrap/js/button.js'
+; scripts[] = 'bootstrap/js/carousel.js'
+; scripts[] = 'bootstrap/js/collapse.js'
+; scripts[] = 'bootstrap/js/dropdown.js'
+; scripts[] = 'bootstrap/js/modal.js'
+; scripts[] = 'bootstrap/js/tooltip.js'
+; scripts[] = 'bootstrap/js/popover.js'
+; scripts[] = 'bootstrap/js/scrollspy.js'
+; scripts[] = 'bootstrap/js/tab.js'
+; scripts[] = 'bootstrap/js/transition.js'
+
+;
+; ; Disable BootstrapCDN if using Bootstrap source files in your sub-theme.
+; settings[bootstrap_cdn] = ''
+
+
+; ;-------------------------
+; ; METHOD 2: Bootstrap CDN
+; ;-------------------------
+;
+; Method 2 uses BootstrapCDN, the only thing you might need to provide here
+; is overrides to Bootstrap theme settings. Copy them here from the base theme
+; to override.

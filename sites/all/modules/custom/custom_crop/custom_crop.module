@@ -1,0 +1,1003 @@
+<?php
+/**
+ * @file
+ * module file.
+ */
+
+require_once 'custom_crop.inc';
+
+
+/**
+ * Implements hook_library().
+ */
+
+function custom_crop_library() {
+  $libraries = array();
+  // jQuery Imageselect.
+  $libraries['jquery.imgareaselect'] = array(
+    'title' => 'jQuery ImgAreaSelect',
+    'website' => 'http://odyniec.net/projects/imgareaselect/',
+    'version' => '0.9.10',
+    'js' => array(
+      drupal_get_path('module', 'custom_crop') . '/js/jquery.imgareaselect/scripts/jquery.imgareaselect.js' => array(),
+    ),
+    'css' => array(
+       drupal_get_path('module', 'custom_crop') . '/js/jquery.imgareaselect/css/imgareaselect-animated.css' => array(
+        'type' => 'file',
+        'media' => 'screen',
+      ),
+    ),
+    
+  );
+   // jQuery ImagesLoaded.
+  $libraries['jquery.imagesloaded'] = array(
+    'title' => 'jQuery ImagesLoaded',
+    'website' => 'http://imagesloaded.desandro.com/',
+    'version' => '3.1.8',
+    'js' => array(
+      drupal_get_path('module', 'custom_crop') . '/js/jquery.imagesloaded/jquery.imagesloaded.min.js' => array(),
+    )
+  );
+  $libraries['custom_crop'] = array(
+    'title' => 'custom crop js',
+    'website' => 'http://www.io-media.com/',
+    'version' => VERSION,
+    'js' => array(
+      drupal_get_path('module', 'custom_crop') . '/js/custom_crop.js' => array(),
+    ),
+    'css' => array(
+      drupal_get_path('module', 'custom_crop') . '/css/custom_crop.css' => array(
+        'type' => 'file',
+        'media' => 'screen',
+      ),
+    ),
+    'dependencies' => array(
+      array('custom_crop', 'jquery.imgareaselect'),
+      array('custom_crop', 'jquery.imagesloaded'),
+    ),
+  );
+  return $libraries;
+}
+
+/**
+ * Implements hook_help().
+ */
+function custom_crop_help($path) {
+  switch ($path) {
+    case 'admin/config/media/image-styles/edit/%':
+      return '<p>' . t("<strong>Note:</strong> if you are using a Custom Crop effect, it's forced to be the only Custom Crop effect and first effect in the list.") . '</p>';
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+
+ 
+ 
+function custom_crop_theme() {
+  return array(
+    'custom_crop_crop_and_scale_summary' => array(
+      'variables' => array('data' => NULL),
+      'file' => 'custom_crop.theme.inc',
+    ),
+    'custom_crop_crop_summary' => array(
+      'variables' => array('data' => NULL),
+      'file' => 'custom_crop.theme.inc',
+    ),
+    'custom_crop_reuse_summary' => array(
+      'variables' => array('data' => NULL),
+      'file' => 'custom_crop.theme.inc',
+    ),
+    'custom_crop_croptool_overlay' => array(
+      'variables' => array('attributes' => NULL, 'image' => NULL, 'crop_info' => TRUE, 'instant_preview' => FALSE),
+      'file' => 'custom_crop.theme.inc',
+    ),
+    'custom_crop_croptool_inline' => array(
+      'variables' => array('attributes' => NULL, 'image' => NULL, 'crop_info' => TRUE, 'instant_preview' => FALSE),
+      'file' => 'custom_crop.theme.inc',
+    ),
+    'custom_crop_thumblist' => array(
+      'variables' => array('attributes' => NULL, 'images' => NULL),
+      'file' => 'custom_crop.theme.inc',
+    ),
+    'custom_crop_thumblist_image' => array(
+      'variables' => array('attributes' => NULL, 'image' => NULL, 'style' => NULL),
+      'file' => 'custom_crop.theme.inc',
+    ),
+  );
+}
+
+/**
+ * Implements hook_image_style_delete().
+ */
+function custom_crop_image_style_delete($style) {
+  if (!empty($style['effects'])) {
+    $effect = reset($style['effects']);
+
+    if (_custom_crop_is_own_effect($effect)) {
+      db_delete('custom_crop')
+        ->condition('style_name', $style['name'])
+        ->execute();
+
+      _custom_crop_field_widget_update_names_in_settings($style['name']);
+      _custom_crop_reuse_effect_update_names_in_settings($style['name']);
+    }
+  }
+}
+
+/**
+ * Implements hook_file_delete().
+ */
+function custom_crop_file_delete($file) {
+  db_delete('custom_crop')->condition('fid', $file->fid)->execute();
+}
+
+/**
+ * Implements hook_field_widget_info_alter().
+ */
+function custom_crop_field_widget_info_alter(&$info) {
+  foreach (custom_crop_supported_widgets() as $widget_type) {
+    if (isset($info[$widget_type]['settings'])) {
+      $settings = &$info[$widget_type]['settings'];
+      $settings += custom_crop_default_widget_settings();
+
+      if ($settings['custom_crop_styles_mode'] == 'include' && empty($settings['custom_crop_styles_list'])) {
+        // No styles are included.
+        $settings['enable'] = FALSE;
+      }
+      elseif ($settings['custom_crop_styles_mode'] == 'exlude' && !empty($settings['custom_crop_styles_list'])) {
+        // Check if all styles are exluded.
+        $styles = custom_crop_styles_with_crop();
+        $styles = array_diff_key($styles, array_flip($settings['custom_crop_styles_list']));
+
+        if (empty($styles)) {
+          $settings['custom_crop_enable'] = FALSE;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function custom_crop_field_widget_form_alter(&$element, &$form_state, $context) {
+  $widget = $context['instance']['widget'];
+
+  if (custom_crop_supported_widgets($widget['type'])) {
+    if ($widget['type'] == 'media_generic') {
+      // We don't check if Custom Crop is enabled, this happens in the file
+      // enntity edit form.
+      $element['#after_build'][] = 'custom_crop_media_element_process';
+    }
+    elseif (!empty($widget['settings']['custom_crop_enable'])) {
+      // Prepare the form.
+      custom_crop_croptool_prepare_form($element, $form_state, custom_crop_js_identifier($context['instance']), $widget['settings']);
+
+      // Default, add a process and validate callback for each child.
+      foreach (element_children($element) as $key) {
+        $element[$key]['#process'][] = 'custom_crop_widget_process';
+        $element[$key]['#element_validate'][] = 'custom_crop_croptool_validate';
+      }
+
+      if (module_exists('insert')) {
+        $element['#after_build'][] = 'custom_crop_insert_element_process';
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_attach_submit().
+ */
+function custom_crop_field_attach_submit($entity_type, $entity, $form, &$form_state) {
+  custom_crop_croptool_submit($form, $form_state);
+}
+
+/**
+ * Process function for Custom Crop enabled widgets.
+ *
+ * @param $element
+ *   The form element.
+ * @param $form_state
+ *   The form state array.
+ * @param $form
+ *   The complete form.
+ *
+ * @return
+ *   Altered widget element.
+ */
+function custom_crop_widget_process($element, &$form_state, $form) {
+  if (!empty($element['#file'])) {
+    // Get the field instance.
+    $instance = field_info_instance($element['#entity_type'], $element['#field_name'], $element['#bundle']);
+
+    // Add the croptool.
+    custom_crop_croptool_process($element, $form_state, custom_crop_js_identifier($instance), $element['#file'], $instance);
+  }
+
+  return $element;
+}
+
+/**
+ * Prepare the form that will hold the croptool.
+ *
+ * @param $form
+ *   The form structure array.
+ * @param $form_state
+ *   The form state array.
+ * @param $js_identifier
+ *   Unique javascript crop settings identifier.
+ * @param $settings
+ *   Widget settings.
+ */
+function custom_crop_croptool_prepare_form(&$form, &$form_state, $js_identifier, $settings = array()) {
+  if (isset($_COOKIE['has_js']) && $_COOKIE['has_js']) {
+    $styles = &drupal_static(__FUNCTION__);
+
+    if (!is_array($styles)) {
+      $styles = array();
+
+      // Generate image style settings.
+      foreach (custom_crop_styles_with_crop() as $style_name => $data) {
+        $styles[$style_name] = array(
+          'effect' => $data['name'],
+          'data' => $data['data']
+        );
+      }
+    }
+
+    // Load the default settings.
+    if (!is_array($settings) || empty($settings)) {
+      $settings = custom_crop_default_widget_settings();
+    }
+
+    // Add the javascript settings.
+    $form['#attached']['js'][] = array('data' => array('custom_crop' => array(
+      'styles' => $styles,
+      'fields' => array(
+        $js_identifier => array(
+          'required' => custom_crop_instance_required_styles($settings),
+          'instantCrop' => !empty($settings['custom_crop_instant_crop']),
+          'defaultCropArea' => !empty($settings['custom_crop_default_crop_area']),
+        ),
+      ),
+    )), 'type' => 'setting');
+
+    // IE has problems with lazy loading of css files, see http://drupal.org/node/1071818
+    if (!empty($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE) {
+      $form['#attached']['css'][] = drupal_get_path('module', 'custom_crop') . '/css/custom_crop.css';
+      $form['#attached']['css'][] = drupal_get_path('module', 'custom_crop') . '/js/jquery.imgareaselect/css/imgareaselect-animated.css';
+    }
+
+    // Reset the images array.
+    if (!isset($form_state['custom_crop_data'])) {
+      $form_state['custom_crop_data'] = array('images' => array());
+    }
+    else {
+      $form_state['custom_crop_data']['images'] = array();
+    }
+  }
+}
+
+/**
+ * Add a croptool to the form element. This extends the FAPI widget or simply adds
+ * a new form item to enable cropping in a regular form.
+ *
+ * @param $element
+ *   Form element to be processed. This should be the form array for none FAPI fields.
+ * @param $form_state
+ *   The form state array.
+ * @param $js_identifier
+ *   Unique javascript crop settings identifier.
+ * @param $file
+ *   The file object.
+ * @param $instance
+ *   Field instance array.
+ * @param $settings
+ *   Used to pass-in (additional) widget settings, these settings will
+ *   override the instance settings.
+ * @param $preview
+ *   Name of the preview element.
+ *
+ * @return
+ *    Returns TRUE if a croptool has been added, FALSE otherwise.
+ */
+function custom_crop_croptool_process(&$element, &$form_state, $js_identifier, $file, $instance = NULL, $settings = array(), $preview = 'preview') {
+  if (isset($form_state['custom_crop_data'])) {
+    $styles = custom_crop_styles_with_crop();
+
+    if (!empty($styles)) {
+      // Make sure $settings is an array.
+      if (!is_array($settings)) {
+        $settings = array();
+      }
+
+      // Load the instance or default settings.
+      if (is_array($instance)) {
+        $settings += $instance['widget']['settings'];
+      }
+      else {
+        $settings += custom_crop_default_widget_settings();
+      }
+
+      // Required image styles.
+      $required = custom_crop_instance_required_styles($settings);
+
+      // Exclude or include styles.
+      if (!empty($settings['custom_crop_styles_list'])) {
+        $list = array_values($settings['custom_crop_styles_list']);
+
+        // Filter hidden styles.
+        if ($settings['custom_crop_styles_mode'] == 'include') {
+          $styles = array_intersect_key($styles, array_flip($list));
+        }
+        else {
+          $styles = array_diff_key($styles, array_flip($list));
+        }
+
+        if (empty($styles)) {
+          // Leave if all styles where filtered.
+          return FALSE;
+        }
+      }
+
+      // Overlay or inline cropping.
+      if (!empty($settings['custom_crop_inline_crop'])) {
+        $crop_type = 'inline';
+      }
+      else {
+        $crop_type = 'overlay';
+      }
+
+      // Check if the preview element exists.
+      if (!empty($preview) && isset($element[$preview])) {
+        // Thumbnail list, so no preview image.
+        if (!empty($settings['custom_crop_thumblist'])) {
+          unset($element[$preview]);
+          $preview = NULL;
+        }
+      }
+      else {
+        $preview = NULL;
+      }
+
+      if (is_array($instance)) {
+        // A FAPI field instance has been passed, so $element is the container
+        // and $element['#value'] can be used for storing data.
+        $container = &$element;
+        $item = &$element['#value'];
+      }
+      else {
+        // The FAPI is not used, we'll create a global custom_crop container as
+        // parent for all custom_crop enabled files.
+        if (!isset($element['custom_crop'])) {
+          $element['custom_crop'] = array(
+            '#tree' => TRUE,
+          );
+        }
+
+        // Create a file specific container.
+        $element['custom_crop']['file_' . $file->fid] = array(
+          '#type' => 'value',
+          '#default_value' => array(),
+          '#element_validate' => array('custom_crop_croptool_validate'),
+          '#array_parents' => array('custom_crop', 'file_' . $file->fid),
+        );
+
+        // Link to the newly created container and item.
+        $container = &$element['custom_crop']['file_' . $file->fid];
+        $item = &$container['#default_value'];
+      }
+
+      // Add a prefix and suffix to the preview image.
+      if (!empty($preview)) {
+        $element[$preview]['#prefix'] = '<div class="custom_crop-preview custom_crop-preview-' . $file->fid . '"><div class="custom_crop-preview-cropped"></div>';
+        $element[$preview]['#suffix'] = '</div>';
+      }
+
+      // Get image info, width and height are used by the cropping widget.
+      $image = image_get_info($file->uri);
+
+      // Save some image data to improve processing.
+      $form_state['custom_crop_data']['images'][$file->fid] = array(
+        'uri' => $file->uri,
+        'filename' => $file->filename,
+        'width' => $image['width'],
+        'height' => $image['height'],
+        'element_parents' => $container['#array_parents'],
+        'required_styles' => $required,
+      );
+
+      // Get the crop selections for this file.
+      if (!$form_state['submitted'] && !isset($item['custom_crop_selections'])) {
+        $item['custom_crop_selections'] = array();
+        foreach (custom_crop_load_crop_selection($file->uri) as $data) {
+          $item['custom_crop_selections'][$data->style_name] = $data->x . '|' . $data->y . '|' . $data->width . '|' . $data->height;
+        }
+      }
+
+      // Add a css class
+      $container['#attributes']['class'][] = 'custom_crop-file-' . $file->fid . '-holder';
+
+      // Original image for cropping.
+      $container['custom_crop_' . $crop_type] = array(
+        '#type' => 'markup',
+        '#markup' => theme('custom_crop_croptool_' . $crop_type, array(
+          'attributes' => array(
+            'id' => array('custom_crop-' . $crop_type . '-' . $file->fid),
+            'class' => array('custom_crop-' . $crop_type, 'element-hidden'),
+          ),
+          'image' => array(
+            'path' => $file->uri,
+            'alt' => $file->filename,
+            'width' => $image['width'],
+            'height' => $image['height'],
+            'attributes' => array('class' => array('custom_crop-image')),
+          ),
+          'crop_info' => !empty($settings['custom_crop_crop_info']),
+          'instant_preview' => !empty($settings['custom_crop_instant_preview']),
+        )),
+      );
+
+      // Image style options.
+      $style_options = array('' => t('Select a style to crop'));
+
+      // Hidden fields to save the crop selection, one for each image style.
+      foreach ($styles as $style_name => $data) {
+        $container['custom_crop_selections'][$style_name] = array(
+          '#type' => 'hidden',
+          '#default_value' => (isset($item['custom_crop_selections'][$style_name]) ? $item['custom_crop_selections'][$style_name] : ''),
+          '#attributes' => array(
+            'id' => 'custom_crop-area-' . $file->fid . '-' . $style_name,
+            'class' => array('custom_crop-cropdata'),
+            'onchange' => 'custom_crop.selectionStored(this, ' . $file->fid . ', \'' . $style_name . '\');',
+          ),
+        );
+
+        $style_options[$style_name] = _custom_crop_image_style_name($style_name);
+      }
+
+      // Default form element options.
+      drupal_add_library('custom_crop', 'custom_crop');
+      $defaults = array(
+        '#weight' => (isset($container['title']['#weight']) ? $element['title']['#weight'] : 1),
+        //'#attached' => ,
+      );
+      /*
+          $defaults = array(
+        '#weight' => (isset($container['title']['#weight']) ? $element['title']['#weight'] : 1),
+        '#attached' => array(
+          'css' => array(
+            drupal_get_path('module', 'custom_crop') . '/css/custom_crop.css',
+            drupal_get_path('module', 'custom_crop') . '/js/jquery.imgareaselect/css/imgareaselect-animated.css',
+          ),
+          'js' => array(
+            drupal_get_path('module', 'custom_crop') . '/js/custom_crop.js',
+            drupal_get_path('module', 'custom_crop') . '/js/jquery.imgareaselect/scripts/jquery.imgareaselect.pack.js',
+            drupal_get_path('module', 'custom_crop') . '/js/jquery.imagesloaded/jquery.imagesloaded.min.js',
+          ),
+        ),
+      );
+         */
+
+      // Element to open the croptool.
+      if (!empty($settings['custom_crop_thumblist'])) {
+        // Thumbnail list, each image style is transformed in a clickable thumbnail.
+        array_shift($style_options);
+        foreach ($style_options as $style_name => $style_clean_name) {
+          $prefix = '<span class="custom_crop-preview custom_crop-preview-' . $file->fid . ' custom_crop-preview-' . $file->fid . '-' . $style_name . '"><span class="custom_crop-preview-cropped"></span>';
+          $suffix = '</span>';
+
+          $style_options[$style_name] = theme('custom_crop_thumblist_image', array(
+            'style' => $style_clean_name,
+            'image' => $prefix . theme('image_style', array(
+              'path' => $file->uri,
+              'alt' => $file->filename,
+              'width' => $image['width'],
+              'height' => $image['height'],
+              'style_name' => $style_name,
+            )) . $suffix,
+            'attributes' => array(
+              'class' => array_merge(
+                array(
+                  'custom_crop-style-thumb',
+                  'custom_crop-style-thumb-' . $file->fid,
+                  'custom_crop-style-thumb-' . $file->fid . '-' . $style_name,
+                  'custom_crop-style-preview-' . $file->fid,
+                  'custom_crop-style-preview-' . $file->fid . '-' . $style_name
+                ),
+                (in_array($style_name, $required) ? array('custom_crop-style-required') : array())
+              ),
+              'href' => 'javascript:void(0);',
+              'onmousedown' => "custom_crop.showCroptool('" . $js_identifier . "', '" . $style_name . "', " . $file->fid . ");",
+              'onclick' => 'return false;',
+            ),
+          ));
+        }
+
+        $container['custom_crop_style'] = array_merge($defaults, array(
+          '#markup' => theme('custom_crop_thumblist', array(
+            'attributes' => array(
+              'class' => array('custom_crop-thumblist', 'custom_crop-thumblist-' . $file->fid),
+            ),
+            'images' => $style_options,
+          )),
+        ));
+      }
+      elseif (count($style_options) == 2) {
+        // Only one style, display a button.
+        end($style_options);
+        $style_name = key($style_options);
+
+        $container['custom_crop_style'] = array_merge($defaults, array(
+          '#type' => 'button',
+          '#value' => t('Adjust Headshot'),
+          '#attributes' => array(
+            'class' => array_merge(array('custom_crop-style-button', 'custom_crop-style-button-' . $file->fid), (in_array($style_name, $required) ? array('custom_crop-style-required') : array())),
+            'onmousedown' => "custom_crop.showCroptool('" . $js_identifier . "', '" . $style_name . "', " . $file->fid . ");",
+            'onclick' => 'return false;',
+          ),
+          '#prefix' => '<div class="custom_crop-style-button-holder">',
+          '#suffix' => '</div>',
+        ));
+      }
+      else {
+        // Style selection list.
+        $container['custom_crop_style'] = array_merge($defaults, array(
+          '#type' => 'select',
+          '#title' => t('Custom Crop'),
+          '#description' => t('Select the image style to crop, the corresponding cropping tool will open.'),
+          '#options' => $style_options,
+          '#multiple' => FALSE,
+          '#attributes' => array(
+            'class' => array(
+              'custom_crop-identifier-' . $js_identifier,
+              'custom_crop-style-select',
+              'custom_crop-style-select-' . $file->fid
+            ),
+            'onchange' => "custom_crop.showCroptool('" . $js_identifier . "', this, " . $file->fid . ");",
+          ),
+        ));
+      }
+
+      // The FAPI widget can have a alt and/or title field, increase their weight.
+      if (isset($container['alt'])) {
+        $container['alt']['#weight']++;
+      }
+
+      if (isset($container['title'])) {
+        $container['title']['#weight']++;
+      }
+
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * Additional after build callback to modify form elements added by the Insert module.
+ *
+ * @param $element
+ *   The element to process.
+ */
+function custom_crop_insert_element_process($element) {
+  foreach (element_children($element) as $key) {
+    if (!empty($element[$key]['insert']['#options']) && !empty($element[$key]['custom_crop_selections'])) {
+      $settings = $element[$key]['insert']['#widget']['settings'];
+
+      // Increase the select list weight.
+      $element[$key]['insert']['#weight'] = 0;
+
+      if (!empty($settings['custom_crop_filter_insert'])) {
+        // Make a list of all styles that should be visible in the widget.
+        $styles = array('image' => 1);
+        foreach (element_children($element[$key]['custom_crop_selections']) as $style) {
+          $styles['image_' . $style] = 1;
+        }
+
+        // Filter hidden styles from Insert.
+        $element[$key]['insert']['#options'] = array_intersect_key($element[$key]['insert']['#options'], $styles);
+
+        // Make sure the default value is allowed.
+        if (!array_key_exists($element[$key]['insert']['#default_value'], $element[$key]['insert']['#options'])) {
+          reset($element[$key]['insert']['#options']);
+          $element[$key]['insert']['#default_value'] = key($element[$key]['insert']['#options']);
+        }
+      }
+    }
+  }
+
+  return $element;
+}
+
+/**
+ * Additional after build callback to modify the Media widget.
+ *
+ * @param $element
+ *   The element to process.
+ */
+function custom_crop_media_element_process($element) {
+  if (!empty($element['edit'])) {
+    $element['edit']['#href'] .= url('media/' . $element['fid']['#value'] . '/edit/nojs/' . $element['#entity_type'] . '/' . $element['#bundle'] . '/' . $element['#field_name']);
+  }
+
+  return $element;
+}
+
+/**
+ * Validation handler to validate each cropping selection.
+ *
+ * @param $element
+ *   The element array.
+ * @param $form_state
+ *   The form state array.
+ */
+function custom_crop_croptool_validate($element, &$form_state) {
+  if (!empty($form_state['custom_crop_data']['images']) && (!isset($form_state['clicked_button']) || !in_array($form_state['clicked_button']['#value'], array(t('Upload'), t('Remove'))))) {
+    // Create a new key in the data array, this is to store processed selections.
+    $form_state['custom_crop_data']['selections'] = array();
+    $save = &$form_state['custom_crop_data']['selections'];
+
+    // Loop trough the positions to get the custom_crop data.
+    foreach ($form_state['custom_crop_data']['images'] as $fid => $image) {
+      $value = drupal_array_get_nested_value($form_state['values'], $image['element_parents']);
+
+      if (isset($value['custom_crop_selections'])) {
+        // Create a selections array for the current image, the first element is
+        // the path to the original image, needed for flushing the cache.
+        $save[$fid] = array(
+          'path' => $image['uri'],
+          'styles' => array(),
+        );
+
+        $first = TRUE;
+
+        foreach ($value['custom_crop_selections'] as $style_name => $selection) {
+          $clean_style_name = _custom_crop_image_style_name($style_name);
+
+          if ($first) {
+            $element_key = implode('][', $image['element_parents']) . '][custom_crop_style';
+          }
+          else {
+            $element_key = implode('][', $image['element_parents']) . '][custom_crop_selections][' . $style_name;
+          }
+
+          if (!empty($selection)) {
+            if (preg_match('/^([0-9]+\|){3}[0-9]+$/', $selection)) {
+              $selection = array_map('intval', explode('|', $selection));
+
+              // Check position and minimum dimensions.
+              if ($selection[0] >= 0 && $selection[1] >= 0 && $selection[2] > 0 && $selection[3] > 0) {
+                // Check if the selections fits on the image.
+                if (($selection[0] + $selection[2]) <= $image['width'] && ($selection[1] + $selection[3]) <= $image['height']) {
+                  $save[$fid]['styles'][$style_name] = array(
+                    'x' => $selection[0],
+                    'y' => $selection[1],
+                    'width' => $selection[2],
+                    'height' => $selection[3],
+                  );
+                  continue;
+                }
+              }
+            }
+
+            form_set_error($element_key, t('The crop selection for %filename (@style image style) is invalid, please clear it or reselect.', array(
+              '@style' => $clean_style_name,
+              '%filename' => $image['filename']
+            )));
+
+            $first = FALSE;
+          }
+          elseif (in_array($style_name, $image['required_styles'], TRUE)) {
+            // Uncropped required style.
+            form_set_error($element_key, t('%filename must have a cropping selection for the @style image style.', array(
+              '@style' => $clean_style_name,
+              '%filename' => $image['filename']
+            )));
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Submit handler to save each crop selection.
+ *
+ * @param $form
+ *   The form structure array.
+ * @param $form_state
+ *   The form state array.
+ */
+function custom_crop_croptool_submit($form, &$form_state) {
+  if (!empty($form_state['custom_crop_data']['selections'])) {
+    // Loop trough the selections to save them. $data['styles'] can by an empty array,
+    // but we have to loop trough the whole array to delete old selections.
+    foreach ($form_state['custom_crop_data']['selections'] as $fid => $data) {
+      db_delete('custom_crop')
+        ->condition('fid', $fid)
+        ->execute();
+
+      foreach ($data['styles'] as $style_name => $selection) {
+        db_insert('custom_crop')
+          ->fields(array_merge($selection, array(
+            'fid' => $fid,
+            'style_name' => $style_name
+          )))
+          ->execute();
+      }
+
+      // Clear the cached versions of this image.
+      image_path_flush($data['path']);
+
+      if (variable_get('custom_crop_cache_control', TRUE)) {
+        // Clear the cached image paths.
+        cache_clear_all('custom_crop', 'cache', TRUE);
+      }
+    }
+
+    // A success message is only shown when not using the FAPI.
+    if (!empty($form['custom_crop'])) {
+      drupal_set_message(t('The crop selections have been saved.'));
+    }
+
+    // Unset the form state data to prevent submitting twice.
+    unset($form_state['custom_crop_data']);
+  }
+}
+
+/**
+ * Preprocessing for theme_image(); Force reloading of an image after re-cropping.
+ *
+ * @param $variables
+ *   Image template variables.
+ */
+function custom_crop_preprocess_image(&$variables) {
+  // Is cache control enabled?
+  if (!empty($variables['style_name']) && variable_get('custom_crop_cache_control', TRUE)) {
+    $styles = custom_crop_styles_with_crop(TRUE);
+    $style_name = $variables['style_name'];
+
+    // Does this image style have a Custom Crop effect?
+    if (isset($styles[$style_name])) {
+      $original_path = $variables['path'];
+
+      // Attempt to load the HTTP cache-controller from cache.
+      if ($cached_path = cache_get('custom_crop|' . $original_path)) {
+        $variables['path'] = $cached_path->data;
+      }
+      else {
+        // No HTTP cache-controller in cache, get the image path.
+        $match = '/styles/' . $style_name . '/';
+        $path = substr($variables['path'], (strrpos($variables['path'], $match) + drupal_strlen($match)));
+        $path = explode('/', $path);
+
+        // Build the image URI.
+        $scheme = array_shift($path);
+        $target = implode('/', $path);
+        $image_uri = $scheme . '://' . urldecode($target);
+
+        // Use the reuse style to load the crop selection.
+        if (_custom_crop_is_own_effect($styles[$style_name], FALSE)) {
+          $style_name = $styles[$style_name]['data']['reusestyle'];
+        }
+
+        // Load the cropping area.
+        if ($crop = custom_crop_load_crop_selection($image_uri, $style_name)) {
+          // Add a HTTP cache-controller to the image path.
+          $variables['path'] .= (strpos($variables['path'], '?q=') !== FALSE ? '&' : '?') . 'c=' . md5($crop->x . '|' . $crop->y . '|' . $crop->width . '|' . $crop->height);
+
+          // Cache the the updated image path.
+          cache_set('custom_crop|' . $original_path, $variables['path']);
+        }
+      }
+    }
+  }
+}
+
+
+/**
+ * Implements hook_image_effect_info().
+ */
+function custom_crop_image_effect_info() {
+  return array(
+    'custom_crop_crop_and_scale' => array(
+      'label' => t('Crop and scale custom'),
+      'help' => t('Crop and scale a user-selected area, respecting the ratio of the destination width and height.'),
+      'effect callback' => 'custom_crop_crop_and_scale_effect',
+      'dimensions callback' => 'image_resize_dimensions',
+      'form callback' => 'custom_crop_crop_and_scale_form',
+      'summary theme' => 'custom_crop_crop_and_scale_summary',
+    ),
+    'custom_crop_crop' => array(
+      'label' => t('Custom crop'),
+      'help' => t('Crop a freely user-selected area.'),
+      'effect callback' => 'custom_crop_crop_effect',
+      'dimensions callback' => 'image_resize_dimensions',
+      'form callback' => 'custom_crop_crop_form',
+      'summary theme' => 'custom_crop_crop_summary',
+    ),
+    'custom_crop_reuse' => array(
+      'label' => t('Reuse a Custom Crop selection'),
+      'help' => 'Reuse a crop selection from another Custom Crop enabled image style.',
+      'effect callback' => 'custom_crop_reuse_effect',
+      'form callback' => 'custom_crop_reuse_form',
+      'summary theme' => 'custom_crop_reuse_summary',
+    ),
+  );
+}
+
+/**
+ * Image effect callback; Crop and scale an image resource.
+ *
+ * @param $image
+ *   An image object returned by image_load().
+ * @param $data
+ *   An array of attributes, needed to perform the crop and scale effect, with
+ *   the following items:
+ *   - "width": An integer representing the desired width in pixels.
+ *   - "height": An integer representing the desired height in pixels.
+ *   - "upscale": A boolean indicating that the image should be upscalled if
+ *     the dimensions are larger than the original image.
+ *   - "onlyscaleifcrop": A boolean indicating that the image should only be scaled
+ *     if it was cropped.
+ *   - "style_name": The style's machine name.
+ *
+ * @return
+ *   TRUE on success, FALSE on failure to crop and scale image.
+ *
+ * @see image_crop_effect()
+ * @see image_scale_effect()
+ */
+function custom_crop_crop_and_scale_effect(&$image, $data) {
+  // The width and height will be possibly overwritten for the cropping, so copy the data array for later.
+  $scale_data = $data;
+  $crop = custom_crop_load_crop_selection($image->source, $data["style_name"]);
+
+  if ($crop) {
+    // Only crop if a crop was applied.
+    $data["width"] = $crop->width;
+    $data["height"] = $crop->height;
+    $data["anchor"] = $crop->x . "-" . $crop->y;
+
+    if (!image_crop_effect($image, $data)) {
+      return FALSE;
+    }
+  }
+  elseif (!empty($data['onlyscaleifcrop'])) {
+    return TRUE;
+  }
+
+  return image_scale_and_crop_effect($image, $scale_data);
+}
+
+/**
+ * Image effect callback; Crop an image resource.
+ *
+ * @param $image
+ *   An image object returned by image_load().
+ * @param $data
+ *   An array of attributes, needed to perform the crop effect, with the
+ *   following items:
+ *   - "width": An integer representing the desired width in pixels.
+ *   - "height": An integer representing the desired height in pixels.
+ *   - "style_name": The style's machine name.
+ *
+ * @return
+ *   TRUE on success, FALSE on failure to crop image.
+ *
+ * @see image_crop_effect()
+ */
+function custom_crop_crop_effect(&$image, $data) {
+  $crop = custom_crop_load_crop_selection($image->source, $data["style_name"]);
+
+  if ($crop) {
+    $data["width"] = $crop->width;
+    $data["height"] = $crop->height;
+    $data["anchor"] = $crop->x . "-" . $crop->y;
+
+    return image_crop_effect($image, $data);
+  }
+
+  return TRUE;
+}
+
+/**
+ * Image effect callback; Reuse a Custom Crop effect.
+ *
+ * @param $image
+ *   An image object returned by image_load().
+ * @param $data
+ *   An array of settings, needed to perform the reuse effect, with the
+ *   following items:
+ *   - "reusestyle": The image style to reuse.
+ *
+ * @return
+ *   TRUE on success, FALSE on failure to reuse the effect.
+ *
+ * @see image_crop_effect()
+ */
+function custom_crop_reuse_effect(&$image, $data) {
+  if (empty($data['reusestyle'])) {
+    return FALSE;
+  }
+
+  // Load the selected image style and gat the first effect.
+  $style = image_style_load($data['reusestyle']);
+  $effect = reset($style['effects']);
+
+  if (_custom_crop_is_own_effect($effect, TRUE)) {
+    // Apply the Custom Crop cropping effect.
+    image_effect_apply($image, $effect);
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+/**
+ * Implements hook_insert_styles().
+ */
+function custom_crop_insert_styles() {
+  $insert_styles = drupal_static(__FUNCTION__);
+
+  if (is_null($insert_styles)) {
+    $insert_styles = array();
+
+    foreach (custom_crop_styles_with_crop() as $style_name => $effect) {
+      $insert_styles['image_' . $style_name] = array(
+        'label' => _custom_crop_image_style_name($style_name),
+      );
+    }
+  }
+
+  return $insert_styles;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Provides integration with the File Entity and Media modules.
+ */
+function custom_crop_form_file_entity_edit_alter(&$form, &$form_state) {
+  if ($form['type']['#value'] == 'image' && !empty($form['preview']['#file'])) {
+    $js_identifier = custom_crop_js_identifier($form['preview']['#file']);
+    $settings = array();
+
+    // Check if the field info is passed.
+    $arg = arg();
+    if ($arg[0] == 'media' && count($arg) > 5) {
+      $field_name = array_pop($arg);
+      $bundle = array_pop($arg);
+      $entity_type = array_pop($arg);
+
+      if (!empty($entity_type) && !empty($bundle) && !empty($field_name)) {
+        // Get the field instance.
+        $instance = field_info_instance($entity_type, $field_name, $bundle);
+
+        if (!empty($instance)) {
+          // A field insatnce was found, use its settings.
+          $settings = $instance['widget']['settings'];
+
+          if (empty($settings['custom_crop_enable'])) {
+            // Custom Crop isn't enabled.
+            return;
+          }
+        }
+      }
+    }
+
+    // Prepare the form.
+    custom_crop_croptool_prepare_form($form, $form_state, $js_identifier, $settings);
+
+    // Add the croptool.
+    custom_crop_croptool_process($form, $form_state, $js_identifier, $form['preview']['#file'], NULL, $settings);
+
+    // Add the submit handler
+    $form['#submit'][] = 'custom_crop_croptool_submit';
+  }
+}

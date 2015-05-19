@@ -1,0 +1,30 @@
+--- C:\xampp\htdocs\stp\sites\all\modules\contrib\quickedit\js\views\EntityToolbarView.js 
++++ C:\Users\Debraj.Naik\Desktop\quickedit\js\views\EntityToolbarView.js 
+@@ -293,7 +293,7 @@
+           // Resize the toolbar to match the dimensions of the field, up to a
+           // maximum width that is equal to 90% of the field's width.
+           .css({
+-            'max-width': (document.documentElement.clientWidth < 450) ? document.documentElement.clientWidth : 450,
++            'max-width': (document.documentElement.clientWidth < 950) ? document.documentElement.clientWidth : 950,
+             // Set a minimum width of 240px for the entity toolbar, or the width
+             // of the client if it is less than 240px, so that the toolbar
+             // never folds up into a squashed and jumbled mess.
+@@ -323,7 +323,7 @@
+       event.stopPropagation();
+       event.preventDefault();
+       // Save the model.
+-      this.model.set('state', 'committing');      
++      this.model.set('state', 'committing');
+     },
+ 
+     /**
+@@ -333,8 +333,7 @@
+      */
+     onClickCancel: function (event) {
+       event.preventDefault();
+-      this.model.set('state', 'deactivating');      
+-      location.reload(); //Edited by debraj
++      this.model.set('state', 'deactivating');
+     },
+ 
+     /**

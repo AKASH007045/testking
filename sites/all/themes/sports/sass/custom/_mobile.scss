@@ -1,0 +1,274 @@
+.container {
+  width: 100%;
+}
+
+/*------------------ IE 10 Start here -------------------*/
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .home-nextgamebg .field-type-image {
+    margin-top: 3px;
+  }
+  body.front .home-nextgamebg {
+    .nextgametx.leftside {
+      padding-top: 2px;
+    }
+    .nextgame-home {
+      padding-top: 3px;
+    }
+  }
+  .timeHolder {
+    top: 1px;
+  }
+}
+
+/*------------------ Other Device Start here -------------------*/
+@media only screen and (min-height: 1250px) {
+  body.front .hero {
+    background-position: 50% 25%;
+  }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (orientation: landscape) {
+  body.front .hero {
+    background-position: 51% 62%;
+  }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (orientation: portrait) {
+  body.front .hero {
+    background-position: 50% 76%;
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  body.front .hero {
+    background-position: 49% 51%;
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  body.front {
+    .hero {
+      background-position: 49% 3%;
+    }
+    .container-fluid .heroHolder {
+      height: 525px;
+      max-height: none;
+    }
+  }
+}
+@media only screen and (max-width: 1024px) {
+    
+}
+@media only screen and (max-width: 1024px) {
+  html body.admin-menu, #block-views-acct-reps-block .profile-detail .col-fixed:last-child {
+    margin-top: 0 !important;
+  }
+  #admin-menu, .highlighted, .event-link-edit, .vjs-paused .vjs-big-play-button, .desktop-logo {
+    display: none !important;
+  }
+  /*Game bar*/
+  .timeHolder {
+    right: 2%;
+  }
+  body.front .home-nextgamebg .nextgametx {
+    &.leftside, &.rightside {
+      width: 38.5%;
+    }
+  }
+  /*Promotile*/
+  .promo-tile .tilehead {
+    min-height: 40px;
+  }
+  /*Existing*/
+  .calendar-calendar {
+    .single-day td > .inner {
+      height: 66px !important;
+    }
+    .month-view .full {
+      tr.single-day .no-entry .inner {
+        height: 66px !important;
+      }
+      td.single-day .inner div {
+        > img {
+         /* height: 66px !important;*/
+        }
+        .field-item {
+          height: 66px;
+        }
+      }
+      tr.single-day.single-day > td {
+        height: 25px !important;
+      }
+      td.single-day div.monthview .sth-other-event {
+        text-align: center;
+      }
+    }
+  }
+  .iPad-logo {
+    display: block;
+  }
+  .home-nextgamebg .nextgamevs {
+    width: 100%;
+  }
+  .promo-tile {
+    .tilehead span {
+      font-size: 0.9em;
+    }
+    padding: 0;
+  }
+  .countdown-promo-tile-days > span.timer-day{
+    font-size: 0.5em;
+  }
+  .countdown-promo-tile-days > span{
+    font-size: 0.4em;
+  }
+}
+@media only screen and (max-width: 992px) {
+  .countdown-promo-tile-days > span.timer-day{
+    font-size: 0.35em;
+  }
+  .countdown-promo-tile-days > span{
+    font-size: 0.35em;
+  }
+}
+@media only screen and (max-width: 885px) {
+  .bottomBarInner {
+    margin:0;
+  }
+}
+
+@media only screen and (max-width: 860px) {
+  body.front .home-nextgamebg .nextgametx.leftside {
+    width: 22.5%;
+  }
+  .gamelogo-section {
+    left: 36%;
+  }
+  body.front .home-nextgamebg .nextgametx.rightside {
+    width: 50.5%;
+  }
+  .home-nextgamebg .nextgametx {
+    font-size: 1.3em;
+  }
+  .timeHolder {
+    right: 0;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .row {
+    margin: 0;
+  }
+  .navbar-default .navbar-collapse {
+    padding-left: 68px;
+  }
+  .promo-tile {
+    .tilehead span {
+      font-size: 0.9em;
+    }
+    padding: 0;
+  }
+  .countdown-promo-tile-days > span {
+    &.timer-day {
+      height: 78px;
+      line-height: 2.2em;
+      font-size: 0.6em;
+    }
+    font-size: 23px;
+  }
+  .countdown-promo-tile-title {
+    font-size: 1.6em;
+    padding-left: 5px;
+    padding-top: 1.75em;
+  }
+  .promo-tile .tilehead a.social {
+    width: auto;
+    padding: 0.3em 0.2em 0.35em;
+  }
+  .next-previous {
+    width: 96%;
+  }
+  .event-gallary-big-box, body.admin-menu .navbar-default .dropdown-menu, iframe.pdf {
+    width: 100%;
+  }
+  #block-views-acct-reps-block .profile-detail .col-fixed:last-child {
+    margin-top: 0;
+  }
+  .main-wrap .highlighted {
+    display: none !important;
+    border: solid 1px #F00;
+  }
+  .event-gallary-thumb-slider .view-event-slider .view-content ul .views-row {
+    width: 181px;
+  }
+  html body.admin-menu {
+    margin-top: 0 !important;
+  }
+  .video-js.vjs-default-skin {
+    &.vjs-playing, &.vjs-paused {
+      width: 100% !important;
+    }
+  }
+  #block-views-tab-pages-block ul.nav-tabs li a {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .calendar-calendar {
+    .single-day td > .inner, .month-view .full tr.single-day .no-entry .inner {
+      width: 106px;
+    }
+    .cal-team-name, .cal-time {
+      font-size: 1.4em;
+    }
+  }
+  .sth-calendar .date-nav-wrapper .date-nav, .page-season-schedule .date-nav-wrapper .date-nav {
+    width: 50%;
+  }
+  /*Calender*/
+  .calendar-legend-left {
+    width: 40%;
+  }
+  #modal_bootstrap {
+    .modal-dialog {
+      width: 750px;
+    }
+    margin-left: -375px;
+  }
+  .calendar-legend-right {
+    width: 60%;
+    .first {
+      width: 62%;
+    }
+    .last {
+      width: 38%;
+    }
+  }
+  .calendar-calendar {
+    .month-view .full tr.single-day.single-day > td:first-child .inner {
+      width: 106px;
+    }
+    td div.day {
+      border-bottom-width: 1px;
+    }
+  }
+  /*Existing*/
+  .modal-content {
+    background-color: black;
+    width: 100%;
+  }
+  .modal-body {
+    width: 100%;
+  }
+  .modal.fade.in {
+    top: -30px;
+  }
+  .calendar-calendar .month-view .full td.single-day div.monthview .sth-other-event {
+    text-align: center;
+  }
+  .countdown-promo-tile-days > span.timer-day{
+    font-size: 0.35em;
+  }
+  .countdown-promo-tile-days > span{
+    font-size: 0.3em;
+  }
+}

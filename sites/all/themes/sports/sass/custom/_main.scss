@@ -1,0 +1,931 @@
+/** Calender Page Start here **/
+/*.sth-calendar{margin-top:35px;}*/
+
+.view-header {
+  position: relative;
+  > ul {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9;
+    padding-left: 0;
+    li {
+      margin: 0;
+      padding: 0;
+      float: left;
+      list-style: none;
+      &.active {
+        padding: 10px 20px;
+        text-decoration: underline;
+      }
+      a {
+        display: inline-block;
+        padding: 10px 20px;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.sth-calendar .date-nav-wrapper .date-nav, .page-season-schedule .date-nav-wrapper .date-nav {
+  margin-bottom: 0;
+  padding-bottom: 0; 
+  width: 42%;
+  background-color: transparent;
+  border: 0px;
+  margin: 0 auto;
+  height: auto;
+  min-height: 30px;
+  position: relative;
+}
+
+.sth-calendar {
+  .calendar-calendar {
+    thead tr, th.days {
+      background: none;
+      font-size: 1.41em;
+      font-weight: normal;
+      text-transform: uppercase;
+    }
+  }
+  .month-view .full td {
+    &.single-day.empty, &.date-box.empty {
+      background: none;
+      font-size: 1.41em;
+      font-weight: normal;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.view-header {
+  .date-nav-wrapper .date-heading {
+    position: relative;
+    width: 100%;
+    top: 0px;
+    text-align: center;
+    z-index: 0;
+    h3 {
+      line-height: 1em;
+      font-size: 2.6em;
+      font-weight: normal;
+      text-transform: uppercase;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  .pager {
+    float: left;
+    margin: 17px 0;
+  }
+  .date-nav-wrapper li {
+    &.date-prev, &.date-next {
+      padding: 0px;
+      top: -19px;
+      background: none;
+    }
+  }
+  .pager li {
+    &.date-prev > a, &.date-next > a {
+      width: 40px;
+      height: 60px;
+      border: none;
+      opacity: 1;
+      font-size: 0px;
+      -webkit-transition: none;
+      -moz-transition: none;
+      transition: none;
+      filter: none;
+    }
+  }
+}
+
+#block-views-acct-reps-block .view-acct-reps a {
+  &.left, &.right {
+    width: 40px;
+    height: 60px;
+    border: none;
+    opacity: 1;
+    font-size: 0px;
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
+    filter: none;
+  }
+  &.left .icon-prev, &.right .icon-next {
+    display: none;
+  }
+}
+
+.view-header .date-nav-wrapper .date-prev {
+  left: 0;
+  right: inherit;
+}
+
+.month-view > table {
+  border-collapse: collapse;
+}
+
+.sth-calendar table .date-box td {
+  min-height: 36px;
+  height: auto !important;
+  height: 36px;
+}
+
+.sth-cal-poup .pouptopwrap {
+  float: left;
+  width: 100%;
+}
+
+.team-info.event {
+  z-index: 99;
+  cursor: pointer;
+}
+
+.pouptopwrap .sthevent-image .more-info, .sthevent-body.openpop, .sthevent-form.openpop, .vr-seat-view-wrapper .content .seat-info-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.pouptopwrap .more-info, .event-gallary-big-box .sthevent-image .more-info {
+  padding: 120px 70px 17px 70px;
+  z-index: 15;
+  display: none;
+}
+
+.vr-seat-view-wrapper .content .seat-info-box {
+  padding: 120px 70px 17px 70px;
+  z-index: 15;
+  display: none;
+  top: 44px;
+  padding-top: 80px;
+}
+
+.move-np.node.node-webform {
+  padding: 80px 80px 17px 80px;
+}
+
+.pouptopwrap .sthevent-image, .event-gallary-big-box .sthevent-image {
+  position: relative;
+}
+
+.pouptopwrap {
+  .toplogolft, .topvscnt, .toplogorgt {
+    float: left;
+    display: inline-block;
+    text-align: center;
+  }
+  .vslogo {
+    min-height: 110px;
+    margin-bottom: 15px;
+    display: inline-table;
+  }
+  .ppcntname {
+    clear: both;
+    display: block;
+    font-size: 1.355em;
+  }
+  .toplogolft, .toplogorgt {
+    width: 50%;
+  }
+}
+
+.modal-body {
+  padding: 0;
+  width: 990px;
+  height: auto;
+  float: left;
+}
+
+.pouptopwrap {
+  .topvscnt {
+    width: 10%;
+    font-size: 3.333em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+    margin-top: -34px;
+    margin-left: -40px;
+  }
+  .toplogolft:hover, .toplogorgt:hover {
+    text-decoration: none;
+  }
+}
+
+.modal-content {
+  z-index: 100;
+}
+
+.modal {
+  overflow: auto;
+  &.fade.in {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.calendar-calendar {
+  .modal-dialog {
+    top: 0;
+    left: 0;
+    width: 992px;
+    margin: 0;
+  }
+  .poupatstud {
+    width: 65%;
+    float: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+.event-gallary-big-box .poupatstud {
+  width: 65%;
+  float: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.calendar-calendar .poupatstud > div, .event-gallary-big-box .poupatstud > div {
+  float: left;
+}
+
+.calendar-calendar .poupatstud > span, .event-gallary-big-box .poupatstud > span {
+  text-transform: uppercase;
+}
+
+.calendar-calendar .pptic-evt, .event-gallary-big-box .pptic-evt {
+  width: 35%;
+  float: left;
+  text-align: right;
+  font-size: 0.85em;
+  text-transform: uppercase;
+}
+
+.calendar-calendar .pptic-evt a.active, .event-gallary-big-box .modal-header .pptic-evt a.active, #modal_bootstrap .mgTicket a.active {
+  visibility: visible;
+  width: 52px;
+  height: 36px;
+  overflow: hidden;
+  display: inline-block;
+  font-size: 0;
+}
+
+.vr-seat-view-wrapper .content .seatview-dd .mInfo a.active {
+  visibility: visible;
+  width: 52px;
+  height: 30px;
+  overflow: hidden;
+  display: inline-block;
+  font-size: 0;
+  margin-bottom: -8px;
+  margin-top: -4px;
+}
+
+.calendar-calendar .pptic-evt .mgTicket, .event-gallary-big-box .pptic-evt .mgTicket {
+  border-right: 1px solid grey;
+}
+
+.calendar-calendar .pptic-evt .mgTicket:nth-last-child(2), .event-gallary-big-box .pptic-evt .mgTicket:nth-last-child(2) {
+  border: none;
+}
+
+.calendar-calendar .pptic-evt .closePopup, .event-gallary-big-box .pptic-evt .closePopup {
+  width: 29px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.calendar-calendar .pptic-evt > div, .event-gallary-big-box .pptic-evt > div {
+  display: inline-block;
+  padding: 0 15px;
+}
+
+.calendar-calendar .pptic-evt .closePopup {
+  display: inline-block;
+  margin-bottom: -5px;
+}
+
+.event-gallary-big-box .pptic-evt > div:last-child {
+  padding-right: 0;
+}
+
+.container-fluid .view-content .game-popup {
+  position: absolute;
+}
+
+.calendar-calendar {
+  .month-view .full td.date-box .inner, .week-view .full td.date-box .inner {
+    float: left;
+  }
+  .month-view .full td.single-day .inner div {
+    > img {
+      width: 140px;
+      height: 107px;
+    }
+    .team-info.event img {
+      width: 18px;
+      height: 17px;
+      margin-top: 28px;
+    }
+    .field-item {
+      height: 107px;
+    }
+  }
+  .cal-team-name {
+    width: 45%;
+    float: left;
+    bottom: 0;
+    position: absolute;
+    font-size: 1.75em;
+    padding: 0 3px !important;
+    font-weight: normal;
+  }
+  .cal-time {
+    width: 55%;
+    float: right;
+    text-align: right;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    font-size: 1.75em;
+    padding: 0 2px !important;
+    font-weight: normal;
+  }
+  .month-view .full td, .week-view .full td, .day-view td {
+    padding: 0;
+  }
+  .month-view .full td .inner div.day {
+    text-align: left;
+    padding-left: 6px;
+    font-size: 1.285em;
+    a {
+      text-align: left;
+      padding-left: 6px;
+      font-size: 1.285em;
+    }
+  }
+}
+
+.sth-calendar .month-view .full td.date-box.empty {
+  .month.day {
+    padding: 0 5px;
+    display: none;
+  }
+  padding-top: 0;
+}
+
+.calendar-calendar {
+  .field-item {
+    height: 28px;
+  }
+  .month-view {
+    .date-box > td {
+      height: 40px !important;
+    }
+    .full {
+      tr {
+        &.single-day.single-day > td {
+          height: 71px !important;
+          .inner .item:nth-child(2) {
+            position: absolute;
+            top: 0;
+            overflow: hidden;
+          }
+        }
+        td {
+          &.single-day.today, &.date-box.today {
+            border: none;
+          }
+        }
+        &.single-day.single-day > td {
+          &:first-child .inner {
+            width: 143px;
+          }
+          .inner {
+            z-index: 2;
+          }
+        }
+      }
+      td.date-box {
+        padding-bottom: 0;
+      }
+      tr.date-box > td.inner {
+        z-index: 3;
+      }
+    }
+  }
+  .single-day td > .inner {
+    width: 143px;
+    height: 112px !important;
+    position: absolute;
+    top: -40px;
+    left: inherit;
+  }
+  .month-view {
+    .full tr.single-day .no-entry .inner {
+      width: 143px;
+      height: 112px !important;
+      position: absolute;
+      top: -40px;
+      left: inherit;
+    }
+    table {
+      margin-bottom: -1px;
+    }
+    .full {
+      td {
+        position: relative;
+      }
+      tr td {
+        &.multi-day .inner, &.date-box .inner {
+          z-index: 3;
+          position: relative;
+        }
+      }
+      td.single-day div.monthview {
+        background: transparent;
+      }
+    }
+  }
+  .week-view .full td.single-day div.weekview, .day-view .full td.single-day div.dayview {
+    background: transparent;
+  }
+}
+
+@media all and (-ms-high-contrast: none) {
+  .calendar-calendar {
+    .single-day td > .inner, .month-view .full tr.single-day .no-entry .inner {
+      top: -37px;
+      height: 109px !important;
+    }
+  }
+  /* IE10 */
+  *::-ms-backdrop {
+    top: -37px;
+    height: 109px !important;
+  }
+  .calendar-calendar {
+    .single-day td > .inner, .month-view .full tr.single-day .no-entry .inner {
+      top: -37px;
+      height: 109px !important;
+    }
+  }
+  /* IE11 */
+  .bottomBarInner .gamelogo {
+    display: inline-block;
+  }
+}
+
+.calendar-legend {
+  z-index: 10;
+  margin-bottom: 38px;
+}
+
+.calendar-legend-left {
+  width: 50%;
+  float: left;
+  height: 42px;
+}
+
+.calendar-legend-right {
+  width: 50%;
+  float: right;
+}
+
+.calendar-legend-left > span {
+  margin: 12px 10px;
+}
+
+.calendar-legend span {
+  font-size: 1em;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 2px 15px 0 30px;
+  line-height: 18px;
+}
+
+.calendar-legend-right {
+  margin: 0;
+  padding: 0;
+  > li {
+    float: left;
+    button {
+      width: 100%;
+    }
+  }
+  .first {
+    width: 60%;
+  }
+  .last {
+    width: 40%;
+  }
+}
+
+/* Event Gallery CSS Starts Here */
+
+body.node-type-event .carousel-control, .pouptopwrap .sthevent-image .carousel-control {
+  width: 45px;
+  height: 70px;
+  top: 46%;
+  opacity: 1;
+  text-indent: -9999px;
+  display: none;
+}
+
+.event-gallary-big-box {
+  width: 992px;
+  border: 2px solid $mid-gry;
+  position: relative;
+  border-radius: 0;
+  .modal-header {
+    height: 70px;
+    font-size: 1.7857em;
+    line-height: 1.6em;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 19;
+    width: 100%;
+  }
+}
+
+#modal_bootstrap .modal-header {
+  height: 70px;
+  font-size: 1.7857em;
+  line-height: 1.6em;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 19;
+  width: 100%;
+}
+
+.calendar-calendar .cal-game-result {
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  font-size: 1.75em;
+  padding: 0 3px !important;
+  font-weight: normal;
+}
+
+.event-gallary-thumb-slider {
+  margin-top: 25px;
+  .view-event-slider .view-header {
+    display: none;
+  }
+}
+
+.event-gallary-big-box .carousel-indicators, .iPad-logo {
+  display: none;
+}
+
+.event-gallary-thumb-slider .view-event-slider .view-header .buttons {
+  position: absolute;
+  bottom: 0;
+  width: 28px;
+  height: 95px;
+  z-index: 100;
+  top: 0px;
+  text-indent: -9999px;
+}
+
+.buttons {
+  &.next.disable, &.prev.disable {
+    opacity: .6;
+  }
+}
+
+.event-gallary-thumb-slider {
+  .view-event-slider .view-header .buttons.prev {
+    left: 0px;
+  }
+  .view-id-event_slider.slide:hover .view-header {
+    display: block;
+  }
+  .view-event-slider .view-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 0;
+    height: 95px;
+    position: relative;
+  }
+  .view-content > div {
+    overflow: hidden;
+    max-width: 1024px;
+    height: 95px;
+  }
+  .view-event-slider .view-content ul .views-row {
+    width: 195px;
+    height: 93px;
+    position: relative;
+    margin: 0 2px;
+    list-style-type: none;
+    float: left;
+    overflow: hidden;
+    .tilehead {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1;
+    }
+    aside.active .tilehead {
+      display: none;
+    }
+    .tilehead a > div {
+      text-align: left;
+      padding: 1px 15px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+}
+
+.nextgame-timer .countdownHolder > * {
+  float: left;
+  margin-right: 2px;
+}
+
+body .home-nextgamebg {
+  .nextgametx {
+    &.leftside {
+      width: 42.5%;
+      text-align: right;
+    }
+    &.rightside {
+      width: 42.5%;
+    }
+  }
+  .nextgame-away {
+    font-size: 1.428em;
+    width: 25px;
+    text-align: center;
+  }
+  .nextgame-home {
+    font-size: 1.4285em;
+    padding-top: 1.5px;
+  }
+}
+
+.nextgame-timer {
+  float: right;
+  width: 197px;
+}
+
+.countdownHolder {
+  letter-spacing: -11px;
+  line-height: 1.18;
+}
+
+.nextgame-timer .date_label {
+  letter-spacing: 0.1px;
+  display: block;
+  padding-top: 7px;
+  padding-bottom: 1px;
+  text-align: left;
+  font-size: 11px;
+}
+
+.bottomBar {
+  position: relative;
+  text-shadow: 1px 1px 1px #000000;
+}
+
+.bottomBarInner {
+  display: table;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.view-content .month-view {
+  position: relative;
+}
+
+.timeHolder {
+  position: absolute;
+  right: 215px;
+  top: 1px;
+  width: 205px;
+}
+
+.countDiv {
+  width: 7px;
+  height: 1.6em;
+  font-size: 19px;
+  &:before {
+    top: 1.9em;
+  }
+  &:after {
+    top: 2.4em;
+  }
+}
+
+.digit {
+  box-shadow: none;
+  background: none;
+  width: auto;
+  font-size: 31px;
+  &.static {
+    box-shadow: none;
+    background: none;
+    width: auto;
+    font-size: 31px;
+  }
+}
+
+.position {
+  height: 2.4em;
+  width: 1.25em;
+  float: left;
+}
+
+.countDiv.countDiv3 {
+  display: none;
+}
+
+.promo-tile .tilehead > div {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.page-season-schedule .view-content .panel-group .panel-collapse .panel-body .topvscnt {
+  left: 50%;
+  margin-left: -20px;
+}
+
+.calendar-legend .cal-event-legend {
+  padding-left: 26px;
+}
+
+body.node-type-contact-us .main-wrap .node-contact-us {
+  background: none;
+}
+
+/*------------------inline-edit Start Here --------------*/
+
+.indication-popup {
+  .modal-content {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    #custom-admin-update-promo-tile-form {
+      margin-bottom: 30px;
+      margin-top: 15px;
+    }
+  }
+  .ctools-modal-dialog .modal-content {
+    float: left;
+    padding: 20px;
+  }
+  #custom-admin-update-promo-tile-form {
+    .field-type-image label {
+      margin-top: 20px;
+      font-weight: normal;
+    }
+    div.image-widget-data {
+      float: inherit;
+      margin-top: 20px;
+      .file {
+        margin-left: 1.5em;
+      }
+      .file-size {
+        padding: .0em .2em .0em .2em;
+      }
+      .btn-danger {
+        float: right;
+      }
+    }
+    .form-type-textfield .form-control {
+      width: 63%;
+    }
+  }
+}
+
+#block-workbench-block {
+  display: none;
+}
+
+.indication-popup {
+  .vertical-tabs {
+    display: none;
+  }
+  .modal-content #custom-admin-update-promo-tile-form {
+    #edit-preview, #edit-delete {
+      display: none;
+    }
+  }
+  #custom-admin-update-promo-tile-form .field-type-image .file a {
+    display: none;
+  }
+}
+
+.main-wrap .tabs--primary > li {
+  &.moderate, &.access-control {
+    display: none;
+  }
+}
+
+.indication-popup .modal-content #custom-admin-update-promo-tile-form #edit-field-link .link-attributes {
+  margin-top: 20px;
+}
+
+#modalContent {
+  .indication-popup .modal-header .popups-close .close {
+    height: 28px;
+    width: 29px;
+    text-indent: -300px;
+    overflow: hidden;
+    margin-right: 12px;
+  }
+  top: 15% !important;
+}
+
+.bottom-promo-tile {
+  position: relative;
+}
+
+.main-wrap .region-content .node-take-over-pages.node {
+  padding: 0;
+  min-height: 400px;
+}
+
+.form-type-managed-file .form-file {
+  width: 210px;
+}
+
+.field-type-image button.btn-default, .field-type-file button.btn-default {
+  float: right;
+  text-transform: capitalize;
+  font-size: 14px;
+  border-top-left-radius: 6px !important;
+  border-bottom-left-radius: 6px !important;
+}
+
+.bottom-promo-tile input[type=file] {
+  color: transparent;
+}
+
+.ajax-progress .glyphicon.glyphicon-refresh {
+  font-size: 85%;
+}
+#overlay .btn, #edit-field-pdf .btn, #edit-field-video .btn  { -moz-border-radius: 6px;    -webkit-border-radius: 6px;    border-radius: 6px; padding:3px 10px;}
+
+/*-----------------------------------Inline-edit End Here------------------------------*/
+
+/*-----------------------------------Sticky Footer Start Here------------------------------*/
+.main-container {
+    min-height:100%;
+    position:relative;
+    > .main-wrap {
+        padding-bottom:310px;   /* Height of the footer element */
+    }
+    > .promo-tile{
+        width:100%;
+        height:225px;
+        position:absolute;
+        bottom:85px;
+        left:0;
+    }
+    > .footer-copyright {
+        width:100%;
+        height:85px;
+        position:absolute;
+        bottom:0;
+        left:0;
+    }
+}
+body.page-user-login,body.page-node-1175 { 
+    .main-container > .main-wrap{
+       padding-bottom:85px;
+    }
+}
+body.overlay{
+    .main-container > .main-wrap{
+        padding-bottom:0;   /* Height of the footer element */
+    }
+}
+/*-----------------------------------Sticky Footer End Here------------------------------*/
+
+/*  PAWP CSS  */
+
+.page-pawp .container-fluid .main-wrap section.block form div{margin:0px 0px 15px 0px;}
+.page-pawp .container-fluid .main-wrap section.block .form-group{margin:0px;}
+.page-pawp .container-fluid .main-wrap section.block button.btn-default{margin:0px 0px 25px 0px;line-height:40px;min-width:150px;outline:none;}
+.page-pawp header{display:none;}
+.page-pawp section.promo-tile, .page-pawp footer.footer-copyright{opacity:0.3}
+.page-pawp section.promo-tile a, .page-pawp footer.footer-copyright a, .page-pawp .promo-tile .tilehead a.social{cursor:default;}
+.page-pawp section.promo-tile a:hover, .page-pawp footer.footer-copyright a:hover{text-decoration:none;}
+.page-pawp .container-fluid > section.main-wrap{min-height:780px;}
+.page-pawp .promo-tile .promo-box.regular a.promo-link:hover .second{background:none;}
+.page-pawp #user-login #edit-form-description{padding:20px 0px 0px 0px;}

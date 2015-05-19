@@ -1,0 +1,141 @@
+.infoPanelwrap, 
+.season-invoice-detail, 
+.payment-amount-box, 
+.thankyou-footer {position:relative;padding-bottom:20px;}
+
+.infoPanelwrap, 
+.amountduewrap, 
+.season-invoice-detail, 
+.payment-user-form-wrapper, 
+.payment-thankyou-wrapper, 
+.payment-amount-box, 
+.payment-unsuccessful {float:left;width:100%;}
+
+.season-invoice-detail {padding:0px 22px 40px 22px;}
+.payment-amount-box {padding:38px 0px 60px 0px;}
+.payment-amount-box .amount-due label, 
+.payment-amount-box .amount-due .ttlamt {font-weight: normal;}
+
+.payment-amount-box .amount-due label {margin-top:13px;margin-bottom:0;float:left;}
+.payment-amount-box .amount-due .ttlamt {font-size:1.855em;float:right;}
+.payment-amount-box .make-payment-wrapper {float:left;margin-top:7px;width:100%;}
+.payment-amount-box .amount-due .make-payment-wrapper label {margin-top:3px;}
+.make-payment-wrapper button.form-submit {float:right;margin-top:12px;}
+.season-invoice-detail .ticketTable {width: 100%;text-align: left;margin-bottom:35px;}
+.season-invoice-detail .ticketTable tbody tr td { font-family:inherit; border:none; padding:5px 0px;}
+.season-invoice-detail .ticketTable tbody td:last-child {text-align:right;}
+
+.amountduewrap, 
+.payment-user-form-wrapper, 
+.payment-thankyou-wrapper, 
+.payment-unsuccessful {min-height:280px;padding:35px 0px;}
+
+.payment-thankyou-wrapper, 
+.payment-unsuccessful {text-align:center;letter-spacing:1px;}
+
+.payment-thankyou-wrapper h1, 
+.payment-unsuccessful h1 {margin-top:28px;margin-bottom:8px;}
+
+.payment-thankyou-wrapper h2, 
+.payment-unsuccessful h2 {margin-top:0;margin-bottom:20px;font-size:22px;}
+
+.thankyou-footer {min-height:200px;}
+.amountduewrap {padding:25px 22px;}
+
+.amountduewrap .amountdueinfo, 
+.amountduewrap .amountduettl {float: right;width: 58.555%;padding-top:5px;padding-bottom:25px;}
+
+.amountduewrap .amountdueinfo .contactInfoRight, 
+.amountduewrap .amountduettl .amountInfoRight {text-align:right;padding-right:0;}
+
+.amountduewrap .amountduettl .deadlineTxt {font-size:0.85em;margin-top:-8px;}
+
+.infoPanelwrap h2, 
+.amountduewrap h2 {font-size:1.855em;margin-top:25px;}
+
+#block-custom-block-invoice-page .accountnbr {float:left;font-size:1.855em;}
+.infoPanelwrap .dedicateserrep {float:right;width:292px;padding:26px 0px 30px 16px;}
+.infoPanelwrap .dedicateserrep .imgpics {left:16px;top:24px;position: absolute;}
+.infoPanelwrap .dedicateserrep h5.dsr {float:right;padding-bottom:3px;padding-left:6px;padding-right:15px;width:68%;margin-bottom:0;margin-top:0;clear: both;}
+.infoPanelwrap .acc-hol-name {float:right;width:62%;}
+.infoPanelwrap .acc-hol-name h5 {margin-bottom:2px;}
+
+.infoPanelwrap .acc-hol-name .useadd, 
+.infoPanelwrap .acc-hol-name .mail {margin-bottom:5px;font-size:.85em;clear:both;}
+
+.infoPanelwrap .acc-hol-name .mail {display:inline-block;}
+.infoPanelwrap .namecntinf {padding-left:22px;}
+.infoPanelwrap .account-panel {float:left;width:285px;}
+.payment-user-form-wrapper label {float:left;margin-top:4px;}
+
+.payment-user-form-wrapper .form-group, 
+.payment-user-form-wrapper .conf-email {margin-bottom:7px;float:left;width:100%;}
+
+.payment-user-form-wrapper .conf-email {font-size:.85em;margin-top:14px;}
+.season-invoice-detail .btnprint {margin-left:6px;}
+
+.payment-user-form-wrapper .form-control, 
+.payment-amount-box .form-control {float:right;width:197px;height:28px;padding:4px 20px 4px 5px;}
+
+.payment-user-form-wrapper .form-type-select select#edit-ctype {padding: 0;height: 0;border: none;}
+
+.payment-user-form-wrapper .form-group .DivSelectyze .selectyzeValue, 
+.payment-user-form-wrapper .conf-email .selectyzeValue {width:197px;height:28px;padding-left: 12px;}
+
+.payment-user-form-wrapper .form-group .DivSelectyze .UlSelectize, 
+.payment-user-form-wrapper .conf-email .UlSelectize {width:197px;top:27px;overflow-y: auto !important;max-height:210px;}
+
+.payment-user-form-wrapper .form-group .DivSelectyze .UlSelectize, 
+.payment-user-form-wrapper .conf-email .UlSelectize{max-height:180px !important;overflow-y:scroll !important;-webkit-overflow-scrolling: touch !important;}
+
+.payment-user-form-wrapper .form-group .DivSelectyze .UlSelectize li a, 
+.payment-user-form-wrapper .conf-email .UlSelectize li a {padding:4px 5px 4px 12px;font-size:14px;}
+
+.payment-user-form-wrapper .form-item-Avs-postal-code .form-control, 
+.payment-user-form-wrapper .form-item-exp-date .form-control, 
+.payment-user-form-wrapper .form-item-cin .form-control {width:76px;}
+
+.page-invoice-payment .main-wrap #block-system-main {position:relative;}
+.page-invoice .main-wrap .block-system {margin-bottom:190px;}
+.page-invoice-payment .main-wrap #block-system-main div.error {background:none;border:none;position:absolute;left:82px;bottom:-20px;font-size:.85em;}
+.page-invoice-payment .main-wrap #block-system-main div.error .close {display:none;}
+.page-invoice-payment .payment-user-form-wrapper .required-error {position: absolute;bottom: -28px;left: 15px;font-size: .85em;}
+
+.payment-thankyou-wrapper h1, .payment-unsuccessful h1 {font-size: 53px;}
+.page-invoice-payment .form-item-payment-plan-id label.control-label { font-size: 22px; font-weight: normal; margin-bottom: 22px;}
+.page-invoice-payment .form-item-payment-plan-id .DivSelectyze {float: left; margin-bottom: 8px; position: relative; z-index: 9 !important;}
+.infoPanelwrap .namecntinf {width: 32%;}
+
+.make-payment-wrapper .form-group{overflow:hidden;}
+
+.main-wrap .table-striped > tbody > tr:nth-child(2n+1) > td, .main-wrap .table-striped > tbody > tr:nth-child(2n+1) > th, .main-wrap .table-hover > tbody > tr:hover > td, .main-wrap .table-hover > tbody > tr:hover > th{background-color:transparent;}
+
+#plansbreif{clear:both;}
+
+/*-----------------------------------Selectyze Start Here------------------------------*/
+
+.DivSelectyze {position:relative;float:right;}
+.DivSelectyze .selectyzeValue {position:relative;z-index:10;display:block;text-decoration:none;}
+.DivSelectyze ul {list-style:none;}
+.DivSelectyze .UlSelectize {position:absolute;z-index:9999;display:none;}
+.DivSelectyze li a {display:block;text-decoration:none;}
+.optgroupTitle {display:block;}
+.css3 .selectyzeValue {font-size:14px; line-height:29px; padding: 0 30px 0 5px;width:200px;height:27px; text-align: left;white-space:nowrap;text-overflow: ellipsis;overflow:hidden;}
+.css3 .UlSelectize {top:26px;left:0;width:200px;padding-left:0; max-height: 130px;overflow-y: auto !important;}
+.css3 .UlSelectize li{padding-left: 0;margin-left: 0;}
+.css3 li a {font-size: 12px;background-color:transparent;padding:3px 5px;text-align:left;}
+.css3 .optgroupTitle {margin-top:15px;font-size:17px;font-style:italic;padding-left:10px;font-weight:700}
+.front #modal-content .card-panel .form-item-ctype .DivSelectyze  {display:none;}
+.front #modal-content .card-panel .form-item-ctype div.css3  {display:block !important;margin-bottom:7px;}
+.personal-info #plansloading { text-align:center;}
+
+@media only screen and (max-width : 1024px) {
+	.dropdown-menu, .dropdownmenu {top:auto;}
+	.infoPanelwrap .namecntinf {float: left; width: 32%;}
+	.infoPanelwrap .account-panel{width:200px;}
+	.personal-info.card-panel{float:right}
+}
+
+@media only screen and (max-width : 768px) { 
+	.payment-user-form-wrapper .form-item-exp-date .form-control{margin-left:5px;}
+}

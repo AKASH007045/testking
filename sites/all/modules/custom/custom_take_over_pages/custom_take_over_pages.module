@@ -1,0 +1,124 @@
+<?php
+
+// @file
+
+
+/**
+* Implements hook_user_login().
+*/
+function custom_take_over_pages_user_login(&$edit, $account) {
+ // module_load_include('inc', 'custom_take_over_pages', 'custom_take_over_pages.pages');
+  if (!user_access('Editor') && !user_access('Site Admin')){
+    $destination = custom_take_over_page_check_page();
+    if($destination) {
+      $_GET['destination'] = $destination;
+    }
+    else{
+      $_GET['destination'] = '';
+    }
+  }
+}
+
+
+function custom_take_over_page_check_page() {
+  global $user;
+  $takeovers = db_query("SELECT d.entity_id, o.field_occurence_value, UNIX_TIMESTAMP(d.field_run_from_value2) as timestamp FROM {field_data_field_run_from} d
+  INNER JOIN {field_data_field_occurence} o ON d.entity_id = o.entity_id
+  INNER JOIN {node} n on n.nid = d.entity_id WHERE d.bundle = 'take_over_pages' AND UNIX_TIMESTAMP(d.field_run_from_value2) > :time  and n.status = 1 ORDER BY d.field_run_from_value, d.field_run_from_value2", array(':time' => time()))->fetchAll();
+  foreach ($takeovers as $key => $takeover) {
+    if ($takeover->field_occurence_value == 1) {
+      $appearance = db_query("SELECT id FROM {tm_take_over} WHERE  acct_id = :uid AND nid = :nid", array(':uid' => $user->uid, ':nid'=> $takeover->entity_id))->fetchField();
+      if (!$appearance) {
+        //custom_take_over_insert_data($takeover->entity_id, $user->uid);
+        return 'node/' .$takeover->entity_id;
+      }
+    }
+    else {
+      return 'node/' . $takeover->entity_id;
+    }
+  }
+}
+function custom_take_over_pages_form_alter(&$form, &$form_state, $form_id) {
+    global $base_path;
+    $path = drupal_get_path('theme','sports');    
+    if ($form_id == 'take_over_pages_node_form') {
+      $form['#validate'][] = 'custom_add_take_over_validate';
+      drupal_add_js('jQuery(document).ready(function () {
+        if (jQuery("#edit-field-select-layout-und-1").is(":checked")){
+          jQuery(".to-img1").addClass("active");
+        }
+        if (jQuery("#edit-field-select-layout-und-2").is(":checked")){
+            jQuery(".to-img2").addClass("active");
+        }
+        if (jQuery("#edit-field-select-layout-und-3").is(":checked")){
+            jQuery(".to-img3").addClass("active");
+        }
+        jQuery("#edit-field-select-layout .form-radio").change(function() {
+            if (jQuery("#edit-field-select-layout-und-1").is(":checked")) {
+                jQuery(".to-img1").addClass("active");
+                jQuery(".to-img2").removeClass("active");
+                jQuery(".to-img3").removeClass("active");
+            }
+            if (jQuery("#edit-field-select-layout-und-2").is(":checked")) {
+                jQuery(".to-img2").addClass("active");
+                jQuery(".to-img1").removeClass("active");
+                jQuery(".to-img3").removeClass("active");
+            }
+            if (jQuery("#edit-field-select-layout-und-3").is(":checked")) {
+                jQuery(".to-img3").addClass("active");
+                jQuery(".to-img1").removeClass("active");
+                jQuery(".to-img2").removeClass("active");
+            }
+        });             
+        });',
+        array('type' => 'inline', 'scope' => 'footer', 'weight' => 5)
+      );
+      $form['field_run_from']['und'][0]['#title'] = '<div class="date-duration">Duration</div> <label class="date-label">Start Date:</label>';
+      $form['body']['#prefix'] = '<div style="display:none;">';
+      $form['body']['#suffix'] = '</div>';
+      $form['field_bottom_text']['#prefix'] = '<div style="display:none;">';
+      $form['field_bottom_text']['#suffix'] = '</div>';
+      $form['field_select_layout']['und']['#options'][1] = 'Top and Bottom Text with One Button <div class="to-img1"><img src="'.$base_path.$path.'/images/layout-1.png'.'"></div>';
+      $form['field_select_layout']['und']['#options'][2] = 'Top and Bottom Text with Two Buttons <div class="to-img2"><img src="'.$base_path.$path.'/images/layout-2.png'.'"></div>';
+      $form['field_select_layout']['und']['#options'][3] = 'Video Takeover <div class="to-img3"><img src="'.$base_path.$path.'/images/video-player-icon.png'.'"></div>';
+      unset($form['actions']['delete']);
+    }
+}
+
+function custom_add_take_over_validate($form, $form_state) {
+    $data = $form_state['values']; 
+    $time = time();
+    $start_date = strtotime($data['field_run_from']['und'][0]['value']);
+    $end_date = strtotime($data['field_run_from']['und'][0]['value2']);
+    if($end_date < $start_date){
+      form_set_error('end_date','End Date must be greater than Start date.');
+    }
+    if($end_date < $time){
+      form_set_error('end_date','End Date must be greater than current date');
+    }    
+}
+
+function custom_take_over_insert_data($nid, $uid){
+    global $user;
+   db_insert('tm_take_over')
+    ->fields(
+    array(
+      'acct_id' => $uid,
+      'nid' => $nid,
+    )
+  )
+  ->execute();
+}
+
+function custom_take_over_pages_node_view($node, $view_mode, $langcode) {
+  global $user;
+  if ($node->type == "take_over_pages")  {
+    if ($node->field_occurence['und']['0']['value'] == 1 && !user_access('Editor')) {
+      $appearance = db_query("SELECT count(1) FROM {tm_take_over} WHERE  acct_id = :uid AND nid = :nid", array(':uid' => $user->uid, ':nid'=> $node->nid))->fetchField();
+      if ($appearance > 0) {
+        drupal_goto('home');
+      }
+      custom_take_over_insert_data($node->nid, $user->uid);
+    }
+  }
+}
