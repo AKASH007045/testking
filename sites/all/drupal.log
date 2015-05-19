@@ -7516,3 +7516,51 @@
     [response_ok] => 1
 )
 
+[2015-05-19 03:58:52] {"header":{"ver":"0.9","src_sys_type":"2","src_sys_name":"IOMEDIA","archtics_version":"V605"},"command1":{"cmd":"customer_query","ref":"IOM_CUSTOMER_QUERY","uid":"iomed05","dsn":"cowboys","site_name":"stp.io2","acct_id":"stp_admin","pin":"stpadmin"}}
+[2015-05-19 03:58:52] Array
+(
+    [httpcode] => 0
+    [response] => 
+    [response_ok] => 0
+)
+
+[2015-05-19 03:59:59] {"header":{"ver":"0.9","src_sys_type":"2","src_sys_name":"IOMEDIA","archtics_version":"V605"},"command1":{"cmd":"get_sth_status","ref":"IOM_CUSTOMER_QUERY","uid":"iomed05","dsn":"cowboys","site_name":"stp.io2","acct_id":"stp_admin","item_set":"#IOM-STH-SET"}}
+[2015-05-19 03:59:59] Array
+(
+    [httpcode] => 0
+    [response] => 
+    [response_ok] => 0
+)
+
+[2015-05-19 04:22:43] {"header":{"ver":"0.9","src_sys_type":"2","src_sys_name":"IOMEDIA","archtics_version":"V605"},"command1":{"cmd":"customer_query","ref":"IOM_CUSTOMER_QUERY","uid":"iomed05","dsn":"cowboys","site_name":"stp.io2","acct_id":"stp_admin","pin":"stpadmin"}}
+[2015-05-19 04:22:43] Array
+(
+    [httpcode] => 0
+    [response] => 
+    [response_ok] => 0
+)
+
+[2015-05-19 04:23:46] {"header":{"ver":"0.9","src_sys_type":"2","src_sys_name":"IOMEDIA","archtics_version":"V605"},"command1":{"cmd":"get_sth_status","ref":"IOM_CUSTOMER_QUERY","uid":"iomed05","dsn":"cowboys","site_name":"stp.io2","acct_id":"stp_admin","item_set":"#IOM-STH-SET"}}
+[2015-05-19 04:23:46] Array
+(
+    [httpcode] => 0
+    [response] => 
+    [response_ok] => 0
+)
+
+[2015-05-19 08:40:23] {"header":{"ver":"0.9","src_sys_type":"2","src_sys_name":"IOMEDIA","archtics_version":"V605"},"command1":{"cmd":"customer_query","ref":"IOM_CUSTOMER_QUERY","uid":"iomed05","dsn":"sackings","site_name":"stp.io2","acct_id":"3704114","pin":"311963"}}
+[2015-05-19 08:40:24] Array
+(
+    [httpcode] => 0
+    [response] => 
+    [response_ok] => 0
+)
+
+[2015-05-19 08:41:27] {"header":{"ver":"0.9","src_sys_type":"2","src_sys_name":"IOMEDIA","archtics_version":"V605"},"command1":{"cmd":"get_sth_status","ref":"IOM_CUSTOMER_QUERY","uid":"iomed05","dsn":"sackings","site_name":"stp.io2","acct_id":"3704114","item_set":"#IOM-STH-SET"}}
+[2015-05-19 08:41:27] Array
+(
+    [httpcode] => 0
+    [response] => 
+    [response_ok] => 0
+)
+

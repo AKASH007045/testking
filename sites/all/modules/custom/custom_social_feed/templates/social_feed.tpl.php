@@ -47,7 +47,7 @@ if (!empty($feed)):
 	  <div class="feed-details <?php print $active;?> item">
 	    <div class="feed-logo">
 	      <img src="/sites/all/modules/custom/custom_social_feed/images/<?php print $logo[$key];?>" alt="twitter"></div> <div class="feedtime"> - <?php print format_interval((time() - $item->timestamp) , 2) . t(' ago'); ?></div>
-	      <div class="feedtex"><?php print ($key == 'twitter') ? twitter_pull_add_links($item->text) : '<a class="text-white" target="_blank" href="http://www.'. $key .'.com/DallasCowboys">' . $item->text . '</a>';?></div>
+	      <div class="feedtex"><?php print ($key == 'twitter') ? twitter_pull_add_links($item->text) : '<a class="text-white" target="_blank" href="http://www.'. $key .'.com/sacramentokings">' . $item->text . '</a>';?></div>
          </div>
 	<?php
 	  $i++;
