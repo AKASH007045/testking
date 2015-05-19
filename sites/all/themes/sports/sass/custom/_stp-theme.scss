@@ -286,12 +286,14 @@ button.btn-success:hover, .alertify-button-cancel:hover, .quickedit-button.actio
     }
   .tilehead {
     /*Promotile - head*/
-    background: -moz-linear-gradient(top, rgba(0, 41, 91, 0.75) 0%, rgba(0, 16, 36, 0.75) 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 41, 91, 0.75)), color-stop(100%, rgba(0, 16, 36, 0.75)));
-    background: -webkit-linear-gradient(top, rgba(0, 41, 91, 0.75) 0%, rgba(0, 16, 36, 0.75) 100%);
-    background: -o-linear-gradient(top, rgba(0, 41, 91, 0.75) 0%, rgba(0, 16, 36, 0.75) 100%);
-    background: -ms-linear-gradient(top, rgba(0, 41, 91, 0.75) 0%, rgba(0, 16, 36, 0.75) 100%);
-    background: linear-gradient(to bottom, rgba(0, 41, 91, 0.75) 0%, rgba(0, 16, 36, 0.75) 100%);
+    background: rgb(68,68,68); /* Old browsers */
+
+background: -moz-linear-gradient(top,  rgba(68,68,68,1) 0%, rgba(54,54,54,1) 26%, rgba(30,30,30,1) 53%, rgba(8,8,6,1) 85%, rgba(1,1,1,1) 98%, rgba(7,7,9,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(68,68,68,1)), color-stop(26%,rgba(54,54,54,1)), color-stop(53%,rgba(30,30,30,1)), color-stop(85%,rgba(8,8,6,1)), color-stop(98%,rgba(1,1,1,1)), color-stop(100%,rgba(7,7,9,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(68,68,68,1) 0%,rgba(54,54,54,1) 26%,rgba(30,30,30,1) 53%,rgba(8,8,6,1) 85%,rgba(1,1,1,1) 98%,rgba(7,7,9,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(68,68,68,1) 0%,rgba(54,54,54,1) 26%,rgba(30,30,30,1) 53%,rgba(8,8,6,1) 85%,rgba(1,1,1,1) 98%,rgba(7,7,9,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(68,68,68,1) 0%,rgba(54,54,54,1) 26%,rgba(30,30,30,1) 53%,rgba(8,8,6,1) 85%,rgba(1,1,1,1) 98%,rgba(7,7,9,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(68,68,68,1) 0%,rgba(54,54,54,1) 26%,rgba(30,30,30,1) 53%,rgba(8,8,6,1) 85%,rgba(1,1,1,1) 98%,rgba(7,7,9,1) 100%); /* W3C */
     -moz-box-shadow: 2px 2px 5px $blk-bx-shadow;
     -webkit-box-shadow: 2px 2px 5px $blk-bx-shadow;
     box-shadow: 2px 2px 5px $blk-bx-shadow;
@@ -314,7 +316,7 @@ button.btn-success:hover, .alertify-button-cancel:hover, .quickedit-button.actio
   }
   .promo-box.regular a.promo-link:hover .second {
     /*Promotile - box on hover*/
-    background: rgba(2, 29, 63, 0.3);
+    background: rgba(90,64,153,0.3);
   }
 }
 
@@ -871,7 +873,10 @@ filter:none; /* IE6-8 */
 	background: -o-linear-gradient(top,  rgba(98,98,98,1) 0%,rgba(78,78,78,1) 23%,rgba(32,32,32,1) 62%,rgba(26,26,26,1) 69%,rgba(7,7,7,1) 87%,rgba(3,3,3,1) 92%,rgba(4,4,4,1) 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top,  rgba(98,98,98,1) 0%,rgba(78,78,78,1) 23%,rgba(32,32,32,1) 62%,rgba(26,26,26,1) 69%,rgba(7,7,7,1) 87%,rgba(3,3,3,1) 92%,rgba(4,4,4,1) 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  rgba(98,98,98,1) 0%,rgba(78,78,78,1) 23%,rgba(32,32,32,1) 62%,rgba(26,26,26,1) 69%,rgba(7,7,7,1) 87%,rgba(3,3,3,1) 92%,rgba(4,4,4,1) 100%); /* W3C */
-
+	
+	&:hover{
+		background:#030303;
+	}
 }
 
 
