@@ -7580,3 +7580,19 @@
     [response_ok] => 0
 )
 
+[2015-05-20 21:24:31] {"header":{"ver":"0.9","src_sys_type":"2","src_sys_name":"IOMEDIA","archtics_version":"V605"},"command1":{"cmd":"customer_query","ref":"IOM_CUSTOMER_QUERY","uid":"iomed05","dsn":"cowboys","site_name":"stp.io2","acct_id":"stp_admin","pin":"stpadmin"}}
+[2015-05-20 21:24:32] Array
+(
+    [httpcode] => 0
+    [response] => 
+    [response_ok] => 0
+)
+
+[2015-05-20 21:25:39] {"header":{"ver":"0.9","src_sys_type":"2","src_sys_name":"IOMEDIA","archtics_version":"V605"},"command1":{"cmd":"get_sth_status","ref":"IOM_CUSTOMER_QUERY","uid":"iomed05","dsn":"cowboys","site_name":"stp.io2","acct_id":"stp_admin","item_set":"#IOM-STH-SET"}}
+[2015-05-20 21:25:39] Array
+(
+    [httpcode] => 0
+    [response] => 
+    [response_ok] => 0
+)
+
