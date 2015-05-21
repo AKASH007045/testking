@@ -34,14 +34,14 @@
     ->execute()
     ->fetchField();
     
-    if(!$result){  
+    if(!$result || 1){  
       $seats = tm_get_seats_on_account($user->name);
       foreach ($seats as $key => $seat) {
         if (strpos(strtolower($seat->price_code), 'k') ===2) {
             $rows[$seat->price_code] = $seat->price_code;
         }
       }
-      if (count($rows)) {
+      if (count($rows)|| 1) {
         $pdf_link = 'STH_15-16_RENEWAL_SeatingPricing_8.pdf';
       } 
       return theme('renew', array('name' => NULL, 'pdf_link' => $pdf_link));
