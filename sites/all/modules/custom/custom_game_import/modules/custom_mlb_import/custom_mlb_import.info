@@ -1,0 +1,10 @@
+name= Custom MLB  Game Feed Import
+description = Custom MLB Game Feed Importer
+version = VERSION
+package = Custom
+dependencies[] = custom_game_import
+configure   = admin/manage/settings/mlb
+
+core = 7.x
+project = "drupal"
+datestamp = "1419831772"
