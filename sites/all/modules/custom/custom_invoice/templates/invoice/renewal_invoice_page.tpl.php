@@ -35,6 +35,7 @@
   <h3>INVOICE DETAILS</h3>
     <?php print $invoice_table;?>
     <div class="pull-right">
+	 <?php print $pdf_link; ?>
 <a data-title="Email Invoice" class="btn btn-default email" href="/invoice/email">Email <i class="fa fa-chevron-right"></i></a>
 	<a data-title="Print Invoice" class="btn btn-default btnprint" href="/invoice/print" target="_blank">Print <i class="fa fa-chevron-right"></i></a> 
     </div>

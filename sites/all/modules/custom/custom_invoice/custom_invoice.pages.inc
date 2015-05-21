@@ -91,6 +91,28 @@ function _tmapi_user_invoice($pdf = NULL) {
     $user_info = invoice_user_info_block();
     $invoice_id = 0;
     $output = '';
+	
+	 /*
+    * Kings Specific - Add pricing link on invoice page
+    */
+    $pdf_link = 'sites/default/files/STH_15-16_RENEWAL_NEW_SeatingPricing_8.pdf';
+    if(_price_code_check()){
+      $pdf_link = 'sites/default/files/STH_15-16_RENEWAL_SeatingPricing_8.pdf';
+    }
+    $link = l(
+      t('CLICK FOR PRICING MAP'), 
+      $pdf_link,      
+      array(
+        'attributes' => array(
+          'class' => array('pricing-map'),
+          'target' => "_blank"
+        )
+      )
+    );
+    /*
+    * Pricing link generated
+    */
+
     if (count($seat_holds)):
       //
       $total = $paid = $parking_fee = $handling_fee = 0;
@@ -136,7 +158,7 @@ function _tmapi_user_invoice($pdf = NULL) {
         $acct_rep_info = custom_block_account_rep('block_1');
         $output .= theme('renewal_invoice_' . $pdf, array('seat_holds' => $seat_holds, 'user_info' => $user_info, 'acct_rep_info' => $acct_rep_info, 'cnt' => $cnt, 'payment_flag' => $payment_flag, 'invoice_id' => $invoice_id, 'invoice_table' => $invoice_table, 'total' => invoice_money_format($total), 'paid' => invoice_money_format($paid), 'parking_fee' => invoice_money_format($parking_fee), 'handling_fee' => invoice_money_format($handling_fee), 'due_amount' => invoice_money_format($due_amount)));
       } else {
-        $output .= theme('renewal_invoice', array('seat_holds' => $seat_holds, 'user_info' => $user_info, 'cnt' => $cnt, 'payment_flag' => $payment_flag, 'invoice_table' => $invoice_table, 'total' => invoice_money_format($total), 'paid' => invoice_money_format($paid), 'parking_fee' => invoice_money_format($parking_fee), 'handling_fee' => invoice_money_format($handling_fee), 'due_amount' => invoice_money_format($due_amount)));
+        $output .= theme('renewal_invoice', array('seat_holds' => $seat_holds, 'user_info' => $user_info, 'cnt' => $cnt, 'payment_flag' => $payment_flag, 'invoice_table' => $invoice_table, 'total' => invoice_money_format($total), 'paid' => invoice_money_format($paid), 'parking_fee' => invoice_money_format($parking_fee), 'handling_fee' => invoice_money_format($handling_fee), 'due_amount' => invoice_money_format($due_amount), 'pdf_link' => $link));
       }
     endif;
     return theme('invoice_page', array('output' => $output));
