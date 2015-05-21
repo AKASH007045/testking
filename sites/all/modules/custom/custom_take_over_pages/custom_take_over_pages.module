@@ -11,7 +11,7 @@ function custom_take_over_pages_user_login(&$edit, $account) {
   if (!user_access('Editor') && !user_access('Site Admin')){
     $destination = custom_take_over_page_check_page();
     if($destination) {
-      $_GET['destination'] = 'goto-renew';
+      $_GET['destination'] = 'renew';
     }
     else{
       $_GET['destination'] = '';
