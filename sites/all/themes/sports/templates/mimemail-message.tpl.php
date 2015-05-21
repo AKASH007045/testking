@@ -33,22 +33,19 @@ global $base_url;
   <body id="mimemail-body" <?php if ($key): print 'class="'. $key .'"'; endif; ?>>
     <table width="618" border="0" cellspacing="0" cellpadding="0"  style="border:1px solid #333300;font-family:Arial, Helvetica, sans-serif;font-size:12px;color:#666666;">
     <tr style="background-color:#ffffff;padding:7px 0 7px 45px;">
-       <td style="border-bottom:2px solid #00295b;">
+     <!--<td style="border-bottom:2px solid #00295b;">-->
+      <td style="border-bottom:3px solid #714b9e;">
           <div style="padding:7px 0 7px 20px;">
-            <a href="<?php print url('<front>');?>">
-              <img src="/<?php print drupal_get_path('theme', 'sports')?>/images/subscribe-email-logo.png" height="59" alt="logo" style="border:none;" />
+            <a href="<?php print url('<front>') ?>">
+              <img src="/<?php print drupal_get_path('theme', 'sports')?>/images/subscribe-email-logo.png" width="211" height="59" alt="logo" style="border:none" />
             </a>
           </div>
        </td>
      </tr>
-     <tr>
-       <td style="background-color:#00295b;line-height:3px;">
-         &nbsp;
-       </td>
-     </tr>
+     
       <tr>
          <td>
-           <div style="padding:20px 10px 20px 20px;"">
+           <div style="padding:20px 10px 20px 20px;">
              <?php print $body; ?>
            </div>
          </td>

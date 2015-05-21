@@ -92,7 +92,7 @@
       <?php print $acct_rep_info; ?>
     </div>
   </div>
-  <div class="wrp-main fnt12ftr pgbrk"> Team Name &nbsp;I&nbsp; Address &nbsp;I&nbsp; City, State, Zip &nbsp;I&nbsp; Phone Number &nbsp;I&nbsp; Website  </div> 
+  <div class="wrp-main fnt12ftr pgbrk"> Sacramento Kings &nbsp;I&nbsp; Sleep Train Arena &nbsp;I&nbsp; One Sports Parkway &nbsp;I&nbsp; Sacramento, CA 95834 &nbsp;I&nbsp; 916.928.0000 &nbsp;I&nbsp; www.kingsmembership.com  </div> 
 </div>
   <!----------------------------------------Next Page start here---------------------------------------> 
   <div class="printWrapper">
