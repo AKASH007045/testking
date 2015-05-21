@@ -26,7 +26,7 @@
       && $check_pass
       && isset($get_amount_info['due_amt']) 
       && !empty($get_amount_info['due_amt'])
-      && ($get_amount_info['due_amt']>0)
+      && ($get_amount_info['due_amt']>0 ||1)
   ){    
     $query = db_select('tbl_renew_takeover', 'b');
     $result = (bool)$query->fields('b', array('show_popup'))
