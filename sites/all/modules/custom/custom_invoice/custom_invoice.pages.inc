@@ -91,6 +91,30 @@ function _tmapi_user_invoice($pdf = NULL) {
     $user_info = invoice_user_info_block();
     $invoice_id = 0;
     $output = '';
+	
+	 /*
+    * Kings Specific - Add pricing link on invoice page
+    */
+    $pdf_link = 'sites/default/files/STH_15-16_RENEWAL_NEW_SeatingPricing_8.pdf';
+    if(_price_code_check()){
+      $pdf_link = 'sites/default/files/STH_15-16_RENEWAL_SeatingPricing_8.pdf';
+    }
+    $link = l(
+      t('CLICK FOR PRICING MAP'), 
+      $pdf_link,      
+      array(
+        'attributes' => array(
+          'class' => array('pricing-map'),
+          'target' => "_blank"
+        )
+      )
+    );
+    /*
+    * Pricing link generated
+    */
+	
+	
+	
     if (count($seat_holds)):
       //
       $total = $paid = $parking_fee = $handling_fee = 0;

@@ -227,3 +227,17 @@ function get_schedule_for_plan_id($acct_id=NULL, $invoice_id=NULL, $plan_id=NULL
     exit;
   }  
 }
+
+function _price_code_check() {
+  module_load_include('inc', 'tm_data', 'tm_data'); 
+  global $user;
+  $rows = array();
+  $seats = array();    
+  $seats = tm_get_seats_on_account($user->name);
+  foreach ($seats as $key => $seat) {
+    if (strpos(strtolower($seat->price_code), 'k') ===2) {
+      return true;
+    }
+  }
+  return false;
+}
