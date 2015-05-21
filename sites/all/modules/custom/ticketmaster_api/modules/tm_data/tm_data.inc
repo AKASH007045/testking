@@ -24,6 +24,14 @@ function tm_user_birthday_access($page = NULL) {
   return 0;
 }
 
+function tm_get_seats_on_account($acct_id) {
+  $seat_detail =  db_select('tmapi_seats_hold', 't')
+      ->fields('t')
+      ->condition('t.acct_id', $acct_id, '=')
+      ->execute()->fetchAll();
+	  return $seat_detail;
+}
+
 function get_acc_rep_mail($acct_id) {
     $object = cache_get('rep_mail-' . $acct_id, 'cache_custom');
     if (!$object) {
