@@ -23,14 +23,14 @@ function custom_invoice_email() {
 
   $params = array(
     'name' => $user->name,
-    'subject' => variable_get('invoice_mail_subject', t('2014 Dallas STP Invoice')),
-    'body'=> variable_get('invoice_mail_body', t('Attached to this email is a copy of your invoice for the 2014 Dallas STP Season Subscription.')),
+    'subject' => variable_get('invoice_mail_subject', t('2015 Sacramento Kings Invoice')),
+    'body'=> variable_get('invoice_mail_body', t('Attached to this email is a copy of your invoice for the 2015 Sacramento Kings Season Subscription.')),
   );
 
   // Checking mPDF library existence.
   if (pdf_using_mpdf_library_exist() == TRUE) {
   //user variable_get for sitename
-    $filename = "STP-Invoice_" . str_replace(' ', '-', $name);
+    $filename = "Kings-Invoice_" . str_replace(' ', '-', $name);
     _pdf_using_mpdf_generator($output, $filename, 'F', $name);
     $file=file_directory_temp() . '/' . $filename.".pdf";
     $params['file'] = $file;
@@ -63,7 +63,7 @@ function custom_invoice_print() {
   // Checking mPDF library existence.
  
   if (pdf_using_mpdf_library_exist() == TRUE) {
-    $filename = "STP-Invoice_" . str_replace(' ', '-', $name);
+    $filename = "kings-Invoice_" . str_replace(' ', '-', $name);
     $conf['pdf_using_mpdf_pdf_save_option'] = 0;
     _pdf_using_mpdf_generator($output, $filename, 'I', $name);
     exit;
@@ -160,7 +160,7 @@ function _tmapi_user_invoice($pdf = NULL) {
         $acct_rep_info = custom_block_account_rep('block_1');
         $output .= theme('renewal_invoice_' . $pdf, array('seat_holds' => $seat_holds, 'user_info' => $user_info, 'acct_rep_info' => $acct_rep_info, 'cnt' => $cnt, 'payment_flag' => $payment_flag, 'invoice_id' => $invoice_id, 'invoice_table' => $invoice_table, 'total' => invoice_money_format($total), 'paid' => invoice_money_format($paid), 'parking_fee' => invoice_money_format($parking_fee), 'handling_fee' => invoice_money_format($handling_fee), 'due_amount' => invoice_money_format($due_amount)));
       } else {
-        $output .= theme('renewal_invoice', array('seat_holds' => $seat_holds, 'user_info' => $user_info, 'cnt' => $cnt, 'payment_flag' => $payment_flag, 'invoice_table' => $invoice_table, 'total' => invoice_money_format($total), 'paid' => invoice_money_format($paid), 'parking_fee' => invoice_money_format($parking_fee), 'handling_fee' => invoice_money_format($handling_fee), 'due_amount' => invoice_money_format($due_amount)));
+        $output .= theme('renewal_invoice', array('seat_holds' => $seat_holds, 'user_info' => $user_info, 'cnt' => $cnt, 'payment_flag' => $payment_flag, 'invoice_table' => $invoice_table, 'total' => invoice_money_format($total), 'paid' => invoice_money_format($paid), 'parking_fee' => invoice_money_format($parking_fee), 'handling_fee' => invoice_money_format($handling_fee), 'due_amount' => invoice_money_format($due_amount), 'pdf_link' => $link));
       }
     endif;
     return theme('invoice_page', array('output' => $output));
