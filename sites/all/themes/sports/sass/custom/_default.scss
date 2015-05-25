@@ -124,8 +124,8 @@ a:focus {
       border: 0;
       z-index: 10;
       > li > a {
-        padding: 9px 15px;
-        margin-right: 3px;
+        padding:0px 15px;
+        margin-right: 3px;line-height:39px;
         &:last-child {
           margin-right: 0;
         }
@@ -149,7 +149,7 @@ a:focus {
   left: -44px;
   top: -45px;
   padding: 0;
-  z-index: 9999;
+  z-index: 99;
   position: absolute;
   outline: none;
 }
@@ -223,7 +223,8 @@ background: -ms-linear-gradient(top,  rgba(31,31,31,1) 0%,rgba(34,34,34,1) 25%,r
 background: linear-gradient(to bottom,  rgba(31,31,31,1) 0%,rgba(34,34,34,1) 25%,rgba(24,24,24,1) 50%,rgba(14,14,14,1) 75%,rgba(18,14,22,1) 100%); /* W3C */
 
   /*@include box-shadow(#d2d2d2 0 0 8px inset);*/
-  .nav > li > a:hover, .navbar-nav > .active-trail > a.active-trail {
+  .nav > li > a:hover, .navbar-nav > .active-trail > a.active-trail,.navbar-nav > .open > a,.navbar-nav > .open > a:hover,.navbar-nav > .open > a:focus,.navbar-nav > li > a:focus,.navbar-nav > .active > a{
+	  	  
     border: 1px solid $nav-item-hover-border;
     /*@include box-shadow($nav-item-hover-shadow 1px 1px 1px inset);*/
     @include text-shadow($blk-txt-shadow -1px -1px 0);
@@ -239,25 +240,26 @@ background: linear-gradient(to bottom,  rgba(67,67,67,1) 0%,rgba(18,18,18,1) 100
 
   }
 }
+
 .navbar-default {
   .navbar-nav {
     li.open a.dropdown-toggle {
-        border: 1px solid $dropdown-toggle-border;
+        /*border: 1px solid $dropdown-toggle-border;
         @include box-shadow($dropdown-toggle-shadow 1px 1px 1px inset);
         @include text-shadow($blk-txt-shadow -1px -1px 0);
         background-color: rgb(0,71,158);
         $experimental-support-for-svg: true;
-        @include background-image(linear-gradient(top,  rgba(0,71,158,1) 0%,rgba(0,25,56,1) 100%));
+        @include background-image(linear-gradient(top,  rgba(0,71,158,1) 0%,rgba(0,25,56,1) 100%));*/
     }
     > .active > a {
-      border: 1px solid $nav-item-hover-border;
+      /*border: 1px solid $nav-item-hover-border;
       @include box-shadow($nav-item-hover-shadow 1px 1px 1px inset);
       @include text-shadow($blk-txt-shadow -1px -1px 0);
       background-color: rgb(0,71,158);
       $experimental-support-for-svg: true;
-      @include background-image(linear-gradient(top,  rgba(0,71,158,1) 0%,rgba(0,25,56,1) 100%));
+      @include background-image(linear-gradient(top,  rgba(0,71,158,1) 0%,rgba(0,25,56,1) 100%));*/
        &:hover, &:focus {
-        border: 1px solid $nav-item-hover-border;
+        /*border: 1px solid $nav-item-hover-border;*/
         /*@include box-shadow($dropdown-toggle-shadow 1px 1px 1px inset);
         @include text-shadow($blk-txt-shadow -1px -1px 0);
         background-color: rgb(0,71,158);
@@ -267,10 +269,13 @@ background: linear-gradient(to bottom,  rgba(67,67,67,1) 0%,rgba(18,18,18,1) 100
     }
   }
   .dropdown-menu {
-    background: rgba(0, 41, 91, 0.85);
-    -moz-box-shadow: inset 0 -5px 18px rgba(0, 0, 0, 0.5), 0 3px 5px rgba(0, 0, 0, 0.3);
-    -webkit-box-shadow: inset 0 -5px 18px rgba(0, 0, 0, 0.5), 0 3px 5px rgba(0, 0, 0, 0.3);
-    box-shadow: inset 0 -5px 18px rgba(0, 0, 0, 0.5), 0 3px 5px rgba(0, 0, 0, 0.3);
+    
+	background: -moz-linear-gradient(top,  rgba(133,133,133,0.85) 0%, rgba(44,44,44,0.85) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(133,133,133,0.85)), color-stop(100%,rgba(44,44,44,0.85))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(133,133,133,0.85) 0%,rgba(44,44,44,0.85) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(133,133,133,0.85) 0%,rgba(44,44,44,0.85) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(133,133,133,0.85) 0%,rgba(44,44,44,0.85) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(133,133,133,0.85) 0%,rgba(44,44,44,0.85) 100%); /* W3C */
   }
 }
 /* Top Novigation end here */
@@ -932,5 +937,14 @@ body.page-update-custom-background.not-front .container-fluid > section.main-wra
   height: 55px;
 }
 
-
-
+@media only screen and (min-device-width : 768px){
+	.navbar-default{
+		.navbar-nav, .nav {
+			> li > a{
+				padding:10px 12px;
+			}
+		}
+	}
+	
+	
+}
