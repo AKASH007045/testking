@@ -444,6 +444,18 @@ body.page-home .container-fluid .main-wrap .node {
   margin-bottom: 10px;
 }
 
+#block-views-acct-reps-block{
+	.profile-detail{
+		 .namedetil{
+			 .col-fixed{
+				 &:last-child{
+					margin-top:12px;
+				}
+			 }
+		 }
+	}
+}
+
 #block-views-acct-reps-block .profile-detail .namedetil a {
   margin-bottom: 10px;
   display: inline-block;
@@ -479,7 +491,7 @@ body.page-home .container-fluid .main-wrap .node {
 }
 
 #block-views-acct-reps-block .carousel-inner > .item {
-  min-height: 315px;
+  min-height:335px;
 }
 
 .node-type-contact-us .container-fluid > section.main-wrap .block-system{
@@ -1334,3 +1346,4 @@ input[type="radio"], input[type="checkbox"] {  margin-top: 2px;}
 body.node-type-take-over-pages header {
   visibility: hidden;
 }
+.global-button{font-size:1em;line-height:38px;}
