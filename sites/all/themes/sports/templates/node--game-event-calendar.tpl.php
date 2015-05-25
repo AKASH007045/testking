@@ -36,7 +36,8 @@ if ((isset($home_score) && isset($other_score)) && (($home_score || $other_score
       <div class="modal-header">
           <div class="poupatstud"><?php print $event['stadium'];?> - <span><?php print $event['date_1'];?> </span> - <span><?php print $event['time'];?></span> <span><?php print $event['timezone']; ?></span></div>
           <div class="pptic-evt">
-              <?php if (user_access('STH User')): ?><div class="mgTicket"><a href="/goto-account-manager" target="_blank">MANAGE TICKETS</a></div> <?php endif; ?>
+              <?php if (user_access('STH User') && $identifier == 'VS'): ?><div class="mgTicket"><a href="/goto-account-manager" target="_blank">MANAGE TICKETS</a></div> 
+			  <?php endif; ?>
               <!--<div><a href="#" target="_blank">MORE INFO</a></div>-->
               <div class="closePopup btn btn-default" data-dismiss="modal"></div>
         </div>
