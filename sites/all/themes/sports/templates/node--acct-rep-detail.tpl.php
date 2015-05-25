@@ -96,11 +96,11 @@ $language = isset($node->language) ? $node->language : 'und'?>
      </div>
   <h4 class="dedicated-representatives">Dedicated Service Coordinator</h4>
     <div class="namedetil">
-     <div class="col-md-6 col-fixed"><h4 class="usename"><?php print $node->title; ?>&nbsp;<?php print isset($node->field_last_name[$language][0]['value']) ? $node->field_last_name[$language][0]['value'] : ''; ?></h4>
+     <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 col-fixed"><h4 class="usename"><?php print $node->title; ?>&nbsp;<?php print isset($node->field_last_name[$language][0]['value']) ? $node->field_last_name[$language][0]['value'] : ''; ?></h4>
       <?php print isset($node->field_email[$language][0]['value']) ? l($node->field_email[$language][0]['value'], 'mailto:' . $node->field_email[$language][0]['value']) : ''?>
       <?php print render($content['field_phone']); ?>
     </div>
-    <div class="col-md-6 col-fixed"><?php print render($content['field_hometown']); ?>
+    <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 col-fixed"><?php print render($content['field_hometown']); ?>
       <?php print render($content['field_college_attended']); ?>
       <?php print render($content['field_drafted_year']); ?>
       <?php print render($content['field_favourite_player']); ?>
