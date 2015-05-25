@@ -121,22 +121,25 @@ a.bg-page-link-edit:hover {
   li > a {
 	  color: $white;
     &:hover, &:focus {
-      background: #001a3a;
+      box-shadow:rgba(18, 18, 18, 1) 0px 0px 6px inset;-moz-box-shadow:rgba(18, 18, 18, 1) 0px 0px 6px inset;-webkit-box-shadow:rgba(18, 18, 18, 1) 0px 0px 6px inset;background:#2b2b2b;
 	   color: $white;
     }
   }
+  
+  
+  
   .active > a {
 	  color: $white;
-    background: #001a3a;
+    /*background: #001a3a;*/
     &:hover, &:focus {
-	  color: $white;
-      background: #001a3a;
+	  /*color: $white;
+      background: #001a3a;*/
     }
   }
 }
 .page-season-schedule .view-content .panel-group {
   .panel-heading:hover, .next-game-active .panel-heading {
-    background: #001a3a;
+    background: #5a4099;
   }
 }
 
@@ -594,7 +597,7 @@ filter:none; /* IE6-8 */
 .view-header > ul li {
   a {
     /*month and list tabbing*/
-    color: $lgtgray;
+    color: $lgtgray; text-shadow:1px 1px 0px rgba(0, 0, 0, 0.75);
   }
   &:first-child {
     /*month and list tabbing*/
@@ -611,7 +614,7 @@ filter:none; /* IE6-8 */
   }
   td {
     /*Table TD text color*/
-    color: #001836;
+    color: #181818;
   }
   .month-view .full tr.single-day.single-day > td .inner {
     border: 1px solid $mid-gry;
@@ -623,8 +626,11 @@ filter:none; /* IE6-8 */
   .single-day {
     &.future.game-home .inner, &.today.game-home .inner, &.past.game-home .inner {
       /*Table TD logo bg*/
-      background: rgba(0, 41, 91, 0.75);
+      background: rgba(90,64,153,0.75);color:#D1D4D9;
     }
+	/*&.future.game-home .inner, &.today.game-home .inner, &.past.game-home .inner{
+		background:rgba(255,255,255,0.75);
+	}*/
   }
   .cal-team-name, .cal-time, .month-view .full td.game-home .inner div.day {
     /*Table TD logo text color*/
@@ -648,39 +654,41 @@ filter:none; /* IE6-8 */
     background: $brand-color;
   }
   .calendar-legend-right > li a {
+	  background:none;
     &.active, &:hover {
       /*Table bottom game and schedule event BG*/
-      border: 1px solid $nov-bdr;
-      -webkit-box-shadow: $brand-bx-shadow 1px 1px 1px inset;
-      -moz-box-shadow: $brand-bx-shadow 1px 1px 1px inset;
-      box-shadow: $brand-bx-shadow 1px 1px 1px inset;
+      border: 1px solid rgba(0,0,0,0.9);
+      -webkit-box-shadow:#000000 0px 0px 4px inset;
+      -moz-box-shadow:#000000 0px 0px 4px inset;
+      box-shadow:#000000 0px 0px 4px inset;
       text-shadow: -1px -1px 0 $blk-txt-shadow;
-      background: #00479e;
-      background: -moz-linear-gradient(top, #00479e 0%, #001938 100%);
-      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #00479e), color-stop(100%, #001938));
-      background: -webkit-linear-gradient(top, #00479e 0%, #001938 100%);
-      background: -o-linear-gradient(top, #00479e 0%, #001938 100%);
-      background: -ms-linear-gradient(top, #00479e 0%, #001938 100%);
-      background: linear-gradient(to bottom, #00479e 0%, #001938 100%);
+      background: rgb(67,67,67); /* Old browsers */
+
+	background: -moz-linear-gradient(top,  rgba(67,67,67,1) 0%, rgba(2,2,2,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(67,67,67,1)), color-stop(100%,rgba(2,2,2,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(67,67,67,1) 0%,rgba(2,2,2,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(67,67,67,1) 0%,rgba(2,2,2,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(67,67,67,1) 0%,rgba(2,2,2,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(67,67,67,1) 0%,rgba(2,2,2,1) 100%); /* W3C */
+
     }
   }
   .nav > li > a {
     &:hover, &:focus {
       /*Table bottom game and schedule event BG*/
-      border: 1px solid $nov-bdr;
-      -webkit-box-shadow: $brand-bx-shadow 1px 1px 1px inset;
-      -moz-box-shadow: $brand-bx-shadow 1px 1px 1px inset;
-      box-shadow: $brand-bx-shadow 1px 1px 1px inset;
+      border: 1px solid rgba(0,0,0,0.9);
+      -webkit-box-shadow:#000000 0px 0px 4px inset;
+      -moz-box-shadow:#000000 0px 0px 4px inset;
+      box-shadow:#000000 0px 0px 4px inset;
       text-shadow: -1px -1px 0 $blk-txt-shadow;
-      background: #00479e;
-      background: -moz-linear-gradient(top, #00479e 0%, #001938 100%);
-      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #00479e), color-stop(100%, #001938));
-      background: -webkit-linear-gradient(top, #00479e 0%, #001938 100%);
-      background: -o-linear-gradient(top, #00479e 0%, #001938 100%);
-      background: -ms-linear-gradient(top, #00479e 0%, #001938 100%);
-      background: linear-gradient(to bottom, #00479e 0%, #001938 100%);
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00479e', endColorstr='#001938',GradientType=0 );
-      /* IE6-9 */
+      background: rgb(67,67,67); /* Old browsers */
+
+	background: -moz-linear-gradient(top,  rgba(67,67,67,1) 0%, rgba(2,2,2,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(67,67,67,1)), color-stop(100%,rgba(2,2,2,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(67,67,67,1) 0%,rgba(2,2,2,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(67,67,67,1) 0%,rgba(2,2,2,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(67,67,67,1) 0%,rgba(2,2,2,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(67,67,67,1) 0%,rgba(2,2,2,1) 100%); /* W3C */
     }
   }
 }
@@ -689,7 +697,7 @@ filter:none; /* IE6-8 */
   .modal-dialog.game-popup-dialog .modal-header {
     /*Popup heading bg on click logo*/
     border-bottom: 1px solid #999;
-    background-color: #001836;
+    background-color: #1f1f1f;
   }
   .pptic-evt .closePopup {
     /*Popup Cross icon on click logo */
@@ -736,9 +744,9 @@ filter:none; /* IE6-8 */
 .page-season-schedule .view-content .panel-group {
   .panel-heading {
     /*List heading BG*/
-    -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 6px inset;
-    -moz-box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 6px inset;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 6px inset;
+    -webkit-box-shadow: rgba(40,28,70,1) 0px 0px 11px inset;
+    -moz-box-shadow: rgba(40,28,70,1) 0px 0px 11px inset;
+    box-shadow: rgba(40,28,70,1) 0px 0px 11px inset;
     text-shadow: -1px -1px 0 $blk-txt-shadow;
     background: #797979;
     background: -moz-linear-gradient(top, #797979 0%, #303030 100%);
@@ -842,18 +850,19 @@ filter:none; /* IE6-8 */
 
 .btn-light, .make-payment-wrapper button.form-submit, .page-invoice .pull-right .btn-default:focus,.payment-amount-box .make-payment-wrapper button#edit-submit,.payment-amount-box .make-payment-wrapper button#edit-submit:focus, .global-button,.global-button:focus, .page-invoice-payment button.form-submit,.page-pawp .container-fluid .main-wrap section.block button.btn-default, .page-invoice-payment button.form-submit,.page-pawp .container-fluid .main-wrap section.block button.btn-default:focus,.page-pawp .container-fluid #user-login #edit-actions .form-submit,.page-pawp .container-fluid #user-login #edit-actions .form-submit:focus{
 	/*Pay Button*/
-	border: 1px solid #0A51A7;
-	-moz-box-shadow: inset 0px 1px 1px #2A7EE5;
-	-webkit-box-shadow: inset 0px 1px 1px #2A7EE5;
-	box-shadow: inset 0px 1px 1px #2A7EE5;
-	background: rgb(0,40,88); /* Old browsers */
+	border: 1px solid rgba(63,42,114,1);
+	-moz-box-shadow: inset 0px 1px 1px #190e36;
+	-webkit-box-shadow: inset 0px 1px 1px #190e36;
+	box-shadow: inset 0px 1px 1px #190e36;
+	background: rgb(90,64,153); /* Old browsers */
 
-	background: -moz-linear-gradient(top,  rgba(0,40,88,1) 0%, rgba(40,139,255,1) 1%, rgba(0,86,192,1) 3%, rgba(0,26,58,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,40,88,1)), color-stop(1%,rgba(40,139,255,1)), color-stop(3%,rgba(0,86,192,1)), color-stop(100%,rgba(0,26,58,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgba(0,40,88,1) 0%,rgba(40,139,255,1) 1%,rgba(0,86,192,1) 3%,rgba(0,26,58,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgba(0,40,88,1) 0%,rgba(40,139,255,1) 1%,rgba(0,86,192,1) 3%,rgba(0,26,58,1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgba(0,40,88,1) 0%,rgba(40,139,255,1) 1%,rgba(0,86,192,1) 3%,rgba(0,26,58,1) 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  rgba(0,40,88,1) 0%,rgba(40,139,255,1) 1%,rgba(0,86,192,1) 3%,rgba(0,26,58,1) 100%); /* W3C */
+	background: -moz-linear-gradient(top,  rgba(90,64,153,1) 0%, rgba(78,54,135,1) 1%, rgba(78,54,135,1) 3%, rgba(63,42,114,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(90,64,153,1)), color-stop(1%,rgba(78,54,135,1)), color-stop(3%,rgba(78,54,135,1)), color-stop(100%,rgba(63,42,114,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(90,64,153,1) 0%,rgba(78,54,135,1) 1%,rgba(78,54,135,1) 3%,rgba(63,42,114,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(90,64,153,1) 0%,rgba(78,54,135,1) 1%,rgba(78,54,135,1) 3%,rgba(63,42,114,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(90,64,153,1) 0%,rgba(78,54,135,1) 1%,rgba(78,54,135,1) 3%,rgba(63,42,114,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(90,64,153,1) 0%,rgba(78,54,135,1) 1%,rgba(78,54,135,1) 3%,rgba(63,42,114,1) 100%); /* W3C */
+
 
 	color: $white;
 }
@@ -886,7 +895,7 @@ filter:none; /* IE6-8 */
 
 
 /*  Pay Now and Make Payment button hover  */
-.amountduewrap .amountduettl .pull-right a:hover,.payment-amount-box .make-payment-wrapper button#edit-submit:hover,.global-button:hover, .page-invoice-payment button.form-submit,.page-pawp .container-fluid .main-wrap section.block button.btn-default:hover,.page-pawp .container-fluid #user-login #edit-actions .form-submit:hover{color:$white;background:#002858;border:1px solid #039;}
+.amountduewrap .amountduettl .pull-right a:hover,.payment-amount-box .make-payment-wrapper button#edit-submit:hover,.global-button:hover, .page-invoice-payment button.form-submit,.page-pawp .container-fluid .main-wrap section.block button.btn-default:hover,.page-pawp .container-fluid #user-login #edit-actions .form-submit:hover{color:$white;background:#3f2a72;border:1px solid rgba(63,42,114,1);}
 
 /*  Email and Print Hover  */
 .page-invoice .season-invoice-detail .pull-right a:hover,.page-invoice-payment .btn-default.return-home:hover{background:#030303;}
@@ -981,9 +990,9 @@ body.node-type-event .carousel-control.left, .pouptopwrap .sthevent-image .carou
 .event-gallary-big-box .modal-header, #modal_bootstrap .modal-header {
   /*Galery heading bg*/
   background-color: #001836;
-  -moz-box-shadow: inset 0 0 10px $brand-bx-shadow;
-  -webkit-box-shadow: inset 0 0 10px $brand-bx-shadow;
-  box-shadow: inset 0 0 10px $brand-bx-shadow;
+  -moz-box-shadow: inset 0 0 10px #000000;
+  -webkit-box-shadow: inset 0 0 10px #000000;
+  box-shadow: inset 0 0 10px #000000;
   border-bottom: none;
   color: $lgtgray;
   border-bottom:1px solid $mid-gry;
@@ -1011,7 +1020,7 @@ body.node-type-event .carousel-control.left, .pouptopwrap .sthevent-image .carou
 
 #block-views-acct-reps-block {
   /*Blue BG*/
-  background-color: rgba(0, 41, 91, 0.75);
+  background-color: /*rgba(90,64,153,0.75)*/rgba(156,156,156,0.75);
   border: 1px solid $black-bdr;
   .dedicated-representatives {
     /*Heading btm border in the crousel*/
@@ -1028,9 +1037,9 @@ body.node-type-event .carousel-control.left, .pouptopwrap .sthevent-image .carou
   }
 }
 
-#block-views-acct-reps-block .profile-detail .namedetil .field-label {
+#block-views-acct-reps-block .profile-detail .namedetil .field-label,.node-type-contact-us .container-fluid div.carousel-inner div.textdtl p b{
   /*Grey color in the crousel*/
-  color: #9f9f9f;
+  color: /*#9f9f9f*/rgba(57,63,150,1);
 }
 
 #user-login {
@@ -1166,7 +1175,7 @@ fieldset, .field-type-image .form-item {
 		width:100%;
 	}
 }
-.calendar-calendar .month-view .full td .inner div.day, .calendar-calendar .month-view .full td .inner div.day a{text-align:center;padding-left:6px;font-size:1.285em;background:rgba(225,225,225,0.45);-moz-border-radius:0px 0px 5px 0px;-webkit-border-radius:0px 0px 5px 0px;border-radius:0px 0px 5px 0px;}
+.calendar-calendar .month-view .full td .inner div.day, .calendar-calendar .month-view .full td .inner div.day a{text-align:center;padding-left:6px;font-size:1.285em;background:rgba(225,225,225,0.45);-moz-border-radius:0px 0px 5px 0px;-webkit-border-radius:0px 0px 5px 0px;border-radius:0px 0px 5px 0px;width:30px;}
 
 .promo-tile{
 	.promo-box{
@@ -1199,3 +1208,25 @@ a.cke_dialog_ui_button{margin:14px 0px 0px 0px!important;}
 		}
 	}
 }
+
+.page-season-schedule{
+	.container-fluid{
+		background-color:#381952!important;
+	}
+}
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus{
+	box-shadow:#121212 0px 0px 6px inset;-moz-box-shadow:#121212 0px 0px 6px inset;-webkit-box-shadow:#121212 0px 0px 6px inset;background:#2b2b2b;
+}
+a.forgot-pass{
+	color:#a94442; text-decoration:underline;font-weight:bold;
+	&:hover{
+		text-decoration:none;
+	}
+}
+.block-custom-social-feed .promo-box {
+  background: url("../images/bottom-tile.png") no-repeat 0 0;
+}
+.page-invoice .season-invoice-detail .pull-right a.pricing-map{color:#381951;font-weight:bold;line-height:35px;text-decoration:underline;text-shadow:1px 3px 12px rgba(0,0,0,0.25);margin-right:8px;}
+.page-invoice .season-invoice-detail .pull-right a.pricing-map:hover{background:none;text-decoration:none;}
+.infoPanelwrap .namecntinf a,.season-invoice-detail .ticketTable td a{color:#000000;text-decoration:none;cursor:text;}
