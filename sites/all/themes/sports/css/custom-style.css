@@ -5090,6 +5090,11 @@ a.forgot-pass:hover {
   text-decoration: none;
 }
 
+/* line 1227, ../sass/custom/_stp-theme.scss */
+.block-custom-social-feed .promo-box {
+  background: url("../images/bottom-tile.png") no-repeat 0 0;
+}
+
 /* line 1, ../sass/custom/_alertify.core.scss */
 .alertify, .alertify-show, .alertify-log {
   -webkit-transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -5606,240 +5611,236 @@ a.forgot-pass:hover {
     width: 100%;
   }
 
-  /* line 111, ../sass/custom/_mobile.scss */
-  .promo-tile {
-    padding: 0;
-  }
   /* line 112, ../sass/custom/_mobile.scss */
   .promo-tile .tilehead span {
     font-size: 0.9em;
   }
 
-  /* line 117, ../sass/custom/_mobile.scss */
+  /* line 116, ../sass/custom/_mobile.scss */
   .countdown-promo-tile-days > span.timer-day {
     font-size: 0.5em;
   }
 
-  /* line 120, ../sass/custom/_mobile.scss */
+  /* line 119, ../sass/custom/_mobile.scss */
   .countdown-promo-tile-days > span {
     font-size: 0.4em;
   }
 }
 @media only screen and (max-width: 992px) {
-  /* line 125, ../sass/custom/_mobile.scss */
+  /* line 124, ../sass/custom/_mobile.scss */
   .countdown-promo-tile-days > span.timer-day {
     font-size: 0.35em;
   }
 
-  /* line 128, ../sass/custom/_mobile.scss */
+  /* line 127, ../sass/custom/_mobile.scss */
   .countdown-promo-tile-days > span {
     font-size: 0.35em;
   }
 }
 @media only screen and (max-width: 885px) {
-  /* line 133, ../sass/custom/_mobile.scss */
+  /* line 132, ../sass/custom/_mobile.scss */
   .bottomBarInner {
     margin: 0;
   }
 }
 @media only screen and (max-width: 860px) {
-  /* line 139, ../sass/custom/_mobile.scss */
+  /* line 138, ../sass/custom/_mobile.scss */
   body.front .home-nextgamebg .nextgametx.leftside {
     width: 22.5%;
   }
 
-  /* line 142, ../sass/custom/_mobile.scss */
+  /* line 141, ../sass/custom/_mobile.scss */
   .gamelogo-section {
     left: 36%;
   }
 
-  /* line 145, ../sass/custom/_mobile.scss */
+  /* line 144, ../sass/custom/_mobile.scss */
   body.front .home-nextgamebg .nextgametx.rightside {
     width: 50.5%;
   }
 
-  /* line 148, ../sass/custom/_mobile.scss */
+  /* line 147, ../sass/custom/_mobile.scss */
   .home-nextgamebg .nextgametx {
     font-size: 1.3em;
   }
 
-  /* line 151, ../sass/custom/_mobile.scss */
+  /* line 150, ../sass/custom/_mobile.scss */
   .timeHolder {
     right: 0;
   }
 }
 @media only screen and (max-width: 768px) {
-  /* line 157, ../sass/custom/_mobile.scss */
+  /* line 156, ../sass/custom/_mobile.scss */
   .row {
     margin: 0;
   }
 
-  /* line 160, ../sass/custom/_mobile.scss */
+  /* line 159, ../sass/custom/_mobile.scss */
   .navbar-default .navbar-collapse {
     padding-left: 68px;
   }
 
-  /* line 163, ../sass/custom/_mobile.scss */
+  /* line 162, ../sass/custom/_mobile.scss */
   .promo-tile {
     padding: 0;
   }
-  /* line 164, ../sass/custom/_mobile.scss */
+  /* line 163, ../sass/custom/_mobile.scss */
   .promo-tile .tilehead span {
     font-size: 0.9em;
   }
 
-  /* line 169, ../sass/custom/_mobile.scss */
+  /* line 168, ../sass/custom/_mobile.scss */
   .countdown-promo-tile-days > span {
     font-size: 23px;
   }
-  /* line 170, ../sass/custom/_mobile.scss */
+  /* line 169, ../sass/custom/_mobile.scss */
   .countdown-promo-tile-days > span.timer-day {
     height: 78px;
     line-height: 2.2em;
     font-size: 0.6em;
   }
 
-  /* line 177, ../sass/custom/_mobile.scss */
+  /* line 176, ../sass/custom/_mobile.scss */
   .countdown-promo-tile-title {
     font-size: 1.6em;
     padding-left: 5px;
     padding-top: 1.75em;
   }
 
-  /* line 182, ../sass/custom/_mobile.scss */
+  /* line 181, ../sass/custom/_mobile.scss */
   .promo-tile .tilehead a.social {
     width: auto;
     padding: 0.3em 0.2em 0.35em;
   }
 
-  /* line 186, ../sass/custom/_mobile.scss */
+  /* line 185, ../sass/custom/_mobile.scss */
   .next-previous {
     width: 96%;
   }
 
-  /* line 189, ../sass/custom/_mobile.scss */
+  /* line 188, ../sass/custom/_mobile.scss */
   .event-gallary-big-box, body.admin-menu .navbar-default .dropdown-menu, iframe.pdf {
     width: 100%;
   }
 
-  /* line 192, ../sass/custom/_mobile.scss */
+  /* line 191, ../sass/custom/_mobile.scss */
   #block-views-acct-reps-block .profile-detail .col-fixed:last-child {
     margin-top: 0;
   }
 
-  /* line 195, ../sass/custom/_mobile.scss */
+  /* line 194, ../sass/custom/_mobile.scss */
   .main-wrap .highlighted {
     display: none !important;
     border: solid 1px #F00;
   }
 
-  /* line 199, ../sass/custom/_mobile.scss */
+  /* line 198, ../sass/custom/_mobile.scss */
   .event-gallary-thumb-slider .view-event-slider .view-content ul .views-row {
     width: 181px;
   }
 
-  /* line 202, ../sass/custom/_mobile.scss */
+  /* line 201, ../sass/custom/_mobile.scss */
   html body.admin-menu {
     margin-top: 0 !important;
   }
 
-  /* line 206, ../sass/custom/_mobile.scss */
+  /* line 205, ../sass/custom/_mobile.scss */
   .video-js.vjs-default-skin.vjs-playing, .video-js.vjs-default-skin.vjs-paused {
     width: 100% !important;
   }
 
-  /* line 210, ../sass/custom/_mobile.scss */
+  /* line 209, ../sass/custom/_mobile.scss */
   #block-views-tab-pages-block ul.nav-tabs li a {
     padding-left: 14px;
     padding-right: 14px;
   }
 
-  /* line 215, ../sass/custom/_mobile.scss */
+  /* line 214, ../sass/custom/_mobile.scss */
   .calendar-calendar .single-day td > .inner, .calendar-calendar .month-view .full tr.single-day .no-entry .inner {
     width: 106px;
   }
-  /* line 218, ../sass/custom/_mobile.scss */
+  /* line 217, ../sass/custom/_mobile.scss */
   .calendar-calendar .cal-team-name, .calendar-calendar .cal-time {
     font-size: 1.25em;
     bottom: 5px;
   }
 
-  /* line 222, ../sass/custom/_mobile.scss */
+  /* line 221, ../sass/custom/_mobile.scss */
   .sth-calendar .date-nav-wrapper .date-nav, .page-season-schedule .date-nav-wrapper .date-nav {
     width: 50%;
   }
 
   /*Calender*/
-  /* line 226, ../sass/custom/_mobile.scss */
+  /* line 225, ../sass/custom/_mobile.scss */
   .calendar-legend-left {
     width: 40%;
   }
 
-  /* line 229, ../sass/custom/_mobile.scss */
+  /* line 228, ../sass/custom/_mobile.scss */
   #modal_bootstrap {
     margin-left: -375px;
   }
-  /* line 230, ../sass/custom/_mobile.scss */
+  /* line 229, ../sass/custom/_mobile.scss */
   #modal_bootstrap .modal-dialog {
     width: 750px;
   }
 
-  /* line 235, ../sass/custom/_mobile.scss */
+  /* line 234, ../sass/custom/_mobile.scss */
   .calendar-legend-right {
     width: 60%;
   }
-  /* line 237, ../sass/custom/_mobile.scss */
+  /* line 236, ../sass/custom/_mobile.scss */
   .calendar-legend-right .first {
     width: 62%;
   }
-  /* line 240, ../sass/custom/_mobile.scss */
+  /* line 239, ../sass/custom/_mobile.scss */
   .calendar-legend-right .last {
     width: 38%;
   }
 
-  /* line 245, ../sass/custom/_mobile.scss */
+  /* line 244, ../sass/custom/_mobile.scss */
   .calendar-calendar .month-view .full tr.single-day.single-day > td:first-child .inner {
     width: 106px;
   }
-  /* line 248, ../sass/custom/_mobile.scss */
+  /* line 247, ../sass/custom/_mobile.scss */
   .calendar-calendar td div.day {
     border-bottom-width: 1px;
   }
 
   /*Existing*/
-  /* line 253, ../sass/custom/_mobile.scss */
+  /* line 252, ../sass/custom/_mobile.scss */
   .modal-content {
     background-color: black;
     width: 100%;
   }
 
-  /* line 257, ../sass/custom/_mobile.scss */
+  /* line 256, ../sass/custom/_mobile.scss */
   .modal-body {
     width: 100%;
   }
 
-  /* line 260, ../sass/custom/_mobile.scss */
+  /* line 259, ../sass/custom/_mobile.scss */
   .modal.fade.in {
     top: -30px;
   }
 
-  /* line 263, ../sass/custom/_mobile.scss */
+  /* line 262, ../sass/custom/_mobile.scss */
   .calendar-calendar .month-view .full td.single-day div.monthview .sth-other-event {
     text-align: center;
   }
 
-  /* line 266, ../sass/custom/_mobile.scss */
+  /* line 265, ../sass/custom/_mobile.scss */
   .countdown-promo-tile-days > span.timer-day {
     font-size: 0.35em;
   }
 
-  /* line 269, ../sass/custom/_mobile.scss */
+  /* line 268, ../sass/custom/_mobile.scss */
   .countdown-promo-tile-days > span {
     font-size: 0.3em;
   }
 }
 @media only screen and (max-device-width: 320px) {
-  /* line 275, ../sass/custom/_mobile.scss */
+  /* line 274, ../sass/custom/_mobile.scss */
   .calendar-calendar .single-day td > .inner {
     width: 135px !important;
   }
@@ -5893,4 +5894,3 @@ a.forgot-pass:hover {
 #overlay h1, #overlay h2, #overlay h3, #overlay h4, #overlay h5, #overlay h6, #overlay buttons, #overlay .btn, #edit-field-pdf .btn, #edit-field-video .btn {
   font-family: Arial,sans-serif !important;
 }
-body{}
