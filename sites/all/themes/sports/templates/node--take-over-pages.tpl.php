@@ -164,6 +164,21 @@ print '<div style="display: none;"  class="take_over_form take-over-pages-form t
     ?>
     <div class="to-body"><?php print render($content['field_video']);?></div>
     <div class="to-btm-txt"><?php print render($content['field_bottom_text']); ?></div>
+	<div class="takeover-btn-wrap">
+        <div class="to-btn1 tk-btn button_blue"><?php 
+		if(isset($content['field_button_1']) && $content['field_button_1']){
+		 print render($content['field_button_1']); 
+		}
+		
+		?></div>
+        <div class="to-btn2 tk-btn button_blue"><?php 
+		if(isset($content['field_button_2']) && $content['field_button_2']){
+		 print render($content['field_button_2']);
+		}
+
+		?></div>
+        
+    </div>
     <?php endif;?>
     
 </article>
