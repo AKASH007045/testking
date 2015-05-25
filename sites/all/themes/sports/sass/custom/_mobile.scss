@@ -45,6 +45,11 @@
   }
 }
 
+@media only screen and (max-device-width: 480px){
+	.row-header{margin-right:0;}
+	.calendar-calendar .cal-game-result{bottom:5px;}
+}
+
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
   body.front {
     .hero {
@@ -60,9 +65,7 @@
     
 }
 @media only screen and (max-width: 1024px) {
-  html body.admin-menu, #block-views-acct-reps-block .profile-detail .col-fixed:last-child {
-    margin-top: 0 !important;
-  }
+  
   #admin-menu, .highlighted, .event-link-edit, .vjs-paused .vjs-big-play-button, .desktop-logo {
     display: none !important;
   }
@@ -114,7 +117,6 @@
     .tilehead span {
       font-size: 0.9em;
     }
-    padding: 0;
   }
   .countdown-promo-tile-days > span.timer-day{
     font-size: 0.5em;
@@ -135,7 +137,7 @@
   .bottomBarInner {
     margin:0;
   }
-}
+} 
 
 @media only screen and (max-width: 860px) {
   body.front .home-nextgamebg .nextgametx.leftside {
@@ -217,8 +219,8 @@
     .single-day td > .inner, .month-view .full tr.single-day .no-entry .inner {
       width: 106px;
     }
-    .cal-team-name, .cal-time {
-      font-size: 1.4em;
+    .cal-team-name, .cal-time{
+      font-size: 1.25em;bottom:5px;
     }
   }
   .sth-calendar .date-nav-wrapper .date-nav, .page-season-schedule .date-nav-wrapper .date-nav {
@@ -271,4 +273,14 @@
   .countdown-promo-tile-days > span{
     font-size: 0.3em;
   }
+}
+
+@media only screen and (max-device-width : 320px){
+	.calendar-calendar .single-day td > .inner{
+		width:135px!important;
+	}
+}
+
+@media only screen and (max-device-width : 768px){
+	.calendar-calendar .month-view .full td.single-day .inner div  > img {width:auto;height:auto;}
 }
