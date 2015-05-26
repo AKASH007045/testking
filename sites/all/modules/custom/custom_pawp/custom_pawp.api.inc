@@ -290,7 +290,7 @@ function custom_pawp_tmapi_request_form_submit(&$form, &$form_state) {
     $tm_response = _tmapi_customer_update_call($acct_id, $data, $cc_response);
   }
   $cc_num = '************'. substr($data['cc_num'], -4, 4);
-  $params['subject'] = variable_get('pawp_mail_subject', t('Dallas Cowboys'));
+  $params['subject'] = variable_get('pawp_mail_subject', t('Sacramento Kings'));
   $data['tm_raw_response'] = '';
  if ($tm_response) {
       watchdog('tmapi_PAWP', 'TM PAWP Success for ACCT_ID. %data', array('%data' => $data['tmuser_info']['acct_id']), WATCHDOG_NOTICE, NULL);

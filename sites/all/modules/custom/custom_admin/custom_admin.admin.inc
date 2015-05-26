@@ -187,7 +187,7 @@ function custom_admin_invoice_setting() {
       '#type' => 'textfield',
       '#title' => t('Invoice Body Subject'),
       '#description' => t('Please enter subject for invoice mail.'),
-      '#default_value' => variable_get('invoice_mail_subject', t('2013-14 Dallas Cowboys Invoice')),
+      '#default_value' => variable_get('invoice_mail_subject', t('2015-16 Sacramento Kings Invoice')),
       '#required' => TRUE,
   );
   $form['invoice_mail_body'] = array(
@@ -195,7 +195,7 @@ function custom_admin_invoice_setting() {
       '#title' => t('Invoice Body Mail'),
       '#rows' => 5,
       '#description' => t('Please enter message text for invoice_mail_body.'),
-      '#default_value' => variable_get('invoice_mail_body', t('Attached to this email is a copy of your invoice for the 2013-14 Dallas Cowboys Season Subscription.')),
+      '#default_value' => variable_get('invoice_mail_body', t('Attached to this email is a copy of your invoice for the 2015-16 Sacramento Kings Season Subscription.')),
       '#required' => TRUE,
   );
   return system_settings_form($form);

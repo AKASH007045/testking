@@ -245,8 +245,8 @@ function _pdf_using_mpdf_generator($html, $filename = NULL, $file_output = 'D', 
     $mpdf->SetSubject('Invoice for '. $subject);
   }
   $mpdf->SetSubject('Invoice for ' . $name);
-  $mpdf->SetAuthor('Dallas Cowboys');
-  $mpdf->SetTitle('Cowboys Invoice');
+  $mpdf->SetAuthor('Sacramento Kings');
+  $mpdf->SetTitle('Kings Invoice');
   // Setting Password to PDF.
   $password = variable_get('pdf_using_mpdf_pdf_password');
   if (isset($password) && $password != NULL) {

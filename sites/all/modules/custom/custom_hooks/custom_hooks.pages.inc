@@ -23,13 +23,13 @@ function custom_hooks_email_invoice() {
 
   $params = array(
     'name' => $user->name,
-    'subject' => variable_get('invoice_mail_subject', t('2014 Dallas Cowboys Invoice')),
-    'body'=> variable_get('invoice_mail_body', t('Attached to this email is a copy of your invoice for the 2014 Dallas Cowboys Season Subscription.')),
+    'subject' => variable_get('invoice_mail_subject', t('2015 Sacramento Kings Invoice')),
+    'body'=> variable_get('invoice_mail_body', t('Attached to this email is a copy of your invoice for the 2015 Sacramento Kings Season Subscription.')),
   );
 
   // Checking mPDF library existence.
   if (pdf_using_mpdf_library_exist() == TRUE) {
-    $filename = "Cowboys-Invoice_" . str_replace(' ', '-', $name);
+    $filename = "Kings-Invoice_" . str_replace(' ', '-', $name);
     _pdf_using_mpdf_generator($output, $filename, 'F', $name);
     $file=file_directory_temp() . '/' . $filename.".pdf";
     $params['file'] = $file;
@@ -62,7 +62,7 @@ function custom_hooks_print_invoice() {
   // Checking mPDF library existence.
  
   if (pdf_using_mpdf_library_exist() == TRUE) {
-    $filename = "Cowboys-Invoice_" . str_replace(' ', '-', $name);
+    $filename = "Kings-Invoice_" . str_replace(' ', '-', $name);
     $conf['pdf_using_mpdf_pdf_save_option'] = 0;
     _pdf_using_mpdf_generator($output, $filename, 'I', $name);
     exit;
