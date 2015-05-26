@@ -44,7 +44,7 @@
     </div>
     <div class="head-cnt-rgt">
       <div class="date-time">Invoice Date: <?php print date('l, F d, Y');?></div>
-      <div class="date-tkt"><em>Renew by Feb 27 to get your season tickets!</em></div>
+     <!-- <div class="date-tkt"><em>Renew by Feb 27 to get your season tickets!</em></div>-->
     </div>
   </div>
   <div class="wrp-main bdr3btn ">
@@ -95,7 +95,7 @@
   <div class="wrp-main fnt12ftr pgbrk"> Sacramento Kings &nbsp;I&nbsp; Sleep Train Arena &nbsp;I&nbsp; One Sports Parkway &nbsp;I&nbsp; Sacramento, CA 95834 &nbsp;I&nbsp; 916.928.0000 &nbsp;I&nbsp; www.kingsmembership.com  </div> 
 </div>
   <!----------------------------------------Next Page start here---------------------------------------> 
-  <div class="printWrapper">
+ <!-- <div class="printWrapper">
    <div class="printHeader">
     <div class="logo"><img src="<?php print $logo== "" ? 'sites/all/modules/custom/custom_block/images/print_logo.png' : $logo ?>" alt="<?php print $team ?>" title="<?php print $team ?>" /></div>
     <div class="head-cnt-mid">
@@ -108,7 +108,7 @@
       <div class="date-tkt"><em>Renew by Feb 27 to get your season tickets!</em></div>
     </div>
   </div>
-     <?php print $footer; ?>
-  </div>
+     <?php// print $footer; ?>
+  </div>-->
   
 
