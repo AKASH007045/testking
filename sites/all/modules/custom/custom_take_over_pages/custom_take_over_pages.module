@@ -16,7 +16,7 @@ function custom_take_over_pages_user_login(&$edit, $account) {
  //print_r($invoice_amt);
  //print $destination; exit;
  $amt = (isset($invoice_amt['current_due_amounts']) && $invoice_amt['current_due_amounts'])  ? $invoice_amt['current_due_amounts'] : 0;
- $vid = 'node/1632';
+ $vid = 'node/1631';
  if($amt == 0 && $destination = $vid){
  $_GET['destination'] = $destination;
  }else if($destination != $vid) {
@@ -132,7 +132,7 @@ function custom_take_over_pages_node_view($node, $view_mode, $langcode) {
     }
 	
 	//logic to do 
-	  if ($node->nid == '1632'){
+	  if ($node->nid == '1631'){
 		  $seats = tm_get_seats_on_account($user->name);
 		  	  $rows = array();
 		  foreach ($seats as $key => $seat) {
