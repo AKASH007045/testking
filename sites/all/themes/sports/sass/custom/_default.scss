@@ -682,18 +682,18 @@ body {
 .vjs-default-skin {
   .vjs-big-play-button {
     border-radius:50%;
-    width:153px;
-    height:153px;
+    width:75px;
+    height:75px;
     left:50%;
     top:50%;
     font-size:4em;
-    margin-left:-75px;
-	margin-top:-75px;
+    margin-left:-37px;
+	margin-top:-37px;
     &:before {
-      line-height: 1.3em;
-      left: 13px;
+      line-height:/* 1.3em*/75px;
+      left: 6px;
       top: -1px;
-      text-shadow: none;
+      text-shadow: none; font-size:45px;
     }
   }
   .vjs-menu-button {
@@ -726,7 +726,8 @@ body {
 }
 
 .video-js {
-  border:1px solid #616161!important;
+	border: 1px solid rgba(242,241,241,0.5);
+	background: rgba(242,241,241,0.5);
 }
 
 .main-wrap .region-content .node-video .field-name-field-bottom-content {

@@ -163,7 +163,7 @@ print '<div style="display: none;"  class="take_over_form take-over-pages-form t
      elseif($node->field_select_layout[$node->language][0]['value'] == 3):
     ?>
     <div class="to-body"><?php print render($content['field_video']);?></div>
-    <div class="to-btm-txt"><?php print render($content['field_bottom_text']); ?></div>
+    
 	<div class="takeover-btn-wrap">
         <div class="to-btn1 tk-btn button_blue"><?php 
 		if(isset($content['field_button_1']) && $content['field_button_1']){
@@ -179,6 +179,7 @@ print '<div style="display: none;"  class="take_over_form take-over-pages-form t
 		?></div>
         
     </div>
+	<div class="to-btm-txt"><?php print render($content['field_bottom_text']); ?></div>
     <?php endif;?>
     
 </article>

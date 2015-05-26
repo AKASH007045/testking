@@ -769,20 +769,21 @@ body.not-front .container-fluid > section.main-wrap {
 /* line 683, ../sass/custom/_default.scss */
 .vjs-default-skin .vjs-big-play-button {
   border-radius: 50%;
-  width: 153px;
-  height: 153px;
+  width: 75px;
+  height: 75px;
   left: 50%;
   top: 50%;
   font-size: 4em;
-  margin-left: -75px;
-  margin-top: -75px;
+  margin-left: -37px;
+  margin-top: -37px;
 }
 /* line 692, ../sass/custom/_default.scss */
 .vjs-default-skin .vjs-big-play-button:before {
-  line-height: 1.3em;
-  left: 13px;
+  line-height: 75px;
+  left: 6px;
   top: -1px;
   text-shadow: none;
+  font-size: 45px;
 }
 /* line 699, ../sass/custom/_default.scss */
 .vjs-default-skin .vjs-menu-button {
@@ -814,22 +815,23 @@ body.not-front .container-fluid > section.main-wrap {
 
 /* line 728, ../sass/custom/_default.scss */
 .video-js {
-  border: 1px solid #616161 !important;
+  border: 1px solid rgba(242, 241, 241, 0.5);
+  background: rgba(242, 241, 241, 0.5);
 }
 
-/* line 732, ../sass/custom/_default.scss */
+/* line 733, ../sass/custom/_default.scss */
 .main-wrap .region-content .node-video .field-name-field-bottom-content {
   margin-top: 25px;
   padding-top: 22px;
 }
 
-/* line 737, ../sass/custom/_default.scss */
+/* line 738, ../sass/custom/_default.scss */
 .node-type-video .main-wrap .region-content .node-video {
   background: none;
   padding: 0;
 }
 
-/* line 742, ../sass/custom/_default.scss */
+/* line 743, ../sass/custom/_default.scss */
 .bg-holder {
   position: absolute;
   z-index: -100;
@@ -837,44 +839,44 @@ body.not-front .container-fluid > section.main-wrap {
   text-align: center;
 }
 
-/* line 749, ../sass/custom/_default.scss */
+/* line 750, ../sass/custom/_default.scss */
 .bg-inner-holder {
   position: absolute;
   z-index: -100;
   bottom: 0;
   text-align: center;
 }
-/* line 754, ../sass/custom/_default.scss */
+/* line 755, ../sass/custom/_default.scss */
 .bg-inner-holder > img {
   width: 100%;
 }
 
-/* line 759, ../sass/custom/_default.scss */
+/* line 760, ../sass/custom/_default.scss */
 .bg-holder > img {
   display: block;
   margin: auto;
 }
 
-/* line 765, ../sass/custom/_default.scss */
+/* line 766, ../sass/custom/_default.scss */
 article.move-np.node-benefits .field-item.content {
   height: 550px;
   position: absolute;
   top: 0;
   left: 0;
 }
-/* line 771, ../sass/custom/_default.scss */
+/* line 772, ../sass/custom/_default.scss */
 article.move-np.node-benefits .field .field-items {
   height: 615px;
   overflow-x: hidden;
   position: relative;
 }
 
-/* line 778, ../sass/custom/_default.scss */
+/* line 779, ../sass/custom/_default.scss */
 .bg-holder, .bg-inner-holder {
   top: auto;
 }
 
-/* line 782, ../sass/custom/_default.scss */
+/* line 783, ../sass/custom/_default.scss */
 .demo.demo1 {
   position: absolute;
   bottom: 0;
@@ -882,53 +884,53 @@ article.move-np.node-benefits .field .field-items {
   text-align: center;
 }
 
-/* line 789, ../sass/custom/_default.scss */
+/* line 790, ../sass/custom/_default.scss */
 .container.main-wrap p.demo.demo1 {
   padding-left: 2px;
   padding-right: 2px;
 }
 
-/* line 795, ../sass/custom/_default.scss */
+/* line 796, ../sass/custom/_default.scss */
 .demo.demo1 .pgnum, .demo.demo1 .maxpg {
   padding-left: 2px;
   padding-right: 2px;
 }
 
-/* line 802, ../sass/custom/_default.scss */
+/* line 803, ../sass/custom/_default.scss */
 article.move-np.node-benefits .field .field-items .field-item {
   display: none;
 }
-/* line 805, ../sass/custom/_default.scss */
+/* line 806, ../sass/custom/_default.scss */
 article.move-np .field .field-items .field-item.active {
   display: block;
 }
 
-/* line 810, ../sass/custom/_default.scss */
+/* line 811, ../sass/custom/_default.scss */
 div.next-previous {
   display: none;
   cursor: pointer;
 }
-/* line 814, ../sass/custom/_default.scss */
+/* line 815, ../sass/custom/_default.scss */
 div.next-previous div.next, div.next-previous div.previous {
   display: none;
   cursor: pointer;
 }
 
-/* line 821, ../sass/custom/_default.scss */
+/* line 822, ../sass/custom/_default.scss */
 .next-previous {
   position: absolute;
   width: 100%;
   top: 40%;
   width: 994px;
 }
-/* line 826, ../sass/custom/_default.scss */
+/* line 827, ../sass/custom/_default.scss */
 .next-previous .next {
   width: 55px;
   height: 86px;
   z-index: 99;
   position: absolute;
 }
-/* line 832, ../sass/custom/_default.scss */
+/* line 833, ../sass/custom/_default.scss */
 .next-previous .previous {
   width: 55px;
   height: 86px;
@@ -936,35 +938,35 @@ div.next-previous div.next, div.next-previous div.previous {
   position: absolute;
   left: 0;
 }
-/* line 839, ../sass/custom/_default.scss */
+/* line 840, ../sass/custom/_default.scss */
 .next-previous .next {
   right: 0;
 }
 
 /* Pagination CSS Ends Here*/
 /* Spotlight CSS Ends Here*/
-/* line 847, ../sass/custom/_default.scss */
+/* line 848, ../sass/custom/_default.scss */
 .vjs-paused .vjs-big-play-button {
   display: block !important;
 }
 
-/* line 851, ../sass/custom/_default.scss */
+/* line 852, ../sass/custom/_default.scss */
 .vjs-lock-showing {
   z-index: 100;
 }
 
-/* line 855, ../sass/custom/_default.scss */
+/* line 856, ../sass/custom/_default.scss */
 div.view-event-slider {
   height: 95px;
   position: relative;
 }
 
-/* line 860, ../sass/custom/_default.scss */
+/* line 861, ../sass/custom/_default.scss */
 .node-stp-page .slider .flex-viewport {
   min-height: 560px;
 }
 
-/* line 864, ../sass/custom/_default.scss */
+/* line 865, ../sass/custom/_default.scss */
 .field-name-field-pdf.quickedit-editable .stp-update-pdf, .node-video.quickedit-entity-active .stp-update-video, .quickedit-editable .stp-update-video {
   display: inline-block;
   position: absolute;
@@ -974,7 +976,7 @@ div.view-event-slider {
   z-index: 1;
 }
 
-/* line 873, ../sass/custom/_default.scss */
+/* line 874, ../sass/custom/_default.scss */
 .bg-page-link-edit {
   display: inline-block;
   position: absolute;
@@ -990,12 +992,12 @@ div.view-event-slider {
   letter-spacing: 1px;
 }
 
-/* line 888, ../sass/custom/_default.scss */
+/* line 889, ../sass/custom/_default.scss */
 .node-contact-us .bg-page-link-edit {
   bottom: 5px;
 }
 
-/* line 892, ../sass/custom/_default.scss */
+/* line 893, ../sass/custom/_default.scss */
 .bg-page-link-edit .fa-edit {
   font-size: 19px;
   float: left;
@@ -1003,29 +1005,29 @@ div.view-event-slider {
   margin-right: 4px;
 }
 
-/* line 900, ../sass/custom/_default.scss */
+/* line 901, ../sass/custom/_default.scss */
 body.front .container-fluid > .bg-page-link-edit, body.page-home .container-fluid > .bg-page-link-edit {
   right: 0;
   bottom: inherit;
   top: 600px;
 }
 
-/* line 907, ../sass/custom/_default.scss */
+/* line 908, ../sass/custom/_default.scss */
 .bg-page-link-edit:hover {
   text-decoration: none;
 }
 
-/* line 912, ../sass/custom/_default.scss */
+/* line 913, ../sass/custom/_default.scss */
 .page-update-custom-background .imageeditor, .page-update-custom-background .group-sth-event-user-type-access {
   display: none;
 }
 
-/* line 917, ../sass/custom/_default.scss */
+/* line 918, ../sass/custom/_default.scss */
 section.container .bg-page-link-edit {
   right: 0;
 }
 
-/* line 921, ../sass/custom/_default.scss */
+/* line 922, ../sass/custom/_default.scss */
 .bottom-promo-tile .bg-page-link-edit {
   z-index: 99;
   right: 16px;
@@ -1033,25 +1035,25 @@ section.container .bg-page-link-edit {
   top: inherit;
 }
 
-/* line 928, ../sass/custom/_default.scss */
+/* line 929, ../sass/custom/_default.scss */
 body.page-update-custom-background.not-front .container-fluid > section.main-wrap {
   margin-top: 0;
 }
 
-/* line 931, ../sass/custom/_default.scss */
+/* line 932, ../sass/custom/_default.scss */
 #overlay {
   width: 1024px;
   padding: 0px;
 }
 
-/* line 935, ../sass/custom/_default.scss */
+/* line 936, ../sass/custom/_default.scss */
 .view .date-nav-wrapper {
   margin-top: 16px;
   height: 55px;
 }
 
 @media only screen and (min-device-width: 768px) {
-  /* line 943, ../sass/custom/_default.scss */
+  /* line 944, ../sass/custom/_default.scss */
   .navbar-default .navbar-nav > li > a, .navbar-default .nav > li > a {
     padding: 10px 12px;
   }
@@ -2254,7 +2256,7 @@ body {
 
 /* line 1034, ../sass/custom/_style.scss */
 .node-type-take-over-pages .to-body {
-  margin-bottom: 50px;
+  margin-bottom: 19px;
 }
 
 /* line 1038, ../sass/custom/_style.scss */
@@ -2432,7 +2434,7 @@ div.messages {
 }
 
 /* line 1186, ../sass/custom/_style.scss */
-.btn.btn-default, button.quickedit-button, .imageeditor div.aviary-feather, .title .popup-close, .button_blue a, .global-button, .page-invoice-payment .btn-default.return-home, .page-pawp .container-fluid .main-wrap section.block form#custom-pawp-sign-up button#btn-default {
+.btn.btn-default, button.quickedit-button, .imageeditor div.aviary-feather, .title .popup-close, .button_blue a, .global-button, .page-invoice-payment .btn-default.return-home, .page-pawp .container-fluid .main-wrap section.block form#custom-pawp-sign-up button#btn-default, .node-type-take-over-pages .takeover-btn-wrap a {
   border-radius: 4px;
   padding: 0 20px;
   font-size: 1.2em;
@@ -2440,6 +2442,17 @@ div.messages {
   text-transform: none;
   outline: none;
   line-height: 33px;
+  display: inline-block;
+}
+
+/* line 1194, ../sass/custom/_style.scss */
+.node-type-take-over-pages .takeover-btn-wrap a {
+  font-size: 1.1em;
+}
+
+/* line 1194, ../sass/custom/_style.scss */
+.node-type-take-over-pages .takeover-btn-wrap a:hover, .node-type-take-over-pages .takeover-btn-wrap a:focus {
+  text-decoration: none;
 }
 
 /* line 1195, ../sass/custom/_style.scss */
@@ -2450,12 +2463,12 @@ div.messages {
 
 /* line 1200, ../sass/custom/_style.scss */
 .node-type-take-over-pages .tk-btn .field-item a {
-  min-width: 205px;
+  /*min-width: 205px;
   text-decoration: none;
   display: inline-block;
   box-shadow: none;
   padding-right: 15px;
-  padding-left: 15px;
+  padding-left: 15px;*/
 }
 
 /*Text Field*/
@@ -4568,19 +4581,19 @@ body.front .hero, body.page-home .hero {
 /* line 790, ../sass/custom/_stp-theme.scss */
 .video-js {
   /*Video BG*/
-  background-color: #101010;
+  /*background-color: #101010;*/
 }
 
 /* line 796, ../sass/custom/_stp-theme.scss */
 .vjs-default-skin .vjs-big-play-button {
   /*Video Icon BG*/
-  border: 0.09em solid #fff;
-  background-color: rgba(0, 41, 91, 0.7);
+  border: 2px solid #fff;
+  background-color: rgba(90, 64, 153, 0.7);
 }
 /* line 801, ../sass/custom/_stp-theme.scss */
 .vjs-default-skin:hover .vjs-big-play-button, .vjs-default-skin .vjs-big-play-button:focus {
   /*Video Icon BG on hover*/
-  background-color: #00295b;
+  background-color: #5a4099;
 }
 
 /*Invoice page*/
@@ -4632,12 +4645,13 @@ body.front .hero, body.page-home .hero {
 }
 
 /* line 851, ../sass/custom/_stp-theme.scss */
-.btn-light, .make-payment-wrapper button.form-submit, .page-invoice .pull-right .btn-default:focus, .payment-amount-box .make-payment-wrapper button#edit-submit, .payment-amount-box .make-payment-wrapper button#edit-submit:focus, .global-button, .global-button:focus, .page-invoice-payment button.form-submit, .page-pawp .container-fluid .main-wrap section.block button.btn-default, .page-invoice-payment button.form-submit, .page-pawp .container-fluid .main-wrap section.block button.btn-default:focus, .page-pawp .container-fluid #user-login #edit-actions .form-submit, .page-pawp .container-fluid #user-login #edit-actions .form-submit:focus {
+.btn-light, .make-payment-wrapper button.form-submit, .page-invoice .pull-right .btn-default:focus, .payment-amount-box .make-payment-wrapper button#edit-submit, .payment-amount-box .make-payment-wrapper button#edit-submit:focus, body .container-fluid .main-wrap .global-button,
+body .container-fluid .main-wrap .global-button:focus, .page-invoice-payment button.form-submit, .page-pawp .container-fluid .main-wrap section.block button.btn-default, .page-invoice-payment button.form-submit, .page-pawp .container-fluid .main-wrap section.block button.btn-default:focus, .page-pawp .container-fluid #user-login #edit-actions .form-submit, .page-pawp .container-fluid #user-login #edit-actions .form-submit:focus, .node-type-webform .container-fluid form.webform-client-form button[type="submit"], .node-type-webform .container-fluid form.webform-client-form button[type="submit"] {
   /*Pay Button*/
   border: 1px solid #3f2a72;
-  -moz-box-shadow: inset 0px 1px 1px #190e36;
-  -webkit-box-shadow: inset 0px 1px 1px #190e36;
-  box-shadow: inset 0px 1px 1px #190e36;
+  -moz-box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.25);
+  -webkit-box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.25);
   background: #5a4099;
   /* Old browsers */
   background: -moz-linear-gradient(top, #5a4099 0%, #4e3687 1%, #4e3687 3%, #3f2a72 100%);
@@ -4655,8 +4669,8 @@ body.front .hero, body.page-home .hero {
   color: #ffffff;
 }
 
-/* line 870, ../sass/custom/_stp-theme.scss */
-.page-user .btn-default, .season-invoice-detail .btn-default, .button_blue a, #renewal-countdown-timer #edit-actions .form-submit, .page-invoice-payment button.form-submit, .page-invoice .season-invoice-detail .pull-right .btn-default:focus, .page-invoice-payment .btn-default.return-home, .page-invoice-payment .btn-default.return-home:focus {
+/* line 871, ../sass/custom/_stp-theme.scss */
+.page-user .btn-default, .season-invoice-detail .btn-default, .button_blue a, #renewal-countdown-timer #edit-actions .form-submit, .page-invoice-payment button.form-submit, .page-invoice .season-invoice-detail .pull-right .btn-default:focus, .page-invoice-payment .btn-default.return-home, .page-invoice-payment .btn-default.return-home:focus, .node-type-take-over-pages .takeover-btn-wrap a {
   /*Email and Print Btn*/
   border: 1px solid #030303;
   box-shadow: inset 0px 1px 1px #5C5C5C;
@@ -4678,8 +4692,8 @@ body.front .hero, body.page-home .hero {
   background: linear-gradient(to bottom, #626262 0%, #4e4e4e 23%, #202020 62%, #1a1a1a 69%, #070707 87%, #030303 92%, #040404 100%);
   /* W3C */
 }
-/* line 886, ../sass/custom/_stp-theme.scss */
-.page-user .btn-default:hover, .season-invoice-detail .btn-default:hover, .button_blue a:hover, #renewal-countdown-timer #edit-actions .form-submit:hover, .page-invoice-payment button.form-submit:hover, .page-invoice .season-invoice-detail .pull-right .btn-default:focus:hover, .page-invoice-payment .btn-default.return-home:hover, .page-invoice-payment .btn-default.return-home:focus:hover {
+/* line 887, ../sass/custom/_stp-theme.scss */
+.page-user .btn-default:hover, .season-invoice-detail .btn-default:hover, .button_blue a:hover, #renewal-countdown-timer #edit-actions .form-submit:hover, .page-invoice-payment button.form-submit:hover, .page-invoice .season-invoice-detail .pull-right .btn-default:focus:hover, .page-invoice-payment .btn-default.return-home:hover, .page-invoice-payment .btn-default.return-home:focus:hover, .node-type-take-over-pages .takeover-btn-wrap a:hover {
   background: #030303;
 }
 
@@ -4687,30 +4701,30 @@ body.front .hero, body.page-home .hero {
   color: $white;  border: 1px solid #02152C;  background: rgba(0,26,58,1);
 }*/
 /*  Pay Now and Make Payment button hover  */
-/* line 898, ../sass/custom/_stp-theme.scss */
-.amountduewrap .amountduettl .pull-right a:hover, .payment-amount-box .make-payment-wrapper button#edit-submit:hover, .global-button:hover, .page-invoice-payment button.form-submit, .page-pawp .container-fluid .main-wrap section.block button.btn-default:hover, .page-pawp .container-fluid #user-login #edit-actions .form-submit:hover {
+/* line 899, ../sass/custom/_stp-theme.scss */
+.amountduewrap .amountduettl .pull-right a:hover, .payment-amount-box .make-payment-wrapper button#edit-submit:hover, body .container-fluid .main-wrap .global-button:hover, .page-invoice-payment button.form-submit, .page-pawp .container-fluid .main-wrap section.block button.btn-default:hover, .page-pawp .container-fluid #user-login #edit-actions .form-submit:hover, .node-type-webform .container-fluid form.webform-client-form button[type="submit"]:hover, .node-type-webform .container-fluid form.webform-client-form button[type="submit"]:focus {
   color: #ffffff;
   background: #3f2a72;
   border: 1px solid #3f2a72;
 }
 
 /*  Email and Print Hover  */
-/* line 901, ../sass/custom/_stp-theme.scss */
-.page-invoice .season-invoice-detail .pull-right a:hover, .page-invoice-payment .btn-default.return-home:hover {
+/* line 902, ../sass/custom/_stp-theme.scss */
+.page-invoice .season-invoice-detail .pull-right a:hover, .page-invoice-payment .btn-default.return-home:hover, .node-type-take-over-pages .takeover-btn-wrap a:hover, .node-type-take-over-pages .takeover-btn-wrap a:focus {
   background: #030303;
 }
 
-/* line 902, ../sass/custom/_stp-theme.scss */
+/* line 903, ../sass/custom/_stp-theme.scss */
 .infoPanelwrap .dedicateserrep h5.dsr {
   border-bottom: 4px solid #fff;
 }
 
-/* line 905, ../sass/custom/_stp-theme.scss */
+/* line 906, ../sass/custom/_stp-theme.scss */
 .payment-unsuccessful h1, .payment-unsuccessful h2 {
   color: #cc092f;
 }
 
-/* line 910, ../sass/custom/_stp-theme.scss */
+/* line 911, ../sass/custom/_stp-theme.scss */
 .page-invoice-payment .btn-default.return-home {
   /*border: 1px solid #262523;
   text-shadow: -1px 1px 0 $blk-txt-shadow;
@@ -4726,82 +4740,82 @@ body.front .hero, body.page-home .hero {
   background: linear-gradient(to bottom, #434343 0%, #040404 100%);
   color: $white;*/
 }
-/* line 924, ../sass/custom/_stp-theme.scss */
+/* line 925, ../sass/custom/_stp-theme.scss */
 .page-invoice-payment .btn-default.return-home:hover {
   /*background: $black-bdr;*/
 }
 
-/* line 929, ../sass/custom/_stp-theme.scss */
+/* line 930, ../sass/custom/_stp-theme.scss */
 .infoPanelwrap .dedicateserrep {
   background-color: #000000;
   border: 1px solid #000000;
   color: #ffffff;
 }
 
-/* line 935, ../sass/custom/_stp-theme.scss */
+/* line 936, ../sass/custom/_stp-theme.scss */
 .page-invoice #block-custom-block-user-info {
   color: #000000;
 }
 
-/* line 939, ../sass/custom/_stp-theme.scss */
+/* line 940, ../sass/custom/_stp-theme.scss */
 .infoPanelwrap h2 span {
   color: #5a4099;
 }
 
-/* line 944, ../sass/custom/_stp-theme.scss */
+/* line 945, ../sass/custom/_stp-theme.scss */
 .page-invoice-payment-success .payment-thankyou-wrapper h1, .page-invoice-payment-success .payment-thankyou-wrapper h2 {
   color: #5a4099;
 }
 
 /*STH Evvent*/
-/* line 951, ../sass/custom/_stp-theme.scss */
+/* line 952, ../sass/custom/_stp-theme.scss */
 .event-gallary-thumb-slider .view-event-slider .view-header .buttons {
   background: url(../images/event-thumbSlider.png) repeat-x 0 0;
 }
 
-/* line 955, ../sass/custom/_stp-theme.scss */
+/* line 956, ../sass/custom/_stp-theme.scss */
 body.node-type-event .carousel-control, .pouptopwrap .sthevent-image .carousel-control {
   /*Crousel Image*/
   background: transparent url("../images/event-carousel.png") 0 0 no-repeat;
 }
 
-/* line 960, ../sass/custom/_stp-theme.scss */
+/* line 961, ../sass/custom/_stp-theme.scss */
 .event-gallary-thumb-slider .view-event-slider .view-header .buttons.next {
   right: 0px;
   background-position: -28px 0;
 }
 
-/* line 965, ../sass/custom/_stp-theme.scss */
+/* line 966, ../sass/custom/_stp-theme.scss */
 body.node-type-event .carousel-control.right, .pouptopwrap .sthevent-image .carousel-control.right {
   /*Crousel Image position right*/
   background-position: -45px -6px;
 }
 
-/* line 970, ../sass/custom/_stp-theme.scss */
+/* line 971, ../sass/custom/_stp-theme.scss */
 body.node-type-event .carousel-control.right:hover, .pouptopwrap .sthevent-image .carousel-control.right:hover {
   /*Crousel Image position right hover*/
   background-position: -45px -76px;
 }
 
-/* line 975, ../sass/custom/_stp-theme.scss */
+/* line 976, ../sass/custom/_stp-theme.scss */
 body.node-type-event .carousel-control.left:hover, .pouptopwrap .sthevent-image .carousel-control.left:hover {
   /*Crousel Image position left*/
   background-position: 0 -76px;
 }
 
-/* line 980, ../sass/custom/_stp-theme.scss */
+/* line 981, ../sass/custom/_stp-theme.scss */
 body.node-type-event .carousel-control.left, .pouptopwrap .sthevent-image .carousel-control.left {
   /*Crousel Image position left hover*/
   background-position: 0 -6px;
 }
 
-/* line 985, ../sass/custom/_stp-theme.scss */
+/* line 986, ../sass/custom/_stp-theme.scss */
 .calendar-calendar .pptic-evt a.active, .event-gallary-big-box .modal-header .pptic-evt a.active, #modal_bootstrap .mgTicket a.active {
   /*Up Arrow*/
   background: url("../images/upArrow.png") -6px -3px transparent no-repeat;
 }
 
-/* line 990, ../sass/custom/_stp-theme.scss */
+/* line 991, ../sass/custom/_stp-theme.scss */
 .event-gallary-big-box .modal-header, #modal_bootstrap .modal-header {
   /*Galery heading bg*/
   background-color: #001836;
@@ -4813,13 +4827,13 @@ body.node-type-event .carousel-control.left, .pouptopwrap .sthevent-image .carou
   border-bottom: 1px solid #778087;
 }
 
-/* line 1001, ../sass/custom/_stp-theme.scss */
+/* line 1002, ../sass/custom/_stp-theme.scss */
 .calendar-calendar .modal-dialog, .event-gallary-thumb-slider .view-event-slider .view-content ul .views-row {
   /*LI listed gallery images border*/
   border: 2px solid #778087;
 }
 
-/* line 1006, ../sass/custom/_stp-theme.scss */
+/* line 1007, ../sass/custom/_stp-theme.scss */
 .event-link-edit a {
   /*LI listed gallery edit icon*/
   text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.3);
@@ -4828,81 +4842,81 @@ body.node-type-event .carousel-control.left, .pouptopwrap .sthevent-image .carou
   border: 1px solid #545454;
 }
 
-/* line 1014, ../sass/custom/_stp-theme.scss */
+/* line 1015, ../sass/custom/_stp-theme.scss */
 .event-gallary-thumb-slider .view-event-slider .view-content ul .views-row .tilehead {
   /*Gallery crousel heading*/
   background: url(../images/eventBgThumb.png) repeat-x 0 0;
 }
 
 /*Contact us*/
-/* line 1021, ../sass/custom/_stp-theme.scss */
+/* line 1022, ../sass/custom/_stp-theme.scss */
 #block-views-acct-reps-block {
   /*Blue BG*/
   background-color: rgba(156, 156, 156, 0.75);
   border: 1px solid #000000;
 }
-/* line 1025, ../sass/custom/_stp-theme.scss */
+/* line 1026, ../sass/custom/_stp-theme.scss */
 #block-views-acct-reps-block .dedicated-representatives {
   /*Heading btm border in the crousel*/
   border-bottom: 4px solid #fff;
 }
 
-/* line 1031, ../sass/custom/_stp-theme.scss */
+/* line 1032, ../sass/custom/_stp-theme.scss */
 .infohourbg .hour-imf .hour-dtl {
   /*Grey color in the crousel*/
   color: #9f9f9f;
 }
-/* line 1034, ../sass/custom/_stp-theme.scss */
+/* line 1035, ../sass/custom/_stp-theme.scss */
 .infohourbg .hour-imf .hour-dtl .mail {
   /*Grey color in the crousel*/
   color: #9f9f9f;
 }
 
-/* line 1040, ../sass/custom/_stp-theme.scss */
+/* line 1041, ../sass/custom/_stp-theme.scss */
 #block-views-acct-reps-block .profile-detail .namedetil .field-label, .node-type-contact-us .container-fluid div.carousel-inner div.textdtl p b {
   /*Grey color in the crousel*/
   color: #393f96;
 }
 
-/* line 1045, ../sass/custom/_stp-theme.scss */
+/* line 1046, ../sass/custom/_stp-theme.scss */
 #user-login {
   border: 1px solid #252525;
   background: #f7f6f6;
 }
-/* line 1046, ../sass/custom/_stp-theme.scss */
+/* line 1047, ../sass/custom/_stp-theme.scss */
 #user-login #edit-form-description {
   /*Text color Account Manager*/
   color: #404040;
 }
-/* line 1050, ../sass/custom/_stp-theme.scss */
+/* line 1051, ../sass/custom/_stp-theme.scss */
 #user-login .form-item-remember-me label, #user-login .need_help a {
   /*Text color*/
   color: #000000;
 }
 
-/* line 1058, ../sass/custom/_stp-theme.scss */
+/* line 1059, ../sass/custom/_stp-theme.scss */
 form#user-login .form-item-remember-me span {
   /*Radio Icon image*/
   background: url(../images/remember-me-sprite.png) no-repeat 0 -21px;
 }
 
-/* line 1063, ../sass/custom/_stp-theme.scss */
+/* line 1064, ../sass/custom/_stp-theme.scss */
 .main-wrap .region-content .node-take-over-pages.node {
   background: none;
 }
 
-/* line 1067, ../sass/custom/_stp-theme.scss */
+/* line 1068, ../sass/custom/_stp-theme.scss */
 body.page-invoice .container-fluid {
   background-color: #ffffff !important;
 }
 
-/* line 1071, ../sass/custom/_stp-theme.scss */
+/* line 1072, ../sass/custom/_stp-theme.scss */
 .node-type-page .container-fluid {
   background: url(../images/user-login-mainbg_0.jpg);
 }
 
 /*---------------------------------Editor ----------------------------*/
-/* line 1077, ../sass/custom/_stp-theme.scss */
+/* line 1078, ../sass/custom/_stp-theme.scss */
 fieldset, .field-type-image .form-item {
   border: 1px solid #929292;
   padding: 15px 15px 10px 15px;
@@ -4916,15 +4930,15 @@ fieldset, .field-type-image .form-item {
   background: linear-gradient(to bottom, #ffffff 0%, #e7e7e7 100%);
 }
 
-/* line 1091, ../sass/custom/_stp-theme.scss */
+/* line 1092, ../sass/custom/_stp-theme.scss */
 .page-update-custom-background .badge {
   color: #929292;
 }
-/* line 1094, ../sass/custom/_stp-theme.scss */
+/* line 1095, ../sass/custom/_stp-theme.scss */
 .page-update-custom-background .file a {
   color: #000000;
 }
-/* line 1097, ../sass/custom/_stp-theme.scss */
+/* line 1098, ../sass/custom/_stp-theme.scss */
 .page-update-custom-background #overlay-close {
   background: #f4f4f4;
   background: -moz-linear-gradient(top, #f4f4f4 0%, #d0d2d0 100%);
@@ -4934,11 +4948,11 @@ fieldset, .field-type-image .form-item {
   background: -ms-linear-gradient(top, #f4f4f4 0%, #d0d2d0 100%);
   background: linear-gradient(to bottom, #f4f4f4 0%, #d0d2d0 100%);
 }
-/* line 1098, ../sass/custom/_stp-theme.scss */
+/* line 1099, ../sass/custom/_stp-theme.scss */
 .page-update-custom-background #overlay-close:before {
   color: #000000;
 }
-/* line 1108, ../sass/custom/_stp-theme.scss */
+/* line 1109, ../sass/custom/_stp-theme.scss */
 .page-update-custom-background #overlay-close:hover {
   background: #f4f4f4;
   background: -moz-linear-gradient(top, #f4f4f4 0%, #d0d2d0 100%);
@@ -4949,56 +4963,56 @@ fieldset, .field-type-image .form-item {
   background: linear-gradient(to bottom, #f4f4f4 0%, #d0d2d0 100%);
 }
 
-/* line 1120, ../sass/custom/_stp-theme.scss */
+/* line 1121, ../sass/custom/_stp-theme.scss */
 .home-tgl .sidekick-label {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   background: url(../images/sidekick.png) no-repeat left top;
 }
 
-/* line 1125, ../sass/custom/_stp-theme.scss */
+/* line 1126, ../sass/custom/_stp-theme.scss */
 .page-node-1174 .node.node-page p, .page-node-1173 .node.node-page p, .page-403 .node.node-page p, .nav-tabs li.bv-tab-error > a, .has-error .css3 li a {
   color: #a94442;
 }
 
 /** ------Invoice Start Here ------ */
-/* line 1129, ../sass/custom/_stp-theme.scss */
+/* line 1130, ../sass/custom/_stp-theme.scss */
 .nav-tabs li.bv-tab-success > a {
   color: #3c763d;
 }
 
 /*--------- Selectyze Start Here ---------*/
-/* line 1135, ../sass/custom/_stp-theme.scss */
+/* line 1136, ../sass/custom/_stp-theme.scss */
 .btn-success[disabled] {
   border-color: #2b669a;
 }
 
-/* line 1139, ../sass/custom/_stp-theme.scss */
+/* line 1140, ../sass/custom/_stp-theme.scss */
 .css3 .selectyzeValue {
   color: #666666;
   background: url("../images/dropjownjs.png") no-repeat;
 }
 
-/* line 1144, ../sass/custom/_stp-theme.scss */
+/* line 1145, ../sass/custom/_stp-theme.scss */
 .has-error .css3 .selectyzeValue {
   border: 1px solid #b94a48 !important;
   color: #a94442;
 }
 
-/* line 1150, ../sass/custom/_stp-theme.scss */
+/* line 1151, ../sass/custom/_stp-theme.scss */
 .css3 .UlSelectize {
   background-color: #ffffff;
   border: 1px solid #cccccc;
 }
-/* line 1154, ../sass/custom/_stp-theme.scss */
+/* line 1155, ../sass/custom/_stp-theme.scss */
 .css3 li a {
   color: #000000;
 }
-/* line 1156, ../sass/custom/_stp-theme.scss */
+/* line 1157, ../sass/custom/_stp-theme.scss */
 .css3 li a:hover {
   background-color: #5a4099;
   color: #ffffff;
 }
-/* line 1161, ../sass/custom/_stp-theme.scss */
+/* line 1162, ../sass/custom/_stp-theme.scss */
 .css3 .optgroupTitle {
   background-color: #3e3d3d;
   color: #ffffff;
@@ -5006,17 +5020,17 @@ fieldset, .field-type-image .form-item {
 
 /*------------ End Start Here ------------*/
 /*   Seat View Border  */
-/* line 1171, ../sass/custom/_stp-theme.scss */
+/* line 1172, ../sass/custom/_stp-theme.scss */
 .vr-seat-view-wrapper {
   border: 1px solid #616161;
 }
 
-/* line 1174, ../sass/custom/_stp-theme.scss */
+/* line 1175, ../sass/custom/_stp-theme.scss */
 .carousel-inner img.img-responsive {
   width: 100%;
 }
 
-/* line 1178, ../sass/custom/_stp-theme.scss */
+/* line 1179, ../sass/custom/_stp-theme.scss */
 .calendar-calendar .month-view .full td .inner div.day, .calendar-calendar .month-view .full td .inner div.day a {
   text-align: center;
   padding-left: 6px;
@@ -5028,28 +5042,28 @@ fieldset, .field-type-image .form-item {
   width: 30px;
 }
 
-/* line 1182, ../sass/custom/_stp-theme.scss */
+/* line 1183, ../sass/custom/_stp-theme.scss */
 .promo-tile .promo-box a {
   text-decoration: none;
 }
 
-/* line 1187, ../sass/custom/_stp-theme.scss */
+/* line 1188, ../sass/custom/_stp-theme.scss */
 a.cke_dialog_ui_button {
   margin: 14px 0px 0px 0px !important;
 }
 
 /*  PAWP Page CSS  */
-/* line 1191, ../sass/custom/_stp-theme.scss */
+/* line 1192, ../sass/custom/_stp-theme.scss */
 .page-pawp .container-fluid .main-wrap section.block {
   text-align: center;
 }
 
-/* line 1193, ../sass/custom/_stp-theme.scss */
+/* line 1194, ../sass/custom/_stp-theme.scss */
 .page-pawp .main-container {
   padding-top: 130px;
 }
 
-/* line 1199, ../sass/custom/_stp-theme.scss */
+/* line 1200, ../sass/custom/_stp-theme.scss */
 .page-pawp .container-fluid #user-login {
   border: 0px;
   background: -moz-linear-gradient(top, black 0%, rgba(0, 0, 0, 0.81) 75%, rgba(0, 0, 0, 0.61) 85%, transparent 100%);
@@ -5066,12 +5080,12 @@ a.cke_dialog_ui_button {
   /* W3C */
 }
 
-/* line 1213, ../sass/custom/_stp-theme.scss */
+/* line 1214, ../sass/custom/_stp-theme.scss */
 .page-season-schedule .container-fluid {
   background-color: #381952 !important;
 }
 
-/* line 1218, ../sass/custom/_stp-theme.scss */
+/* line 1219, ../sass/custom/_stp-theme.scss */
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
   box-shadow: #121212 0px 0px 6px inset;
   -moz-box-shadow: #121212 0px 0px 6px inset;
@@ -5079,23 +5093,23 @@ a.cke_dialog_ui_button {
   background: #2b2b2b;
 }
 
-/* line 1221, ../sass/custom/_stp-theme.scss */
+/* line 1222, ../sass/custom/_stp-theme.scss */
 a.forgot-pass {
   color: #a94442;
   text-decoration: underline;
   font-weight: bold;
 }
-/* line 1223, ../sass/custom/_stp-theme.scss */
+/* line 1224, ../sass/custom/_stp-theme.scss */
 a.forgot-pass:hover {
   text-decoration: none;
 }
 
-/* line 1227, ../sass/custom/_stp-theme.scss */
+/* line 1228, ../sass/custom/_stp-theme.scss */
 .block-custom-social-feed .promo-box {
   background: url("../images/bottom-tile.png") no-repeat 0 0;
 }
 
-/* line 1230, ../sass/custom/_stp-theme.scss */
+/* line 1231, ../sass/custom/_stp-theme.scss */
 .page-invoice .season-invoice-detail .pull-right a.pricing-map {
   color: #381951;
   font-weight: bold;
@@ -5105,17 +5119,135 @@ a.forgot-pass:hover {
   margin-right: 8px;
 }
 
-/* line 1231, ../sass/custom/_stp-theme.scss */
+/* line 1232, ../sass/custom/_stp-theme.scss */
 .page-invoice .season-invoice-detail .pull-right a.pricing-map:hover {
   background: none;
   text-decoration: none;
 }
 
-/* line 1232, ../sass/custom/_stp-theme.scss */
+/* line 1233, ../sass/custom/_stp-theme.scss */
 .infoPanelwrap .namecntinf a, .season-invoice-detail .ticketTable td a {
   color: #000000;
   text-decoration: none;
   cursor: text;
+}
+
+/*  Takeover Page CSS  */
+/* line 1239, ../sass/custom/_stp-theme.scss */
+body.node-type-take-over-pages .container-fluid header, body.node-type-take-over-pages .container-fluid .page-header {
+  display: none;
+}
+/* line 1242, ../sass/custom/_stp-theme.scss */
+body.node-type-take-over-pages .container-fluid .main-wrap {
+  padding-bottom: 287px;
+}
+/* line 1245, ../sass/custom/_stp-theme.scss */
+body.node-type-take-over-pages .container-fluid .to-body {
+  padding-top: 248px;
+  text-align: center;
+}
+/* line 1248, ../sass/custom/_stp-theme.scss */
+body.node-type-take-over-pages .container-fluid .to-body .video-js {
+  width: 437px !important;
+  height: 247px !important;
+  display: inline-block;
+}
+/* line 1253, ../sass/custom/_stp-theme.scss */
+body.node-type-take-over-pages .container-fluid .takeover-btn-wrap {
+  margin-bottom: 10px;
+}
+/* line 1256, ../sass/custom/_stp-theme.scss */
+body.node-type-take-over-pages .container-fluid .takeover-btn-wrap .tk-btn a {
+  width: 212px;
+  line-height: 48px;
+  font-size: 20px;
+  font-weight: lighter;
+}
+/* line 1260, ../sass/custom/_stp-theme.scss */
+body.node-type-take-over-pages .container-fluid .to-btm-txt {
+  margin-top: 0px;
+}
+/* line 1262, ../sass/custom/_stp-theme.scss */
+body.node-type-take-over-pages .container-fluid .to-btm-txt p {
+  font-family: "oswaldregular",Arial,sans-serif;
+  font-weight: lighter;
+  font-size: 18px;
+}
+/* line 1265, ../sass/custom/_stp-theme.scss */
+body.node-type-take-over-pages .container-fluid .to-btm-txt p a {
+  text-decoration: underline;
+}
+/* line 1267, ../sass/custom/_stp-theme.scss */
+body.node-type-take-over-pages .container-fluid .to-btm-txt p a:hover, body.node-type-take-over-pages .container-fluid .to-btm-txt p a:focus {
+  text-decoration: none;
+}
+/* line 1274, ../sass/custom/_stp-theme.scss */
+body.node-type-take-over-pages .footer-copyright {
+  opacity: 0.3;
+}
+/* line 1276, ../sass/custom/_stp-theme.scss */
+body.node-type-take-over-pages .footer-copyright a {
+  cursor: text;
+}
+
+/*  Vacation Exchange Form CSS  */
+/* line 1285, ../sass/custom/_stp-theme.scss */
+.node-type-webform .container-fluid {
+  background: url("../images/benefit-mainbg.jpg") no-repeat top center #381952;
+}
+/* line 1289, ../sass/custom/_stp-theme.scss */
+.node-type-webform .container-fluid section.main-wrap div.error {
+  display: none;
+}
+/* line 1294, ../sass/custom/_stp-theme.scss */
+.node-type-webform .container-fluid form.webform-client-form {
+  padding: 3% 12% 6% 12%;
+}
+/* line 1297, ../sass/custom/_stp-theme.scss */
+.node-type-webform .container-fluid form.webform-client-form .webform-component {
+  padding: 0px 0px 7px 0px;
+}
+/* line 1300, ../sass/custom/_stp-theme.scss */
+.node-type-webform .container-fluid form.webform-client-form button[type="submit"] {
+  outline: none;
+  padding: 0px 20px;
+  line-height: 34px;
+}
+/* line 1304, ../sass/custom/_stp-theme.scss */
+.node-type-webform .container-fluid form.webform-client-form div.webform-component div.form-checkboxes {
+  margin: 7px 12px 0px 0px;
+  outline: none;
+  display: inline-block;
+  float: left;
+}
+/* line 1307, ../sass/custom/_stp-theme.scss */
+.node-type-webform .container-fluid form.webform-client-form div.webform-component select {
+  width: 100%;
+  color: #222222;
+  padding: 6px 0px;
+  font-family: 'oswaldregular', Arial, sans-serif;
+  display: block;
+  font-size: 13px;
+}
+/* line 1310, ../sass/custom/_stp-theme.scss */
+.node-type-webform .container-fluid form.webform-client-form div.webform-component label {
+  line-height: 34px;
+  font-weight: 400;
+  font-family: 'oswaldregular', Arial, sans-serif;
+  display: inline-block;
+  font-size: 13px;
+}
+/* line 1313, ../sass/custom/_stp-theme.scss */
+.node-type-webform .container-fluid form.webform-client-form div.webform-component input.error, .node-type-webform .container-fluid form.webform-client-form div.webform-component select.error {
+  border-color: rgba(178, 14, 14, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+  color: #a4a5a6;
+}
+
+/* line 1323, ../sass/custom/_stp-theme.scss */
+.payment-user-form-wrapper .name-panel label {
+  display: block;
+  width: 100%;
 }
 
 /* line 1, ../sass/custom/_alertify.core.scss */
