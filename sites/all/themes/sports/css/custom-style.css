@@ -3741,8 +3741,11 @@ body.overlay .main-container > .main-wrap {
   padding: 20px 0px 0px 0px;
 }
 
-@media only screen and (min-device-width: 768px) {
-  /* line 934, ../sass/custom/_main.scss */
+/*@media only screen and (min-device-width : 768px){
+	.calendar-calendar .cal-game-result{font-size:1.25em;bottom:5px;}
+}*/
+@media only screen and (max-device-width: 768px) {
+  /* line 937, ../sass/custom/_main.scss */
   .calendar-calendar .cal-game-result {
     font-size: 1.25em;
     bottom: 5px;
@@ -6055,29 +6058,29 @@ body.node-type-take-over-pages .footer-copyright a {
 }
 @font-face {
   font-family: "oswaldbold";
-  src: url("../fonts/oswald.bold-webfont.eot?1432291502");
-  src: url("../fonts/oswald.bold-webfont.eot?1432291502?#iefix") format('embedded-opentype'), url('../fonts/oswald.bold-webfont.woff?1432291502') format('woff'), url('../fonts/oswald.bold-webfont.ttf?1432291502') format('truetype'), url('../fonts/oswald.bold-webfont.svg?1432291502#oswaldbold') format('svg');
+  src: url("../fonts/oswald.bold-webfont.eot?1432710747");
+  src: url("../fonts/oswald.bold-webfont.eot?1432710747?#iefix") format('embedded-opentype'), url('../fonts/oswald.bold-webfont.woff?1432710747') format('woff'), url('../fonts/oswald.bold-webfont.ttf?1432710747') format('truetype'), url('../fonts/oswald.bold-webfont.svg?1432710747#oswaldbold') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "oswaldregular";
-  src: url("../fonts/oswald.regular-webfont.eot?1432291502");
-  src: url("../fonts/oswald.regular-webfont.eot?1432291502?#iefix") format('embedded-opentype'), url('../fonts/oswald.regular-webfont.woff?1432291502') format('woff'), url('../fonts/oswald.regular-webfont.ttf?1432291502') format('truetype'), url('../fonts/oswald.regular-webfont.svg?1432291502#oswaldregular') format('svg');
+  src: url("../fonts/oswald.regular-webfont.eot?1432710747");
+  src: url("../fonts/oswald.regular-webfont.eot?1432710747?#iefix") format('embedded-opentype'), url('../fonts/oswald.regular-webfont.woff?1432710747') format('woff'), url('../fonts/oswald.regular-webfont.ttf?1432710747') format('truetype'), url('../fonts/oswald.regular-webfont.svg?1432710747#oswaldregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "iona-medium-webfont";
-  src: url("../fonts/2B6BAF_0_0.eot?1432291502");
-  src: url("../fonts/2B6BAF_0_0.eot?1432291502?#iefix") format('embedded-opentype'), url('../fonts/2B6BAF_0_0.woff?1432291502') format('woff'), url('../fonts/2B6BAF_0_0.ttf?1432291502') format('truetype'), url('../fonts/2B6BAF_0_0.svg?1432291502#iona-medium-webfont') format('svg');
+  src: url("../fonts/2B6BAF_0_0.eot?1432710747");
+  src: url("../fonts/2B6BAF_0_0.eot?1432710747?#iefix") format('embedded-opentype'), url('../fonts/2B6BAF_0_0.woff?1432710747') format('woff'), url('../fonts/2B6BAF_0_0.ttf?1432710747') format('truetype'), url('../fonts/2B6BAF_0_0.svg?1432710747#iona-medium-webfont') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "VideoJS";
-  src: url("../fonts/vjs.eot?1432291502");
-  src: url("../fonts/vjs.eot?1432291502?#iefix") format('embedded-opentype'), url('../fonts/vjs.woff?1432291502') format('woff'), url('../fonts/vjs.ttf?1432291502') format('truetype'), url('../fonts/vjs.svg?1432291502#VideoJS') format('svg');
+  src: url("../fonts/vjs.eot?1432710747");
+  src: url("../fonts/vjs.eot?1432710747?#iefix") format('embedded-opentype'), url('../fonts/vjs.woff?1432710747') format('woff'), url('../fonts/vjs.ttf?1432710747') format('truetype'), url('../fonts/vjs.svg?1432710747#VideoJS') format('svg');
   font-weight: normal;
   font-style: normal;
 }
