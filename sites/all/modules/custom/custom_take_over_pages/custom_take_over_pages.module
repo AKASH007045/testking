@@ -17,7 +17,7 @@ function custom_take_over_pages_user_login(&$edit, $account) {
  print $destination; exit;
  $totalamt = (isset($invoice_amt['invoice_amounts']) && $invoice_amt['invoice_amounts'])  ? $invoice_amt['invoice_amounts'] : 0;
  $paidamt = (isset($invoice_amt['paid_amounts']) && $invoice_amt['paid_amounts'])  ? $invoice_amt['paid_amounts'] : 0;
- $amt = $totalamt - $paidamt;
+ $amt = ($totalamt) - $paidamt;
  $vid = 'node/1631';
  if($amt > 0 && $destination == $vid){
  $_GET['destination'] = $destination;
@@ -138,8 +138,8 @@ function custom_take_over_pages_node_view($node, $view_mode, $langcode) {
 		  $seats = tm_get_seats_on_account($user->name);
 		  	  $rows = array();
 		  foreach ($seats as $key => $seat) {
-			if (strpos(strtolower($seat->price_code), 'k') ===2) {
-			//if (strpos(strtolower($seat->price_code), 'k') ===0) {
+			//if (strpos(strtolower($seat->price_code), 'k') ===2) {
+			if (strpos(strtolower($seat->price_code), 'k') ===0) {
 				$rows[$seat->price_code] = $seat->price_code;
 			}
 		  }
