@@ -138,6 +138,50 @@ function custom_hooks_menu_alter(&$items) {
   $items['admin/index']['access callback'] = FALSE;
 }
 
+/**
+* Implements hook_user_login().
+*/
+function custom_hooks_user_login(&$edit, $account) {
+    /*$destination = take_over_page();
+    if($destination) {
+        $_GET['destination'] = $destination;
+    }
+    else{
+        $_GET['destination'] = '';
+    }*/
+    
+//    module_load_include('inc', 'webform', 'includes/webform.submissions');
+//  // Check if PAWP enabled; If Yes we will redirect user to PAWP page
+//  $check_pawp_submission = custom_pawp_check_cc_status(1);
+//  // check if RSVP is enabled and user has access to it
+//  $rsvp = variable_get('en_rsvp', 0);
+//  $rsvp_access = tmapi_get_rsvp_access();
+//  $node = node_load('116');
+//  $user_limit_exceeded = _webform_submission_user_limit_check($node);
+//  $birthday_takeover_access = tm_user_birthday_access();
+//  $birthday = variable_get('en_birthday', 0);
+    $show_renew_popup = variable_get('show_renew_popup', '');
+    if ($show_renew_popup) {
+      $_GET['destination'] = 'goto-renew';
+    }
+//  //$user_session = isset($_SESSION['Drupal_visitor_pawp']) ? $_SESSION['Drupal_visitor_pawp'] : 0;
+//  if ($rsvp && $rsvp_access && !$user_limit_exceeded) {
+//    $_GET['destination'] = 'rsvp-form';
+//  }
+//  elseif ($birthday_takeover_access && $birthday) {
+//    $_GET['destination'] = 'birthday-wishes';
+//  }
+//  elseif ((variable_get('en_pawp', 0)) && !$check_pawp_submission) {
+//    $_GET['destination'] = 'pawp/nojs/form';
+//  }
+ //   elseif ($show_renew_popup) {
+//    $_GET['destination'] = 'renew';
+//  }
+//  else {
+//    $_GET['destination'] = '';
+//  }
+// Redirect user to profile page after the login.
+}
 
 function custom_hooks_node_view($node, $view_mode, $langcode) { 
   if ($node->type == "event")  {

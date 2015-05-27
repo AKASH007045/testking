@@ -25,7 +25,7 @@
 .rgtblck .ttlamtd .tlyl {color:#e4701e;}
 .fnt16glb { font-size:14px;}
 .fnt12ftr { font-size:11px; text-align:center; color:#666; font-family:Arial, Helvetica;}
-.pgbrk {page-break-after:always;}
+.pgbrk {/*page-break-after:always;*/}
 .tbl-chart { float:left; width:100%; padding-bottom:300px;}
 .ticketTable{ display: block; width:100%; float:left; padding:0; margin:0px 12px 0 12px;border-collapse:collapse; font-family:Arial, Helvetica;}
 .ticketTable tr.head td{color:#e4701e; font-size:14px; padding:2px 0; text-align: center;}
@@ -40,4 +40,3 @@
 .ticketTable tr.tbr .td5{width:62px;text-align:center; }
 .ticketTable tr.tbr .td6{width:95px;text-align:right;}
 .head-cnt-mid .teamname, .lftblck .actinf, .rgtblck .actinf, .rgtblck .ttlamtd .tlyl, .ticketTable tr.head td, .rgtblck .ttlamtd, .rgtblck .tcwrp .tcnm {font-family:"oswaldregular",Arial,sans-serif;}
-

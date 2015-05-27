@@ -62,7 +62,7 @@ function custom_hooks_print_invoice() {
   // Checking mPDF library existence.
  
   if (pdf_using_mpdf_library_exist() == TRUE) {
-    $filename = "Kings-Invoice_" . str_replace(' ', '-', $name);
+    $filename = "kings-Invoice_" . str_replace(' ', '-', $name);
     $conf['pdf_using_mpdf_pdf_save_option'] = 0;
     _pdf_using_mpdf_generator($output, $filename, 'I', $name);
     exit;

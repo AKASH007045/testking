@@ -16,7 +16,7 @@ function custom_admin_general_settings() {
     '#type' => 'textfield',
     '#title' => t('Site Name'),
     '#description' => t('Please enter site full name for global usage'),
-    '#default_value' => variable_get('subsite_name', t('Cowboys')),
+    '#default_value' => variable_get('subsite_name', t('Kings')),
     '#required' => TRUE,
   );
   $form['home_team'] = array(
@@ -187,7 +187,7 @@ function custom_admin_invoice_setting() {
       '#type' => 'textfield',
       '#title' => t('Invoice Body Subject'),
       '#description' => t('Please enter subject for invoice mail.'),
-      '#default_value' => variable_get('invoice_mail_subject', t('2015-16 Sacramento Kings Invoice')),
+      '#default_value' => variable_get('invoice_mail_subject', t('2013-14 Dallas Cowboys Invoice')),
       '#required' => TRUE,
   );
   $form['invoice_mail_body'] = array(
