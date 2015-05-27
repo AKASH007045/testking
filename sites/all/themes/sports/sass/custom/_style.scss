@@ -1032,7 +1032,7 @@ body {
 }
 
 .node-type-take-over-pages .to-body {
-  margin-bottom: 50px;
+  margin-bottom:19px;
 }
 
 .node-type-take-over-pages .to-btm-txt {
@@ -1183,27 +1183,27 @@ div.messages {
   min-width: 768px;
 }
 
-.btn.btn-default,button.quickedit-button,.imageeditor div.aviary-feather,.title .popup-close,.button_blue a,.global-button,.page-invoice-payment .btn-default.return-home,.page-pawp .container-fluid .main-wrap section.block form#custom-pawp-sign-up button#btn-default{
+.btn.btn-default,button.quickedit-button,.imageeditor div.aviary-feather,.title .popup-close,.button_blue a,.global-button,.page-invoice-payment .btn-default.return-home,.page-pawp .container-fluid .main-wrap section.block form#custom-pawp-sign-up button#btn-default,.node-type-take-over-pages .takeover-btn-wrap a{
   border-radius: 4px;
   padding:0 20px;
   font-size: 1.2em;
   text-align: center;
   text-transform: none;
-  outline:none; line-height:33px;
+  outline:none; line-height:33px;display:inline-block;
 }
-
+.node-type-take-over-pages .takeover-btn-wrap a{font-size:1.1em;}.node-type-take-over-pages .takeover-btn-wrap a:hover,.node-type-take-over-pages .takeover-btn-wrap a:focus{text-decoration:none;}
 .page-user-login button.btn-default,
 .button_blue a {
   width: 100%;
 }
 
 .node-type-take-over-pages .tk-btn .field-item a {
-  min-width: 205px;
+  /*min-width: 205px;
   text-decoration: none;
   display: inline-block;
   box-shadow: none;
   padding-right: 15px;
-  padding-left: 15px;
+  padding-left: 15px;*/
 }
 
 /*Text Field*/

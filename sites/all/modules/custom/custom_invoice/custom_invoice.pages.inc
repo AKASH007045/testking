@@ -153,7 +153,7 @@ function _tmapi_user_invoice($pdf = NULL) {
         $rows[] = array('data' => $row, 'class' => 'tbr');
       }
       $payment_plans = tmapi_get_payment_plans();
-      $due_amount = ($total + $parking_fee + $handling_fee) - $paid;
+      $due_amount = ($total) - $paid;
       $invoice_table = theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => array('ticketTable chrt-dtl')), 'sticky' => FALSE));
       if ($pdf) {
         $user_info = invoice_user_info_block(2);
