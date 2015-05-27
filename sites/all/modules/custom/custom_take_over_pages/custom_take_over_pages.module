@@ -17,7 +17,7 @@ function custom_take_over_pages_user_login(&$edit, $account) {
  //print $destination; exit;
  $totalamt = (isset($invoice_amt['invoice_amounts']) && $invoice_amt['invoice_amounts'])  ? $invoice_amt['invoice_amounts'] : 0;
  $paidamt = (isset($invoice_amt['paid_amounts']) && $invoice_amt['paid_amounts'])  ? $invoice_amt['paid_amounts'] : 0;
- $amt = ($totalamt) - $paidamt;
+ $amt = $totalamt - $paidamt;
  $vid = 'node/1631';
  if($amt > 0 && $destination == $vid){
  $_GET['destination'] = $destination;
