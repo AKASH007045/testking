@@ -930,6 +930,9 @@ body.overlay{
 .page-pawp .promo-tile .promo-box.regular a.promo-link:hover .second{background:none;}
 .page-pawp #user-login #edit-form-description{padding:20px 0px 0px 0px;}
 
-@media only screen and (min-device-width : 768px){
+/*@media only screen and (min-device-width : 768px){
+	.calendar-calendar .cal-game-result{font-size:1.25em;bottom:5px;}
+}*/
+@media only screen and (max-device-width : 768px){
 	.calendar-calendar .cal-game-result{font-size:1.25em;bottom:5px;}
 }
