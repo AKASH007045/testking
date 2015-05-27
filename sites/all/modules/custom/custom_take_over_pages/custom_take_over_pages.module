@@ -12,8 +12,8 @@ function custom_take_over_pages_user_login(&$edit, $account) {
   if (!user_access('Editor') && !user_access('Site Admin')){
      $destination = custom_take_over_page_check_page();
     $invoice_amt = $_SESSION['invoice_detail'];
- //print '<pre>';
- //print_r($invoice_amt);exit;
+ print '<pre>';
+ print_r($invoice_amt);exit;
  //print $destination; exit;
  $totalamt = (isset($invoice_amt['invoice_amounts']) && $invoice_amt['invoice_amounts'])  ? $invoice_amt['invoice_amounts'] : 0;
  $paidamt = (isset($invoice_amt['paid_amounts']) && $invoice_amt['paid_amounts'])  ? $invoice_amt['paid_amounts'] : 0;
