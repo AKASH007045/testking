@@ -580,8 +580,8 @@ function custom_admin_login_authenticate_validate($form, &$form_state) {
             if ($get_seats_hold) {
               watchdog('TicketMaster', 'get_seats_on_account API Call Success for %name.', array('%name' => $acct_id));
             }
-         //  $invoice = tmapi_get_sth_invoice($acct_id);
-         //  $seats = _tmapi_get_seats_on_account($acct_id);
+           // $invoice = tmapi_get_sth_invoice($acct_id);
+           // $seats = _tmapi_get_seats_on_account($acct_id);
           }
           else {
             watchdog('TicketMaster', 'Login attempt failed for %user.', array('%user' => $acct_id));
