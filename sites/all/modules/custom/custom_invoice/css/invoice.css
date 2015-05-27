@@ -48,7 +48,7 @@
 .amountduewrap .amountdueinfo .contactInfoRight, 
 .amountduewrap .amountduettl .amountInfoRight {text-align:right;padding-right:0;}
 
-.amountduewrap .amountduettl .deadlineTxt {font-size:0.85em;margin-top:-8px;}
+.amountduewrap .amountduettl .deadlineTxt {font-size:0.85em;/*margin-top:-8px;*/}
 
 .infoPanelwrap h2, 
 .amountduewrap h2 {font-size:1.855em;margin-top:25px;}

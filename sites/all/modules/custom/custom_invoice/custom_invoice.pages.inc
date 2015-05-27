@@ -153,7 +153,8 @@ function _tmapi_user_invoice($pdf = NULL) {
         $rows[] = array('data' => $row, 'class' => 'tbr');
       }
       $payment_plans = tmapi_get_payment_plans();
-      $due_amount = ($total) - $paid;
+      //$due_amount = ($total + $parking_fee + $handling_fee) - $paid;
+	   $due_amount = ($total) - $paid;
       $invoice_table = theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => array('ticketTable chrt-dtl')), 'sticky' => FALSE));
       if ($pdf) {
         $user_info = invoice_user_info_block(2);
@@ -493,14 +494,9 @@ function api_failure_mail($data=array(), $cc_num=NULL, $site_mail=NULL){
 /**
  * update tm_payment_transaction_table update
  */
-function _update_tm_payment_transaction_table($data, $table = 'tm_payment_transaction_detail') {
-  $customer = $_SESSION['cust_info']['customer'];
-  db_insert($table)
+function _update_tm_payment_transaction_table($data) {
+  db_insert('tm_payment_transaction_detail')
   ->fields(array(
-    'first_name' => (isset($customer['name_first']) && $customer['name_first']) ? $customer['name_first'] : '',
-    'last_name' => (isset($customer['name_last']) && $customer['name_last']) ? $customer['name_last'] : '',
-    'address' => (isset($customer['street_addr_1']) && $customer['street_addr_1']) ? $customer['street_addr_1'] : '',
-    'zip' => (isset($customer['zip']) && $customer['zip']) ? $customer['zip'] : '',
     'cc_type' => (isset($data['ctype']) && $data['ctype']) ? $data['ctype'] : '',
     'cc_num' => (isset($data['cc_num']) && $data['cc_num']) ? $data['cc_num'] : '',
     'exp_date' => (isset($data['exp_date']) && $data['exp_date']) ? $data['exp_date'] : '',
