@@ -4236,9 +4236,13 @@ body.front .hero, body.page-home .hero {
 .container .jumbotron h3, .container .jumbotron h1 {
   text-shadow: 5px 0px 10px rgba(0, 0, 0, 0.3);
 }
+/* line 456, ../sass/custom/_stp-theme.scss */
+.container .jumbotron h1 {
+  text-transform: uppercase;
+}
 
 /*Seat View page*/
-/* line 461, ../sass/custom/_stp-theme.scss */
+/* line 464, ../sass/custom/_stp-theme.scss */
 .vr-seat-view-wrapper .content .seatview-dd {
   height: 44px;
   float: left;
@@ -4258,40 +4262,40 @@ body.front .hero, body.page-home .hero {
   box-shadow: #5C5C5C 0px 1px 13px inset;
   text-transform: uppercase;
 }
-/* line 479, ../sass/custom/_stp-theme.scss */
+/* line 482, ../sass/custom/_stp-theme.scss */
 .vr-seat-view-wrapper .content .seatview-dd ul li {
   border-right: 1px solid #3D3D3D;
 }
-/* line 483, ../sass/custom/_stp-theme.scss */
+/* line 486, ../sass/custom/_stp-theme.scss */
 .vr-seat-view-wrapper .content .seat-vv-info li a span ul li {
   border-right: 1px solid #3D3D3D;
 }
 
-/* line 488, ../sass/custom/_stp-theme.scss */
+/* line 491, ../sass/custom/_stp-theme.scss */
 .pouptopwrap .sthevent-image .more-info, .sthevent-body.openpop, .sthevent-form.openpop {
   background-color: rgba(18, 18, 18, 0.85);
 }
 
-/* line 494, ../sass/custom/_stp-theme.scss */
+/* line 497, ../sass/custom/_stp-theme.scss */
 .vr-seat-view-wrapper .content .seat-info-box {
   background-color: rgba(0, 24, 54, 0.85);
 }
-/* line 498, ../sass/custom/_stp-theme.scss */
+/* line 501, ../sass/custom/_stp-theme.scss */
 .vr-seat-view-wrapper .content .seatview-dd .mInfo a.active {
   background: url("../images/upArrow.png") -6px -6px transparent no-repeat;
 }
-/* line 501, ../sass/custom/_stp-theme.scss */
+/* line 504, ../sass/custom/_stp-theme.scss */
 .vr-seat-view-wrapper .content .seatview-dd .mInfo a.more-info {
   color: #ffffff;
 }
-/* line 505, ../sass/custom/_stp-theme.scss */
+/* line 508, ../sass/custom/_stp-theme.scss */
 .vr-seat-view-wrapper .content .seat-vv-info li a:hover {
   text-decoration: none;
   background: rgba(0, 26, 58, 0.83);
   display: block;
   cursor: pointer;
 }
-/* line 512, ../sass/custom/_stp-theme.scss */
+/* line 515, ../sass/custom/_stp-theme.scss */
 .vr-seat-view-wrapper .vrview-reset-view {
   background: rgba(236, 236, 236, 0.8);
   color: #ffffff;
@@ -4300,30 +4304,30 @@ body.front .hero, body.page-home .hero {
   -webkit-box-shadow: -3px 0px 5px #000000;
   box-shadow: -3px 0px 5px #000000;
 }
-/* line 520, ../sass/custom/_stp-theme.scss */
+/* line 523, ../sass/custom/_stp-theme.scss */
 .vr-seat-view-wrapper .content .seat-vv-info li a {
   color: #ffffff;
 }
 
 /*My PDF page*/
-/* line 527, ../sass/custom/_stp-theme.scss */
+/* line 530, ../sass/custom/_stp-theme.scss */
 #block-views-tab-pages-block ul.nav-tabs {
   /*Tabbing BG*/
   border: 0;
   background-color: #000000;
 }
-/* line 531, ../sass/custom/_stp-theme.scss */
+/* line 534, ../sass/custom/_stp-theme.scss */
 #block-views-tab-pages-block ul.nav-tabs li {
   /*Tabbing li*/
   border-right: 1px solid #9e9e9e;
 }
-/* line 534, ../sass/custom/_stp-theme.scss */
+/* line 537, ../sass/custom/_stp-theme.scss */
 #block-views-tab-pages-block ul.nav-tabs li a:hover, #block-views-tab-pages-block ul.nav-tabs li.active a {
   /*Tabbing li a hover*/
   color: #ffffff;
   text-decoration: underline;
 }
-/* line 539, ../sass/custom/_stp-theme.scss */
+/* line 542, ../sass/custom/_stp-theme.scss */
 #block-views-tab-pages-block ul.nav-tabs li a {
   /*Tabbing li a*/
   background: none;
@@ -4331,91 +4335,91 @@ body.front .hero, body.page-home .hero {
 }
 
 /*Calender View*/
-/* line 550, ../sass/custom/_stp-theme.scss */
+/* line 553, ../sass/custom/_stp-theme.scss */
 .view-header .pager li.date-prev > a, .view-header .pager li.date-next > a {
   /*Left arrow with month*/
   background: url(../images/cal-nxt-pre.png) 2px 0 no-repeat transparent;
 }
 
-/* line 557, ../sass/custom/_stp-theme.scss */
+/* line 560, ../sass/custom/_stp-theme.scss */
 #block-views-acct-reps-block .view-acct-reps a.left, #block-views-acct-reps-block .view-acct-reps a.right {
   /*Left arrow with month*/
   background: url(../images/cal-nxt-pre.png) 2px 0 no-repeat transparent;
 }
 
-/* line 564, ../sass/custom/_stp-theme.scss */
+/* line 567, ../sass/custom/_stp-theme.scss */
 .noTouch .sth-calendar .pager li.date-prev > a:hover, .noTouch #block-views-acct-reps-block .view-acct-reps a.left:hover {
   /*Left arrow hover with month*/
   background-position: 2px -64px;
 }
 
-/* line 570, ../sass/custom/_stp-theme.scss */
+/* line 573, ../sass/custom/_stp-theme.scss */
 .view-header .pager li.date-next > a, #block-views-acct-reps-block .view-acct-reps a.right {
   /*right arrow with month*/
   background-position: -48px 0px;
 }
 
-/* line 576, ../sass/custom/_stp-theme.scss */
+/* line 579, ../sass/custom/_stp-theme.scss */
 .noTouch .sth-calendar .pager li.date-next > a:hover, .noTouch #block-views-acct-reps-block .view-acct-reps a.right:hover {
   /*right arrow hover with month*/
   background-position: -48px -64px;
 }
 
-/* line 584, ../sass/custom/_stp-theme.scss */
+/* line 587, ../sass/custom/_stp-theme.scss */
 .sth-calendar .calendar-calendar thead tr, .sth-calendar .calendar-calendar th.days {
   /*Table heading*/
   color: #cdd0d2;
 }
-/* line 590, ../sass/custom/_stp-theme.scss */
+/* line 593, ../sass/custom/_stp-theme.scss */
 .sth-calendar .month-view .full td.single-day.empty, .sth-calendar .month-view .full td.date-box.empty {
   /*Table heading*/
   color: #cdd0d2;
 }
 
-/* line 598, ../sass/custom/_stp-theme.scss */
+/* line 601, ../sass/custom/_stp-theme.scss */
 .view-header > ul li a {
   /*month and list tabbing*/
   color: #9e9e9e;
   text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.75);
 }
-/* line 602, ../sass/custom/_stp-theme.scss */
+/* line 605, ../sass/custom/_stp-theme.scss */
 .view-header > ul li:first-child {
   /*month and list tabbing*/
   border-right: 1px solid #9e9e9e;
 }
 
-/* line 610, ../sass/custom/_stp-theme.scss */
+/* line 613, ../sass/custom/_stp-theme.scss */
 .calendar-calendar .single-day td .inner, .calendar-calendar .single-day.no-entry.future .inner, .calendar-calendar .single-day.future.empty .inner {
   /*Table TD BG*/
   background: url(../images/calenderbg.png) 0 0 repeat transparent;
 }
-/* line 615, ../sass/custom/_stp-theme.scss */
+/* line 618, ../sass/custom/_stp-theme.scss */
 .calendar-calendar td {
   /*Table TD text color*/
   color: #181818;
 }
-/* line 619, ../sass/custom/_stp-theme.scss */
+/* line 622, ../sass/custom/_stp-theme.scss */
 .calendar-calendar .month-view .full tr.single-day.single-day > td .inner {
   border: 1px solid #778087;
 }
-/* line 622, ../sass/custom/_stp-theme.scss */
+/* line 625, ../sass/custom/_stp-theme.scss */
 .calendar-calendar tr {
   /*Table TR background*/
   background-color: transparent;
 }
-/* line 626, ../sass/custom/_stp-theme.scss */
+/* line 629, ../sass/custom/_stp-theme.scss */
 .calendar-calendar .single-day {
   /*&.future.game-home .inner, &.today.game-home .inner, &.past.game-home .inner{
   	background:rgba(255,255,255,0.75);
   }*/
 }
-/* line 627, ../sass/custom/_stp-theme.scss */
+/* line 630, ../sass/custom/_stp-theme.scss */
 .calendar-calendar .single-day.future.game-home .inner, .calendar-calendar .single-day.today.game-home .inner, .calendar-calendar .single-day.past.game-home .inner {
   /*Table TD logo bg*/
   background: rgba(90, 64, 153, 0.75);
   color: #D1D4D9;
 }
-/* line 635, ../sass/custom/_stp-theme.scss */
+/* line 638, ../sass/custom/_stp-theme.scss */
 .calendar-calendar .cal-team-name, .calendar-calendar .cal-time, .calendar-calendar .month-view .full td.game-home .inner div.day {
   /*Table TD logo text color*/
   color: #D1D4D9;
@@ -4424,26 +4428,26 @@ body.front .hero, body.page-home .hero {
 /*.calendar-calendar td, .calendar-calendar th.days, .calendar-calendar td.empty {Table TD border color
 	border:1px solid $mid-gry;
 }*/
-/* line 645, ../sass/custom/_stp-theme.scss */
+/* line 648, ../sass/custom/_stp-theme.scss */
 .calendar-legend {
   /*Table bottom game and schedule event*/
   background: url(../images/calenderbg.png) 0 0 repeat transparent;
 }
-/* line 648, ../sass/custom/_stp-theme.scss */
+/* line 651, ../sass/custom/_stp-theme.scss */
 .calendar-legend .cal-event-legend {
   /*Table bottom sth event icon star*/
   background: url(../images/bg-event-legend.png) no-repeat 0 0;
 }
-/* line 652, ../sass/custom/_stp-theme.scss */
+/* line 655, ../sass/custom/_stp-theme.scss */
 .calendar-legend .cal-home-legend:before {
   border: 1px solid #000000;
   background: #5a4099;
 }
-/* line 656, ../sass/custom/_stp-theme.scss */
+/* line 659, ../sass/custom/_stp-theme.scss */
 .calendar-legend .calendar-legend-right > li a {
   background: none;
 }
-/* line 658, ../sass/custom/_stp-theme.scss */
+/* line 661, ../sass/custom/_stp-theme.scss */
 .calendar-legend .calendar-legend-right > li a.active, .calendar-legend .calendar-legend-right > li a:hover {
   /*Table bottom game and schedule event BG*/
   border: 1px solid rgba(0, 0, 0, 0.9);
@@ -4466,7 +4470,7 @@ body.front .hero, body.page-home .hero {
   background: linear-gradient(to bottom, #434343 0%, #020202 100%);
   /* W3C */
 }
-/* line 677, ../sass/custom/_stp-theme.scss */
+/* line 680, ../sass/custom/_stp-theme.scss */
 .calendar-legend .nav > li > a:hover, .calendar-legend .nav > li > a:focus {
   /*Table bottom game and schedule event BG*/
   border: 1px solid rgba(0, 0, 0, 0.9);
@@ -4490,53 +4494,53 @@ body.front .hero, body.page-home .hero {
   /* W3C */
 }
 
-/* line 697, ../sass/custom/_stp-theme.scss */
+/* line 700, ../sass/custom/_stp-theme.scss */
 #modal_bootstrap .modal-dialog.game-popup-dialog .modal-header {
   /*Popup heading bg on click logo*/
   border-bottom: 1px solid #999;
   background-color: #1f1f1f;
 }
-/* line 702, ../sass/custom/_stp-theme.scss */
+/* line 705, ../sass/custom/_stp-theme.scss */
 #modal_bootstrap .pptic-evt .closePopup {
   /*Popup Cross icon on click logo */
   background: url("../images/btnClose.png") no-repeat 0 0;
 }
-/* line 706, ../sass/custom/_stp-theme.scss */
+/* line 709, ../sass/custom/_stp-theme.scss */
 #modal_bootstrap .modal-dialog {
   /*Popup border on click logo */
   border: 1px solid #778087;
 }
 
-/* line 712, ../sass/custom/_stp-theme.scss */
+/* line 715, ../sass/custom/_stp-theme.scss */
 .event-gallary-big-box .modal-header a, #modal_bootstrap .mgTicket a, .event-gallary-big-box .modal-header, #modal_bootstrap .modal-header {
   color: #9e9e9e;
 }
 
-/* line 718, ../sass/custom/_stp-theme.scss */
+/* line 721, ../sass/custom/_stp-theme.scss */
 .calendar-calendar .single-day.future.game-away .inner, .calendar-calendar .single-day.today.game-away .inner, .calendar-calendar .single-day.past.game-away .inner {
   /*Logout case TD bg Color*/
   background: url(../images/calenderwhitebg.png) 0 0 repeat transparent;
 }
-/* line 724, ../sass/custom/_stp-theme.scss */
+/* line 727, ../sass/custom/_stp-theme.scss */
 .calendar-calendar .month-view .full tr.single-day .game-away .cal-team-name, .calendar-calendar .month-view .full tr.single-day .game-away .cal-time {
   /*Logout case TD text Color*/
   color: #001836;
   font-weight: normal;
 }
 
-/* line 733, ../sass/custom/_stp-theme.scss */
+/* line 736, ../sass/custom/_stp-theme.scss */
 .calendar-legend .cal-away-legend {
   /*Logout case avay text icon*/
   background: url(../images/bg-away-legend.png) no-repeat 0 0;
   height: 17px;
   padding-left: 28px;
 }
-/* line 739, ../sass/custom/_stp-theme.scss */
+/* line 742, ../sass/custom/_stp-theme.scss */
 .calendar-legend span {
   color: #565658;
 }
 
-/* line 745, ../sass/custom/_stp-theme.scss */
+/* line 748, ../sass/custom/_stp-theme.scss */
 .page-season-schedule .view-content .panel-group .panel-heading {
   /*List heading BG*/
   -webkit-box-shadow: #281c46 0px 0px 11px inset;
@@ -4552,103 +4556,103 @@ body.front .hero, body.page-home .hero {
   background: linear-gradient(to bottom, #797979 0%, #303030 100%);
   color: #ffffff;
 }
-/* line 760, ../sass/custom/_stp-theme.scss */
+/* line 763, ../sass/custom/_stp-theme.scss */
 .page-season-schedule .view-content .panel-group .panel {
   border: 1px solid rgba(95, 87, 79, 0.9);
   /* background: $black-bgd;*/
 }
-/* line 765, ../sass/custom/_stp-theme.scss */
+/* line 768, ../sass/custom/_stp-theme.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(1), .page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(2) {
   background: url("/sites/all/modules/custom/custom_calendar/images/side-bg.png") no-repeat right bottom;
 }
 
 /*Need Help*/
-/* line 773, ../sass/custom/_stp-theme.scss */
+/* line 776, ../sass/custom/_stp-theme.scss */
 .having-trouble-box {
   /*Middle Box*/
   color: #404040;
   border: 1px solid #252525;
   background: #f7f6f6;
 }
-/* line 778, ../sass/custom/_stp-theme.scss */
+/* line 781, ../sass/custom/_stp-theme.scss */
 .having-trouble-box a {
   color: #252525;
 }
 
 /*Video page*/
-/* line 785, ../sass/custom/_stp-theme.scss */
+/* line 788, ../sass/custom/_stp-theme.scss */
 .field-name-field-video.quickedit-processed {
   /*Video Border*/
   border: 2px solid #717174;
 }
 
-/* line 790, ../sass/custom/_stp-theme.scss */
+/* line 793, ../sass/custom/_stp-theme.scss */
 .video-js {
   /*Video BG*/
   /*background-color: #101010;*/
 }
 
-/* line 796, ../sass/custom/_stp-theme.scss */
+/* line 799, ../sass/custom/_stp-theme.scss */
 .vjs-default-skin .vjs-big-play-button {
   /*Video Icon BG*/
   border: 2px solid #fff;
   background-color: rgba(90, 64, 153, 0.7);
 }
-/* line 801, ../sass/custom/_stp-theme.scss */
+/* line 804, ../sass/custom/_stp-theme.scss */
 .vjs-default-skin:hover .vjs-big-play-button, .vjs-default-skin .vjs-big-play-button:focus {
   /*Video Icon BG on hover*/
   background-color: #5a4099;
 }
 
 /*Invoice page*/
-/* line 809, ../sass/custom/_stp-theme.scss */
+/* line 812, ../sass/custom/_stp-theme.scss */
 .global-blue, .page-invoice .page-header {
   /*Heading*/
   color: #5a4099;
 }
 
-/* line 814, ../sass/custom/_stp-theme.scss */
+/* line 817, ../sass/custom/_stp-theme.scss */
 .infoPanelwrap, .season-invoice-detail, .payment-amount-box, .thankyou-footer {
   /*BG color on page*/
   background-color: rgba(97, 97, 97, 0.15);
   color: #000000;
 }
 
-/* line 820, ../sass/custom/_stp-theme.scss */
+/* line 823, ../sass/custom/_stp-theme.scss */
 .amountduewrap, .payment-user-form-wrapper, .payment-thankyou-wrapper, .payment-unsuccessful {
   /*Star icon BG color on page */
   background-color: rgba(158, 158, 158, 0.35);
   color: #000000;
 }
 
-/* line 826, ../sass/custom/_stp-theme.scss */
+/* line 829, ../sass/custom/_stp-theme.scss */
 .amountduewrap {
   /*Star bg image on page */
   background-image: url("../images/invoice-bg-star.png");
   background-repeat: no-repeat;
   background-position: 9% center;
 }
-/* line 831, ../sass/custom/_stp-theme.scss */
+/* line 834, ../sass/custom/_stp-theme.scss */
 .amountduewrap .amountdueinfo {
   /*Total Ticket section */
   border-bottom: 1px solid #b1b1b1;
   font-weight: bold;
 }
 
-/* line 839, ../sass/custom/_stp-theme.scss */
+/* line 842, ../sass/custom/_stp-theme.scss */
 .season-invoice-detail h3 {
   /*Invoice Detail title*/
   color: #5a4099;
   letter-spacing: 1px;
 }
-/* line 844, ../sass/custom/_stp-theme.scss */
+/* line 847, ../sass/custom/_stp-theme.scss */
 .season-invoice-detail .ticketTable tr.head td {
   /*Invoice Detail Section*/
   color: #5a4099;
   border-bottom: 1px solid #b1b1b1;
 }
 
-/* line 851, ../sass/custom/_stp-theme.scss */
+/* line 854, ../sass/custom/_stp-theme.scss */
 .btn-light, .make-payment-wrapper button.form-submit, .page-invoice .pull-right .btn-default:focus, .payment-amount-box .make-payment-wrapper button#edit-submit, .payment-amount-box .make-payment-wrapper button#edit-submit:focus, body .container-fluid .main-wrap .global-button,
 body .container-fluid .main-wrap .global-button:focus, .page-invoice-payment button.form-submit, .page-pawp .container-fluid .main-wrap section.block button.btn-default, .page-invoice-payment button.form-submit, .page-pawp .container-fluid .main-wrap section.block button.btn-default:focus, .page-pawp .container-fluid #user-login #edit-actions .form-submit, .page-pawp .container-fluid #user-login #edit-actions .form-submit:focus, .node-type-webform .container-fluid form.webform-client-form button[type="submit"], .node-type-webform .container-fluid form.webform-client-form button[type="submit"] {
   /*Pay Button*/
@@ -4673,7 +4677,7 @@ body .container-fluid .main-wrap .global-button:focus, .page-invoice-payment but
   color: #ffffff;
 }
 
-/* line 871, ../sass/custom/_stp-theme.scss */
+/* line 874, ../sass/custom/_stp-theme.scss */
 .page-user .btn-default, .season-invoice-detail .btn-default, .button_blue a, #renewal-countdown-timer #edit-actions .form-submit, .page-invoice-payment button.form-submit, .page-invoice .season-invoice-detail .pull-right .btn-default:focus, .page-invoice-payment .btn-default.return-home, .page-invoice-payment .btn-default.return-home:focus, .node-type-take-over-pages .takeover-btn-wrap a {
   /*Email and Print Btn*/
   border: 1px solid #030303;
@@ -4696,7 +4700,7 @@ body .container-fluid .main-wrap .global-button:focus, .page-invoice-payment but
   background: linear-gradient(to bottom, #626262 0%, #4e4e4e 23%, #202020 62%, #1a1a1a 69%, #070707 87%, #030303 92%, #040404 100%);
   /* W3C */
 }
-/* line 887, ../sass/custom/_stp-theme.scss */
+/* line 890, ../sass/custom/_stp-theme.scss */
 .page-user .btn-default:hover, .season-invoice-detail .btn-default:hover, .button_blue a:hover, #renewal-countdown-timer #edit-actions .form-submit:hover, .page-invoice-payment button.form-submit:hover, .page-invoice .season-invoice-detail .pull-right .btn-default:focus:hover, .page-invoice-payment .btn-default.return-home:hover, .page-invoice-payment .btn-default.return-home:focus:hover, .node-type-take-over-pages .takeover-btn-wrap a:hover {
   background: #030303;
 }
@@ -4705,7 +4709,7 @@ body .container-fluid .main-wrap .global-button:focus, .page-invoice-payment but
   color: $white;  border: 1px solid #02152C;  background: rgba(0,26,58,1);
 }*/
 /*  Pay Now and Make Payment button hover  */
-/* line 899, ../sass/custom/_stp-theme.scss */
+/* line 902, ../sass/custom/_stp-theme.scss */
 .amountduewrap .amountduettl .pull-right a:hover, .payment-amount-box .make-payment-wrapper button#edit-submit:hover, body .container-fluid .main-wrap .global-button:hover, .page-invoice-payment button.form-submit, .page-pawp .container-fluid .main-wrap section.block button.btn-default:hover, .page-pawp .container-fluid #user-login #edit-actions .form-submit:hover, .node-type-webform .container-fluid form.webform-client-form button[type="submit"]:hover, .node-type-webform .container-fluid form.webform-client-form button[type="submit"]:focus {
   color: #ffffff;
   background: #3f2a72;
@@ -4713,22 +4717,22 @@ body .container-fluid .main-wrap .global-button:focus, .page-invoice-payment but
 }
 
 /*  Email and Print Hover  */
-/* line 902, ../sass/custom/_stp-theme.scss */
+/* line 905, ../sass/custom/_stp-theme.scss */
 .page-invoice .season-invoice-detail .pull-right a:hover, .page-invoice-payment .btn-default.return-home:hover, .node-type-take-over-pages .takeover-btn-wrap a:hover, .node-type-take-over-pages .takeover-btn-wrap a:focus {
   background: #030303;
 }
 
-/* line 903, ../sass/custom/_stp-theme.scss */
+/* line 906, ../sass/custom/_stp-theme.scss */
 .infoPanelwrap .dedicateserrep h5.dsr {
   border-bottom: 4px solid #fff;
 }
 
-/* line 906, ../sass/custom/_stp-theme.scss */
+/* line 909, ../sass/custom/_stp-theme.scss */
 .payment-unsuccessful h1, .payment-unsuccessful h2 {
   color: #cc092f;
 }
 
-/* line 911, ../sass/custom/_stp-theme.scss */
+/* line 914, ../sass/custom/_stp-theme.scss */
 .page-invoice-payment .btn-default.return-home {
   /*border: 1px solid #262523;
   text-shadow: -1px 1px 0 $blk-txt-shadow;
@@ -4744,82 +4748,82 @@ body .container-fluid .main-wrap .global-button:focus, .page-invoice-payment but
   background: linear-gradient(to bottom, #434343 0%, #040404 100%);
   color: $white;*/
 }
-/* line 925, ../sass/custom/_stp-theme.scss */
+/* line 928, ../sass/custom/_stp-theme.scss */
 .page-invoice-payment .btn-default.return-home:hover {
   /*background: $black-bdr;*/
 }
 
-/* line 930, ../sass/custom/_stp-theme.scss */
+/* line 933, ../sass/custom/_stp-theme.scss */
 .infoPanelwrap .dedicateserrep {
   background-color: #000000;
   border: 1px solid #000000;
   color: #ffffff;
 }
 
-/* line 936, ../sass/custom/_stp-theme.scss */
+/* line 939, ../sass/custom/_stp-theme.scss */
 .page-invoice #block-custom-block-user-info {
   color: #000000;
 }
 
-/* line 940, ../sass/custom/_stp-theme.scss */
+/* line 943, ../sass/custom/_stp-theme.scss */
 .infoPanelwrap h2 span {
   color: #5a4099;
 }
 
-/* line 945, ../sass/custom/_stp-theme.scss */
+/* line 948, ../sass/custom/_stp-theme.scss */
 .page-invoice-payment-success .payment-thankyou-wrapper h1, .page-invoice-payment-success .payment-thankyou-wrapper h2 {
   color: #5a4099;
 }
 
 /*STH Evvent*/
-/* line 952, ../sass/custom/_stp-theme.scss */
+/* line 955, ../sass/custom/_stp-theme.scss */
 .event-gallary-thumb-slider .view-event-slider .view-header .buttons {
   background: url(../images/event-thumbSlider.png) repeat-x 0 0;
 }
 
-/* line 956, ../sass/custom/_stp-theme.scss */
+/* line 959, ../sass/custom/_stp-theme.scss */
 body.node-type-event .carousel-control, .pouptopwrap .sthevent-image .carousel-control {
   /*Crousel Image*/
   background: transparent url("../images/event-carousel.png") 0 0 no-repeat;
 }
 
-/* line 961, ../sass/custom/_stp-theme.scss */
+/* line 964, ../sass/custom/_stp-theme.scss */
 .event-gallary-thumb-slider .view-event-slider .view-header .buttons.next {
   right: 0px;
   background-position: -28px 0;
 }
 
-/* line 966, ../sass/custom/_stp-theme.scss */
+/* line 969, ../sass/custom/_stp-theme.scss */
 body.node-type-event .carousel-control.right, .pouptopwrap .sthevent-image .carousel-control.right {
   /*Crousel Image position right*/
   background-position: -45px -6px;
 }
 
-/* line 971, ../sass/custom/_stp-theme.scss */
+/* line 974, ../sass/custom/_stp-theme.scss */
 body.node-type-event .carousel-control.right:hover, .pouptopwrap .sthevent-image .carousel-control.right:hover {
   /*Crousel Image position right hover*/
   background-position: -45px -76px;
 }
 
-/* line 976, ../sass/custom/_stp-theme.scss */
+/* line 979, ../sass/custom/_stp-theme.scss */
 body.node-type-event .carousel-control.left:hover, .pouptopwrap .sthevent-image .carousel-control.left:hover {
   /*Crousel Image position left*/
   background-position: 0 -76px;
 }
 
-/* line 981, ../sass/custom/_stp-theme.scss */
+/* line 984, ../sass/custom/_stp-theme.scss */
 body.node-type-event .carousel-control.left, .pouptopwrap .sthevent-image .carousel-control.left {
   /*Crousel Image position left hover*/
   background-position: 0 -6px;
 }
 
-/* line 986, ../sass/custom/_stp-theme.scss */
+/* line 989, ../sass/custom/_stp-theme.scss */
 .calendar-calendar .pptic-evt a.active, .event-gallary-big-box .modal-header .pptic-evt a.active, #modal_bootstrap .mgTicket a.active {
   /*Up Arrow*/
   background: url("../images/upArrow.png") -6px -3px transparent no-repeat;
 }
 
-/* line 991, ../sass/custom/_stp-theme.scss */
+/* line 994, ../sass/custom/_stp-theme.scss */
 .event-gallary-big-box .modal-header, #modal_bootstrap .modal-header {
   /*Galery heading bg*/
   background-color: #181818;
@@ -4831,13 +4835,13 @@ body.node-type-event .carousel-control.left, .pouptopwrap .sthevent-image .carou
   border-bottom: 1px solid #778087;
 }
 
-/* line 1002, ../sass/custom/_stp-theme.scss */
+/* line 1005, ../sass/custom/_stp-theme.scss */
 .calendar-calendar .modal-dialog, .event-gallary-thumb-slider .view-event-slider .view-content ul .views-row {
   /*LI listed gallery images border*/
   border: 2px solid #778087;
 }
 
-/* line 1007, ../sass/custom/_stp-theme.scss */
+/* line 1010, ../sass/custom/_stp-theme.scss */
 .event-link-edit a {
   /*LI listed gallery edit icon*/
   text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.3);
@@ -4846,7 +4850,7 @@ body.node-type-event .carousel-control.left, .pouptopwrap .sthevent-image .carou
   border: 1px solid #545454;
 }
 
-/* line 1015, ../sass/custom/_stp-theme.scss */
+/* line 1018, ../sass/custom/_stp-theme.scss */
 .event-gallary-thumb-slider .view-event-slider .view-content ul .views-row .tilehead {
   /*Gallery crousel heading*/
   /*background: url(../images/eventBgThumb.png) repeat-x 0 0;*/
@@ -4869,74 +4873,74 @@ body.node-type-event .carousel-control.left, .pouptopwrap .sthevent-image .carou
 }
 
 /*Contact us*/
-/* line 1033, ../sass/custom/_stp-theme.scss */
+/* line 1036, ../sass/custom/_stp-theme.scss */
 #block-views-acct-reps-block {
   /*Blue BG*/
   background-color: rgba(156, 156, 156, 0.75);
   border: 1px solid #000000;
 }
-/* line 1037, ../sass/custom/_stp-theme.scss */
+/* line 1040, ../sass/custom/_stp-theme.scss */
 #block-views-acct-reps-block .dedicated-representatives {
   /*Heading btm border in the crousel*/
   border-bottom: 4px solid #fff;
 }
 
-/* line 1043, ../sass/custom/_stp-theme.scss */
+/* line 1046, ../sass/custom/_stp-theme.scss */
 .infohourbg .hour-imf .hour-dtl {
   /*Grey color in the crousel*/
   color: #9f9f9f;
 }
-/* line 1046, ../sass/custom/_stp-theme.scss */
+/* line 1049, ../sass/custom/_stp-theme.scss */
 .infohourbg .hour-imf .hour-dtl .mail {
   /*Grey color in the crousel*/
   color: #9f9f9f;
 }
 
-/* line 1052, ../sass/custom/_stp-theme.scss */
+/* line 1055, ../sass/custom/_stp-theme.scss */
 #block-views-acct-reps-block .profile-detail .namedetil .field-label, .node-type-contact-us .container-fluid div.carousel-inner div.textdtl p b {
   /*Grey color in the crousel*/
   color: #393f96;
 }
 
-/* line 1057, ../sass/custom/_stp-theme.scss */
+/* line 1060, ../sass/custom/_stp-theme.scss */
 #user-login {
   border: 1px solid #252525;
   background: #f7f6f6;
 }
-/* line 1058, ../sass/custom/_stp-theme.scss */
+/* line 1061, ../sass/custom/_stp-theme.scss */
 #user-login #edit-form-description {
   /*Text color Account Manager*/
   color: #404040;
 }
-/* line 1062, ../sass/custom/_stp-theme.scss */
+/* line 1065, ../sass/custom/_stp-theme.scss */
 #user-login .form-item-remember-me label, #user-login .need_help a {
   /*Text color*/
   color: #000000;
 }
 
-/* line 1070, ../sass/custom/_stp-theme.scss */
+/* line 1073, ../sass/custom/_stp-theme.scss */
 form#user-login .form-item-remember-me span {
   /*Radio Icon image*/
   background: url(../images/remember-me-sprite.png) no-repeat 0 -21px;
 }
 
-/* line 1075, ../sass/custom/_stp-theme.scss */
+/* line 1078, ../sass/custom/_stp-theme.scss */
 .main-wrap .region-content .node-take-over-pages.node {
   background: none;
 }
 
-/* line 1079, ../sass/custom/_stp-theme.scss */
+/* line 1082, ../sass/custom/_stp-theme.scss */
 body.page-invoice .container-fluid {
   background-color: #ffffff !important;
 }
 
-/* line 1083, ../sass/custom/_stp-theme.scss */
+/* line 1086, ../sass/custom/_stp-theme.scss */
 .node-type-page .container-fluid {
   background: url(../images/user-login-mainbg_0.jpg);
 }
 
 /*---------------------------------Editor ----------------------------*/
-/* line 1089, ../sass/custom/_stp-theme.scss */
+/* line 1092, ../sass/custom/_stp-theme.scss */
 fieldset, .field-type-image .form-item {
   border: 1px solid #929292;
   padding: 15px 15px 10px 15px;
@@ -4950,15 +4954,15 @@ fieldset, .field-type-image .form-item {
   background: linear-gradient(to bottom, #ffffff 0%, #e7e7e7 100%);
 }
 
-/* line 1103, ../sass/custom/_stp-theme.scss */
+/* line 1106, ../sass/custom/_stp-theme.scss */
 .page-update-custom-background .badge {
   color: #929292;
 }
-/* line 1106, ../sass/custom/_stp-theme.scss */
+/* line 1109, ../sass/custom/_stp-theme.scss */
 .page-update-custom-background .file a {
   color: #000000;
 }
-/* line 1109, ../sass/custom/_stp-theme.scss */
+/* line 1112, ../sass/custom/_stp-theme.scss */
 .page-update-custom-background #overlay-close {
   background: #f4f4f4;
   background: -moz-linear-gradient(top, #f4f4f4 0%, #d0d2d0 100%);
@@ -4968,11 +4972,11 @@ fieldset, .field-type-image .form-item {
   background: -ms-linear-gradient(top, #f4f4f4 0%, #d0d2d0 100%);
   background: linear-gradient(to bottom, #f4f4f4 0%, #d0d2d0 100%);
 }
-/* line 1110, ../sass/custom/_stp-theme.scss */
+/* line 1113, ../sass/custom/_stp-theme.scss */
 .page-update-custom-background #overlay-close:before {
   color: #000000;
 }
-/* line 1120, ../sass/custom/_stp-theme.scss */
+/* line 1123, ../sass/custom/_stp-theme.scss */
 .page-update-custom-background #overlay-close:hover {
   background: #f4f4f4;
   background: -moz-linear-gradient(top, #f4f4f4 0%, #d0d2d0 100%);
@@ -4983,56 +4987,56 @@ fieldset, .field-type-image .form-item {
   background: linear-gradient(to bottom, #f4f4f4 0%, #d0d2d0 100%);
 }
 
-/* line 1132, ../sass/custom/_stp-theme.scss */
+/* line 1135, ../sass/custom/_stp-theme.scss */
 .home-tgl .sidekick-label {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   background: url(../images/sidekick.png) no-repeat left top;
 }
 
-/* line 1137, ../sass/custom/_stp-theme.scss */
+/* line 1140, ../sass/custom/_stp-theme.scss */
 .page-node-1174 .node.node-page p, .page-node-1173 .node.node-page p, .page-403 .node.node-page p, .nav-tabs li.bv-tab-error > a, .has-error .css3 li a {
   color: #a94442;
 }
 
 /** ------Invoice Start Here ------ */
-/* line 1141, ../sass/custom/_stp-theme.scss */
+/* line 1144, ../sass/custom/_stp-theme.scss */
 .nav-tabs li.bv-tab-success > a {
   color: #3c763d;
 }
 
 /*--------- Selectyze Start Here ---------*/
-/* line 1147, ../sass/custom/_stp-theme.scss */
+/* line 1150, ../sass/custom/_stp-theme.scss */
 .btn-success[disabled] {
   border-color: #2b669a;
 }
 
-/* line 1151, ../sass/custom/_stp-theme.scss */
+/* line 1154, ../sass/custom/_stp-theme.scss */
 .css3 .selectyzeValue {
   color: #666666;
   background: url("../images/dropjownjs.png") no-repeat;
 }
 
-/* line 1156, ../sass/custom/_stp-theme.scss */
+/* line 1159, ../sass/custom/_stp-theme.scss */
 .has-error .css3 .selectyzeValue {
   border: 1px solid #b94a48 !important;
   color: #a94442;
 }
 
-/* line 1162, ../sass/custom/_stp-theme.scss */
+/* line 1165, ../sass/custom/_stp-theme.scss */
 .css3 .UlSelectize {
   background-color: #ffffff;
   border: 1px solid #cccccc;
 }
-/* line 1166, ../sass/custom/_stp-theme.scss */
+/* line 1169, ../sass/custom/_stp-theme.scss */
 .css3 li a {
   color: #000000;
 }
-/* line 1168, ../sass/custom/_stp-theme.scss */
+/* line 1171, ../sass/custom/_stp-theme.scss */
 .css3 li a:hover {
   background-color: #5a4099;
   color: #ffffff;
 }
-/* line 1173, ../sass/custom/_stp-theme.scss */
+/* line 1176, ../sass/custom/_stp-theme.scss */
 .css3 .optgroupTitle {
   background-color: #3e3d3d;
   color: #ffffff;
@@ -5040,17 +5044,17 @@ fieldset, .field-type-image .form-item {
 
 /*------------ End Start Here ------------*/
 /*   Seat View Border  */
-/* line 1183, ../sass/custom/_stp-theme.scss */
+/* line 1186, ../sass/custom/_stp-theme.scss */
 .vr-seat-view-wrapper {
   border: 1px solid #616161;
 }
 
-/* line 1186, ../sass/custom/_stp-theme.scss */
+/* line 1189, ../sass/custom/_stp-theme.scss */
 .carousel-inner img.img-responsive {
   width: 100%;
 }
 
-/* line 1190, ../sass/custom/_stp-theme.scss */
+/* line 1193, ../sass/custom/_stp-theme.scss */
 .calendar-calendar .month-view .full td .inner div.day, .calendar-calendar .month-view .full td .inner div.day a {
   text-align: center;
   padding-left: 6px;
@@ -5062,28 +5066,28 @@ fieldset, .field-type-image .form-item {
   width: 30px;
 }
 
-/* line 1194, ../sass/custom/_stp-theme.scss */
+/* line 1197, ../sass/custom/_stp-theme.scss */
 .promo-tile .promo-box a {
   text-decoration: none;
 }
 
-/* line 1199, ../sass/custom/_stp-theme.scss */
+/* line 1202, ../sass/custom/_stp-theme.scss */
 a.cke_dialog_ui_button {
   margin: 14px 0px 0px 0px !important;
 }
 
 /*  PAWP Page CSS  */
-/* line 1203, ../sass/custom/_stp-theme.scss */
+/* line 1206, ../sass/custom/_stp-theme.scss */
 .page-pawp .container-fluid .main-wrap section.block {
   text-align: center;
 }
 
-/* line 1205, ../sass/custom/_stp-theme.scss */
+/* line 1208, ../sass/custom/_stp-theme.scss */
 .page-pawp .main-container {
   padding-top: 130px;
 }
 
-/* line 1211, ../sass/custom/_stp-theme.scss */
+/* line 1214, ../sass/custom/_stp-theme.scss */
 .page-pawp .container-fluid #user-login {
   border: 0px;
   background: -moz-linear-gradient(top, black 0%, rgba(0, 0, 0, 0.81) 75%, rgba(0, 0, 0, 0.61) 85%, transparent 100%);
@@ -5100,12 +5104,12 @@ a.cke_dialog_ui_button {
   /* W3C */
 }
 
-/* line 1225, ../sass/custom/_stp-theme.scss */
+/* line 1228, ../sass/custom/_stp-theme.scss */
 .page-season-schedule .container-fluid {
   background-color: #381952 !important;
 }
 
-/* line 1230, ../sass/custom/_stp-theme.scss */
+/* line 1233, ../sass/custom/_stp-theme.scss */
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
   box-shadow: #121212 0px 0px 6px inset;
   -moz-box-shadow: #121212 0px 0px 6px inset;
@@ -5113,23 +5117,23 @@ a.cke_dialog_ui_button {
   background: #2b2b2b;
 }
 
-/* line 1233, ../sass/custom/_stp-theme.scss */
+/* line 1236, ../sass/custom/_stp-theme.scss */
 a.forgot-pass {
   color: #a94442;
   text-decoration: underline;
   font-weight: bold;
 }
-/* line 1235, ../sass/custom/_stp-theme.scss */
+/* line 1238, ../sass/custom/_stp-theme.scss */
 a.forgot-pass:hover {
   text-decoration: none;
 }
 
-/* line 1239, ../sass/custom/_stp-theme.scss */
+/* line 1242, ../sass/custom/_stp-theme.scss */
 .block-custom-social-feed .promo-box {
   background: url("../images/bottom-tile.png") no-repeat 0 0;
 }
 
-/* line 1242, ../sass/custom/_stp-theme.scss */
+/* line 1245, ../sass/custom/_stp-theme.scss */
 .page-invoice .season-invoice-detail .pull-right a.pricing-map {
   color: #381951;
   font-weight: bold;
@@ -5139,13 +5143,13 @@ a.forgot-pass:hover {
   margin-right: 8px;
 }
 
-/* line 1243, ../sass/custom/_stp-theme.scss */
+/* line 1246, ../sass/custom/_stp-theme.scss */
 .page-invoice .season-invoice-detail .pull-right a.pricing-map:hover {
   background: none;
   text-decoration: none;
 }
 
-/* line 1244, ../sass/custom/_stp-theme.scss */
+/* line 1247, ../sass/custom/_stp-theme.scss */
 .infoPanelwrap .namecntinf a, .season-invoice-detail .ticketTable td a {
   color: #000000;
   text-decoration: none;
@@ -5153,94 +5157,94 @@ a.forgot-pass:hover {
 }
 
 /*  Takeover Page CSS  */
-/* line 1250, ../sass/custom/_stp-theme.scss */
+/* line 1253, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid header, body.node-type-take-over-pages .container-fluid .page-header {
   display: none;
 }
-/* line 1253, ../sass/custom/_stp-theme.scss */
+/* line 1256, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .main-wrap {
   padding-bottom: 287px;
 }
-/* line 1256, ../sass/custom/_stp-theme.scss */
+/* line 1259, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .to-body {
   padding-top: 248px;
   text-align: center;
 }
-/* line 1259, ../sass/custom/_stp-theme.scss */
+/* line 1262, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .to-body .video-js {
   width: 437px !important;
   height: 247px !important;
   display: inline-block;
 }
-/* line 1264, ../sass/custom/_stp-theme.scss */
+/* line 1267, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .takeover-btn-wrap {
   margin-bottom: 10px;
 }
-/* line 1267, ../sass/custom/_stp-theme.scss */
+/* line 1270, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .takeover-btn-wrap .tk-btn a {
   width: 212px;
   line-height: 48px;
   font-size: 20px;
   font-weight: lighter;
 }
-/* line 1271, ../sass/custom/_stp-theme.scss */
+/* line 1274, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .to-btm-txt {
   margin-top: 0px;
 }
-/* line 1273, ../sass/custom/_stp-theme.scss */
+/* line 1276, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .to-btm-txt p {
   font-family: "oswaldregular",Arial,sans-serif;
   font-weight: lighter;
   font-size: 18px;
 }
-/* line 1276, ../sass/custom/_stp-theme.scss */
+/* line 1279, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .to-btm-txt p a {
   text-decoration: underline;
 }
-/* line 1278, ../sass/custom/_stp-theme.scss */
+/* line 1281, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .to-btm-txt p a:hover, body.node-type-take-over-pages .container-fluid .to-btm-txt p a:focus {
   text-decoration: none;
 }
-/* line 1285, ../sass/custom/_stp-theme.scss */
+/* line 1288, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .footer-copyright {
   opacity: 0.3;
 }
-/* line 1287, ../sass/custom/_stp-theme.scss */
+/* line 1290, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .footer-copyright a {
   cursor: text;
 }
 
 /*  Vacation Exchange Form CSS  */
-/* line 1296, ../sass/custom/_stp-theme.scss */
+/* line 1299, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid {
   background: url("../images/benefit-mainbg.jpg") no-repeat top center #381952;
 }
-/* line 1300, ../sass/custom/_stp-theme.scss */
+/* line 1303, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid section.main-wrap div.error {
   display: none;
 }
-/* line 1305, ../sass/custom/_stp-theme.scss */
+/* line 1308, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid form.webform-client-form {
   padding: 3% 12% 6% 12%;
 }
-/* line 1308, ../sass/custom/_stp-theme.scss */
+/* line 1311, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid form.webform-client-form .webform-component {
   padding: 0px 0px 7px 0px;
 }
-/* line 1311, ../sass/custom/_stp-theme.scss */
+/* line 1314, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid form.webform-client-form button[type="submit"] {
   outline: none;
   padding: 0px 20px;
   line-height: 34px;
 }
-/* line 1315, ../sass/custom/_stp-theme.scss */
+/* line 1318, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid form.webform-client-form div.webform-component div.form-checkboxes {
   margin: 7px 12px 0px 0px;
   outline: none;
   display: inline-block;
   float: left;
 }
-/* line 1318, ../sass/custom/_stp-theme.scss */
+/* line 1321, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid form.webform-client-form div.webform-component select {
   width: 100%;
   color: #222222;
@@ -5249,7 +5253,7 @@ body.node-type-take-over-pages .footer-copyright a {
   display: block;
   font-size: 13px;
 }
-/* line 1321, ../sass/custom/_stp-theme.scss */
+/* line 1324, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid form.webform-client-form div.webform-component label {
   line-height: 34px;
   font-weight: 400;
@@ -5257,33 +5261,33 @@ body.node-type-take-over-pages .footer-copyright a {
   display: inline-block;
   font-size: 13px;
 }
-/* line 1324, ../sass/custom/_stp-theme.scss */
+/* line 1327, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid form.webform-client-form div.webform-component input.error, .node-type-webform .container-fluid form.webform-client-form div.webform-component select.error {
   border-color: rgba(178, 14, 14, 0.7);
   background: rgba(255, 255, 255, 0.1);
   color: #a4a5a6;
 }
 
-/* line 1334, ../sass/custom/_stp-theme.scss */
+/* line 1337, ../sass/custom/_stp-theme.scss */
 .payment-user-form-wrapper .name-panel label {
   display: block;
   width: 100%;
 }
 
-/* line 1342, ../sass/custom/_stp-theme.scss */
+/* line 1345, ../sass/custom/_stp-theme.scss */
 .node-type-stp-page .container-fluid .main-wrap .region-content a {
   text-decoration: underline;
 }
-/* line 1344, ../sass/custom/_stp-theme.scss */
+/* line 1347, ../sass/custom/_stp-theme.scss */
 .node-type-stp-page .container-fluid .main-wrap .region-content a:hover, .node-type-stp-page .container-fluid .main-wrap .region-content a:focus {
   text-decoration: none;
 }
-/* line 1348, ../sass/custom/_stp-theme.scss */
+/* line 1351, ../sass/custom/_stp-theme.scss */
 .node-type-stp-page .container-fluid .main-wrap .region-content .btn, .node-type-stp-page .container-fluid .main-wrap .region-content .global-button {
   text-decoration: none;
 }
 
-/* line 1355, ../sass/custom/_stp-theme.scss */
+/* line 1358, ../sass/custom/_stp-theme.scss */
 .quickedit button.icon {
   line-height: 25px;
 }
