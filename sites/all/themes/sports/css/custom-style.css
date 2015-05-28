@@ -5319,14 +5319,10 @@ body.node-type-take-over-pages .footer-copyright a {
 
 /* line 1378, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .to-body .vjs-playing .vjs-loading-spinner {
-  display: none;
-}
-
-/* line 1379, ../sass/custom/_stp-theme.scss */
-body.node-type-take-over-pages .container-fluid .to-body .vjs-paused .vjs-loading-spinner {
   display: none !important;
 }
 
+/*body.node-type-take-over-pages .container-fluid .to-body .vjs-paused .vjs-loading-spinner{display:none;}*/
 /* line 1, ../sass/custom/_alertify.core.scss */
 .alertify, .alertify-show, .alertify-log {
   -webkit-transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
