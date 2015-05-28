@@ -450,9 +450,12 @@ filter:none; /* IE6-8 */
 }
 
 .container .jumbotron {
-  h3, h1 {
-    text-shadow: 5px 0px 10px $blk-txt-shadow;
-  }
+	h3, h1 {
+		text-shadow: 5px 0px 10px $blk-txt-shadow;
+	}
+	h1{
+		text-transform:uppercase;
+	}
 }
 
 /*Seat View page*/
