@@ -87,6 +87,7 @@ jQuery(document).ajaxComplete(function(){
 */
 
 jQuery(document).ready(function(){
+  CalPopUp.addClasses();
   var $this = this;  
   jQuery('div.month-view table > tbody > tr > td .field-name-field-image').parents('a').click(function(e){
     e.preventDefault();    
