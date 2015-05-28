@@ -145,9 +145,9 @@ function custom_take_over_pages_node_view($node, $view_mode, $langcode) {
 		  }
 		  if (count($rows)) {
 			//$pdf_link = 'STH_15-16_RENEWAL_SeatingPricing_8.pdf';
-            //unset($node->content['field_button_2']);
-		  $node->content['field_button_2']['#items'][0]['url'] = 'https://stp-kings-v2-prd.io-media.com/sites/default/files/STH_15-16_RENEWAL_SeatingPricing_8.pdf';
-		  $node->content['field_button_2'][0]['#element']['url'] = 'https://stp-kings-v2-prd.io-media.com/sites/default/files/STH_15-16_RENEWAL_SeatingPricing_8.pdf';
+            //unset($node->content['field_button_2']);  
+		  $node->content['field_button_2']['#items'][0]['url'] = 'https://stp-kings-v2-prd.io-media.com/sites/default/files/STH_15-16_RENEWAL_NEW_SeatingPricing_8.pdf';
+		  $node->content['field_button_2'][0]['#element']['url'] = 'https://stp-kings-v2-prd.io-media.com/sites/default/files/STH_15-16_RENEWAL_NEW_SeatingPricing_8.pdf';
 		  
 		  }
 	  }
