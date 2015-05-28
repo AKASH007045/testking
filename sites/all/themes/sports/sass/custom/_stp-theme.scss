@@ -1366,3 +1366,11 @@ body.node-type-take-over-pages{
 .calendar-calendar .single-day.future.game-away .inner, .calendar-calendar .single-day.today.game-away .inner, .calendar-calendar .single-day.past.game-away .inner{
 	background:rgba(0,0,0,0.7); color:#D1D4D9;
 }
+
+.vjs-default-skin{
+	.vjs-loading-spinner{
+		&:before{
+			position:inherit!important;
+		}
+	}
+}
