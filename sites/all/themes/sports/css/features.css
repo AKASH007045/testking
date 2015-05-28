@@ -1,2 +1,2 @@
 .field-type-image .form-item div.image-widget-data{float:inherit;}
-.field-type-image .form-item div.image-widget-data > div{display:none;}
+.field-type-image .form-item div.image-widget-data div.filefield-sources-list{display:none;}
