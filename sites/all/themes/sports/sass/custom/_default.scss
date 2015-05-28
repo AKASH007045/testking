@@ -92,7 +92,7 @@ a:focus {
       margin-left: 50px;
       font-size: 1.0714em;
   .navbar-collapse {
-    padding-left: 70px;
+    padding-left:56px;
     width: 100%;
     border-top: 0;
   }
@@ -120,7 +120,7 @@ a:focus {
       padding: 3px 0 !important;
       width: 100%;
       min-height: 39px;
-      padding: 0 0 0 70px !important;
+      padding:0 0 0 56px !important;
       border: 0;
       z-index: 10;
       > li > a {
@@ -146,7 +146,7 @@ a:focus {
 }
 
 .navbar .navbar-brand {
-  left: -44px;
+  left: -58px;
   top: -45px;
   padding: 0;
   z-index: 99;
