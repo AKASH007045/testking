@@ -5181,80 +5181,84 @@ body.node-type-take-over-pages .container-fluid .to-body {
   text-align: center;
 }
 /* line 1263, ../sass/custom/_stp-theme.scss */
+body.node-type-take-over-pages .container-fluid .to-body .field-name-field-video.quickedit-processed {
+  border: 0px;
+}
+/* line 1267, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .to-body .video-js {
   width: 437px !important;
   height: 247px !important;
   display: inline-block;
 }
-/* line 1268, ../sass/custom/_stp-theme.scss */
+/* line 1272, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .takeover-btn-wrap {
   margin-bottom: 10px;
 }
-/* line 1271, ../sass/custom/_stp-theme.scss */
+/* line 1275, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .takeover-btn-wrap .tk-btn a {
   width: 212px;
   line-height: 48px;
   font-size: 20px;
   font-weight: lighter;
 }
-/* line 1275, ../sass/custom/_stp-theme.scss */
+/* line 1279, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .to-btm-txt {
   margin-top: 0px;
 }
-/* line 1277, ../sass/custom/_stp-theme.scss */
+/* line 1281, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .to-btm-txt p {
   font-family: "oswaldregular",Arial,sans-serif;
   font-weight: lighter;
   font-size: 18px;
 }
-/* line 1280, ../sass/custom/_stp-theme.scss */
+/* line 1284, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .to-btm-txt p a {
   text-decoration: underline;
 }
-/* line 1282, ../sass/custom/_stp-theme.scss */
+/* line 1286, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .to-btm-txt p a:hover, body.node-type-take-over-pages .container-fluid .to-btm-txt p a:focus {
   text-decoration: none;
 }
-/* line 1289, ../sass/custom/_stp-theme.scss */
+/* line 1293, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .footer-copyright {
   opacity: 0.3;
 }
-/* line 1291, ../sass/custom/_stp-theme.scss */
+/* line 1295, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .footer-copyright a {
   cursor: text;
 }
 
 /*  Vacation Exchange Form CSS  */
-/* line 1300, ../sass/custom/_stp-theme.scss */
+/* line 1304, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid {
   background: url("../images/benefit-mainbg.jpg") no-repeat top center #381952;
 }
-/* line 1304, ../sass/custom/_stp-theme.scss */
+/* line 1308, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid section.main-wrap div.error {
   display: none;
 }
-/* line 1309, ../sass/custom/_stp-theme.scss */
+/* line 1313, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid form.webform-client-form {
   padding: 3% 12% 6% 12%;
 }
-/* line 1312, ../sass/custom/_stp-theme.scss */
+/* line 1316, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid form.webform-client-form .webform-component {
   padding: 0px 0px 7px 0px;
 }
-/* line 1315, ../sass/custom/_stp-theme.scss */
+/* line 1319, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid form.webform-client-form button[type="submit"] {
   outline: none;
   padding: 0px 20px;
   line-height: 34px;
 }
-/* line 1319, ../sass/custom/_stp-theme.scss */
+/* line 1323, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid form.webform-client-form div.webform-component div.form-checkboxes {
   margin: 7px 12px 0px 0px;
   outline: none;
   display: inline-block;
   float: left;
 }
-/* line 1322, ../sass/custom/_stp-theme.scss */
+/* line 1326, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid form.webform-client-form div.webform-component select {
   width: 100%;
   color: #222222;
@@ -5263,7 +5267,7 @@ body.node-type-take-over-pages .footer-copyright a {
   display: block;
   font-size: 13px;
 }
-/* line 1325, ../sass/custom/_stp-theme.scss */
+/* line 1329, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid form.webform-client-form div.webform-component label {
   line-height: 34px;
   font-weight: 400;
@@ -5271,38 +5275,38 @@ body.node-type-take-over-pages .footer-copyright a {
   display: inline-block;
   font-size: 13px;
 }
-/* line 1328, ../sass/custom/_stp-theme.scss */
+/* line 1332, ../sass/custom/_stp-theme.scss */
 .node-type-webform .container-fluid form.webform-client-form div.webform-component input.error, .node-type-webform .container-fluid form.webform-client-form div.webform-component select.error {
   border-color: rgba(178, 14, 14, 0.7);
   background: rgba(255, 255, 255, 0.1);
   color: #a4a5a6;
 }
 
-/* line 1338, ../sass/custom/_stp-theme.scss */
+/* line 1342, ../sass/custom/_stp-theme.scss */
 .payment-user-form-wrapper .name-panel label {
   display: block;
   width: 100%;
 }
 
-/* line 1346, ../sass/custom/_stp-theme.scss */
+/* line 1350, ../sass/custom/_stp-theme.scss */
 .node-type-stp-page .container-fluid .main-wrap .region-content a {
   text-decoration: underline;
 }
-/* line 1348, ../sass/custom/_stp-theme.scss */
+/* line 1352, ../sass/custom/_stp-theme.scss */
 .node-type-stp-page .container-fluid .main-wrap .region-content a:hover, .node-type-stp-page .container-fluid .main-wrap .region-content a:focus {
   text-decoration: none;
 }
-/* line 1352, ../sass/custom/_stp-theme.scss */
+/* line 1356, ../sass/custom/_stp-theme.scss */
 .node-type-stp-page .container-fluid .main-wrap .region-content .btn, .node-type-stp-page .container-fluid .main-wrap .region-content .global-button {
   text-decoration: none;
 }
 
-/* line 1359, ../sass/custom/_stp-theme.scss */
+/* line 1363, ../sass/custom/_stp-theme.scss */
 .quickedit button.icon {
   line-height: 25px;
 }
 
-/* line 1362, ../sass/custom/_stp-theme.scss */
+/* line 1366, ../sass/custom/_stp-theme.scss */
 .calendar-calendar .single-day.future.game-away .inner, .calendar-calendar .single-day.today.game-away .inner, .calendar-calendar .single-day.past.game-away .inner {
   background: rgba(0, 0, 0, 0.7);
   color: #D1D4D9;
