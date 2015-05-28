@@ -2362,7 +2362,7 @@ div.messages {
 
 /* line 1122, ../sass/custom/_style.scss */
 .page-update-custom-background .container-fluid.main-container {
-  background: none;
+  background: none !important;
 }
 
 /* line 1126, ../sass/custom/_style.scss */
