@@ -1779,3 +1779,5 @@ form#menu-editor-overview-form td.drag .indentation, #media-browser-tabset li a#
 html.js body.node-type-event.overlay{background:url(images/loader.gif) no-repeat center center !important;}
 
 .droppable-preview-image img{opacity:0.75;}
+
+.field-type-image .form-item div.image-widget-data > div{display:none;}
