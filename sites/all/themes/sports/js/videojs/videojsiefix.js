@@ -1,4 +1,6 @@
 jQuery(document).ready(function(){
+	base_url = Drupal.settings.basePath;
+    jQuery('#videojs-1632-field-video-video_html5_api').attr('poster',base_url+'sites/default/files/video/sacramento.jpg')
   //Video Js fix for IE
   if(jQuery("video").length>0){
     var attr_id = jQuery("video").attr("id");
@@ -7,6 +9,7 @@ jQuery(document).ready(function(){
     var c=0;    
     videojs(attr_id).ready(function(){
       var myPlayer = this;
+      myPlayer.poster('http://stpkings.io2/sites/default/files/video/sacramento.jpg');
       var browser = new cBrowser();
       if( browser.isIE ){  
         myPlayer.on('ended', function(){
