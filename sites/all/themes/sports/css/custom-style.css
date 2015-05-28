@@ -5314,7 +5314,7 @@ body.node-type-take-over-pages .footer-copyright a {
 
 /* line 1372, ../sass/custom/_stp-theme.scss */
 .vjs-default-skin .vjs-loading-spinner:before {
-  position: inherit !important;
+  position: relative !important;
 }
 
 /* line 1, ../sass/custom/_alertify.core.scss */
