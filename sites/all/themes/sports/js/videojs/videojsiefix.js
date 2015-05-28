@@ -1,14 +1,15 @@
-jQuery(document).ready(function(){
-	base_url = Drupal.settings.basePath;
-    jQuery('#videojs-1631-field-video-video_html5_api').attr('poster',base_url+'sites/default/files/video/sacramento.jpg');
-	jQuery('#videojs-1631-field-video-video_html5_api').get(0).play();
-	/*jQuery("#videojs-1631-field-video-video_html5_api").ready(function(){
+videojs("#videojs-1631-field-video-video_html5_api").ready(function(){
     var myPlayer = this;
 
   // EXAMPLE: Start playing the video.
     myPlayer.play();
 
-});*/
+});
+jQuery(document).ready(function(){
+	base_url = Drupal.settings.basePath;
+    jQuery('#videojs-1631-field-video-video_html5_api').attr('poster',base_url+'sites/default/files/video/sacramento.jpg');
+	//jQuery('#videojs-1631-field-video-video_html5_api').get(0).play();
+	
 	
   //Video Js fix for IE
   if(jQuery("video").length>0){
