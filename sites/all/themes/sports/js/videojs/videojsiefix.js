@@ -1,7 +1,7 @@
 jQuery(document).ready(function(){
 	base_url = Drupal.settings.basePath;
     jQuery('#videojs-1631-field-video-video_html5_api').attr('poster',base_url+'sites/default/files/video/sacramento.jpg');
-	videojs("#videojs-1631-field-video-video_html5_api").ready(function(){
+	jQuery("#videojs-1631-field-video-video_html5_api").ready(function(){
     var myPlayer = this;
 
   // EXAMPLE: Start playing the video.
