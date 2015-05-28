@@ -789,7 +789,8 @@ filter:none; /* IE6-8 */
   /*Video Border*/
   border: 2px solid #717174;
 }
-
+.node-type-take-over-pages .to-body{
+}
 .video-js {
   /*Video BG*/
   /*background-color: #101010;*/
@@ -1356,3 +1357,8 @@ body.node-type-take-over-pages{
 	}
 }
 .quickedit button.icon{line-height:25px;}
+
+
+.calendar-calendar .single-day.future.game-away .inner, .calendar-calendar .single-day.today.game-away .inner, .calendar-calendar .single-day.past.game-away .inner{
+	background:rgba(0,0,0,0.7); color:#D1D4D9;
+}
