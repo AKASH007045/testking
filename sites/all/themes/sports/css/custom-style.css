@@ -5319,7 +5319,7 @@ body.node-type-take-over-pages .footer-copyright a {
 
 /* line 1378, ../sass/custom/_stp-theme.scss */
 body.node-type-take-over-pages .container-fluid .to-body .vjs-playing .vjs-loading-spinner, body.node-type-take-over-pages .container-fluid .to-body .vjs-paused .vjs-loading-spinner {
-  display: none;
+  display: none !important;
 }
 
 /* line 1, ../sass/custom/_alertify.core.scss */
