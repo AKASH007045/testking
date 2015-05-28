@@ -99,6 +99,7 @@ $language = isset($node->language) ? $node->language : 'und'?>
      <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 col-fixed"><h4 class="usename"><?php print $node->title; ?>&nbsp;<?php print isset($node->field_last_name[$language][0]['value']) ? $node->field_last_name[$language][0]['value'] : ''; ?></h4>
       <?php print isset($node->field_email[$language][0]['value']) ? l($node->field_email[$language][0]['value'], 'mailto:' . $node->field_email[$language][0]['value']) : ''?>
       <?php print render($content['field_phone']); ?>
+	  <?php print render($content['field_cell_number']); ?>
     </div>
     <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 col-fixed"><?php print render($content['field_hometown']); ?>
       <?php print render($content['field_college_attended']); ?>
