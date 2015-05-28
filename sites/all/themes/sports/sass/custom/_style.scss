@@ -493,7 +493,8 @@ body.page-home .container-fluid .main-wrap .node {
 #block-views-acct-reps-block .carousel-inner > .item {
   min-height:335px;
 }
-
+#block-views-acct-reps-block .carousel-inner > .item a{text-decoration:underline;}
+#block-views-acct-reps-block .carousel-inner > .item a:hover,#block-views-acct-reps-block .carousel-inner > .item a:focus{text-decoration:none;}
 .node-type-contact-us .container-fluid > section.main-wrap .block-system{
   padding-bottom: 30px;
 }
