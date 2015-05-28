@@ -84,6 +84,17 @@
 
 drupal_add_css(drupal_get_path('module', 'custom_take_over_pages') . '/css/take_over.css');
 ?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+videojs("#videojs-1631-field-video-video_html5_api").ready(function(){
+    var myPlayer = this;
+
+  // EXAMPLE: Start playing the video.
+    myPlayer.play();
+
+});
+});
+</script>
 <?php if (user_access('Editor')) { ?>
     <div class="stp-editor-links highlighted">
         <div class="tabs-wrap-primary-user"><div class="tabsoption-primary-user">
