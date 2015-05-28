@@ -1776,7 +1776,7 @@ html.js body.page-media-browser{ background:none !important;}
 form#menu-editor-overview-form td.drag { text-align:left;}
 form#menu-editor-overview-form td.drag .tabledrag-handle { margin-left:12px; margin-top:-6px;}
 form#menu-editor-overview-form td.drag .indentation, #media-browser-tabset li a#ui-id-2{ display:none;}
-html.js body.node-type-event.overlay{background:url(images/loader.gif) no-repeat center center !important;}
+html.js body.node-type-event.overlay{/*background:url(images/loader.gif) no-repeat center center !important;*/}
 
 .droppable-preview-image img{opacity:0.75;}
 
