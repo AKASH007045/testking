@@ -37,8 +37,8 @@ global $base_url;
       <td style="border-bottom:3px solid #714b9e;">
           <div style="padding:7px 0 7px 20px;">
             <a href="<?php print url('<front>') ?>">
-              <img src="/<?php print drupal_get_path('theme', 'sports')?>/images/subscribe-email-logo.png" width="211" height="59" alt="logo" style="border:none" />
-            </a>
+			 <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'sports')?>/images/subscribe-email-logo.png" height="59" alt="logo" style="border:none;" />
+           </a>
           </div>
        </td>
      </tr>
