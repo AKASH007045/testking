@@ -63,3 +63,5 @@ form#menu-editor-overview-form .focus-description-column tr.focus td.description
 form#menu-editor-overview-form td.drag { text-align:left;}
 form#menu-editor-overview-form td.drag .tabledrag-handle { margin-left:12px; margin-top:-6px;}
 form#menu-editor-overview-form td.drag .indentation{ display:none;}
+/**************************************************/
+.segmented{background-color:#f8b401 !important;border: solid 1px #CC9402!important}// For Ticket STPDEV-798
