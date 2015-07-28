@@ -3962,9 +3962,12 @@ var PageView = function pageView(container, id, scale,
     }
 
     delete this.canvas;
-
+    /*******************  For ticket STPDEV-934      ***************************/
     this.loadingIconDiv = document.createElement('div');
     this.loadingIconDiv.className = 'loadingIcon';
+    //var base_url = window.location.origin;
+    //this.loadingIconDiv.innerHTML = '<div style="position:absolute;z-index:999;left:45%;top:45%;width:90px;font-size:20px;background-image:url('+base_url+'/sites/all/themes/sports/images/ajax_loading.gif);background-position:right 13px;background-repeat:no-repeat">Loading</div>'; 
+    /*******************  End For ticket STPDEV-934      ***********************/
     div.appendChild(this.loadingIconDiv);
   };
 

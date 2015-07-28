@@ -20,7 +20,18 @@ function custom_invoice_email() {
   }
   module_load_include('inc', 'custom_block', 'custom_block.block'); 
   $output = _tmapi_user_invoice('pdf');
-
+  /*************  For Tickets STPDEV-21, STPDEV-455 and STPDEV-526     ********/
+    $wfid = variable_get('invoice_watermark_fid', '');
+    $watermarkImage = '';
+    if($wfid != '') 
+    {
+	$file = file_load($wfid);
+	if($file && isset($file->fid))
+        {
+            $watermarkImage = file_create_url($file->uri);
+        }
+   }
+  /*************  End For Tickets STPDEV-21, STPDEV-455 and STPDEV-526     *****/
   $params = array(
     'name' => $user->name,
     'subject' => variable_get('invoice_mail_subject', t('2015 Sacramento Kings Invoice')),
@@ -31,7 +42,7 @@ function custom_invoice_email() {
   if (pdf_using_mpdf_library_exist() == TRUE) {
   //user variable_get for sitename
     $filename = "Kings-Invoice_" . str_replace(' ', '-', $name);
-    _pdf_using_mpdf_generator($output, $filename, 'F', $name);
+    _pdf_using_mpdf_generator($output, $filename, 'F', $name, $watermarkImage);
     $file=file_directory_temp() . '/' . $filename.".pdf";
     $params['file'] = $file;
     $params['filename'] = $filename . '.pdf';
@@ -58,14 +69,25 @@ function custom_invoice_print() {
       drupal_goto('invoice');
     }
   }
-  
+  /*************  For Tickets STPDEV-21, STPDEV-455 and STPDEV-526     ********/
+    $wfid = variable_get('invoice_watermark_fid', '');
+    $watermarkImage = '';
+    if($wfid != '') 
+    {
+	$file = file_load($wfid);
+	if($file && isset($file->fid))
+        {
+            $watermarkImage = file_create_url($file->uri);
+        }
+   }
+  /*************  End For Tickets STPDEV-21, STPDEV-455 and STPDEV-526     *****/
   $output = _tmapi_user_invoice('pdf');
   // Checking mPDF library existence.
  
   if (pdf_using_mpdf_library_exist() == TRUE) {
     $filename = "kings-Invoice_" . str_replace(' ', '-', $name);
     $conf['pdf_using_mpdf_pdf_save_option'] = 0;
-    _pdf_using_mpdf_generator($output, $filename, 'I', $name);
+    _pdf_using_mpdf_generator($output, $filename, 'I', $name, $watermarkImage);
     exit;
   }
   return '';

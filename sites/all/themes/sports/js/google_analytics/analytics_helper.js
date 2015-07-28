@@ -34,6 +34,9 @@ function get_month_year(hosturl, nxtprvclkurl, state, lgstr){
       var month_year = str_urltext + '/' + n.month + ' ' + n.year;
       /*alert(month_year);
       alert(lgstr + ' | ' + str_urltext + ' | ' + state + " | " + n.month + ' ' + n.year);*/
+      /**********************   For ticket STPDEV-704 *************************/
+      jQuery(".js_spin_loader").show();
+      /********************** End For ticket STPDEV-704 ***********************/
 	    if(lgstr!=""){
 		    ga('send', 'pageview', {
 				  'page': month_year,

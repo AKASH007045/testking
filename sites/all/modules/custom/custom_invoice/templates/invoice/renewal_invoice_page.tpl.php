@@ -27,7 +27,7 @@
 	    <h2><?php echo $due_amount;?></h2>
       </div>
       <div class="pull-right">
-         <a data-title="Click To Pay" href="/invoice/payment" class="btn btn-default btn-light">Pay <i class="fa fa-chevron-right"></i></a>     
+         <a data-title="Click To Pay" href="/invoice/payment" class="btn btn-default btn-light btn-pay">Pay <i class="fa fa-chevron-right"></i></a>     
        </div>
    </section>
 </article>

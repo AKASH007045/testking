@@ -8,6 +8,7 @@
        $logo = file_create_url($file->uri);
       }
 		}
+    /*********************   STPDEV-21, STPDEV-455 and STPDEV-526 **************
 		$wfid = variable_get('invoice_watermark_fid', '');
 		$watermark = '';
 		if ($wfid != '') {
@@ -16,6 +17,7 @@
        $watermark = file_create_url($file->uri);
       }
 		}
+     /**************** End for STPDEV-21, STPDEV-455 and STPDEV-526 *************/
       $team = variable_get('invoice_team_name', t('STP'));
 			$color = variable_get('invoice_color', t('#000'));
 			 $footer1 =  variable_get('invoice_footer', array());
@@ -23,7 +25,7 @@
      ?>
 <style>
 	 .printWrapper{
-			background:url(<?php print $watermark; ?>) center center no-repeat;
+			/*background:url(<?php print $watermark; ?>) center center no-repeat;*/ // STPDEV-21, STPDEV-455 and STPDEV-526
 			/*background:transparent url(<?php print $watermark; ?>) repeat fixed right top;*/
 			
        }

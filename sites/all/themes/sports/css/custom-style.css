@@ -6143,3 +6143,13 @@ body.node-type-take-over-pages .container-fluid .to-body .video-js.vjs-fullscree
 #overlay h1, #overlay h2, #overlay h3, #overlay h4, #overlay h5, #overlay h6, #overlay buttons, #overlay .btn, #edit-field-pdf .btn, #edit-field-video .btn {
   font-family: Arial,sans-serif !important;
 }
+/******************************* Custom Changes *******************************/
+/*****************  For Ticket STPDEV-934 *************************************/
+.vjs-loading-spinner {display: none;position: absolute;top: 50%;left: 50%;width: 1em;height: 1em;margin-left: 0;margin-top: 0;opacity: 0.75;
+  -webkit-animation: none;moz-animation: none;-o-animation: none;animation: none;font-size: 0px}
+.video_ldr_color div{background: #fff!important} // STPDEV-934
+.vjs-default-skin .vjs-loading-spinner:before, .vjs-default-skin .vjs-loading-spinner:after{content: "";position: absolute;top: 0;left: 0;width: 1em;height: 1em;text-align: center;text-shadow: none;}
+/**************** End for STPDEV-934 ******************************************/
+.js_spin_loader{position: absolute;z-index: 99999;top:calc(50% - 17px);left:calc(50% - 17px);background-color: #000!important;border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;padding:18px;opacity:0.7}
+// For ticket STPDEV-704, STPDEV-582, STPDEV-934, STPDEV-936
+/**************** End For ticket STPDEV-740 ***********************************/

@@ -187,6 +187,37 @@ function custom_hooks_init() {
     'full_calendar' => $full_calendar,
   ));
   drupal_add_js($setting, 'setting');
+  /********************  For Ticket STPDEV-845, STPDEV-740, STPDEV-157, STPDEV-704, STPDEV-934 and STPDEV-783  ***************/
+  $cssstr = '.messages{background-position:8px 5px!important;}
+             .cke_button__sourcedialog{display: none!important}
+             .cke_button__sourcedialog_show{display: inline-block!important}
+             .quickedit-field{left: 0!important;top: 0!important;padding:0!important;margin: 0!important}
+             li{list-style-position:inside!important;}  
+.form-item-access{position:relative!important;width:auto!important;display:inline;height:18px}
+.form-item-access input{float:left;padding-top:2px;margin-right:3px}
+.ajax-progress-throbber{position:absolute;width:15px!important;marign:0!important;float:left!important;padding:4px 0 0 5px!important;text-align:right!important;right:-22px;}
+.form-item-access .message{display:none!important}
+.quickedit-editing .throbber{display:none!important}
+';
+  drupal_add_css($cssstr,
+      array(
+        'group' => CSS_THEME,
+        'type' => 'inline',
+        'media' => 'screen',
+        'preprocess' => false,
+        'weight' => '9999',
+      )
+    );
+    if(in_array('Editor', $user->roles)) 
+    {
+       $jsGlobalVar = 'var userRole = "editor";';
+    }else 
+    {
+        $jsGlobalVar = 'var userRole = "";';
+    }
+    drupal_add_js($path.'/js/spin.js');
+    drupal_add_js($jsGlobalVar,array('type' => 'inline', 'scope' => 'header', 'weight' => 5));
+  /********************  End For Ticket STPDEV-845 and STPDEV-704   ************/
 }
 
 /**

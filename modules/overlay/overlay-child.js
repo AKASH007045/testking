@@ -131,6 +131,8 @@ Drupal.overlayChild.behaviors.parseForms = function (context, settings) {
  * Replace the overlay title with a message while loading another page.
  */
 Drupal.overlayChild.behaviors.loading = function (context, settings) {
+/*
+  For Ticket STPDEV-704 REF: Comment  made after deployment
   var $title;
   var text = Drupal.t('Loading');
   var dots = '';
@@ -142,6 +144,8 @@ Drupal.overlayChild.behaviors.loading = function (context, settings) {
       $title.text(text + dots);
     }, 500);
   });
+  End For Ticket STPDEV-704
+  */
 };
 
 /**

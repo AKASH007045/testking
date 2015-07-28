@@ -30,13 +30,14 @@ jQuery(document).ready(function(){
   add_custom_theme_radio_loginform();
   
   //Hide/Show Source button
+  /*************  For Ticket STPDEV-740 *****************************************/
   var interv="";
   function qtimer() {
     interv = setInterval(function(){
       var len = jQuery("body").find('a.cke_button__sourcedialog').length;
       var temp = 'show';
       if(len>0){          
-        jQuery("*").on('keydown', null, 'alt+up', function () {
+        jQuery("*").on('keydown', null, 'ctrl+up', function () {
           if (temp == 'show') {
             jQuery("body").find('a.cke_button__sourcedialog').show();
             temp = 'hide';
@@ -47,7 +48,7 @@ jQuery(document).ready(function(){
           }
         });
         
-        jQuery("body").on('keydown', null, 'alt+up', function () {
+        jQuery("body").on('keydown', null, 'ctrl+up', function () {
           if (temp == 'show') {
             jQuery("body").find('a.cke_button__sourcedialog').show();
             temp = 'hide';
@@ -69,7 +70,7 @@ jQuery(document).ready(function(){
       qtimer();
     }
   });
-  
+   /*************  For Ticket STPDEV-740 *****************************************/
   //Event Gallery View slider js
   if(jQuery('.event-gallary-thumb-slider .view-event-slider').length !=0) {
     jQuery('div.view-event-slider div.view-content > div.item-list')

@@ -126,7 +126,11 @@ function _menu_editor_overview_tree_form(&$form, &$form_state, $tree) {
 
       $form[$item_key]['#item'] = $item;
       $form[$item_key]['#attributes'] = $item['hidden'] ? array('class' => 'menu-disabled') : array('class' => 'menu-enabled');
-      $form[$item_key]['drag']['#markup'] = l($item['title'], $item['href'], $item['localized_options']) . ($item['hidden'] ? ' ('. t('disabled') .')' : '');
+      
+      /************************    For ticket STPDEV-883    *******************/      
+      //$form[$item_key]['drag']['#markup'] = l($item['title'], $item['href'], $item['localized_options']) . ($item['hidden'] ? ' ('. t('disabled') .')' : '');
+      $form[$item_key]['drag']['#markup'] = '<a href="javascript:;" onclick="window.location=\''.check_plain(url($path),$item['localized_options']).'\'">'.$item['title'].'</a>'. ($item['hidden'] ? ' ('. t('disabled') .')' : '');          
+      /************************    End For ticket STPDEV-883    ***************/      
 
       // Include i18n support.
       if (module_exists('i18n_menu')) {
@@ -551,9 +555,15 @@ function menu_editor_overview_form_submit($form, &$form_state) {
     }
   }
 
-  if (!empty($errors)) {
+  /*******************  For ticket STPDEV-845      ****************************/
+  if(!empty($errors))
+  {
     drupal_set_message(t('There were errors saving the following menu links:<br/>' . implode('<br/>', $errors)), 'error');
+  }else
+  {
+    drupal_set_message(t('Saved successfully!'), 'status');// For ticket STPDEV-845
   }
+  /*******************  End For ticket STPDEV-309      ************************/
 }
 
 
@@ -617,6 +627,11 @@ function theme_menu_editor_overview_form($variables) {
       if ($plid) {
         $class = 'draggable menu-row-item';
       }
+      /*************  For ticket STPDEV-798      ******************************/
+      if ($description =='Y') {
+        $class .= ' segmented';
+      }
+      /*************  End For ticket STPDEV-798      **************************/
       $cells['drag'] = array(
         'data' => theme('indentation', array('size' => $size - 1)) . drupal_render($element['drag']),
         'class' => 'drag',

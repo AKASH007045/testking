@@ -14,6 +14,7 @@ function isiDevice(){
 
 jQuery(document).ready(function(){
   //Hide/Show Source button
+  /*************  For Ticket STPDEV-740 *****************************************/
   var interv="";
   function qtimer() {
     interv = setInterval(function(){
@@ -22,7 +23,7 @@ jQuery(document).ready(function(){
       
       if(len>0){
         var iframe = jQuery('iframe.cke_wysiwyg_frame');
-        jQuery('*', iframe.contents()).on('keydown', null, 'alt+up', function () {
+        jQuery('*', iframe.contents()).on('keydown', null, 'ctrl+up', function () {
           if (temp == 'show') {
             jQuery("body").find('a.cke_button__source').show();
             temp = 'hide';
@@ -32,7 +33,7 @@ jQuery(document).ready(function(){
             temp = 'show';
           }
         });
-        jQuery('body').on('keydown', null, 'alt+up', function () {
+        jQuery('body').on('keydown', null, 'ctrl+up', function () {
           if (temp == 'show') {
             jQuery("body").find('a.cke_button__source').show();
             temp = 'hide';
@@ -48,7 +49,7 @@ jQuery(document).ready(function(){
     }, 2000);
   }
   qtimer();
-  
+ /************  End For the ticket STPDEV-740 ********/
  jQuery('.page-node-delete.node-type-promo-tile .form-actions a#edit-cancel').click(function() {
    jQuery('a#overlay-close').click();
  });

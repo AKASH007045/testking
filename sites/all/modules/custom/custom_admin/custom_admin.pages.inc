@@ -42,6 +42,11 @@ function custom_admin_add_page($form, &$form_state, $variable) {
   $title = (isset($variable) && $variable == 'stp_page') ? 'Content' : ucfirst($variable);
   $title = $type == 'pdf' ? 'PDF' : $title;
   drupal_set_title('New ' . $title . ' Page');
+  
+  /*******************  For ticket STPDEV-309      ****************************/
+  $back_button_title = 'Back to Page listing';
+  /******************  End For ticket STPDEV-309  *****************************/
+  
   $form = array();
   $stp_menus = custom_admin_get_menu_links('all');
   $stp_menus_anon = custom_admin_get_menu_links('anon');
@@ -63,11 +68,13 @@ function custom_admin_add_page($form, &$form_state, $variable) {
       '#type' => 'fieldset',
       '#title' => 'Other ' . $title .' Page Options', 
     );
+ /*******************  For ticket STPDEV-783      ****************************/
     $form['box2']['access'] = array(
       '#type' => 'radios',
       '#title' => t('Access'),
       '#options' => array('0' => 'Public', '1' => 'Logged IN'),
       '#required' => TRUE,
+      '#attributes' => array('class'=>'trigger_show'),// Provided class to enable SML
       '#ajax' => array(
         // #ajax has two required keys: callback and wrapper.
         // 'callback' is a function that will be called when this element changes.
@@ -77,23 +84,49 @@ function custom_admin_add_page($form, &$form_state, $variable) {
         'method' => 'replace',
         'effect' => 'fade',
       ),
+      '#suffix' => '<div class="clearfix"></div>'
     );
     $form['box2']['parent_menu'] = array(
       '#type' => 'select',
       '#title' => t('Site Map Location'),
       '#options' => $stp_menus,
       '#default_value' => '',
-      '#prefix' => '<div id="replace_parent_menu">',
+      '#prefix' => '<div id="replace_parent_menu" class="access_enable">',
       '#suffix' => '</div>',
       '#required' => TRUE,
-      '#description' => t('Select where new page will appear under top navigation.'),
-      
+      '#description' => t('Select where new page will appear under top navigation.'),    
     );
+    /***************   For Enabling Site Map Location ******************************/
+    drupal_add_js('jQuery(document).ready(function()
+                  {
+                    if(jQuery(\'div:not(:has(:radio:checked))\').length) 
+                    {
+                        jQuery(\'.form-item-access input\').prop("disabled",false);
+                        var item = 0;
+                        jQuery(\'.form-item-access input\').each(function()
+                        {
+                            if(item ==0){jQuery(this).trigger(\'click\');}
+                            item++;                    
+                        });
+                    }
+                  });',
+        array('type' => 'inline', 'scope' => 'footer', 'weight' => 5)
+      );
+   /*******************  End For ticket STPDEV-309      **************************/
   }
   $form['box2']['type'] = array(
     '#type' => 'hidden',
     '#value' => $variable,
   );
+  /*******************  For ticket STPDEV-309      ****************************/
+  $form['actions']['backtopage'] = array(
+      '#type' => 'link',
+      '#title' => $back_button_title,
+      '#href' => 'admin/manage/main-menu/poweredit',
+      '#options' => array('html' => true,'style'=>'padding-top:5px;padding-bottom:5px'),
+      '#attributes' => array('class' => array('backtopage'))
+    );
+  /*******************  End for ticket STPDEV-309      *************************/
   if ($variable == 'stp_page') {
     $form['submit'] = array(
       '#type' => 'submit',
