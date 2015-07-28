@@ -59,8 +59,11 @@ CKEDITOR.editorConfig = function(config) {
     config.bodyClass = 'singlepage';
     config.bodyId = 'primary';
   }
-  
+  config.extraPlugins = 'lineheight';
+  config.line_height="100%/1;125%/1.25;150%/1.5;175%/1.75;200%/2;225%/2.25;250%/2.5;275%/2.75;300%/3;325%/3.25;350%/3.5;375%/3.75;400%/4;425%/4.25;450%/4.5;475%/4.75;500%/5";
+
 }
+
 
 /*
  * Sample toolbars
@@ -71,28 +74,43 @@ Drupal.settings.cke_toolbar_DrupalBasic = [ [ 'Format', 'Bold', 'Italic', '-', '
 
 //Toolbar definition for Advanced buttons
 Drupal.settings.cke_toolbar_DrupalAdvanced = [
-  ['Source'],
+  ['Styles', 'Font','FontSize'],
+  ['Bold','Italic','Underline','RemoveFormat'],
+  ['TextColor', 'BgColor'],
+  ['NumberedList','BulletedList','-','Outdent','Indent'],
+  ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+  '/',
   ['Undo','Redo'],
-  ['Cut','Copy','Paste','PasteFromWord'],
-  [ 'Link','Unlink', 'Image'],
-  ['Format','FontSize'],
-  ['Bold','Italic','Underline','Strike'],
-  ['NumberedList','BulletedList'],
-  ['Outdent','Indent'],
-  ['JustifyLeft','JustifyCenter','JustifyRight'],
-  ['PageBreak','templates']
+  ['Scayt'],
+  ['Link','Unlink'],
+  ['Image','Table','HorizontalRule','SpecialChar'],
+  ['PageBreak','Templates'],['Source']
 ];
 
 // Toolbar definition for all buttons
-Drupal.settings.cke_toolbar_DrupalFull = [
-  ['Source'],
+Drupal.settings.cke_toolbar_DrupalFull =
+[
+  ['Styles', 'Font','FontSize'],
+  ['Bold','Italic','Underline','RemoveFormat'],
+  ['TextColor', 'BgColor'],
+  ['NumberedList','BulletedList','-','Outdent','Indent'],
+  ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+  '/',
   ['Undo','Redo'],
-  ['Cut','Copy','Paste','PasteFromWord'],
-  [ 'Link','Unlink', 'Image'],
-  ['Format','FontSize'],
-  ['Bold','Italic','Underline','Strike'],
-  ['NumberedList','BulletedList'],
-  ['Outdent','Indent'],
-  ['JustifyLeft','JustifyCenter','JustifyRight'],
-  ['PageBreak','templates']
+  ['Scayt'],
+  ['Link','Unlink'],
+  ['Image','Table','HorizontalRule','SpecialChar'],
+  ['PageBreak','Templates'],['Source']
 ];
+/*[
+  ['Source'],
+  ['Cut','Copy','Paste','PasteText'],
+  ['Undo','Redo','Find','Replace'],
+  ['Styles', 'Font','FontSize', 'lineheight'],
+  ['Bold','Italic','Underline','Strike','-','Subscript','Superscript','-','RemoveFormat'],
+  ['NumberedList','BulletedList','-','Outdent','Indent'],
+  ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+  ['Link','Unlink'],
+  ['Image','Table','HorizontalRule','SpecialChar'],
+  ['PageBreak','Templates']
+];*/

@@ -168,11 +168,6 @@ table {
  * Specifically targets form elements which browsers often times give
  * special treatment.
  */
-input,
-select,
-textarea {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
 textarea {
   font-size: 1em;
   line-height: 1.538em;

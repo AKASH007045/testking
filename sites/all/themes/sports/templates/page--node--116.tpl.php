@@ -89,7 +89,7 @@
 <?php if ($page['promo_tile']) : ?>
   <section class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promo-tile clearfix">
     <div class="row">
-      <?php if (!empty($page['social'])): ?><div class="block-box-ssl col-lg-3 col-md-3 col-sm-3 col-xs-3 clearfix"><?php  print render($page['social']); ?></div><?php endif; ?>
+      <?php if (!empty($page['social'])): ?><div class="block-box-ssl col-lg-3 col-md-3 col-sm-3 col-xs-6 clearfix"><?php  print render($page['social']); ?></div><?php endif; ?>
       <?php  print render($page['promo_tile']); ?>
     </div>
   </section>

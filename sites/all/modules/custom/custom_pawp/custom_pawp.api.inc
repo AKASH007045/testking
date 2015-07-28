@@ -182,7 +182,7 @@ function custom_pawp_tmapi_request_form($form, &$form_state) {
   $form['pawp_signup_top'] = array(
     '#type' => 'markup',
     '#prefix' => '<div class ="pawp-request-form">',
-    '#markup' => '<div class="pawp-cc-information-text">Enter your preferred credit card information to opt into Kings Pay As We Play playoff plan.</div>',
+    '#markup' => '<div class="pawp-cc-information-text">Enter your preferred credit card information to opt into Cowboys Pay As We Play playoff plan.</div>',
     '#weight' => '-10'
   );
   $form['ctype'] = array(
@@ -290,7 +290,7 @@ function custom_pawp_tmapi_request_form_submit(&$form, &$form_state) {
     $tm_response = _tmapi_customer_update_call($acct_id, $data, $cc_response);
   }
   $cc_num = '************'. substr($data['cc_num'], -4, 4);
-  $params['subject'] = variable_get('pawp_mail_subject', t('Sacramento Kings'));
+  $params['subject'] = variable_get('pawp_mail_subject', t('Dallas Cowboys'));
   $data['tm_raw_response'] = '';
  if ($tm_response) {
       watchdog('tmapi_PAWP', 'TM PAWP Success for ACCT_ID. %data', array('%data' => $data['tmuser_info']['acct_id']), WATCHDOG_NOTICE, NULL);

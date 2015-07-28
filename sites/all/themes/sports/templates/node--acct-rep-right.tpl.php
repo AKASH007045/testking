@@ -89,22 +89,9 @@ exit;
 ?>
 <?php
 $language = isset($node->language) ? $node->language : 'und'?>
-<div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix slider-wrap-detail"<?php print $attributes; ?>>
- <div class="slider-top-detail">
-  <div class="profile-detail">
-     <span class="imgpics">
-       <?php print '<span class="play-video-icon">&nbsp;</span>' . theme('image_style', array('style_name' => 'rep_thumb_large', 'path' => $node->field_acct_rep_image[$language][0]['uri']));?>
-     </span>
-    <div class="namedetil">
-     <h3 class="usename"><?php print $title; ?></h3>
-      <span class="idname"><?php print isset($node->field_email[$language][0]['value']) ? l($node->field_email[$language][0]['value'], 'mailto:' . $node->field_email[$language][0]['value']) : ''?>
-      <?php print isset($node->field_phone[$language][0]['value']) ? $node->field_phone[$language][0]['value'] : ''?></span>
-	  <?php print render(field_view_field('node', $node, 'field_hometown')); ?>
-           <?php print render(field_view_field('node', $node, 'field_college_attended')); ?>
-           <?php print render(field_view_field('node', $node, 'field_drafted_year')); ?>
-           <?php print render(field_view_field('node', $node, 'field_favourite_player')); ?>
-	  
-    </div>
-   </div>
- </div>
-</div>
+<div class="addtl">&nbsp;</div>
+<div class="addtl"><?php print $node->title; ?>&nbsp;<?php print isset($node->field_last_name[$language][0]['value']) ? $node->field_last_name[$language][0]['value'] : ''; ?></div>
+<div class="addtl"><?php print isset($node->field_title[$language][0]['value']) ? $node->field_title[$language][0]['value'] : ''?></div>
+<div class="addtl"> <?php print isset($node->field_email[$language][0]['value']) ? $node->field_email[$language][0]['value'] : ''?></div>
+<div class="addtl"><?php print isset($node->field_phone[$language][0]['value']) ? $node->field_phone[$language][0]['value'] : ''?></div>
+<div class="addtl">&nbsp;</div>

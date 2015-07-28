@@ -82,12 +82,16 @@ $lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
 ?>
 <div class="bottomBar clearfix" <?php print $attributes; ?>>
     <div class="bottomBarInner">
-        <div class="nextgametx leftside"><?php print $event['day'] . ', ' . $event['date']; ?><br /><?php print $event['stadium'] ?></div><?php print $home_team; ?>
+        <div class="nextgametx leftside"><?php print $event['day'] . ', ' . $event['date']; ?><br /><?php print $event['stadium'] ?></div>
+		<div class="gamelogo-section"><?php print $home_team; ?>
         <div class="nextgametx <?php print ($event['home_game'] == 1) ? 'nextgame-home' : 'nextgame-away'?>"><?php print ($event['home_game'] == 1) ? 'VS' : '@'?></div>
-        <a class="gamelogo"><?php print $other_team;?></a>
-        <div class="nextgametx rightside"><?php print $event['time'] ?> <?php print date('T', $node->field_event_date[$lang][0]['value']); ?><br /> <a href="http://www.nba.com/gamenotes/kings.pdf" target="_blank">GAME NOTES</a></div>
+        <a class="gamelogo"><?php print $other_team;?></a></div>
+        <div class="nextgametx rightside"><?php print $event['time'] ?> <?php print date('T', $node->field_event_date[$lang][0]['value']); ?><br /> <a href="/game-notes">GAME NOTES</a></div>
     </div>
     <div class="timeHolder">
         <div class="nextgame-timer"><?php print render($content);?></div>
     </div>
 </div>
+<!--
+-->
+

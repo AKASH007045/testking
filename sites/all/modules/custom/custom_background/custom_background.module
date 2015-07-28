@@ -1,0 +1,354 @@
+<?php
+ 
+function custom_background_menu(){
+ $items = array();
+  
+  $items['admin/config/custom-background-settings'] = array(
+    'title' => 'Custom background Settings',    
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_background_settings'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_LOCAL_TASK,
+  );
+  
+  $items['update-custom-background/%ctools_js/%node'] = array(
+    'title' => 'Update Background Image',
+    'page callback' => 'update_custom_background_form',
+     'page arguments' => array(1, 2),   
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_CALLBACK
+  );
+  $items['update-custom-background/%node'] = array(
+    'title' => 'Update Background Image',
+    'page callback' => 'update_custom_background_form',
+     'page arguments' => array(1),   
+    'access arguments' => array('administer site content'),
+    'type' => MENU_CALLBACK
+  );
+  return $items;
+}
+
+function custom_background_form_alter(&$form, &$form_state, $form_id) {
+ if ($form_id=='custom_background_node_form') {
+   $path = $_GET['pg'];
+   $calander_array = array('schedule', 'full-calendar', 'calendar','my-calendar', 'season-schedule');
+      if (in_array($path, $calander_array)){
+       $path = 'my-calendar'; //this path has been added in select url value
+      }
+    $form['title']['#prefix'] = '<div style="display:none;">';
+    $form['title']['#suffix'] = '</div>';
+    $form['field_select_url']['#prefix'] = '<div style="display:none;">';
+    $form['field_select_url']['#suffix']= '</div>';
+    if (!$form['title']['#default_value']) {   
+    $form['title']['#default_value'] = $path;
+    
+    $form['field_select_url']['und']['#default_value'][0] = $path;
+    $form['actions']['submit']['#submit'][1] = 'custom_background_home_page_submit';
+   }      
+ }
+ if ($form_id=='home_page_node_form') {
+    $form['actions']['submit']['#submit'][1] = 'custom_background_home_page_submit';
+   }
+}
+
+/**
+ *node/add|600px
+user/register
+user/register/*
+user/register/step/2|FALSE
+update-custom-background/*|800px
+ */
+function update_custom_background_form($node ) {
+    module_load_include('inc', 'node', 'node.pages');
+    form_load_include($form_state, 'inc', 'node', 'node.pages');
+    $form_state['build_info']['args'] = array($node);
+    $form_state['#']['args'] = array($node);
+    $form_id = $node->type.'_node_form';
+    $form = drupal_build_form($form_id, $form_state);
+    
+    $test = array();
+    $form_new = $form;
+    $form_fields = array('#node_edit_form','#attributes','nid','vid','uid','created','type','language','changed','options','actions',
+                         '#validate','#submit','#parents','#entity','#pre_render','#entity_type','#bundle','#attached','#groups','#fieldgroups','#group_children',
+                         '#form_id','#type','#build_id','form_build_id','#token','form_token','form_id','#id','#method','#action','#theme_wrappers','#after_build',
+                         '#icon','#icon_position','#process','#tree','#theme','path','#processed','#defaults_loaded','#required','#title_display','additional_settings',
+                         '#array_parents','#after_build_done');
+        
+    foreach($form_new as $key=>$value){
+     //$test[] = '\''.$key.'\'';
+     //$pattern = '/^field*$/';
+     //preg_match($pattern, $key, $matches);
+     
+     if (is_array($form[$key]) && !in_array($key, $form_fields)){
+      if ($key =='field_background_image' || $key =='field_pdf' || $key == 'field_video' || $key == 'field_for_logged_in' || $key == 'field_image' || $key == 'field_images') {
+       //unset($form[$key]);
+         //$form[$key]['#access'] = FALSE;
+       }
+       else {
+        unset($form[$key]);
+          //$form[$key]['#access'] = FALSE;
+       }
+      }
+    }
+    
+    $form['actions']['delete']['#access'] = 0;
+    
+    $from = render($form);
+    
+    return $from;  
+}
+
+/**
+ * This function will run one time
+ * Please run the function with very care
+ * we can create any existing fields to the content type ('bundle'),
+ */
+function custom_background_settings(){
+$form = array();
+$instance = field_info_instance('node', 'field_background_image', 'home_page');
+
+    /*$instance['bundle'] = 'my_image';
+    
+   field_create_instance($instance);*/
+    $description = 'Create existing Background Image field';
+    if(!$instance){
+     $description = 'Please add background field first in home_page content type';
+    }
+    
+   $form['background'] = array(
+      '#type' => 'fieldset',
+      '#title' => 'Background image',
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+      '#description' => $description,      
+    );
+
+ if (!$instance){
+  return $form;
+ }
+  
+// Loop over all the available content types.
+  foreach (node_type_get_types() as $type => $node_type) {
+    $form['background'][$type]['paging_config'] = array(
+      '#type' => 'fieldset',
+      '#title' => $node_type->name,
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,      
+      '#attributes' => array('id' => 'paging-type-' . $type, 'class' => array('paging-fieldset')),
+    );
+
+    $field_id = custom_background_field_check($type);
+
+    // Paging toggle checkbox.
+    $form['background'][$type]['paging_config'][$type] = array(
+      '#type' => 'checkbox',
+      '#title' => 'Enable this content type',
+      '#default_value' => $field_id ? 1 : 0,
+      '#attributes' => array('class' => array('paging-enabled')),
+    );    
+  }
+  $form['submit'] = array(
+     '#type'=>'submit',
+     '#title'=>'Submit',
+     '#value'=>'Submit',
+     '#description'=>'Please ensure before submit'
+     );
+ 
+  return $form;
+}
+
+function custom_background_settings_submit($form, $form_state){
+  
+  $instance = field_info_instance('node', 'field_background_image', 'home_page');
+  $active = array();
+  foreach($form_state['values'] as $type=>$value){
+   //if ($value && in_array($type, array_values($node_types))) {   
+    $field_id = custom_background_field_check($type);
+    //Not already created in the same content type.
+   if ($value==1 && !$field_id) {    
+    $instance['bundle'] = $type;    
+    field_create_instance($instance);
+    drupal_set_message('Image field ceated for '.$type);
+   }   
+  }  
+}
+
+/**
+ * .node-type-benefits .container-fluid,
+ .page-game-day-info .container-fluid, 
+ .page-menus .container-fluid, 
+ .page-press-releases .container-fluid, 
+ .page-stadium-maps .container-fluid, 
+ .page-club-map .container-fluid,
+ .page-3d-seat-view .container-fluid, 
+  body.page-user .container-fluid
+ 
+ body.node-type-video .container-fluid, 
+ .node-type-stp-page .container-fluid, 
+ body.node-type-benefits .container-fluid, 
+ .node-type-tab-page .container-fluid, 
+ .node-type-pdf .container-fluid, 
+ .node-type-site-page-anon .container-fluid, 
+ .node-type-page .container-fluid,
+ body.node-type-event
+ 
+.node-type-contact-us .container-fluid
+ */
+function custom_background_node_view($node, $view_mode, $langcode) {
+ //print $node->type.' '.$view_mode; exit;
+  if ($node->type == 'home_page' && $node->field_background_image[$node->language][0]['uri']){       
+    $bgfile_path = file_create_url($node->field_background_image[$node->language][0]['uri']);    
+    $cssstr = 'body.front .hero, body.page-home .hero {
+	background: transparent url("'.$bgfile_path.'") no-repeat 50% 50%;
+     }';
+           
+    drupal_add_css($cssstr,
+      array(
+        'group' => CSS_THEME,
+        'type' => 'inline',
+        'media' => 'screen',
+        'preprocess' => false,
+        'weight' => '9999',
+      )
+    );
+        
+  }
+  else if (isset($node->field_background_image['und'][0]['uri']) && $node->field_background_image['und'][0]['uri'] && $view_mode=='full'){
+   //add more content type if any
+   $node_type = array(
+    'page','video','tab_page','stp_page','pdf','site_page_anon','contact_us','event','take_over_pages'
+                      );
+   if (in_array($node->type, $node_type)):   
+   $bgfile_path = file_create_url($node->field_background_image[$node->language][0]['uri']);
+   if ($node->type == 'tab_page') {
+      $cssstr = '.node-type-tab-page .container-fluid {	
+        background:#000 url("'.$bgfile_path.'") no-repeat top center scroll !important;
+     }';
+  } else {
+    $cssstr = '.container-fluid {	
+        background:#000 url("'.$bgfile_path.'") no-repeat top center scroll !important;
+     }';
+   }
+     
+    drupal_add_css($cssstr,
+      array(
+        'group' => CSS_THEME,
+        'type' => 'inline',
+        'media' => 'screen',
+        'preprocess' => false,
+        'weight' => '9999',
+      )
+    );
+    endif;
+  }
+}
+
+/**
+* Implementation of hook_preprocess_HOOK().
+*/
+function custom_background_preprocess_page(&$variables){ 
+  //if (isset($variables['node']) && arg(2) != 'edit')
+  if (isset($variables['page']) && $variables['page']['#type'] =='page' && !isset($variables['node'])){
+     if (arg(0) != 'node' && arg(0) != 'home'){
+      $path = arg(0);
+      $calander_array = array('schedule', 'full-calendar', 'calendar','season-schedule');
+      if (in_array($path, $calander_array)){
+       $path = 'my-calendar'; //this path has been added in select url value
+      }
+      
+      if ($path){
+        $nid = db_query("SELECT entity_id FROM field_data_field_select_url WHERE field_select_url_value = '$path' ORDER BY entity_id DESC LIMIT 0, 1")->fetchField();
+        if ($nid){
+          $node = node_load($nid);
+          //print $node->field_background_image[$node->language][0]['uri']; exit;
+          $bgfile_path = file_create_url($node->field_background_image[$node->language][0]['uri']);
+          if ($node->type == 'tab_page') {
+           $cssstr = '.node-type-tab-page .container-fluid {	
+             background:#000 url("'.$bgfile_path.'") no-repeat top center scroll !important }'; 
+          } else {
+         $cssstr = '.container-fluid {	
+             background:#000 url("'.$bgfile_path.'") no-repeat top center scroll !important; 
+          }';
+          }
+                
+         drupal_add_css($cssstr,
+           array(
+             'group' => CSS_THEME,
+             'type' => 'inline',
+             'media' => 'screen',
+             'preprocess' => false,
+             'weight' => '9999',
+           )
+         );
+        }
+      }
+      
+      $variables['background_update_link'] = custom_background_block_background_update();
+   }
+  }
+  
+  if (isset($variables['node'])) {
+   $nid = $variables['node']->nid;
+   if ($variables['node']->type == 'custom_background' && !arg(2)) {
+    $page = db_query("SELECT field_select_url_value FROM field_data_field_select_url WHERE entity_id = '$nid' ORDER BY entity_id DESC LIMIT 0, 1")->fetchField();
+     drupal_goto($page);
+   }
+   if (user_access('administer site content') && $nid) {
+    $link = '<a class="bg-page-link-edit" href="/update-custom-background/'.$nid.'"> <i class="fa fa-edit"></i> Edit</a>'; 
+    if ($variables['node']->type == 'take_over_pages') {
+       $link = '<a class="bg-page-link-edit" href="/node/'.$nid.'/edit"> <i class="fa fa-edit"></i> Edit</a>'; 
+    }
+    
+    $variables['background_update_link'] = $link;
+    }
+  }
+  if ((arg(0) == 'home' || drupal_is_front_page()) && user_access('administer site content')) {
+   $arg = 0;
+    if (arg(1) && arg(1) == 1) {
+      $arg = 1;
+    }
+    $home_nid = db_query("SELECT entity_id FROM {field_data_field_for_logged_in} WHERE field_for_logged_in_value=:nid AND bundle = 'home_page' ORDER BY entity_id DESC", array(':nid' => $arg))->fetchField();
+    if ($home_nid) {
+      $link = '<a class="bg-page-link-edit" href="/update-custom-background/'.$home_nid.'"> <i class="fa fa-edit"></i> Edit</a>'; 
+      $variables['background_update_link'] = $link;
+    }
+  }
+}
+
+function custom_background_field_check($type){
+ $sql = "SELECT field_id FROM field_config_instance where field_name ='field_background_image' AND entity_type = 'node' and bundle = '$type'";    
+    $field_id = db_query($sql)->fetchField();
+    return $field_id;
+}
+
+function custom_background_block_background_update(){
+  $edit_link = '';  
+  if (user_access('administer site content')) {
+      $path = arg(0);      
+      $calander_array = array('schedule', 'full-calendar', 'calendar','my-calendar', 'season-schedule');
+      if (in_array($path, $calander_array)){
+       $path = 'my-calendar'; //this path has been added in select url value
+      }
+      
+      if ($path){
+       $edit_link = '<a class="bg-page-link-edit" href="/node/add/custom-background?pg='.$path.'"> <i class="fa fa-edit"></i>Edit</a>'; 
+        $nid = db_query("SELECT entity_id FROM field_data_field_select_url WHERE field_select_url_value = '$path' ORDER BY entity_id DESC LIMIT 0, 1")->fetchField();
+        if ($nid){
+          $edit_link = '<a class="bg-page-link-edit" href="/node/'.$nid.'/edit?pg='.$path.'"><i class="fa fa-edit"></i> Edit</a>';
+        }
+      }
+  }
+  return $edit_link;
+}
+
+function custom_background_home_page_submit($form, &$form_state) {
+  $node = $form_state['node'];
+  if (isset($node->type) && $node->type == 'home_page') {
+    $page_type = isset($node->field_for_logged_in['und'][0]['value']) ? $node->field_for_logged_in['und'][0]['value'] : 1;
+    $form_state['redirect'] = 'home/' . $page_type;
+  }
+  if (isset($node->type) && $node->type == 'custom_background') {
+    $page_url = (isset($node->field_select_url['und'][0]['value']) && $node->field_select_url['und'][0]['value']) ? $node->field_select_url['und'][0]['value'] : '';
+    $form_state['redirect'] = url($page_url);
+  }
+}

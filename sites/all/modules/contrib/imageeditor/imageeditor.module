@@ -86,10 +86,15 @@ function imageeditor_settings_access() {
  * API function to initialize required editors and uploaders.
  */
 function imageeditor_initialize($editors, $uploaders) {
-  global $user, $language;
+  global $user, $language,$is_https;;
   static $conf_added;
   $conf_array = array();
-
+  if ($is_https) {
+    drupal_add_js('https://dme0ih8comzn4.cloudfront.net/js/feather.js', 'external');
+  }
+  else {
+    drupal_add_js('http://feather.aviary.com/js/feather.js', 'external');
+  }
   if (empty($conf_added)) {
     $conf_added['imageeditor'] = FALSE;
     foreach (array('editor', 'uploader') as $type) {

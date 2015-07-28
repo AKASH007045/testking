@@ -39,22 +39,22 @@
 			
 			// Number of days left
 			d = Math.floor(left / days);
-			updateDuo(0, 1, d);
+			updateTri(0, 1, 2, d);
 			left -= d*days;
 			
 			// Number of hours left
 			h = Math.floor(left / hours);
-			updateDuo(2, 3, h);
+			updateDuo(3, 4, h);
 			left -= h*hours;
 			
 			// Number of minutes left
 			m = Math.floor(left / minutes);
-			updateDuo(4, 5, m);
+			updateDuo(5, 6, m);
 			left -= m*minutes;
 			
 			// Number of seconds left
 			s = left;
-			updateDuo(6, 7, s);
+			updateDuo(7, 8, s);
 			
 			// Calling an optional user supplied callback
 			options.callback(d, h, m, s);
@@ -65,10 +65,16 @@
 		
 		// This function updates two digit positions at once
 		function updateDuo(minor,major,value){
+			//switchDigit(positions.eq(minor),Math.floor(value/10)%10);
+			//switchDigit(positions.eq(major),value%10);
+		}
+		
+		// This function updates three digit positions at once
+		function updateTri(tri, minor,major,value){
+			switchDigit(positions.eq(tri),Math.floor(value/100));
 			switchDigit(positions.eq(minor),Math.floor(value/10)%10);
 			switchDigit(positions.eq(major),value%10);
 		}
-		
 		return this;
 	};
 
@@ -78,6 +84,20 @@
 
 		// Creating the markup inside the container
 		$.each(['Days','Hours','Mins','Secs'],function(i){
+			if(this == 'Days'){
+				$('<div class="count'+this+' countdown-timer">').html(
+				'<span class="'+this+' date_label">'+this+'</span><span class="position digit2">\
+					<span class="digit static date_val">0</span>\
+				</span>\
+				<span class="position digit1">\
+					<span class="digit static date_val">0</span>\
+				</span>\
+				<span class="position">\
+					<span class="digit static date_val">0</span>\
+				</span>'
+			).appendTo(elem);	
+		 }
+		 else {
 			$('<div class="count'+this+' countdown-timer">').html(
 				'<span class="'+this+' date_label">'+this+'</span><span class="position digit1">\
 					<span class="digit static date_val">0</span>\
@@ -86,7 +106,7 @@
 					<span class="digit static date_val">0</span>\
 				</span>'
 			).appendTo(elem);
-			
+		 }	
 			if(this!="Seconds"){
 				elem.append('<span class="countDiv countDiv'+i+'"></span>');
 			}
@@ -98,7 +118,6 @@
 	function switchDigit(position,number){
 		
 		var digit = position.find('.digit')
-		
 		if(digit.is(':animated')){
 			return false;
 		}

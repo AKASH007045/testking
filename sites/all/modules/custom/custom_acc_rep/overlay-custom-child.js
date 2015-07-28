@@ -9,8 +9,9 @@
   // Adjust the overlay dimensions.
   Drupal.behaviors.custom_acc_rep = {  
     attach: function (context) {
-      $('#overlay:not(.custom_acc_rep-adjusted)', context).each(function() {	          
-		if ($("body").hasClass('node-type-acct-rep') || $("body").hasClass('node-type-video')){
+      $('#overlay:not(.custom_acc_rep-adjusted)', context).each(function() {	  
+        var $test = $('body').find('.node-type-acct-rep');
+		if ($("body").hasClass('node-type-acct-rep')){
 		 // adjust the overlay
           $('.add-or-remove-shortcuts', this).hide();  // hide "add short-cut" button
 		  $('#overlay-tabs', this).hide();  // hide "tabs"

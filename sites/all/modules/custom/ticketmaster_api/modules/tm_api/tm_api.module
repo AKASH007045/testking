@@ -59,10 +59,68 @@ function tm_api_get_command_param($cmd = 'customer_query', $acct_id = NULL) {
       "cmd" => $cmd,
       "ref" => variable_get('tm_ref', 'IOM_CUSTOMER_QUERY'),
       "uid" => variable_get('tm_uid' . $api_sufix, 'iomed05'),
-      "dsn" => variable_get('tm_dsn' . $api_sufix, 'suns'),
-      "site_name" => variable_get('tm_site_name' . $api_sufix, 'enroll.mysixthman.com'),
-      "acct_id" => $acct_id,
+      "dsn" => variable_get('tm_dsn' . $api_sufix, 'cowboys'),
+      "site_name" => variable_get('tm_site_name' . $api_sufix, 'cowboysaccount'),
     )
   );
+  if ($acct_id) { $param['command1']['acct_id'] = $acct_id; }
   return $param;
+}
+
+/**
+ * Function to get the TM API header and command sample array
+ * @cmd 1 for Email , 2 for Print and 3 for both
+ * @$invoice_data array of invoice data
+ * @ $email_template 
+ * @return array of header and command1
+ * 
+ */
+function stp_print_api_get_command_param($acct_id = NULL, $cmd = '2', $invoice_data = array(), $email_template = array()) {
+  $api_sufix = "";
+  if (variable_get('tm_api_test', 0)) {
+    $api_sufix="_test";
+  }
+  $param = array(
+    "header" => array(
+      "src_sys_type" => 'web',
+      "command_name" => 'get_stp_invoice',
+      "uname" => 'admin',
+      "password" => '123456',
+      "version" => '1.0.0',
+    ),
+    "command" => array(
+      "identifier" => array(
+        "acct_id" => $acct_id,
+        "dsn" => variable_get('tm_dsn' . $api_sufix, 'chargers'),
+        "request_type" => $cmd,
+      ),
+      "email_data" => $email_template,
+      "invoice_data" => array($invoice_data),
+    ),
+  );
+  return $param;
+}
+
+/**
+ * Common function to handle all TM API(s)
+ */
+function stp_invoice_api_call($json = NULL, $web_url = 'https://stp-invoice-api.io-media.com:8443') {
+  module_load_include('inc', 'tm_api', 'tm_api.helper');
+  // init curl object
+  $ch1 = curl_init();
+  // create a temp cookies file for request.
+  $cookies_file = tempnam("cookeies", "CURLCOOKIE");
+  $reponse_ok = 0;
+  $response = 0;
+  //multiple curl request for fetch user detail
+  $response = _stp_invoice_api_call($ch1, $cookies_file, $json, $web_url);
+  //stop on success
+  if (isset($response['httpcode']) && $response['httpcode'] == 200) {
+    $reponse_ok = 1;
+  }
+  $response['response_ok'] = $reponse_ok;
+  //curl object close.
+  curl_close($ch1);
+  unlink($cookies_file);
+  return $response;
 }

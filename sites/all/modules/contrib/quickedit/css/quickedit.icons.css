@@ -47,10 +47,10 @@
 .quickedit button.icon {
   font-size: 1em;
 }
-.quickedit .icon-pencil {
+/*.quickedit .icon-pencil {
   margin-left: .5em;
   padding-left: 1.5em;
-}
+}*/
 
 /**
  * Images.
@@ -67,8 +67,9 @@
 .quickedit .icon-throbber:before {
   background-image: url("../images/icon-throbber.gif");
 }
-.quickedit .icon-pencil:before {
+/*.quickedit .icon-pencil:before {
   background-image: url('../icons/5181c6/pencil.svg');
   background-position: left center;
   background-size: 1.3em;
 }
+*/

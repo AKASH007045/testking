@@ -16,7 +16,7 @@
                 
                 <div class="popUpDiv text">
                     <!-- Normal Messgae Starts Here -->
-                    <div>Your account manager will reflect payment within 24 hours.  We are excited for another season in AT&T Stadium and appreciate your support as a loyal Sacramento Kings season ticket holder.  You will receive your tickets through UPS before the first preseason game. Please contact your service coordinator if you have any questions.</div>
+                    <div>Your account manager will reflect payment within 24 hours.  We are excited for another season in AT&T Stadium and appreciate your support as a loyal Dallas Cowboys season ticket holder.  You will receive your tickets through UPS before the first preseason game. Please contact your service coordinator if you have any questions.</div>
                     <!-- Normal Messgae Ends Here -->
                     
                 </div>

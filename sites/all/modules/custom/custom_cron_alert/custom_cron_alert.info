@@ -1,7 +1,0 @@
-name= Custom cron alert
-description = Send custom message when cron run
-version = VERSION
-package = Custom
-core = 7.x
-project = "drupal"
-datestamp = "1352325357"

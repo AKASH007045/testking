@@ -98,9 +98,9 @@
 				<a class="navbar-brand" href="/" title="<?php print $site_name; ?>"><img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" class="img-responsive"/></a>
 				</div>
 			  <div class="navbar-collapse collapse">
-				<?php if (!empty($primary_nav)): ?>
-				  <?php print render($primary_nav); ?>
-				<?php endif; ?>
+				<?php if (!empty($page['main_menu'])): ?>
+			         <?php print render($page['main_menu']); ?>
+		                <?php endif; ?>
 				<ul class="nav navbar-nav navbar-right">
 				  <?php if (!empty($page['user_info'])): ?>
 					<?php print render($page['user_info']); ?>
@@ -152,8 +152,7 @@
     <?php endif; ?>
     <?php if (!empty($action_links)): ?>
       <ul class="action-links"><?php print render($action_links); ?></ul>
-    <?php endif; ?>
-
+    <?php endif; ?>    
 </section>
 <!-- /container --> 
 
@@ -162,7 +161,7 @@
 <!-- Footer tile -->
 <section class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promo-tile clearfix">
   <div class="row">
-    <?php if (!empty($page['social'])): ?><div class="block-box-ssl col-lg-3 col-md-3 col-sm-3 col-xs-3 "><?php  print render($page['social']); ?></div><?php endif; ?>
+    <?php if (!empty($page['social'])): ?><div class="block-box-ssl col-lg-3 col-md-3 col-sm-3 col-xs-6 "><?php  print render($page['social']); ?></div><?php endif; ?>
     <?php  print render($page['promo_tile']); ?>
   </div>
 </section>
@@ -172,4 +171,5 @@
      <?php print render($page['footer']); ?>
   </div>
 </footer>
+<?php print $background_update_link;?>
 </div>

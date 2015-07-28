@@ -75,13 +75,21 @@
         id: id,
         loadingMsg: Drupal.t('Loading…')}
       ));
+      
+     
       $formContainer
         .find('.quickedit-form')
         .addClass('quickedit-editable quickedit-highlighted quickedit-editing')
         .attr('role', 'dialog');
-
+         //more RnD and test
+      var toolbarView = fieldModel.toolbarView;
+      toolbarView.insertWYSIWYGToolGroups();
+      var toolbarid =toolbarView.getMainWysiwygToolgroupId();
+      var toolbaridCont = jQuery('#' + toolbarid);
       // Insert form container in DOM.
-      if (this.$el.css('display') === 'inline') {
+      ///
+     /* if (this.$el.css('display') === 'inline') {
+       
         $formContainer.prependTo(this.$el.offsetParent());
         // Position the form container to render on top of the field's element.
         var pos = this.$el.position();
@@ -90,7 +98,9 @@
       else {
         $formContainer.insertBefore(this.$el);
       }
-
+      */
+      //more RnD and test
+      toolbaridCont.html($formContainer);
       // Load form, insert it into the form container and attach event handlers.
       var formOptions = {
         fieldID: fieldModel.get('fieldID'),
@@ -104,10 +114,12 @@
         // for an entity that this needs to happen: precisely now!
         reset: !fieldModel.get('entity').get('inTempStore')
       };
+      
       Drupal.quickedit.util.form.load(formOptions, function (form, ajax) {
         Drupal.ajax.prototype.commands.insert(ajax, {
           data: form,
           selector: '#' + id + ' .placeholder'
+          // selector: '#' + toolbarid + ' .placeholder'
         });
 
         $formContainer
@@ -197,7 +209,6 @@
 
       // Unsuccessfully saved; validation errors.
       formSaveAjax.commands.quickeditFieldFormValidationErrors = function (ajax, response, status) {
-      //  console.log(response);
         editorModel.set('validationErrors', response.data);
         fieldModel.set('state', 'invalid');
       };
@@ -207,12 +218,11 @@
       // command is invoked only if validation errors exist and then it runs
       // before quickeditFieldFormValidationErrors().
       formSaveAjax.commands.quickeditFieldForm = function (ajax, response, status) {
-        //Drupal.ajax.prototype.commands.insert(ajax, {
-        //  data: response.data,
-        //  selector: '#' + $formContainer.attr('id') + ' form'
-        //});
-        // 
-           
+        Drupal.ajax.prototype.commands.insert(ajax, {
+          data: response.data,
+          selector: '#' + $formContainer.attr('id') + ' form',
+        });
+        
       };
 
       // Click the form's submit button; the scoped AJAX commands above will

@@ -79,18 +79,6 @@
  
  */
 ?>
-<script>
-    jQuery(document).ready(function(){
-    if(jQuery('.event-gallary-thumb-slider .view-event-slider').length !=0) {
-		jQuery('div.view-event-slider div.view-content > div.item-list').addClass('viewport').find('ul').addClass('overview');
-		jQuery('div.view-event-slider').tinycarousel();
-	}
-    
-	//if(jQuery('.event-gallary-thumb-slider . view-event-slider').length !=0) {jQuery('.view-event-slider').tinycarousel();	}
-    });
-    
-</script>
-
 <div class="event-gallary-big-box" <?php print $attributes; ?>>
   
   <div class="modal-header">
@@ -103,8 +91,8 @@
     </div>
     </div>
     <div class="sthevent-image">
-     <?php print $gallery; ?>
-    <div class="sthevent-body more-info" id="more-info"><?php print render($content); ?><a href="javascript:void(0);" class="upArrow"><div></div></a></div>
+      <div id="gallery"><?php print $gallery; ?></div>
+      <div class="sthevent-body more-info openpop" id="more-info"><?php print render($content); ?><a href="javascript:void(0);" class="upArrow"><div></div></a></div>
     <?php /* if ($rsvp): ?>
     <div class="sthevent-form rsvp-form" id="rsvp">
         <?php
@@ -119,4 +107,13 @@
 
 <div class="event-gallary-thumb-slider">
   <?php print $event_slider; ?>
+  <?php
+  /*$field_id = '';
+  if(function_exists('custom_background_field_check')){
+    $field_id = custom_background_field_check($node->type);
+  }
+  if (user_access('administer site content')) {?>    
+    <a class="bg-page-link-edit" href="/update-custom-background/<?php print $nid; ?>"> <i class="fa fa-edit"></i>Edit</a>    
+    <?php } */
+  ?>
 </div>

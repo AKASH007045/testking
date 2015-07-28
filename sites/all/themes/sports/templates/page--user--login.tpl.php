@@ -74,7 +74,7 @@
  */
  drupal_set_title('Sign In');
 ?>
-<div class="container-fluid">
+<div class="container-fluid main-container">
   <!-- Static navbar -->
           
           <!-- Inner Page img src starts here -->
@@ -94,12 +94,12 @@
 		  <div class="navbar navbar-default" role="navigation">
 		   <div class="navbar-header">
 	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="/" title="<?php print t('SACRAMENTO KINGS');?>"><img src="<?php print $logo; ?>" alt="<?php print t('Sacramento Kings'); ?>" class="img-responsive"/></a>
+				<a class="navbar-brand" href="/" title="<?php $site_name;?>"><img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" class="img-responsive"/></a>
 				</div>
 			  <div class="navbar-collapse collapse">
-				<?php if (!empty($primary_nav)): ?>
-				  <?php print render($primary_nav); ?>
-				<?php endif; ?>
+				<?php if (!empty($page['main_menu'])): ?>
+			         <?php print render($page['main_menu']); ?>
+		                <?php endif; ?>
 				<ul class="nav navbar-nav navbar-right">
 				  <?php if (!empty($page['user_info'])): ?>
 					<?php print render($page['user_info']); ?>
@@ -120,11 +120,10 @@
       <h1 class="page-header"><?php print $title; ?></h1>
     <?php endif; ?>
     <?php print render($title_suffix); ?>
-     <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
+    <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
     <div class="clearfix region-content">
-            <?php print render($page['content']); ?>
-	    
-          </div>
+        <?php print render($page['content']); ?>	    
+    </div>
 <?php print $messages; ?>
 </section>
 <!-- /container --> 
@@ -133,6 +132,6 @@
 <div class="row clearfix">
 <!-- Footer tile -->    
      <?php print render($page['footer']); ?>
-  </div>
+</div>
 </footer>
 </div>

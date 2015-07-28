@@ -379,7 +379,6 @@
       // Entity saved successfully.
       entitySaverAjax.commands.quickeditEntitySaved = function(ajax, response, status) {
         // Clean up.
-        console.log(response.data.type);
         if (response.data.type == 'pdf' || response.data.type == 'site_page' || response.data.type == 'video') {
            location.reload(true);
         }

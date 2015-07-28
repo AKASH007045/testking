@@ -552,7 +552,7 @@ function date_entity_metadata_property_info_alter(&$info, $entity_type, $field, 
       ),
       'value2' => array(
         'type' => 'date',
-        'label' => t('End date'),
+        'label' => t('End Date'),
         'getter callback' => 'date_entity_metadata_struct_getter',
         'setter callback' => 'date_entity_metadata_struct_setter',
         // The getter and setter callbacks for 'value' and 'value2'

@@ -1,0 +1,191 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the Custom Crop module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function custom_crop_install() {
+  variable_set('custom_crop_cache_control', TRUE);
+
+  // Hooks have to run after the Insert module.
+  db_query("UPDATE {system} SET weight = 20 WHERE name = 'custom_crop'");
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function custom_crop_uninstall() {
+  variable_del('custom_crop_cache_control');
+}
+
+/**
+ * Implements hook_schema().
+ */
+function custom_crop_schema() {
+  $schema['custom_crop'] = array(
+    'description' => 'Holds the crop-area position and size all cropped images.',
+    'fields' => array(
+      'fid' => array(
+        'description' => 'The {file_managed}.fid of the image file.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'style_name' => array(
+        'description' => 'The machine name of the style.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'x' => array(
+        'description' => 'The x-position of the left top cropping-area corner.',
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'y' => array(
+        'description' => 'The y-position of the left top cropping-area corner.',
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'width' => array(
+        'description' => 'The width of the cropping-area.',
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'height' => array(
+        'description' => 'The height of the cropping-area.',
+        'type' => 'int',
+        'size' => 'small',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'foreign keys' => array(
+      'file' => array(
+        'table' => 'file_managed',
+        'columns' => array('fid' => 'fid'),
+      ),
+    ),
+    'primary key' => array('fid', 'style_name'),
+  );
+
+  return $schema;
+}
+
+/**
+ * Replace the style id with a style name column.
+ */
+function custom_crop_update_7100(&$sandbox) {
+  // Add the style name field.
+  db_add_field('custom_crop', 'style_name', array('type' => 'varchar', 'length' => 255, 'not null' => TRUE, 'default' => ''));
+
+  // Select all style names.
+  $styles = db_query('SELECT m.isid, s.name FROM {custom_crop} m INNER JOIN {image_styles} s ON m.isid = s.isid GROUP BY m.isid');
+
+  foreach ($styles as $style) {
+    // Set the style name for each used style.
+    db_query('UPDATE {custom_crop} SET style_name = :name WHERE isid = :isid', array(
+      ':name' => $style->name,
+      ':isid' => $style->isid,
+    ));
+  }
+
+  // Create the new PK.
+  db_drop_primary_key('custom_crop');
+  db_add_primary_key('custom_crop', array('fid', 'style_name'));
+
+  // Remove the style id field.
+  db_drop_field('custom_crop', 'isid');
+
+  foreach (image_styles() as $style_name => $style) {
+    // Only styles that have an id should be updated.
+    if (isset($style['isid']) && !empty($style['effects'])) {
+      // Check if the first effect is a Custom Crop effect.
+      $effect = reset($style['effects']);
+
+      if ($effect['module'] == 'custom_crop') {
+        // Update the effect data.
+        unset($effect['data']['isid']);
+        $effect['data']['style_name'] = $style_name;
+        image_effect_save($effect);
+      }
+    }
+  }
+}
+
+/**
+ * Add a module weight so hooks are ran after the Insert module.
+ */
+function custom_crop_update_7101(&$sandbox) {
+  db_query("UPDATE {system} SET weight = 20 WHERE name = 'custom_crop'");
+}
+
+/**
+ * Migrate all Custom Crop widgets to the default image widget.
+ */
+function custom_crop_update_7102(&$sandbox) {
+  foreach (field_info_fields() as $field_name => $field) {
+    // Only update image fields.
+    if ($field['type'] == 'image') {
+      foreach ($field['bundles'] as $entity_type => $bundles) {
+        foreach ($bundles as $bundle_name) {
+          // Get the field instance and its settings.
+          $instance = field_info_instance($entity_type, $field_name, $bundle_name);
+          $settings = $instance['widget']['settings'];
+
+          // Only continue for the Image and Custom Crop widget.
+          if ($instance['widget']['type'] == 'custom_crop_image' || ($instance['widget']['type'] == 'image_image' && isset($settings['styles_mode']))) {
+            // Change the widget type to the default image widget.
+            $instance['widget']['type'] = 'image_image';
+
+            // Rename all settings.
+            $settings = array_merge($settings, array(
+              'custom_crop_enable' => TRUE,
+              'custom_crop_thumblist' => !empty($settings['thumblist']),
+              'custom_crop_inline_crop' => !empty($settings['inline_crop']),
+              'custom_crop_crop_info' => !empty($settings['crop_info']),
+              'custom_crop_instant_preview' => !empty($settings['instant_preview']),
+              'custom_crop_instant_crop' => !empty($settings['instant_crop']),
+              'custom_crop_default_crop_area' => !empty($settings['default_crop_area']),
+              'custom_crop_styles_mode' => (isset($settings['styles_mode']) ? $settings['styles_mode'] : 'exclude'),
+              'custom_crop_styles_list' => (isset($settings['styles_list']) ? $settings['styles_list'] : array()),
+              'custom_crop_require_cropping' => (isset($settings['require_cropping']) ? $settings['require_cropping'] : array()),
+            ));
+
+            if (isset($settings['insert_custom_crop_only'])) {
+              $settings['custom_crop_filter_insert'] = $settings['insert_custom_crop_only'];
+            }
+
+            // Remove the old setting names.
+            $instance['widget']['settings'] = array_diff_key($settings, array_flip(array(
+              'thumblist',
+              'inline_crop',
+              'crop_info',
+              'instant_preview',
+              'instant_crop',
+              'default_crop_area',
+              'styles_mode',
+              'styles_list',
+              'require_cropping',
+              'insert_custom_crop_only',
+            )));
+
+            field_update_instance($instance);
+          }
+        }
+      }
+    }
+  }
+
+  field_cache_clear();
+}

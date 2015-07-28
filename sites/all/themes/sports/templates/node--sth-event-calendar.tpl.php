@@ -1,3 +1,4 @@
+<?php if (isset($event['show_calendar']) && $event['show_calendar']): ?>
 <div class="open-game-popup <?php  print isset($event['class']) ? $event['class'] : ''; ?> sth-calendar-event" <?php print $attributes; ?>>
 <a class="inline" data-target="#modal_bootstrap" data-toggle="modal" href="#cal-event-<?php print $node->nid; ?>" ga-title="<?php  print $node->title; ?>">
   <div class="team-info event">
@@ -8,33 +9,26 @@
   </a>
 </div>
 
-<div id="cal-event-<?php print $node->nid; ?>" class="modal fade game-popup sth-cal-poup" role="dialog" aria-hidden="true">
+<div id="cal-event-<?php print $node->nid; ?>" class="modal fade game-popup sth-cal-poup event-gallary-big-box" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-          <div class="poupatstud"><?php print (isset($full_title) && !empty($full_title))?$full_title:$title; ?></span></div>
-          <div class="pptic-evt">
-              <?php /* if ($rsvp): ?><div class="mgTicket"><a href="javascript:void(0);" class="rsvp">RSVP</a></div> <?php endif; */?>
-              <div class="mInfo"><a href="javascript:void(0);" class="more-info">MORE INFO</a></div>
-              <div class="closePopup"></div>
+          <div class="poupatstud"><?php print $node->title;//print $title;?> - <span><?php print $event['date'];?> </span> - <span><?php print $event['time'];?></span> <span><?php print $event['timezone']; ?></span></div>
+          <div class="pptic-evt">              
+              <!--<div><a href="#" target="_blank">MORE INFO</a></div>-->
+			  <div class="mInfo mgTicket"><a href="javascript:void(0);" class="more-info">MORE INFO</a></div>               		  
+              <div class="closePopup btn btn-default" data-dismiss="modal"></div>
         </div>
       </div>
       <div class="modal-body">
           <div class="pouptopwrap">
-            <div class="sthevent-image">
-                <?php print $event['image'];?>
-                
-                <div class="sthevent-body more-info" id="more-info"><?php  print $event['description']; ?></div>
-                <?php /* if ($rsvp): ?>
-                <div class="sthevent-form rsvp-form" id="rsvp">
-                  <iframe src="/rsvp-form" width="980" height="400" scrolling="no"></iframe>
-               <a href="javascript:void(0);" class="upArrow">
-                <div></div></a>
-              </div>
-            <?php endif; */?>
-            </div>            
+		  <div class="sthevent-image">
+            <?php print $gallery; ?>
+			</div>
+			<div class="sthevent-body more-info openpop" id="more-info"><?php print render($content); ?><a href="javascript:void(0);" class="upArrow"><div></div></a></div>
           </div>
       </div>      
     </div>
   </div>  
 </div>
+<?php endif; ?>

@@ -447,11 +447,12 @@ $.ui.position_quickedit = {
   },
   flipfit: {
     left: function() {
-      $.ui.position_quickedit.flip.left.apply( this, arguments );
+			//console.log('flipfit');
+    //  $.ui.position_quickedit.flip.left.apply( this, arguments );
       $.ui.position_quickedit.fit.left.apply( this, arguments );
     },
     top: function() {
-      $.ui.position_quickedit.flip.top.apply( this, arguments );
+     // $.ui.position_quickedit.flip.top.apply( this, arguments );
       $.ui.position_quickedit.fit.top.apply( this, arguments );
     }
   }

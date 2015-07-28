@@ -36,13 +36,13 @@ function custom_admin_general_settings() {
   $form['tm_purchase_url'] = array(
     '#type' => 'textfield',
     '#title' => t('Purchase Ticket Url'),
-    '#default_value' => variable_get('tm_purchase_url', 'https://oss.ticketmaster.com/html/home.htmI?team=sackings&l=EN&STAGE=1'),
+    '#default_value' => variable_get('tm_purchase_url', 'https://oss.ticketmaster.com/html/home.htmI?team=cowboys&l=EN&STAGE=1&CNTX=120962&out=1'),
     '#required' => TRUE,
   );
   $form['forgot_link'] = array(
     '#type' => 'textfield',
     '#title' => t('Forgot Password Link'),
-    '#default_value' => variable_get('forgot_link', 'https://oss.ticketmaster.com/html/home.htmI?team=sackings&l=EN'),
+    '#default_value' => variable_get('forgot_link', 'https://oss.ticketmaster.com/html/home.htmI?team=cowboys&l=EN&STAGE=1&CNTX=120962&out=1'),
     '#required' => TRUE,
   );
   $form['ticketmaster_run_cron'] = array(
@@ -55,6 +55,11 @@ function custom_admin_general_settings() {
     '#title' => t('Ticketmaster Cron Interval (in sec)'),
     '#default_value' => variable_get('ticketmaster_cron_interval', 24 * 60 * 60),
     '#required' => TRUE,
+  );
+  $form['stp_print_api'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Invoice Print APIs?'),
+    '#default_value' => variable_get('stp_print_api', 0),
   );
   return system_settings_form($form);
 }
@@ -82,7 +87,7 @@ function custom_admin_renew_settings() {
   $form['ticket_renew_link'] = array(
       '#type' => 'textfield',
       '#title' => t('Ticket Renew Link'),
-      '#default_value' => variable_get('ticket_renew_link', 'https://oss.ticketmaster.com/html/home.htmI?team=sackings&l=EN&STAGE=1'),
+      '#default_value' => variable_get('ticket_renew_link', 'https://oss.ticketmaster.com/html/home.htmI?team=cowboys&l=EN&STAGE=1&CNTX=120962&out=1'),
       '#description' => t('Last Date of Ticket Renew'),
       '#required' => TRUE,
       '#size' => 120,
@@ -145,7 +150,7 @@ function custom_admin_playoff_settings() {
   $form['playoff_link'] = array(
       '#type' => 'textfield',
       '#title' => t('Playoff Link'),
-      '#default_value' => variable_get('playoff_link', 'https://oss.ticketmaster.com/html/home.htmI?team=sackings&l=EN&STAGE=1'),
+      '#default_value' => variable_get('playoff_link', 'https://oss.ticketmaster.com/html/home.htmI?team=cowboys&l=EN&STAGE=1&CNTX=120962&out=1'),
       '#description' => t('Link for Playoff'),
       '#required' => TRUE,
       '#size' => 120,
@@ -182,7 +187,7 @@ function custom_admin_invoice_setting() {
       '#type' => 'textfield',
       '#title' => t('Invoice Body Subject'),
       '#description' => t('Please enter subject for invoice mail.'),
-      '#default_value' => variable_get('invoice_mail_subject', t('2013-14 Sacramento Kings Invoice')),
+      '#default_value' => variable_get('invoice_mail_subject', t('2013-14 Dallas Cowboys Invoice')),
       '#required' => TRUE,
   );
   $form['invoice_mail_body'] = array(
@@ -190,7 +195,7 @@ function custom_admin_invoice_setting() {
       '#title' => t('Invoice Body Mail'),
       '#rows' => 5,
       '#description' => t('Please enter message text for invoice_mail_body.'),
-      '#default_value' => variable_get('invoice_mail_body', t('Attached to this email is a copy of your invoice for the 2013-14 Sacramento Kings Season Subscription.')),
+      '#default_value' => variable_get('invoice_mail_body', t('Attached to this email is a copy of your invoice for the 2015-16 Sacramento Kings Season Subscription.')),
       '#required' => TRUE,
   );
   return system_settings_form($form);
@@ -202,6 +207,16 @@ function custom_admin_invoice_setting() {
 
 function custom_admin_invoice_payment_setting() {
   $form = array();
+  $form['box6'] = array(
+    '#type' => 'fieldset',
+    '#attributes' => array('class' => array('stp-legend-heading')),
+  );
+  $form['box6']['payment_plans'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Payment Plans'),
+    '#description' => t('Please enter payment plans. Use comma separated values for multiple Plans.'),
+    '#default_value' => variable_get('payment_plans', ''),    
+  );
    $form['invoice_payment_subject'] = array(
       '#type' => 'textfield',
       '#title' => t('Invoice Payment Mail Subject'),
@@ -214,7 +229,7 @@ function custom_admin_invoice_payment_setting() {
     '#title' => t('Invoice Body Mail'),
     '#rows' => 5,
     '#description' => t('Please enter message text for successful payment mail.'),
-    '#default_value' => variable_get('invoice_payment_body', 'Thanks for your payment.<br/> $ %amount was charged to your card ending in %cc_num<br/>Get ready for a great 2014 season! Go Kings <br/>Your account manager will reflect payment within 24 hours.  We are excited for another season in AT&T Stadium and appreciate your support as a loyal Sacramento Kings season ticket holder.  You will receive your tickets through UPS before the first preseason game. Please contact your service coordinator if you have any questions.'),
+    '#default_value' => variable_get('invoice_payment_body', 'Thanks for your payment.<br/> $ %amount was charged to your card ending in %cc_num<br/>Get ready for a great 2014 season! Go Cowboys <br/>Your account manager will reflect payment within 24 hours.  We are excited for another season in AT&T Stadium and appreciate your support as a loyal Dallas Cowboys season ticket holder.  You will receive your tickets through UPS before the first preseason game. Please contact your service coordinator if you have any questions.'),
     '#required' => TRUE,
   );
   $form['invoice_payment_notify_mail'] = array(
@@ -268,9 +283,17 @@ function custom_admin_tm_signon_settings() {
     '#type' => 'textfield',
     '#title' => t('TM Login Url'),
     '#description' => t('Ticketmaster customer login url'),
-    '#default_value' => variable_get('tm_login_url', 'https://ws.ticketmaster.com/archtics/ats/ticketing_services.aspx?dsn=sackings'),
+    '#default_value' => variable_get('tm_login_url', 'https://ws.ticketmaster.com/archtics/ats/ticketing_services.aspx?dsn=cowboys'),
     '#required' => TRUE,
     '#size' => 100,
+  );
+  $form['tmapi_live']['tm_cert_type'] = array(
+    '#type' => 'select',
+    '#title' => t('TM Certificate Type'),
+    '#description' => t('Ticketmaster Certificate Type Windows/Linux'),
+    '#default_value' => variable_get('tm_cert_type', 'Linux'),
+    '#options' => array('Windows', 'Linux'),
+    '#required' => TRUE,
   );
   $form['tmapi_live']['header'] = array(
     '#type' => 'fieldset',
@@ -362,7 +385,7 @@ function custom_admin_tm_signon_settings() {
     '#type' => 'textfield',
     '#title' => t('TM Login Url'),
     '#description' => t('Ticketmaster customer login url'),
-    '#default_value' => variable_get('tm_login_url_test', 'https://ws.ticketmaster.com/archtics/ats/ticketing_services.aspx?dsn=sackings'),
+    '#default_value' => variable_get('tm_login_url_test', 'https://ws.ticketmaster.com/archtics/ats/ticketing_services.aspx?dsn=cowboys'),
     '#required' => TRUE,
     '#size' => 100,
   );
@@ -448,41 +471,23 @@ function custom_admin_tm_signon_settings() {
 
 function custom_admin_sth_data_settings() {
   $form = array();
-  $form['sth_PRANG'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Rangers Lots Season Parking'),
-      '#description' => t('This value should appear only in the invoice summary Resale/Account Credits'),
-      '#default_value' => variable_get('sth_PRANG', '14PRANG'),
-  );
   $form['sth_handlingfee'] = array(
       '#type' => 'textfield',
-      '#title' => t('Plan Handling-Fee'),
-      '#description' => t('This value should appear only in the invoice summary Handling Fee'),
-      '#default_value' => variable_get('sth_handlingfee', '14HSTH'),
-  );
-  $form['sth_PARKVP'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Reserved Season Parking'),
-      '#description' => t('parking VP'),
-      '#default_value' => variable_get('sth_PARKVP', '14PARKVP'),
+      '#title' => t('Handling Fee'),
+      '#description' => t('This value will appear on Invoice page under Handling Fee. Please enter the single word without space e.g. HAND or HANDLE or handling.'),
+      '#default_value' => variable_get('sth_handlingfee', 'handling'),
   );
   $form['sth_full_season'] = array(
       '#type' => 'textfield',
-      '#title' => t('Sacramento Kings Full Season Tickets'),
+      '#title' => t('Full Season Tickets'),
       '#description' => t('Full Season full season plan'),
-      '#default_value' => variable_get('sth_full_season', '14SEAS'),
+      '#default_value' => variable_get('sth_full_season', '15FS'),
   );
   $form['sth_parking_full'] = array(
       '#type' => 'textfield',
-      '#title' => t('Full Season Parking'),
-      '#description' => t('Full season parking'),
-      '#default_value' => variable_get('sth_parking_full', '14PARK'),
-  );
-  $form['sth_gsro'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Season Party Pass'),
-      '#description' => t('Standing Room Only Ticket full season plan'),
-      '#default_value' => variable_get('sth_chasesuites', '14GSRO'),
+      '#title' => t('Parking Fee'),
+      '#description' => t('This value will appear on Invoice page under Handling Fee. Please enter the single word without space e.g. PARK or PRK or parking.'),
+      '#default_value' => variable_get('sth_parking_full', 'parking'),
   );
   return system_settings_form($form);
 }
@@ -512,6 +517,42 @@ function custom_admin_birthday_takeover() {
     '#title' => t('Enable Birthday Takeover'),
     '#description' => t('Please clear cache after enabling/disabling this option.'),
     '#default_value' => variable_get('en_birthday', 0),
+  );
+  return system_settings_form($form);
+}
+
+function custom_ga_form_setting(){
+  $form = array();
+  $form['ga'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Analytics'),
+    '#weight' => 0,
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['ga']['calendar'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Calendar'),
+    '#default_value' => variable_get('calendar','calendar'), 
+    '#weight' => 1,
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['ga']['my_calendar'] = array(
+    '#type' => 'textfield',
+    '#title' => t('My Calendar'),
+    '#default_value' => variable_get('my_calendar','my-calendar'), 
+    '#weight' => 1,
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['ga']['full_calendar'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Full Calendar'),
+    '#default_value' => variable_get('full_calendar','full-calendar'), 
+    '#weight' => 2,
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
   );
   return system_settings_form($form);
 }

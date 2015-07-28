@@ -160,9 +160,9 @@
     var html = '';
     html += '<div id="' + settings.id + '" class="quickedit-form-container">';
     html += '  <div class="quickedit-form">';
-    html += '    <div class="placeholder">';
+    html += '    <div class="placeholder"><div class="ajax-progress ajax-progress-throbber"><div class="throbber">';
     html +=        settings.loadingMsg;
-    html += '    </div>';
+    html += '    </div></div></div>';
     html += '  </div>';
     html += '</div>';
     return html;
@@ -181,7 +181,7 @@
    */
   Drupal.theme.prototype.quickeditModal = function () {
     var classes = 'quickedit-animate-slow quickedit-animate-invisible quickedit-animate-delay-veryfast';
-    var html = '';
+    var html = '<div id="alertify-cover" class="alertify-cover"></div>';
     html += '<div id="quickedit_modal" class="' + classes + '" role="dialog">';
     html += '  <div class="main"><p></p></div>';
     html += '  <div class="actions"></div>';

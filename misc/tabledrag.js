@@ -485,9 +485,10 @@ Drupal.tableDrag.prototype.dragRow = function (event, self) {
 
       // If we have a valid target, perform the swap and restripe the table.
       var currentRow = self.findDropTargetRow(x, y);
+      
       if (currentRow) {
         if (self.rowObject.direction == 'down') {
-          self.rowObject.swap('after', currentRow, self);
+          self.rowObject.swap('after', currentRow, self);         
         }
         else {
           self.rowObject.swap('before', currentRow, self);
@@ -495,7 +496,7 @@ Drupal.tableDrag.prototype.dragRow = function (event, self) {
         self.restripeTable();
       }
     }
-
+    
     // Similar to row swapping, handle indentations.
     if (self.indentEnabled) {
       var xDiff = self.currentMouseCoords.x - self.dragObject.indentMousePos.x;
@@ -605,10 +606,12 @@ Drupal.tableDrag.prototype.getMouseOffset = function (target, event) {
  */
 Drupal.tableDrag.prototype.findDropTargetRow = function (x, y) {
   var rows = $(this.table.tBodies[0].rows).not(':hidden');
+  
   for (var n = 0; n < rows.length; n++) {
     var row = rows[n];
     var indentDiff = 0;
     var rowY = $(row).offset().top;
+        
     // Because Safari does not report offsetHeight on table rows, but does on
     // table cells, grab the firstChild of the row and use that instead.
     // http://jacob.peargrove.com/blog/2006/technical/table-row-offsettop-bug-in-safari.
@@ -619,10 +622,10 @@ Drupal.tableDrag.prototype.findDropTargetRow = function (x, y) {
     else {
       var rowHeight = parseInt(row.offsetHeight, 10) / 2;
     }
-
+    
     // Because we always insert before, we need to offset the height a bit.
-    if ((y > (rowY - rowHeight)) && (y < (rowY + rowHeight))) {
-      if (this.indentEnabled) {
+    if ((y > (rowY - rowHeight)) && (y < (rowY + rowHeight))) { 
+      if (this.indentEnabled) { 
         // Check that this row is not a child of the row being dragged.
         for (var n in this.rowObject.group) {
           if (this.rowObject.group[n] == row) {
@@ -636,7 +639,7 @@ Drupal.tableDrag.prototype.findDropTargetRow = function (x, y) {
           return null;
         }
       }
-
+            
       // Check that swapping with this row is allowed.
       if (!this.rowObject.isValidSwap(row)) {
         return null;
@@ -761,8 +764,12 @@ Drupal.tableDrag.prototype.updateField = function (changedRow, group) {
         targetElement.value = $('.indentation', $(sourceElement).closest('tr')).length;
         break;
       case 'match':
-        // Update the value.
-        targetElement.value = sourceElement.value;
+        // Update the value.        
+        //custom code added
+        var trcheck = sourceElement.value;
+        if(trcheck>0){
+          targetElement.value = sourceElement.value;      
+        }
         break;
       case 'order':
         var siblings = this.rowObject.findSiblings(rowSettings);
@@ -954,7 +961,7 @@ Drupal.tableDrag.prototype.row.prototype.findChildren = function (addClasses) {
  * @param row
  *   DOM object for the row being considered for swapping.
  */
-Drupal.tableDrag.prototype.row.prototype.isValidSwap = function (row) {
+Drupal.tableDrag.prototype.row.prototype.isValidSwap = function (row) {  
   if (this.indentEnabled) {
     var prevRow, nextRow;
     if (this.direction == 'down') {
@@ -1010,7 +1017,7 @@ Drupal.tableDrag.prototype.row.prototype.swap = function (position, row) {
  */
 Drupal.tableDrag.prototype.row.prototype.validIndentInterval = function (prevRow, nextRow) {
   var minIndent, maxIndent;
-
+  
   // Minimum indentation:
   // Do not orphan the next row.
   minIndent = nextRow ? $('.indentation', nextRow).length : 0;
@@ -1031,7 +1038,7 @@ Drupal.tableDrag.prototype.row.prototype.validIndentInterval = function (prevRow
       maxIndent = Math.min(maxIndent, this.maxDepth - (this.groupDepth - this.indents));
     }
   }
-
+  minIndent = 1;
   return { 'min': minIndent, 'max': maxIndent };
 };
 

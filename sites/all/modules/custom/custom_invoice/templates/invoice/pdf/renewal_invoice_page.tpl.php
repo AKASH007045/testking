@@ -1,111 +1,93 @@
 <?php
-   global $base_url;  
-if (count($seat_holds)): ?>
-   <?php
-   $total = $paid = $parking_fee = $handlind_fee = $resale_acc_credit = 0;
-   $seats_info = array(variable_get('sth_full_season', '14SEAS'), variable_get('sth_chasesuites', '14GSRO'));
-   $parking_info = array(variable_get('sth_parking_full', '14PARK'), variable_get('sth_PARKVP', '14PARKVP'), variable_get('sth_PRANG', '14PRANG'));
-     foreach ($seat_holds as $seats) {
-         $event_name = ($seats->event_name && !is_null($seats->event_name))? $seats->event_name : $seats->item_name;
-	 if ($event_name == variable_get('sth_handlingfee', '14HSTH')) {
-	   //$handlind_fee += $seats->invoiced_amount ? $seats->invoiced_amount : 5;
-	 }
-	 elseif ($event_name == (in_array($seats->event_name, $parking_info))) {
-	   //$parking_fee += $seats->invoiced_amount;
-	 }
-       else {
-	  $total += $seats->invoiced_amount;
-	   ?>
-       <?php }
-	$paid += $seats->paid_amount;
-     }  endif;
-?>
+   global $base_url;  										
+		$lfid = variable_get('invoice_logo_fid', '');
+		$logo = '';
+		if ($lfid != '') {
+			$file = file_load($lfid);
+			if ($file && isset($file->fid)) {
+       $logo = file_create_url($file->uri);
+      }
+		}
+    /*********************   STPDEV-21, STPDEV-455 and STPDEV-526 **************
+		$wfid = variable_get('invoice_watermark_fid', '');
+		$watermark = '';
+		if ($wfid != '') {
+			$file = file_load($wfid);
+			if ($file && isset($file->fid)) {
+       $watermark = file_create_url($file->uri);
+      }
+		}
+     /**************** End for STPDEV-21, STPDEV-455 and STPDEV-526 *************/
+      $team = variable_get('invoice_team_name', t('STP'));
+			$color = variable_get('invoice_color', t('#000'));
+			 $footer1 =  variable_get('invoice_footer', array());
+			 $footer =  isset($footer1['value']) ? $footer1['value'] : '';
+     ?>
+<style>
+	 .printWrapper{
+			/*background:url(<?php print $watermark; ?>) center center no-repeat;*/ // STPDEV-21, STPDEV-455 and STPDEV-526
+			/*background:transparent url(<?php print $watermark; ?>) repeat fixed right top;*/
+			
+       }
+     .printHeader{ border-bottom:5px solid <?php print $color; ?>;}
+     .head-cnt-mid .teamname{ color:<?php print $color; ?>; }
+     .bdr5lft{ border-left:5px solid <?php print $color; ?>; }
+     .lftblck .actinf, .rgtblck .actinf {color:<?php print $color; ?>;}
+     .rgtblck .ttlamtd .tlyl {color:<?php print $color; ?>;}
+     .chrt-dtl tr.head td{color:<?php print $color; ?>;}
+</style>
 <div class="printWrapper">
-<div class="printHeader">
-   <div class="logo"><img src="sites/all/modules/custom/custom_block/images/print_logo.png" alt="Phoenix Suns" title="Phoenix Suns" /></div>
-   <div class="printDate"><?php print date('m/d/y');?></div>
+  <div class="printHeader">
+    <div class="logo"><img src="<?php print $logo== "" ? 'sites/all/modules/custom/custom_block/images/print_logo.png' : $logo ?>" alt="<?php print $team ?>" title="<?php print $team ?>" /></div>
+    <div class="head-cnt-mid">
+      <div class="teamname"><?php print $team ?></div>
+      <div class="teamdtl">2015-16 MEMBERSHIP INVOICE</div>
+      <div class="teamdtl"><?php print $invoice_id; ?></div>
+    </div>
+    <div class="head-cnt-rgt">
+      <div class="date-time">Invoice Date: <?php print date('l, F d, Y');?></div>
+     <!-- <div class="date-tkt"><em>Renew by Feb 27 to get your season tickets!</em></div>-->
+    </div>
+  </div>
+  <div class="wrp-main bdr3btn ">
+    <div class="lftblck">
+      <div class="actinf">Account Info</div>
+    </div>
+    <div class="cmtblck">
+      <?php print (isset($user_info) && $user_info) ? $user_info : ''; ?>
+    </div>
+    <div class="rgtblck">
+      <div class="ttlamtd">Total Amount Due: <span class="tlyl"><?php print $due_amount;?></span></div>
+    </div>
+  </div>
+  <div class="wrp-main bdr3btn">
+    <div class="lftblck"> <div class="actinf">Invoice Details</div> </div>
+ <div class="tbl-chart"> <?php print $invoice_table;?></div>
+  </div>
+   <div class="wrp-main bdr2btn">
+    <div class="lftblck">
+      <div class="actinf"></div>
+    </div>
+    <div class="cmtblck">
+      <div class="addtl"></div>
+      <div class="addtl"></div>
+    </div>
+    <div class="rgtblck bdr5lft">
+     <div class="tcwrp"><div class="tcnm">Total Invoice Amount:</div> <div class="tcamt"><?php print isset($total) ? $total : '$0';?></div></div>
+      <!--<div class="tcwrp"><div class="tcnm">Parking:</div> <div class="tcamt"><?php print isset($parking_fee) ? $parking_fee : '$0';?></div></div>
+       <div class="tcwrp"><div class="tcnm">Handling Fee:</div> <div class="tcamt"><?php print isset($handling_fee) ? $handling_fee : '$0';?></div></div>-->
+        <div class="tcwrp bdr3btn pdg5mrg"><div class="tcnm">Payments/Credits (-):</div> <div class="tcamt">-(<?php echo $paid;?>)</div></div>
+        <div class="tcwrp"><div class="tcnm fnt16glb">Total Amount Due:</div> <div class="tcamt actinf"><?php echo $due_amount;?></div></div>
+    </div>
+  </div>
+    <div class="wrp-main bdr2btn">
+    <div class="lftblck">
+      <div class="actinf">&nbsp;</div>
+    </div>
+    <div class="cmtblck">
+      <div class="addtl">For assistance please contact your Account Rep below:</div>
+      <?php print $acct_rep_info; ?>
+    </div>
+  </div>
+  <div class="wrp-main fnt12ftr pgbrk"> Sacramento Kings &nbsp;I&nbsp; Sleep Train Arena &nbsp;I&nbsp; One Sports Parkway &nbsp;I&nbsp; Sacramento, CA 95834 &nbsp;I&nbsp; 916.928.0000 &nbsp;I&nbsp; www.kingsmembership.com  </div> 
 </div>
-<div class="infoPanelLeft">                
-                <div class="namePanel greyBorder topPanel">
-                    <!--<div class="leftBorder greyColor"></div>-->
-                    <div class="printHeading">2015 Season Ticket Invoice</div>
-                    <h2><?php print isset($name) ? $name : ''; ?></h2>
-                    <div class="accountDetail">Account#: <span class="blueTxt"><?php print isset($user_info->acct_id) ? $user_info->acct_id : ''; ?></span></div>
-               
-                    <div class="contDetail">
-		      <?php print (isset($user_info->street_addr_1) && !empty($user_info->street_addr_1)) ? $user_info->street_addr_1 . ', ': '&nbsp;'; ?><?php
-		        print (isset($user_info->city) && !empty($user_info->city)) ? $user_info->city . ', ' : '' ;
-                        print (isset($user_info->state) && !empty($user_info->state)) ? $user_info->state . ', ' : '' ;
-                        print (isset($user_info->zip) && !empty($user_info->zip)) ? $user_info->zip : '&nbsp;' ; ?>
-		     </div>
-                    <div class="contDetail">P: <?php print (isset($user_info->phone_day) && $user_info->phone_day) ? $user_info->phone_day : '&nbsp;'; ?></div>
-                    <div class="contDetail">E: <?php print (isset($user_info->email) && $user_info->email) ? $user_info->email : ''; ?></div>
-                </div>
-                
-                <div class="namePanel ticketTableHolder">
-                    <div class="clearfix lightgreyBorder">
-                    <div class="yearHeading">2015 Season Tickets</div>
-                    <table class="ticketTable">
-                        <tbody>
-			  <tr class="head">
-          <td class="tqty">EVENT</td>
-          <td>TQTY</td>
-          <td>SECTION</td>
-          <td>ROW</td>
-          <td>SEATS</td>
-          <td class="totalCost">TOTAL COST</td>
-			    </tr>
-			  <?php
-			  $cnt = 0;
-                            foreach ($seat_holds as $seats) {
-                              $event_name = ($seats->event_name && !is_null($seats->event_name))? $seats->event_name : $seats->item_name;
-      if ($event_name != variable_get('sth_handlingfee', '14HSTH ')) { $cnt++;?>
-				 <tr class="tableRow">
-           <td class="td1"><?php print isset($seats->item_name_long) ? $seats->item_name_long : $seats->event_name; ?></td>
-				   <td class="td2"><?php print isset($seats->num_seat) ? $seats->num_seat : "" ?></td>
-				   <td class="td3"><?php print (isset($seats->section_name) && !empty($seats->section_name)) ? $seats->section_name : "" ?></td>
-				   <td class="td2"><?php print (isset($seats->row_name) && !empty($seats->row_name)) ? $seats->row_name : "" ?></td>
-				   <td class="td4"><?php print (isset($seats->seat_num) && !empty($seats->seat_num)) ? $seats->seat_num . '-' . $seats->last_seat : "" ?></td>
-				   <td class="td5"><?php print isset($seats->invoiced_amount) ? invoice_money_format($seats->invoiced_amount) : "" ?></td>
-				 </tr>
-                        <?php }
-			   }
-			?>
-                        </tbody>
-		    </table>
-                </div>
-                </div>   
-                <div class="namePanel contactInfoPanel blueBorder">
-                    <div class="clearfix contactInfo">
-                        <div class="contactInfoLeft">
-                            <div>Total Tickets:</div>
-                            <!--<div>Parking:</div>
-                            <div>Handling Fee:</div>-->
-                            <div>Less Payments/Credits (-):</div>
-                        </div>
-                        <div class="contactInfoRight">                            
-                            <div><?php print isset($total) ? invoice_money_format($total) : '';?></div>
-                            <!--<div><?php print isset($parking_fee) ? invoice_money_format($parking_fee) : '';?></div>
-                            <div><?php print isset($handlind_fee) ? invoice_money_format($handlind_fee) : '';?></div>-->
-                            <div><?php echo invoice_money_format($paid);?></div>
-                        </div>
-                    </div>
-                    <div class="clearfix amountInfo">
-                        <div class="amountInfoLeft" >
-                            Total Amount Due:
-                           
-                        </div>  
-                        <div class="amountInfoRight">
-                          <?php echo invoice_money_format(($total + $parking_fee + $handlind_fee) - $paid);?>
-                        </div>
-                        
-                    </div>
-                </div>             
-            </div>
-            <div class="printFooter">
-                <div class="mainHeading">Sacramento Kings</div>
-                <div class="mainHeading">Sleep Train Arena</div>
-                <div class="address">One Sports Parkway</div>
-                <div class="address">Sacramento, CA 95834</div>
-            </div>
-            </div>

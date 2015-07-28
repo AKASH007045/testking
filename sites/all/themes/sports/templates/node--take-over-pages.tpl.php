@@ -80,84 +80,117 @@
  */
 //print '<pre>';
 //print_r($node);
-//exit;  
+//exit; 
+
+drupal_add_css(drupal_get_path('module', 'custom_take_over_pages') . '/css/take_over.css');
 ?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+videojs("#videojs-1631-field-video-video_html5_api").ready(function(){
+    var myPlayer = this;
+
+  // EXAMPLE: Start playing the video.
+    myPlayer.play();
+
+});
+});
+</script>
 <?php if (user_access('Editor')) { ?>
     <div class="stp-editor-links highlighted">
         <div class="tabs-wrap-primary-user"><div class="tabsoption-primary-user">
-                <div class="home-tgl"><i class="fa fa-angle-right"></i></div>
+                <div class="home-tgl"><div class="wrapper-icon-sidekick"><i class="fa fa-angle-right"></i><span class="sidekick-label"></span></div></div>
                 <ul class="page-name"><li>Page:</li> <li><?php print $node->title; ?></li></ul>
             </div>
             <ul class="tabs-primary-live nav"><li class="node-view"><?php print l('<i class="fa fa-eye"></i> View', 'node/' . $node->nid, array('attributes' => array('class' => array('active')), 'html' => TRUE)); ?></li>
                 <li data-id="node-<?php print $node->nid; ?>" data-type="<?php print $node->type; ?>" class="edit-link"><a href="#"><i class="fa fa-edit"></i> Edit</a></li>
-    <?php if (isset($tab_page) && $tab_page): ?>
+                <?php if (isset($tab_page) && $tab_page): ?>
                     <li class="delete-link"><a href="/node/<?php print $node->nid; ?>/delete?destination=node/<?php print $tab_page; ?>"><i class="fa fa-trash-o"></i> Delete</a></li>
                 <?php endif; ?>
             </ul>
-                <?php if (isset($tab_page) && $tab_page): ?>
+            <?php if (isset($tab_page) && $tab_page): ?>
                 <a href="/node/add/pdf/<?php print $tab_page ?>?destination=node/<?php print $tab_page; ?>"><button class="view-versions-btn">Add PDF Tab</button></a>
                 <a href="/node/add/stp-page/<?php print $tab_page ?>?destination=node/<?php print $tab_page; ?>"><button class="view-versions-btn">Add Content Tab</button></a>
               <!--<ul class="tabs-primary-live nav"><li data-id="node-<?php print $tab_page; ?>" data-type="<?php print $node->type; ?>" class="edit-link"><a href="#">Edit Page</a></li></ul>-->
                 <a href="/node/add/tab-page"><button class="view-versions-btn">Add Tabbed Page</button></a>
-    <?php endif; ?>
-            <!--<a href="/node/<?php print $node->nid ?>/revisions"><button class="view-versions-btn">View Versions</button></a>-->
+            <?php endif; ?>
+        <!--<a href="/node/<?php print $node->nid ?>/revisions"><button class="view-versions-btn">View Versions</button></a>-->
             <!-- <button class="publish-btn">Publish</button>-->
         </div>
     </div>
 <?php } ?>
 
+
+<?php
+
+module_load_include('inc', 'node', 'node.pages');
+form_load_include($form_state, 'inc', 'node', 'node.pages');
+
+$node1 = (object) node_load($node->nid);
+/*$form_state['build_info']['args'] = array($node1);
+$form_state['#']['args'] = array($node1);
+$form_id = 'take_over_pages_node_form';
+$form = drupal_build_form('take_over_pages_node_form', $form_state);*/
+$form['title']['#maxlength'] = '20';
+
+unset($form['field_tags']);
+unset($form['revision_information']['#access']);
+//unset($form['#after_build'][] = 'custom_after_build';
+unset($form['comment_settings']);
+unset($form['author']);
+unset($form['translations']);
+unset($form['options']);
+unset($form['path']);
+unset($form['menu']);
+unset($form['actions']['delete']);
+unset($form['actions']['preview']);
+
+
+$from = render($form);
+print '<div style="display: none;"  class="take_over_form take-over-pages-form take-over-pages-form-' . $node->nid . '"><div id="my-form-wrapper-' . $nid . '">' . $from . '</div></div>';
+?>
+
+
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
-<?php if ((!$page && !empty($title)) || !empty($title_prefix) || !empty($title_suffix) || $display_submitted): ?>
+    <?php if ((!$page && !empty($title)) || !empty($title_prefix) || !empty($title_suffix) || $display_submitted): ?>
         <header>
-        <?php print render($title_prefix); ?>
+            <?php print render($title_prefix); ?>
             <?php if (!$page && !empty($title)): ?>
                 <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
             <?php endif; ?>
             <?php print render($title_suffix); ?>
         </header>
-        <?php endif; ?>
+    <?php endif; ?>
+    <?php if($node->field_select_layout[$node->language][0]['value'] != 3): ?>
     <div class="to-body"><?php print render($content['body']); ?></div>
-    <div class="to-btn1 tk-btn"><?php print render($content['field_button_1']); ?></div>
-    <div class="to-btn2 tk-btn"><?php print render($content['field_button_2']); ?></div>
+    <div class="takeover-btn-wrap">
+        <div class="to-btn1 tk-btn button_blue"><?php print render($content['field_button_1']); ?></div>
+        <?php if ($node->field_select_layout[$node->language][0]['value'] == 2) { ?>
+            <div class="to-btn2 tk-btn button_blue"><?php print render($content['field_button_2']); ?></div>
+        <?php } ?>
+    </div>
     <div class="to-btm-txt"><?php print render($content['field_bottom_text']); ?></div>
     <div class="to-bg-img"><?php print render($content['field_bg_image']); ?></div>
+    <?php
+     elseif($node->field_select_layout[$node->language][0]['value'] == 3):
+    ?>
+    <div class="to-body"><?php print render($content['field_video']);?></div>
+    
+	<div class="takeover-btn-wrap">
+        <div class="to-btn1 tk-btn button_blue"><?php 
+		if(isset($content['field_button_1']) && $content['field_button_1']){
+		 print render($content['field_button_1']); 
+		}
+		
+		?></div>
+        <div class="to-btn2 tk-btn button_blue"><?php 
+		if(isset($content['field_button_2']) && $content['field_button_2']){
+		 print render($content['field_button_2']);
+		}
 
+		?></div>
+        
+    </div>
+	<div class="to-btm-txt"><?php print render($content['field_bottom_text']); ?></div>
+    <?php endif;?>
+    
 </article>
-<a class="take-over-pages-link-edit" href="javascript://" ><i class="fa fa-image"></i> edit</a>
-<?php
-module_load_include('inc', 'node', 'node.pages');
-form_load_include($form_state, 'inc', 'node', 'node.pages');
-
-$node1 = (object) node_load($node->nid);
-$form_state['build_info']['args'] = array($node1);
-$form_state['#']['args'] = array($node1);
-$form_id = 'take_over_pages_node_form';
-
-$form = drupal_build_form('take_over_pages_node_form', $form_state);
-$form['title']['#maxlength'] = '20';
-unset($form['field_button_1']);
-unset($form['field_button_2']);
-unset($form['field_bottom_text']);
-unset($form['title']);
-unset($form['body']);
-unset($form['field_run_from']);
-unset($form['field_take_over_date']);
-unset($form['field_occurence']);
-unset($form['field_tags']);
-  unset($form['revision_information']['#access']);
-  //unset($form['#after_build'][] = 'custom_after_build';
-  unset($form['comment_settings']);
-  unset($form['author']);
-  unset($form['translations']);
-  unset($form['options']);
-  unset($form['path']);
-  unset($form['menu']);
-  unset($form['actions']['delete']);
-  unset($form['actions']['preview']);
-//$form['#action'] = $_GET['q'] . '?destination=' . $_GET['q'];
-//print_r($form);
-//  exit;
-$from = render($form);
-;
- print '<div class="take-over-pages-form take-over-pages-form-' . $node->nid . '"><i class="edit-toolbar-pointer"></i><div class="title"><span class="titletxt">Take Over pages</span> <a class="popup-close" href="javascript://" >CLOSE&nbsp;</a></div><div id="my-form-wrapper-' . $nid . '">' . $from . '</div></div>';
-?>

@@ -94,14 +94,14 @@ $language = isset($node->language) ? $node->language : 'und'?>
    <div class="imgpics">
        <?php print theme('image_style', array('style_name' => 'rep_thumb_large', 'path' => $node->field_acct_rep_image[$language][0]['uri']));?>
      </div>
-  <h4 class="dedicated-representatives">New Arena Account Manager, Ticket Services</h4>
+  <h4 class="dedicated-representatives">New Arena Account Manager,Ticket Services</h4>
     <div class="namedetil">
-     <div class="col-md-6 col-fixed"><h4 class="usename"><?php print $title; ?></h4>
+     <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 col-fixed"><h4 class="usename"><?php print $node->title; ?>&nbsp;<?php print isset($node->field_last_name[$language][0]['value']) ? $node->field_last_name[$language][0]['value'] : ''; ?></h4>
       <?php print isset($node->field_email[$language][0]['value']) ? l($node->field_email[$language][0]['value'], 'mailto:' . $node->field_email[$language][0]['value']) : ''?>
       <?php print render($content['field_phone']); ?>
-      <?php print render($content['field_cell']); ?>
+	  <?php print render($content['field_cell_number']); ?>
     </div>
-    <div class="col-md-6 col-fixed"><?php print render($content['field_hometown']); ?>
+    <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 col-fixed"><?php print render($content['field_hometown']); ?>
       <?php print render($content['field_college_attended']); ?>
       <?php print render($content['field_drafted_year']); ?>
       <?php print render($content['field_favourite_player']); ?>
@@ -112,6 +112,6 @@ $language = isset($node->language) ? $node->language : 'und'?>
 </div>
 <?php
 if (user_access('Editor')){
- print (user_access('Editor')) ?  l('<i class="fa fa-edit"></i> Edit','node/'.$node->nid.'/edit', array('attributes' => array('class' => 'acc-rep-edit'),'html' => true, 'query' => array('destination' => 'contact-us'))) : '';
+ print (user_access('Editor')) ?  l('<i class="fa fa-edit"></i> Edit','node/'.$node->nid.'/edit', array('attributes' => array('class' => 'bg-page-link-edit'),'html' => true, 'query' => array('destination' => 'contact-us'))) : '';
 }
 ?>

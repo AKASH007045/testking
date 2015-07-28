@@ -116,3 +116,12 @@ function sports_admin_css_alter(&$css) {
     $css['misc/ui/jquery.ui.theme.css']['type'] = 'file';
   }
 }
+
+function sports_admin_theme($existing, $type, $theme, $path) {
+  return array(
+    'dnd_upload_droppable_area_image' => array(
+      'render element' => 'element',
+      'template' => 'custom-dnd-upload-droppable-area-image',
+    ),
+  );
+}

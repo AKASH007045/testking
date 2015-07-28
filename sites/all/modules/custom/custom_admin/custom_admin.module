@@ -23,8 +23,8 @@ function custom_admin_menu() {
   );
 
   $items['admin/manage/settings'] = array(
-      'title' => 'Site\'s General settings',
-      'description' => 'Site\'s General settings',
+      'title' => 'STP | General settings',
+      'description' => 'STP General settings',
       'page callback' => 'drupal_get_form',
       'page arguments' => array('custom_admin_general_settings'),
       'access arguments' => array('administer site settings'),
@@ -38,14 +38,7 @@ function custom_admin_menu() {
       'access arguments' => array('administer site settings'),
       'type' => MENU_DEFAULT_LOCAL_TASK,
   );
-  $items['admin/manage/settings/sth-data'] = array(
-    'title' => 'STH Data Settings',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('custom_admin_sth_data_settings'),
-    'access arguments' => array('administer site settings'),
-    'file' => 'custom_admin.admin.inc',
-    'type' => MENU_LOCAL_TASK,
-  );
+  
   $items['admin/manage/settings/invoice'] = array(
     'title' => 'Invoice',
     'page callback' => 'drupal_get_form',
@@ -69,6 +62,14 @@ function custom_admin_menu() {
     'file' => 'custom_admin.admin.inc',
     'type' => MENU_LOCAL_TASK,
   );
+  $items['admin/manage/settings/invoice/data'] = array(
+    'title' => 'Invoice Data',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_admin_sth_data_settings'),
+    'access arguments' => array('administer site settings'),
+    'file' => 'custom_admin.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
   $items['admin/config/people/tm-signup'] = array(
     'title' => 'Ticketmaster Single Sign on Settings',
     'description' => t('Configure single sign on using ticketmaster apis.'),
@@ -79,7 +80,7 @@ function custom_admin_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   $items['admin/manage/settings/rsvp'] = array(
-    'title' => 'RSVP settings',
+    'title' => 'RSVP',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('custom_admin_rsvp_settings'),
     'access arguments' => array('administer site settings'),
@@ -95,7 +96,7 @@ function custom_admin_menu() {
     'type' => MENU_LOCAL_TASK,
   );
   $items['admin/manage/settings/pages'] = array(
-    'title' => 'Manage Pages Settings',
+    'title' => 'Manage Pages',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('custom_admin_add_page_settings'),
     'access arguments' => array('administer site content'),
@@ -110,6 +111,15 @@ function custom_admin_menu() {
     'file' => 'custom_admin.pages.inc',
     'type' => MENU_NORMAL_ITEM
   );
+  $items['admin/manage/settings/analytics'] = array(
+    'title' => 'Google Analytics Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_ga_form_setting'),
+    'access arguments' => array('administer site settings'),
+    'file' => 'custom_admin.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
   return $items;
 }
 
@@ -128,6 +138,57 @@ function custom_admin_permission() {
       ),
   );
 }
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function custom_admin_form_promo_tile_node_form_alter(&$form, &$form_state, $form_id) {
+  if(arg(1) == 'add') {
+    drupal_set_title(t('New Promo Tile'));
+  }
+  else {
+    $form['field_link']['und'][0]['#title'] = t('Link');
+  }
+  $form['actions']['submit']['#validate'][] = 'custom_admin_promo_tile_validate';
+}
+function custom_admin_form_team_node_form_alter(&$form, &$form_state, $form_id) {
+  if(arg(1) == 'add') {
+    drupal_set_title(t('Create New Team'));
+  }
+}
+function custom_admin_form_acct_rep_node_form_alter(&$form, &$form_state, $form_id) {
+  if(arg(1) == 'add') {
+    drupal_set_title(t('New Account Rep'));
+  }
+}
+function custom_admin_form_other_event_node_form_alter(&$form, &$form_state, $form_id) {
+  if(arg(1) == 'add') {
+    drupal_set_title(t('New 3rd Party Event'));
+  }
+}
+function custom_admin_form_games_node_form_alter(&$form, &$form_state, $form_id) {
+  if(arg(1) == 'add') {
+    drupal_set_title(t('New Game Event'));
+  }
+}
+
+function custom_admin_form_views_form_manage_tab_pages_page_alter(&$form, &$form_state, $form_id) {
+   $form['#submit'][] = 'custom_admin_views_weight_form_submit';
+}
+
+function custom_admin_form_event_node_form_alter(&$form, &$form_state, $form_id) {
+  if(arg(1) == 'add') {
+    drupal_set_title(t('New STP Member Event'));
+  }
+  $form['field_images']['und']['#file_upload_title'] = 'Add new image file';
+}
+
+function custom_admin_views_weight_form_submit(&$form, &$form_state) {
+  drupal_get_messages($type = NULL, $clear_queue = TRUE);
+  drupal_set_message(t('Tab\'s ordering successfully changed.'));
+}
+
 /**
  * Implements hook_form_FORM_ID_alter().
  */
@@ -405,35 +466,6 @@ function custom_admin_tokens($type, $tokens, array $data = array(), array $optio
 
   return $replacements;
 }
-
-function custom_admin_playoff_days_left() {
-  static $play_days = NULL;
-  if ($play_days == NULL) {
-    $date = variable_get('playoff_date', '');
-    $play_days = strtotime($date['year'] . '-' . $date['month'] . '-' . $date['day'] . ' 23:59:59');
-    $seconds_diff = $play_days - time();
-    $play_days = ceil($seconds_diff / 3600 / 24);
-    if ($play_days <= 0) {
-      $play_days = 0;
-    }
-  }
-  return $play_days;
-}
-
-function custom_admin_ticket_renew_remain_days() {
-  static $days = NULL;
-  if ($days == NULL) {
-    $date = variable_get('ticket_renew_date', array('year' => date('Y'), 'month' => date('n'), 'day' => date('d') - 1));
-    $renew_date = strtotime($date['year'] . '-' . $date['month'] . '-' . $date['day'] . ' 23:59:59');
-    $seconds_diff = $renew_date - time();
-    $days = ceil($seconds_diff / 3600 / 24);
-    if ($days <= 0) {
-      $days = 0;
-    }
-  }
-  return $days;
-}
-
 function custom_admin_days_left($end_date) {
   $seconds_diff = $end_date - time();
   $days = ceil($seconds_diff / 3600 / 24);
@@ -468,27 +500,31 @@ function custom_admin_login_authenticate_validate($form, &$form_state) {
   $password = trim($form_state['values']['pass']);
   $acct_id = $form_state['values']['name'];
   if (!empty($form_state['values']['name']) && !empty($password)) {
-    // validate user by name, status and is_tickectmaster_user. 
+    // validate user by name, status and is_tickectmaster_user.
+      $response = array();
       $cmd = variable_get('tm_cmd', 'customer_query');
-      $sth_status = _tmapi_get_sth_status($form_state['values']['name']);
-      //$sth_status = 1;
-      //if ($sth_status == 0):
-        $param = tm_api_get_command_param($cmd, $acct_id);
-        $param['command1']['pin'] = $password;
-        $json = drupal_json_encode($param);
-        $response = array();
-        $response = tm_api_call($json, 'ticketing_services.aspx');
+      // customer query
+      $param = tm_api_get_command_param($cmd, $acct_id);
+      $param['command1']['pin'] = $password;
+      $json = drupal_json_encode($param);
+      $response = tm_api_call($json, 'ticketing_services.aspx');
+      $data = drupal_json_decode($response['response']);
+      if (!isset($data['command1']['error_detail']) && isset($data['command1']['result']) && $data['command1']['result'] == 0) {
+        if (isset($data['command1']['customer']['acct_id']) && $data['command1']['customer']['acct_id'] && $acct_id != $data['command1']['customer']['acct_id']) {
+          $acct_id = $data['command1']['customer']['acct_id'];
+        }
+      }
+      //$sth_status = 0;
+      $sth_status = _tmapi_get_sth_status($acct_id);
+      if ($sth_status == 0):
         //check for authenticate validate with response.
         if ($response['response_ok']) {
-          $data = drupal_json_decode($response['response']);
+          
           if (!isset($data['command1']['error_detail']) && isset($data['command1']['result']) && $data['command1']['result'] == 0) {
-            if (isset($data['command1']['customer']['acct_id']) && $data['command1']['customer']['acct_id'] && $acct_id != $data['command1']['customer']['acct_id']) {
-              $acct_id = $data['command1']['customer']['acct_id'];
-            }
             $account = tmapi_data_account_update($acct_id, $data['command1']['customer']);
-            if (isset($data['command1']['other_info_5']) && $data['command1']['other_info_5']) {
-              custom_admin_update_acct_rep($data['command1']['other_info_5'], $acct_id);
-            }
+            //if (isset($data['command1']['other_info_5']) && $data['command1']['other_info_5']) {
+            //  custom_admin_update_acct_rep($data['command1']['other_info_5'], $acct_id);
+            //}
             $form_state['uid'] = $uid = $account->uid;
             $fail = 0;
             $_SESSION['tmupa'] = base64_encode($password);
@@ -531,36 +567,39 @@ function custom_admin_login_authenticate_validate($form, &$form_state) {
               }
               $_SESSION['cust_info']['customer'] = $data['command1']['customer'];
             }
-            watchdog('TicketMaster', 'Successfully authenticated for %name.', array('%name' => $form_state['values']['name']));
+            
+            watchdog('TicketMaster', 'Successfully authenticated for %name.', array('%name' => $acct_id));
             // Invoice List call
             
-            /*$acct_rep = _tmapi_get_acct_rep($acct_id);
+            $acct_rep = _tmapi_get_acct_rep($acct_id);
             if ($acct_rep) {
-              watchdog('TicketMaster', 'get_acct_rep API Call Success for %name.', array('%name' => $form_state['values']['name']));
-            }*/
+              watchdog('TicketMaster', 'get_acct_rep API Call Success for %name.', array('%name' => $acct_id));
+            }
+            $invoice = tmapi_get_sth_invoice($acct_id);
             $get_seats_hold = _tmapi_get_seats_on_account($acct_id);
             if ($get_seats_hold) {
-              watchdog('TicketMaster', 'get_seats_on_account API Call Success for %name.', array('%name' => $form_state['values']['name']));
+              watchdog('TicketMaster', 'get_seats_on_account API Call Success for %name.', array('%name' => $acct_id));
             }
-            //$invoice = tmapi_get_sth_invoice($acct_id);
-            //$seats = _tmapi_get_seats_on_account($acct_id);
+           // $invoice = tmapi_get_sth_invoice($acct_id);
+           // $seats = _tmapi_get_seats_on_account($acct_id);
           }
           else {
-            watchdog('TicketMaster', 'Login attempt failed for %user.', array('%user' => $form_state['values']['name']));
+            watchdog('TicketMaster', 'Login attempt failed for %user.', array('%user' => $acct_id));
             //return;
           }
         }
         else {
-          watchdog('TicketMaster', 'Login attempt failed for %user.', array('%user' => $form_state['values']['name']));
+          watchdog('TicketMaster', 'Login attempt failed for %user.', array('%user' => $acct_id));
           //return;
         }
-        //endif;
+        endif;
 
     if (!$uid) {
       user_login_authenticate_validate($form, $form_state);
     }
   }
 }
+
 
 function custom_admin_update_acct_rep($name, $acct_id) {
   if ($name) {
@@ -573,6 +612,18 @@ function custom_admin_update_acct_rep($name, $acct_id) {
         ))
       ->execute();
       cache_clear_all('rep_mail-' . $acct_id, 'cache_custom', $wildcard = FALSE);
+    }
+  }
+}
+
+function custom_admin_promo_tile_validate($form, &$form_state) {
+  $data = $form_state['values'];
+  if ($data['field_type']['und'][0]['value'] == 'countdown') {
+    if (isset($data['field_date']['und'][0]['value']) && strtotime($data['field_date']['und'][0]['value']) < time()) {
+      form_set_error('field_date', 'Countdown Date must be greater than current date');
+    }
+    elseif (!isset($data['field_date']['und'][0]['value'])) {
+      form_set_error('field_date', 'A valid date is required for Countdown Date.');
     }
   }
 }

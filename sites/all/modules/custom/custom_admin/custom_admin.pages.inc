@@ -36,34 +36,45 @@ function custom_admin_add_page_settings() {
  */
 function custom_admin_add_page($form, &$form_state, $variable) { 
   $nid = arg(5);
-  $title = (isset($variable) && $variable == 'stp_page') ? 'Page' : ucfirst($variable);
-  drupal_set_title('Add New ' . $title);
+  $type = arg(4);
+  $title1 = '';
+  
+  $title = (isset($variable) && $variable == 'stp_page') ? 'Content' : ucfirst($variable);
+  $title = $type == 'pdf' ? 'PDF' : $title;
+  drupal_set_title('New ' . $title . ' Page');
+  
+  /*******************  For ticket STPDEV-309      ****************************/
+  $back_button_title = 'Back to Page listing';
+  /******************  End For ticket STPDEV-309  *****************************/
+  
   $form = array();
-  $pid = variable_get('menu_main_links_source', 'main-menu');
-  $menu_tree = menu_tree_page_data('main-menu', NULL, TRUE);
-  $tree = menu_tree_output($menu_tree);
-  //$tree = menu_tree($pid);
-   $stp_menus[''] = '--<None>--';
-  foreach ($tree as $menu_pid => $menu) {
-    if (is_numeric($menu_pid)) {
-      $title = (isset($menu['#localized_options']['attributes']['title']) && $menu['#localized_options']['attributes']['title']) ? $menu['#localized_options']['attributes']['title'] : $menu['#title'];
-      $stp_menus[$menu_pid] = $title;
-    }
+  $stp_menus = custom_admin_get_menu_links('all');
+  $stp_menus_anon = custom_admin_get_menu_links('anon');
+  $stp_menus_logged = custom_admin_get_menu_links('sth');
+  if (isset($form_state['values']['access'])) {
+    $stp_menus = ($form_state['values']['access'] == 1) ? $stp_menus_logged : $stp_menus_anon;
   }
-  $stp_menus['925'] = 'Other';
-  $stp_menus['868'] = 'Other';
-  $stp_menus['951'] =  'Benefit (Anonymous)';
-  $form['title'] = array(
+  $form['box1'] = array(
+    '#type' => 'fieldset',
+    '#attributes' => array('class' => array('stp-legend-heading')),
+  );
+  $form['box1']['title'] = array(
     '#type' => 'textfield',
-    '#title' => (isset($nid) && $nid) ? 'Tab Title' : t('Page Title'),
+    '#title' => (isset($nid) && $nid) ? 'Tab Title' : t('Title'),
     '#required' => TRUE,
   );
   if (!(isset($nid) && $nid)) {
-    $form['access'] = array(
+    $form['box2'] = array(
+      '#type' => 'fieldset',
+      '#title' => 'Other ' . $title .' Page Options', 
+    );
+ /*******************  For ticket STPDEV-783      ****************************/
+    $form['box2']['access'] = array(
       '#type' => 'radios',
       '#title' => t('Access'),
-      '#options' => array('0' => 'Anonymous', '1' => 'Logged IN'),
+      '#options' => array('0' => 'Public', '1' => 'Logged IN'),
       '#required' => TRUE,
+      '#attributes' => array('class'=>'trigger_show'),// Provided class to enable SML
       '#ajax' => array(
         // #ajax has two required keys: callback and wrapper.
         // 'callback' is a function that will be called when this element changes.
@@ -73,54 +84,80 @@ function custom_admin_add_page($form, &$form_state, $variable) {
         'method' => 'replace',
         'effect' => 'fade',
       ),
+      '#suffix' => '<div class="clearfix"></div>'
     );
-    $form['parent_menu'] = array(
+    $form['box2']['parent_menu'] = array(
       '#type' => 'select',
-      '#title' => t('Select Navigation Menu'),
-      '#description' => t('Please select top nav under which this page will appear'),
+      '#title' => t('Site Map Location'),
       '#options' => $stp_menus,
-      '#prefix' => '<div id="replace_parent_menu">',
+      '#default_value' => '',
+      '#prefix' => '<div id="replace_parent_menu" class="access_enable">',
       '#suffix' => '</div>',
-      
+      '#required' => TRUE,
+      '#description' => t('Select where new page will appear under top navigation.'),    
     );
+    /***************   For Enabling Site Map Location ******************************/
+    drupal_add_js('jQuery(document).ready(function()
+                  {
+                    if(jQuery(\'div:not(:has(:radio:checked))\').length) 
+                    {
+                        jQuery(\'.form-item-access input\').prop("disabled",false);
+                        var item = 0;
+                        jQuery(\'.form-item-access input\').each(function()
+                        {
+                            if(item ==0){jQuery(this).trigger(\'click\');}
+                            item++;                    
+                        });
+                    }
+                  });',
+        array('type' => 'inline', 'scope' => 'footer', 'weight' => 5)
+      );
+   /*******************  End For ticket STPDEV-309      **************************/
   }
-  $form['type'] = array(
+  $form['box2']['type'] = array(
     '#type' => 'hidden',
     '#value' => $variable,
   );
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => (isset($nid) && $nid) ? 'Add Tab' : t('Add Page'),
-  );
+  /*******************  For ticket STPDEV-309      ****************************/
+  $form['actions']['backtopage'] = array(
+      '#type' => 'link',
+      '#title' => $back_button_title,
+      '#href' => 'admin/manage/main-menu/poweredit',
+      '#options' => array('html' => true,'style'=>'padding-top:5px;padding-bottom:5px'),
+      '#attributes' => array('class' => array('backtopage'))
+    );
+  /*******************  End for ticket STPDEV-309      *************************/
+  if ($variable == 'stp_page') {
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => (isset($nid) && $nid) ? 'Add Tab' : t('Add '. $title .' Page'),
+    );
+  }
+  else {
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => (isset($nid) && $nid) ? 'Add Tab' : t('Add New '. $title .' Page'),
+    );
+  }
   return $form;
 }
-/**
- * Ajax callback for Parent Menu
- */
-function custom_admin_add_page_ajax_callback($form, $form_state) {
-  // The form has already been submitted and updated. We can return the replaced
-  // item as it is.
-  $pid = variable_get('menu_main_links_source', 'main-menu');
-  $tree = menu_tree($pid);
-  $access = $form_state['values']['access'];
-  $stp_menus_anon[''] = '--<None>--';
-  $stp_menus[''] = '--<None>--';
-  foreach ($tree as $menu_pid => $menu) {
-    if (is_numeric($menu_pid)) {
-      $title = (isset($menu['#localized_options']['attributes']['title']) && $menu['#localized_options']['attributes']['title']) ? $menu['#localized_options']['attributes']['title'] : $menu['#title'];
-      if ((isset($menu['#localized_options']['attributes']['title']) && $menu['#localized_options']['attributes']['title'])) {
-        $stp_menus_anon[$menu_pid] =  $title;
-      }
-      else {
-        $stp_menus[$menu_pid] = $title;
-      }
+
+function custom_admin_add_page_validate($form, &$form_state) {
+  $data = $form_state['values'];
+  if (isset($data['box2']['parent_menu']) && $data['box2']['parent_menu']) {
+     $submenu_count = db_query("SELECT mlid FROM {menu_links} WHERE module = 'menu' AND link_title != 'Bullpen Pages' and plid = :plid", array(':plid' => $data['box2']['parent_menu']))->rowCount();
+    if ($submenu_count >=5) {
+      form_set_error('title', 'Maximum of 5 menus can be added in SubNavigation bar.');
     }
   }
-  $stp_menus_anon['951'] =  'Benefit (Anonymous)';
-  $stp_menus_anon['868'] =  'Other';
-  $stp_menus['925'] = 'Other';
-  $form['parent_menu']['#options'] = ($access == 1) ? $stp_menus : $stp_menus_anon;
-  return $form['parent_menu'];
+  $nid = arg(5);
+  if (isset($nid) && $nid) {
+    $count = db_query("SELECT entity_id FROM {field_data_field_tab_page} WHERE field_tab_page_nid = :nid", array(':nid' => $nid))->rowCount();
+    if ($count >=5) {
+      form_set_error('title', 'Maximum of 5 tabs can be added in Page.');
+    }
+  }
+ 
 }
 /**
  * Submit handler for Create pdf/video/content pages
@@ -170,7 +207,7 @@ function custom_admin_add_page_submit($form, &$form_state) {
       $settings['view_own'] = array(1, 5, 6);
     }
   }
-  
+  $filename = str_replace(' ', '_', $data['title']);
   if ($data['type'] == 'stp_page') {
     $new_node->body[$lang][0]['value'] = variable_get('default_page_content', '');
     $new_node->body[$lang][0]['format'] = 'full_html';
@@ -185,6 +222,7 @@ function custom_admin_add_page_submit($form, &$form_state) {
     $file = file_save_data($image, 'public://pdf/' . basename($path), FILE_EXISTS_RENAME);
     //Set the file status to permanent so it is not deleted in next cron run
     $file->display =1;
+    $file->filename = $filename . '_pdf';
     $new_node->field_pdf[$lang][0] = (array)$file;
   }
   // Create a Video
@@ -192,9 +230,10 @@ function custom_admin_add_page_submit($form, &$form_state) {
     $path = variable_get('default_video_url', 'public://sample.mp4');
     $video = file_get_contents($path);
     //Saves a file to the specified destination and creates a database entry.
-    $file = file_save_data($video, 'public://video/' . basename($path), FILE_EXISTS_RENAME);
+    $file =  file_save_data($video, 'public://video/' . basename($path), FILE_EXISTS_RENAME);
     //Set the file status to permanent so it is not deleted in next cron run
     $file->display =1;
+    //$file->filename = $filename . '_video';
     $new_node->field_video[$lang][0] = (array)$file;
     $new_node->field_bottom_content[$lang][0]['value'] = variable_get('default_page_content', '');
     $new_node->field_bottom_content[$lang][0]['format'] = 'full_html';
@@ -219,10 +258,66 @@ function custom_admin_add_page_submit($form, &$form_state) {
   node_access_acquire_grants($new_node);
   module_invoke_all('per_node', $settings);
   if ((isset($tab_node_nid) && $tab_node_nid)) {
-    drupal_goto('node/' . $tab_node_nid, array('query' => array('t' => 'yes')));
+    drupal_goto('node/' . $tab_node_nid);
   }
   drupal_goto('node/' . $new_node->nid);
 }
+/**
+ * Ajax callback for Parent Menu
+ */
+function custom_admin_add_page_ajax_callback($form, $form_state) {
+  // The form has already been submitted and updated. We can return the replaced
+  // item as it is.
+  $access = $form_state['values']['access'];
+  $stp_menus_anon = custom_admin_get_menu_links('anon');
+  $stp_menus = custom_admin_get_menu_links('sth');
+  $form['box2']['parent_menu']['#options'] = ($access == 1) ? $stp_menus : $stp_menus_anon;
+  return $form['box2']['parent_menu'];
+}
+
+function custom_admin_get_menu_links($menu_type = 'all') {
+  // Fetch main menu items
+  $main_menu_tree = menu_tree_page_data('main-menu', NULL, TRUE);
+  $main_tree = menu_tree_output($main_menu_tree);
+  //$tree = menu_tree($pid);
+  $result_sth = db_query("SELECT mlid FROM {menu_links} WHERE module = 'menu' AND menu_name = 'main-menu' AND link_title = 'Bullpen Pages'")->fetchField();
+   $result_anon = db_query("SELECT mlid FROM {menu_links} WHERE module = 'menu' AND menu_name = 'menu-anonymous-menu' AND link_title = 'Bullpen Pages'")->fetchField();
+   $stp_main_menus[''] = '--<None>--';
+  foreach ($main_tree as $menu_pid => $menu) {
+    if (is_numeric($menu_pid)) {
+      $title = (isset($menu['#localized_options']['attributes']['title']) && $menu['#localized_options']['attributes']['title']) ? $menu['#localized_options']['attributes']['title'] : $menu['#title'];
+      $stp_main_menus[$menu_pid] = $title;
+    }
+  }
+  if (isset($result_sth) && $result_sth) {
+    $stp_main_menus[$result_sth] = 'Bullpen Pages';
+  }
+  // Fetch Anonymous menu items
+  $anon_menu_tree = menu_tree_page_data('menu-anonymous-menu', NULL, TRUE);
+  $anon_tree = menu_tree_output($anon_menu_tree);
+  //$tree = menu_tree($pid);
+   $stp_anon_menus[''] = '--<None>--';
+  foreach ($anon_tree as $menu_pid => $menu) {
+    if (is_numeric($menu_pid)) {
+      $stp_anon_menus[$menu_pid] = $menu['#title'];
+    }
+  }
+  if (isset($result_anon) && $result_anon) {
+    $stp_anon_menus[$result_anon] = 'Bullpen Pages';
+  }
+  
+  if ($menu_type == 'all') {
+    $menus = array_merge($stp_main_menus, $stp_anon_menus);
+  }
+  elseif ($menu_type == 'anon') {
+    $menus = $stp_anon_menus;
+  }
+  elseif ($menu_type == 'sth') {
+    $menus = $stp_main_menus;
+  }
+  return $menus;
+}
+
 
 /**
  * function to create a new tab page and associtate the existing page to new tab page
@@ -252,7 +347,7 @@ function custom_admin_create_tab_node($node, $title) {
     $menu = menu_link_load($menu_mlid);
     $menu['link_path'] = 'node/' . $new_node->nid;
     menu_link_save($menu);
-    watchdog('Menu', t('Navigation changed for page %page', array('%page' => $menu['link_title'])), WATCHDOG_NOTICE);
+    watchdog('Menu', 'Navigation changed for page %page', array('%page' => $menu['link_title']), WATCHDOG_NOTICE);
   }
   // Content access Settings for newly created tab page node
   $settings['view'] = content_access_per_node_setting('view', $node);

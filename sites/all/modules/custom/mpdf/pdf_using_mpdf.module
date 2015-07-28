@@ -74,7 +74,7 @@ function pdf_using_mpdf_menu() {
  * @param string $filename
  *   name of the PDF file to be generated.
  */
-function _pdf_using_mpdf_generator($html, $filename = NULL, $file_output = 'D', $name = NULL) {
+function _pdf_using_mpdf_generator($html, $filename = NULL, $file_output = 'D', $name = NULL, $watemarkImg = NULL) {
   // International Paper Sizes ( width x height).
   $paper_size = array(
     '4A0' => array('w' => 1682, 'h' => 2378),
@@ -224,7 +224,14 @@ function _pdf_using_mpdf_generator($html, $filename = NULL, $file_output = 'D', 
     );
     $mpdf->SetFooter($footer);
   }
-
+  /********************* For STPDEV-21, STPDEV-455 and STPDEV-526 **************/
+  if($watemarkImg)
+  {        
+        $mpdf->showWatermarkImage = true;
+        $mpdf->SetWatermarkImage($watemarkImg);
+        //$mpdf->showImageErrors = true;   
+  }
+ /************************ End for STPDEV-21, STPDEV-455 and STPDEV-526 *******/
   // Setting Watermark Text to PDF.
   $text = variable_get('pdf_using_mpdf_pdf_watermark_text');
   if (isset($text) && $text != NULL) {

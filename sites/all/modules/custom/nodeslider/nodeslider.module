@@ -25,7 +25,6 @@ function nodeslider_menu() {
   return $items;
 }
 
-
 /**
  * Implements hook_node_load().
  */
@@ -47,7 +46,9 @@ function nodeslider_node_load($nodes, $types) {
  */
 function nodeslider_node_view($node, $view_mode, $langcode) {
   
-  if (variable_get('nodeslider_enabled_' . $node->type, 0) == TRUE && $view_mode == 'full') {
+	    
+  if (variable_get('nodeslider_enabled_' . $node->type, 0) == TRUE && $view_mode == 'full') {  
+  
     
 	$path = drupal_get_path('module','nodeslider');
 	
@@ -59,16 +60,16 @@ function nodeslider_node_view($node, $view_mode, $langcode) {
 		if (strpos($body, $nodeslider_separator) !== FALSE) {
 		  $pages = explode($nodeslider_separator, $body);
 		  foreach($pages as $val) {
-		   $sliderli .= '<li>'.$val.'</li>';      
+		   $sliderli .= '<li style="width:550px;">'.$val.'</li>';      
 		  }
 		}
 		
 		if ($sliderli) {
-		$node->content['body']['#prefix'] = '<div class="flexslider-off">';
+		$node->content['body']['#prefix'] = '<div class="flexslider-off" id="'.'off-'.$node->nid.'">';
         $node->content['body']['#suffix'] = '</div>';
 		
 		$flexislider = '<section class="slider">
-			<div class="flexslider">		
+			<div class="flexslider" id="'.'node-'.$node->nid.'">		
 			  <ul class="slides">
 				'.$sliderli.'
 			  </ul>
@@ -77,9 +78,9 @@ function nodeslider_node_view($node, $view_mode, $langcode) {
 		
 		  // Add pager to node content.
 		  $node->content['nodeslider']['#markup'] = $flexislider;
-		  drupal_add_css($path. '/css/flexslider.css');
-	      drupal_add_js($path.'/js/jquery.flexslider-min.js');
-	      drupal_add_js($path.'/js/slide.js');
+		   drupal_add_css($path. '/css/flexslider.css');
+		   drupal_add_js($path.'/js/jquery.flexslider.js');
+	       drupal_add_js($path.'/js/slide.js');
 		  }
 	 }
       

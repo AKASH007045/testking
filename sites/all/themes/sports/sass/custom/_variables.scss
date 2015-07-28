@@ -1,0 +1,50 @@
+// When true, asset path helpers are used, otherwise regular url() is used
+// When there no function is defined, `fn('')` is parsed as string that equals the right hand side
+// NB: in Sass 3.3 there is a native function: function-exists(twbs-font-path)
+   $bootstrap-sass-asset-helper: (twbs-font-path("") != unquote('twbs-font-path("")')) !default;
+
+/*/== brand-color*/
+
+$brand-color:               #5a4099;
+
+/*/Variables== Colors*/
+
+$white:                     #ffffff;
+$black:                     #000000;
+$lgtgray:                   #9e9e9e;
+
+/*/Variables== Background*/
+
+$black-bgd:  				#000000;
+$golden-drk:  	    		#cb9400;
+$yallowclr:  	   			#cb9400;
+$lightgray:  	   			#f4f4f4;
+$ctlgray:  	        		#d0d2d0;
+$white-bgd:  	        	#ffffff;
+
+/*/Variables== Navigation*/
+$nav-font-color:            $white;
+$nav-hover-font-color:      $white;
+$nav-top-border-color:      #ffffff;
+$nav-item-hover-border:     rgba(0,0,0,0.9);
+$nav-item-hover-shadow:     #1C6CCB;
+$dropdown-toggle-border:    $nav-item-hover-border;
+$dropdown-toggle-shadow:    $nav-item-hover-shadow;
+$nov-bdr:                   $nav-item-hover-border;
+$brand-bx-shadow:           $nav-item-hover-shadow;
+/*/Variables== Border*/
+
+$black-bdr:                 #000000;
+$ylw-bdr-edt:               #f8b401;
+$lgt-gray:                  #cccccc;
+$gry-bdr:                   #3D3D3D;
+$mid-gry:                   #778087; 
+
+/*/Variables== Box-Shadow*/ 
+
+$blk-txt-shadow:            rgba(0, 0, 0, 0.3);
+$blk-bx-shadow:             #000000;
+$gry-bx-sdw:                #5C5C5C;
+
+
+$copyright-text-color:      #717171; 

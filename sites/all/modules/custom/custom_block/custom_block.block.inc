@@ -3,22 +3,6 @@
 // @file
 
 /**
-* Function returns the video block
-*/
-function custom_block_video_block(){
-  $query = db_select('node', 'n');
-  $query->fields('n', array('nid'))
-  ->condition('status', 1, '=')
-  ->condition('type', 'video', '=')
-  ->range(0,1);
-  $result = $query->execute()->fetchAll();
-  $nid = $result[0]->nid;
-  $node = node_load($nid);
-  $output = render(node_view($node, $view_mode = 'full', $langcode = NULL));
-  return $output;
-}
-
-/**
  * function which will return account representative block
  */
 function custom_block_account_rep($block_id = 'block') {
@@ -167,4 +151,21 @@ function custom_block_promo_tiles() {
     return $promo_logged_in;
   }
   return $promo_anonymous;
+}
+
+function custom_block_main_navigation() {
+  // Check for active menu items to render menu block
+  global $user;
+  $block = module_invoke('menu_block', 'block_view', '3');
+  $block2 = module_invoke('menu_block', 'block_view', '6');
+  $block3 = module_invoke('menu_block', 'block_view', '4');
+  if ($count = count($block['content']) && $user->uid && (isset($block['content']['#config']['menu_name']) && $block['content']['#config']['menu_name']!= 'user-menu')) {
+    return render($block['content']);
+  }
+  if ($user->uid) {
+    return render($block2['content']); 
+  }
+  else {
+    return render($block3['content']); 
+  }
 }

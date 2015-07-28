@@ -681,7 +681,12 @@ function ckeditor_get_profile($input_format) {
   $select = db_select('ckeditor_settings', 's');
   $select->join('ckeditor_input_format', 'f', 'f.name = s.name');
   $result = $select->fields('s', array("name"))->condition('f.format', $input_format)->condition('f.name', 'CKEditor Global Profile', '<>')->range(0, 1)->execute()->fetchAssoc();
-
+  if ($result && $result['name'] == 'Full') {
+    if (path_is_admin(current_path()) || current_path() == 'ckeditor/xss') {
+      $result['name'] = 'Full_admin';
+    }
+  }
+  
   if ($result && $profile = ckeditor_profile_load($result['name'])) {
     return $profile;
   }
@@ -704,7 +709,13 @@ function ckeditor_profile_input_formats() {
     }
     $list[$row['name']][] = $row['format'];
   }
-
+  if (path_is_admin(current_path()) || current_path() == 'ckeditor/xss') {
+    if (isset($list['Full'])) {
+      unset($list['Full_admin']);
+      $list['Full_admin'] = $list['Full'];
+      unset($list['Full']);
+    }
+  }
   return $list;
 }
 

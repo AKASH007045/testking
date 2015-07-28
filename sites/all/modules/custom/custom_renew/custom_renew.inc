@@ -14,11 +14,13 @@
   $rows = array();
   $seats = array();
   
+  
   $user_info = get_user_info($user->name);
   $acct_id = (isset($user_info->acct_id) && $user_info->acct_id)?$user_info->acct_id:"";
   $get_amount_info = get_tm_user_amount_info($acct_id);
   $get_amount_info['due_amt'] = isset($get_amount_info['due_amt']) ? $get_amount_info['due_amt'] : '';
   $get_amount_info['due_amt'] = intval($get_amount_info['due_amt']);
+print 'test'; exit; 
 
   $pdf_link = 'STH_15-16_RENEWAL_NEW_SeatingPricing_8.pdf';
   if(
@@ -27,7 +29,9 @@
       && isset($get_amount_info['due_amt']) 
       && !empty($get_amount_info['due_amt'])
       && ($get_amount_info['due_amt']>0)
-  ){    
+  ){  
+
+ 
     $query = db_select('tbl_renew_takeover', 'b');
     $result = (bool)$query->fields('b', array('show_popup'))
     ->condition('acct_id', $user->name, '=')

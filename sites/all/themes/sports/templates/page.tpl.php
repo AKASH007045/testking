@@ -94,12 +94,12 @@
 		  <div class="navbar navbar-default" role="navigation">
 		   <div class="navbar-header">
 	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="/" title="<?php print t('SACRAMENTO KINGS');?>"><img src="<?php print $logo; ?>" alt="<?php print t('Sacramento Kings'); ?>" class="img-responsive"/></a>
+				<a class="navbar-brand" href="/" title="<?php print $site_name;?>"><img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" class="img-responsive"/></a>
 				</div>
 			  <div class="navbar-collapse collapse">
-				<?php if (!empty($primary_nav)): ?>
-				  <?php print render($primary_nav); ?>
-				<?php endif; ?>
+				<?php if (!empty($page['main_menu'])): ?>
+			         <?php print render($page['main_menu']); ?>
+		                <?php endif; ?>
 				<ul class="nav navbar-nav navbar-right">
 				  <?php if (!empty($page['user_info'])): ?>
 					<?php print render($page['user_info']); ?>
@@ -133,7 +133,7 @@
     <?php print $messages; ?>
     <?php if (!empty($tabs)): ?>
     <div class="page-tabs">
-      <div class="home-tgl"><i class="fa fa-angle-left"></i></div>
+      <div class="home-tgl"><div class="wrapper-icon-sidekick"><i class="fa fa-angle-right"></i><span class="sidekick-label"></span></div></div>
       <?php print render($tabs); ?>
     </div>
     <?php endif; ?>
@@ -144,8 +144,7 @@
     <div class="clearfix region-content">
             <?php print render($page['content']); ?>
           </div>
-    <?php print render($page['content_bottom']); ?>
-
+    <?php print render($page['content_bottom']); ?>    
 </section>
 <!-- /container --> 
 
@@ -165,7 +164,7 @@
 <?php if ($page['promo_tile']) : ?>
   <section class="col-lg-12 col-md-12 col-sm-12 col-xs-12 promo-tile clearfix">
     <div class="row">
-      <?php if (!empty($page['social'])): ?><div class="block-box-ssl col-lg-3 col-md-3 col-sm-3 col-xs-3 clearfix"><?php  print render($page['social']); ?></div><?php endif; ?>
+      <?php if (!empty($page['social'])): ?><div class="block-box-ssl col-lg-3 col-md-3 col-sm-3 col-xs-6 clearfix"><?php  print render($page['social']); ?></div><?php endif; ?>
       <?php  print render($page['promo_tile']); ?>
     </div>
   </section>
@@ -176,4 +175,5 @@
      <?php print render($page['footer']); ?>
   </div>
 </footer>
+<?php print $background_update_link;?>
 </div>

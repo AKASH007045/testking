@@ -1,0 +1,4 @@
+name = Custom Background image Management
+description = Update any page backgound image
+core = 7.x
+package = Custom

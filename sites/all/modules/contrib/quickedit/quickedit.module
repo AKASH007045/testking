@@ -294,7 +294,10 @@ function quickedit_library() {
     'group' => JS_LIBRARY,
     'weight' => -19,
   ));
-
+  if ( module_exists('media')) {
+        module_load_include('inc', 'media', 'wysiwyg_plugins/media');
+        media_include_browser_js();
+      }
   return $libraries;
 }
 

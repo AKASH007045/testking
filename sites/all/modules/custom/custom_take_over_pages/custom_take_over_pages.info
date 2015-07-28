@@ -5,3 +5,5 @@ package = Custom
 core = 7.x
 project = "drupal"
 datestamp = "1352325357"
+
+scripts[] = 'js/take_over.js'

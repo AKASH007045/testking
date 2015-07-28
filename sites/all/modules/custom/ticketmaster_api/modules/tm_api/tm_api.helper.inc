@@ -17,9 +17,9 @@
  *     
  **/
 function _custom_tm_rest_call($ch1, $cookies_file, $json = NULL, $web_url = NULL) {
-  $dsn = variable_get('tm_dsn', 'suns');
+  $dsn = variable_get('tm_dsn', '');
   //ticketmaster url
-  //$adb_url = variable_get('tm_login_url', 'https://ws.ticketmaster.com/archtics/ats/ticketing_services.aspx?dsn=suns');
+  //$adb_url = variable_get('tm_login_url', 'https://ws.ticketmaster.com/archtics/ats/ticketing_services.aspx?dsn=cowboys');
   $adb_url = 'https://ws.ticketmaster.com/archtics/ats/' . $web_url . '?dsn=' . $dsn;
   // set header for ticketmaster
   $header = array(
@@ -28,6 +28,13 @@ function _custom_tm_rest_call($ch1, $cookies_file, $json = NULL, $web_url = NULL
       'Connection: Keep-Alive',
       'Keep-Alive: timeout=15, max=100'
   );
+  $cert = realpath(drupal_get_path('module', 'tm_api') . '/certificates/live_tm_v2.pem');
+  $cert_type = variable_get('tm_cert_type', 'Linux');
+  if ($cert_type == 'Windows') {
+    $cert = realpath(drupal_get_path('module', 'tm_api') . '/certificates/windows/live.iomedia_tm_v2.pfx');
+  }
+  
+  
   //ticketmaster curl request otions 
   $adb_option_defaults = array(
       CURLOPT_URL => $adb_url,
@@ -40,7 +47,7 @@ function _custom_tm_rest_call($ch1, $cookies_file, $json = NULL, $web_url = NULL
       //ticketmaster ssl options
       CURLOPT_SSL_VERIFYPEER => TRUE,
       CURLOPT_SSL_VERIFYHOST => 2,
-      CURLOPT_SSLCERT => realpath(drupal_get_path('module', 'tm_api') . '/certificates/live_tm_v2.pem'),
+      CURLOPT_SSLCERT => $cert,
       CURLOPT_SSLCERTPASSWD => 'letmein',
       // curl cookies file.
       CURLOPT_COOKIEJAR => $cookies_file,
@@ -71,7 +78,7 @@ function _custom_tm_rest_call_test($ch1, $cookies_file, $json = NULL, $web_url =
   if (variable_get('tm_api_test', 0)) {
     $api_sufix="_test";
   }
-  $dsn = variable_get('tm_dsn' . $api_sufix, 'bucs602');
+  $dsn = variable_get('tm_dsn' . $api_sufix, '');
   //ticketmaster url
   //$adb_url = variable_get('tm_login_url_test', 'https://ws-test.ticketmaster.net/archtics/ats/ats.aspx?dsn=bucs602');
   $adb_url = 'https://ws-test.ticketmaster.net/archtics/ats/'. $web_url .'?dsn=' . $dsn;
@@ -116,23 +123,15 @@ function _custom_tm_rest_call_test($ch1, $cookies_file, $json = NULL, $web_url =
  */
 function _tmapi_get_sth_status($acct_id = NULL) {
   $param = tm_api_get_command_param('get_sth_status', $acct_id);
+  $param['command1']['item_set'] = '#IOM-STH-SET';
   $json = drupal_json_encode($param);
   $response = array();
   $response = tm_api_call($json, 'ticketing_services.aspx');
   //check for sth status and validate with response.
-  $result = 0;
-  if (isset($response['response_ok']) && $response['response_ok']) {
-    $data = drupal_json_decode($response['response']);
-    if ($data && isset($data[0]['plan_name'])) {
-      $_SESSION['plan_name11'] =$data[0]['plan_name'];
-    }
-    if ($data && isset($data[0]['plan_event_name'])) {
-      $_SESSION['plan_name11'] =$data[0]['plan_event_name'];
-     
-    }
-    if (!isset($data['command1']['error_detail']) && isset($data[0]['sth_status']) && $data[0]['sth_status'] == 1) {
-      $result = 1;
-    }
+  $result = 1;
+  $data = drupal_json_decode($response['response']);
+  if (isset($response['response_ok']) && $response['response_ok'] && isset($data[0]['sth_status']) && $data[0]['sth_status'] == 0) {
+    $result = 0;
   }
   return $result;
 }
@@ -273,6 +272,7 @@ function tmapi_get_sth_invoice($acct_id = NULL) {
           $row['acct_id'] = $acct_id;
           $row['invoice_id'] = $invoice_id;
           $row['due_date'] = $data['command1']['due_date'];
+          $row['invoice_date'] = isset($data['command1']['invoice_date']) ? $data['command1']['invoice_date'] : '';
           $rows[] = $row;
         }
         tmapi_data_tm_invoice_details($acct_id, $rows);
@@ -292,144 +292,24 @@ function _tmapi_get_invoice_id($acct_id = NULL) {
   $json = drupal_json_encode($param);
   $response = array();
   $response = tm_api_call($json, 'ticketing_services.aspx');
-  
   //check for invoice id validate with response.
   $result = 0;
   if (isset($response['response_ok']) && $response['response_ok']) {
     $data = drupal_json_decode($response['response']);
-    $temp_invoices = array();
     if (!empty($data['command1']['invoices']) && isset($data['command1']['result']) && $data['command1']['result'] == 0) {
       foreach ($data['command1']['invoices'] as $key => $invoice) {
-        //Added to save the data so we can get payment plan ID later
-        //for the correct invoice
         $temp_invoices[$invoice['invoice_ids']] = $invoice;
         $invoices[] = $invoice['invoice_ids'];
       }
-      $inv_id = max($invoices);
-      $_SESSION['invoice_detail'] = isset($temp_invoices[$inv_id])?$temp_invoices[$inv_id]:"";
-      return $inv_id;
+      $invoice_ids = max($invoices);
+      $_SESSION['invoice_detail'] = isset($temp_invoices[$invoice_ids]) ? $temp_invoices[$invoice_ids] : "";
+      return max($invoices);
     }
   }
   return 0;
 }
-/*
-* Function to fetch Payment plans
-*/
-function tmapi_get_payment_plans($acct_id = NULL, $invoice_id=NULL) {
-  $response = NULL;
-  $payments = array(); 
-  if(isset($acct_id) && $acct_id){ 
-    $param = tm_api_get_command_param('payment_plan_details', $acct_id);
-    $json = drupal_json_encode($param);
-    $response = array();
-    $response = tm_api_call($json, 'ticketing_services.aspx');
-    if($response['response_ok'])
-    {
-      $data = drupal_json_decode($response['response']);
-      if (
-          isset($data['command1']['result']) 
-          && 
-          $data['command1']['result']==0
-      ) 
-      {
-        $plans = (isset($data['command1']['plans']) && count($data['command1']['plans'])>0)?$data['command1']['plans']:false;
-        
-        return $plans;
-      }
-      else{
-        //Error in API response
-        return false;
-      }
-    }
-  }
-  else{
-    //Account ID is not set
-    return false;
-  }
-  return 1;
-}
-
-/*
-* Function to fetch Payment plans
-*/
-function tmapi_checkout_call($acct_id = NULL, $invoice_id=NULL) {
-  return;
-  $response = NULL;
-  $plans = array(); 
-  if(isset($acct_id) && $acct_id){ 
-    $param = tm_api_get_command_param('check_out', $acct_id);
-    $param['command1']['uid'] = 'ATS01';
-    $param['command1']['invoice_id'] = $invoice_id;
-    $param['command1']['Order_num'] = $invoice_id;
-    $json = drupal_json_encode($param);
-    $response = array();
-    $response = tm_api_call($json, 'ticketing_services.aspx');
-    print_r($param);
-    echo "<br />___________________________________________________<br />";
-    print_r($response);
-    exit;
-    if($response['response_ok'])
-    {
-      $data = drupal_json_decode($response['response']);
-      if (
-          isset($data['command1']['result']) 
-          && 
-          $data['command1']['result']==0
-      ) 
-      {
-        $plans = (isset($data['command1']['plans']) && count($data['command1']['plans'])>0)?$data['command1']['plans']:false;
-        
-        return $plans;
-      }
-      else{
-        //Error in API response
-        return false;
-      }
-    }
-  }
-  else{
-    //Account ID is not set
-    return false;
-  }
-  return 1;
-}
-
-
-/*
-* Function to fetch Payment Schedules
-*/
-function tmapi_get_payment_schedules($acct_id=NULL, $invoice_id=NULL, $plan_id=NULL) {
-  if(isset($plan_id) && !empty($plan_id)){ 
-    $param = tm_api_get_command_param('payment_schedule', $acct_id);
-    $param['command1']['invoice_id'] = $invoice_id;
-    $param['command1']['payment_plan_id'] = $plan_id;
-    $schedule_json = drupal_json_encode($param);
-    $schedule_response = array();
-    $schedule_response = tm_api_call($schedule_json, 'ticketing_services.aspx');
-    if($schedule_response['response_ok']){
-      $data_schedule = drupal_json_decode($schedule_response['response']);
-      if (
-        isset($data_schedule['command1']['result']) 
-        && 
-        $data_schedule['command1']['result']==0
-      ) {
-        $payments = (isset($data_schedule['command1']['payments']) && count($data_schedule['command1']['payments'])>0)?$data_schedule['command1']['payments']:false;        
-        return $payments;
-      }
-      else{
-        //Error in API response
-        return false;
-      }
-    }    
-  }
-  else{
-    //Plan ID is empty
-    return false;
-  }
-}
 
 function _tmapi_payment_request($data) {
-  
   global $user;
   $acct_id = isset($data['tmuser_info']['acct_id']) ? $data['tmuser_info']['acct_id'] : $user->name;
   $invoice_id = isset($data['tmuser_info']['invoice_id']) ? $data['tmuser_info']['invoice_id'] : '';
@@ -437,8 +317,7 @@ function _tmapi_payment_request($data) {
   $param['command1']['invoice_id'] = $invoice_id;
   //if "default" payment plan id is selected then
   //payment plan id will not be added in the TM request
-  if(isset($data['payment_plan_id']) && $data['payment_plan_id']!='default'
-  ){
+  if (isset($data['payment_plan_id']) && $data['payment_plan_id']!='default') {
     $param['command1']['payment_plan_id'] = $data['payment_plan_id'];
   }
   $param['command1']['calling_reason'] = 'P';
@@ -448,10 +327,6 @@ function _tmapi_payment_request($data) {
   $param['command1']['mop'][0]['credit_card']['cc_num'] = $data['cc_num'];
   $param['command1']['mop'][0]['credit_card']['cin'] = $data['cin'];
   $param['command1']['mop'][0]['credit_card']['exp_date'] = $data['exp_date'];
-  /*$param['command1']['mop'][0]['credit_card']['first_name'] = 'test';//$data['first_name'];
-  $param['command1']['mop'][0]['credit_card']['last_name'] = 'test';//$data['last_name'];
-  $param['command1']['mop'][0]['credit_card']['Avs_address'] = 'test';//$data['Avs_address'];
-  $param['command1']['mop'][0]['credit_card']['Avs_postal_code'] = 'test';//$data['Avs_postal_code'];*/
   $param['command1']['cart_items']['order_line_item'] = 1;
   $json = drupal_json_encode($param);
   $response = array();
@@ -478,11 +353,78 @@ function _tmapi_get_seats_on_account($acct_id = NULL) {
   $result = 0;
   if (isset($response['response_ok']) && $response['response_ok']) {
     $data = drupal_json_decode($response['response']);
-    if (!empty($data) && count($data)) {
+    if (!empty($data) && count($data) && !$data['header']['error_detail']) {
       $result = 1;
       // we will update the account rep information of TM user
       tm_update_tmapi_seats_hold($acct_id, $data);
     }
   }
   return $result;
+}
+
+
+function tmapi_get_payment_plans() {
+  $param = tm_api_get_command_param('payment_plan_details');
+  $json = drupal_json_encode($param);
+  $response = $plan_schedules = array();
+  $response = tm_api_call($json, 'ticketing_services.aspx');
+  if(isset($response['response_ok']) && $response['response_ok']) {
+    $data = drupal_json_decode($response['response']);
+    if (isset($data['command1']['result']) && $data['command1']['result'] == 0) {
+      $plans = (isset($data['command1']['plans']) && count($data['command1']['plans'])>0) ? $data['command1']['plans'] : false;
+      $payment_plans = explode(',', variable_get('payment_plans', ''));
+      if ($plans) {
+        foreach($plans as $plan) {
+          if (in_array($plan['payment_plan_id'], $payment_plans)) {
+            $plan_schedules[$plan['payment_plan_id']] = $plan;
+            $sort_arr[$plan['payment_plan_id']] = $plan['plan_desc'];
+          }
+        }
+        //sorting plan names
+        arsort($sort_arr);
+        foreach($sort_arr as $sa_key => $sa_value){
+          $plans_sch[$sa_key] = $plan_schedules[$sa_key];
+        }
+        array_unshift($plans_sch, array(
+          'payment_plan_id' => 'default',
+          'plan_long_name' => 'Full Payment',
+          'plan_desc' => 'Full Payment',
+          'suppress_payment_plan_details' => 'N'
+        ));
+        return $plans_sch;
+      
+      }
+      return $plans;
+    }
+    else {
+      return false;
+    }
+  }
+  return 1;
+}
+
+/*
+* Function to fetch Payment Schedules
+*/
+function tmapi_get_payment_schedules($acct_id=NULL, $invoice_id=NULL, $plan_id=NULL) {
+  if(isset($plan_id) && !empty($plan_id)){ 
+    $param = tm_api_get_command_param('payment_schedule', $acct_id);
+    $param['command1']['invoice_id'] = $invoice_id;
+    $param['command1']['payment_plan_id'] = $plan_id;
+    $schedule_json = drupal_json_encode($param);
+    $response = array();
+    $response = tm_api_call($schedule_json, 'ticketing_services.aspx');
+    if(isset($response['response_ok']) && $response['response_ok']) {
+      $data_schedule = drupal_json_decode($response['response']);
+      if (isset($data_schedule['command1']['result']) && $data_schedule['command1']['result']==0) {
+        $payments = (isset($data_schedule['command1']['payments']) && count($data_schedule['command1']['payments'])>0)? $data_schedule['command1']['payments']:false;        
+        return $payments;
+      }
+      else{
+        //Error in API response
+        return 0;
+      }
+    }
+  }
+  return 0;
 }

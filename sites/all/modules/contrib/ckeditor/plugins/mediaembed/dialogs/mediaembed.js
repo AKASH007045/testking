@@ -48,6 +48,7 @@ CKEDITOR.dialog.add( 'mediaembedDialog', function( editor ) {
         }
         editor.insertElement(fakeElement);
       }
+	  alert("sa");
     }
   };
 });

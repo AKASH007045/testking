@@ -366,7 +366,7 @@ function date_combo_element_process($element, &$form_state, $form) {
   if (!empty($field['settings']['todate'])) {
     $element[$to_field] = $element[$from_field];
     $element[$from_field]['#title_display'] = 'none';
-    $element[$to_field]['#title'] = t('to:');
+    $element[$to_field]['#title'] = t('End date:');
     $element[$from_field]['#wrapper_attributes']['class'][] = 'start-date-wrapper';
     $element[$to_field]['#wrapper_attributes']['class'][] = 'end-date-wrapper';
     $element[$to_field]['#default_value'] = isset($element['#default_value'][$to_field]) ? $element['#default_value'][$to_field] : '';

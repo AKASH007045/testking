@@ -78,39 +78,15 @@
  * @see template_process()
  
  */
-
+$destination = drupal_get_destination();
 ?>
-<div class="home-page-tile bottom-promo-tile col-lg-3 col-md-3 col-sm-3 col-xs-3 <?php print $classes; ?>" <?php print $attributes; ?> id="promo-node-<?php print $node->nid;?>">
+<div class="home-page-tile bottom-promo-tile col-lg-3 col-md-3 col-sm-3 col-xs-6 <?php print $classes; ?>" <?php print $attributes; ?> id="promo-node-<?php print $node->nid;?>">
 
-    <?php if (user_access('edit any promo_tile content')) {?>   
-      <a class="promo-link-edit" href="javascript://" >edit</a>
-      <?php
-          module_load_include('inc', 'node', 'node.pages');
-          form_load_include($form_state, 'inc', 'node', 'node.pages');
-        //  $nid = arg(4);
-        //$form_state = array(
-         // $form_state['ajax'] = TRUE;
-        //  'title' => 'Promotional Tiles',
-        //);
-          $node1 = (object)node_load($node->nid);
-          $form_state['build_info']['args'] = array($node1);
-           $form_state['#']['args'] = array($node1);
-          $form_id = 'promo_tile_node_form';
-          
-        //  $form =   drupal_retrieve_form($form_id, $form_state);
-        //  drupal_prepare_form($form_id, $form, $form_state);
-        //   drupal_process_form($form_id, $form, $form_state);
-         // flog_it($form);
-         $form = drupal_build_form('promo_tile_node_form', $form_state);
-    
-         //$form['#action'] = $_GET['q'] . '?destination=' . $_GET['q'];
-       
-         //print_r($form);
-       //  exit;
-         $from = render($form);
-        ;print '<div class="tile-image-form tile-image-form-'.  $node->nid . '"><i class="edit-toolbar-pointer"></i><div class="title"><span class="titletxt">Promotional Tiles</span> <a class="popup-close" href="javascript://" >&nbsp;</a></div><div id="my-form-wrapper-' . $nid . '">'. $from . '</div></div>'; 
-      }
-      ?>
+    <?php if (user_access('edit any promo_tile content')) {?>
+    <a class="bg-page-link-edit" href="/node/<?php print $nid; ?>/edit"><i class="fa fa-edit"></i> Edit</a>
+         
+      <?php print '<div class="tile-image-form tile-image-form-'.  $node->nid . '"><div class = "tile-image-form-wrapper" id="my-form-wrapper-' . $nid . '"></div></div>'; ?>
+    <?php } ?>
 <aside class="promo-box <?php print $tile_type;?>">
   <div class="tilehead">
     <span><?php print $title;?></span>

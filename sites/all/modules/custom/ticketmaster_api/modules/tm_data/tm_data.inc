@@ -13,7 +13,7 @@ function tm_user_birthday_access($page = NULL) {
       $timestamp = strtotime($user_info->birth_date);
       $birthday_month = (isset($timestamp) && $timestamp) ? date('n', $timestamp) : 0;
     }
-    if (isset($birthday_month) && !empty($birthday_month) && $birthday_month == $current_month && !$check_birthday_access) {
+    if ($birthday_month == $current_month && !$check_birthday_access) {
       $data = array('acct_id' => $acct_id, 'year' => $current_year);
       if ($page) {
         db_insert('tbl_tm_user_birthday')->fields($data)->execute();
@@ -33,40 +33,29 @@ function tm_get_seats_on_account($acct_id) {
 }
 
 function get_acc_rep_mail($acct_id) {
-
     $object = cache_get('rep_mail-' . $acct_id, 'cache_custom');
     if (!$object) {
-        $mail = db_query('SELECT field_email_value FROM {tbl_user_acct_rep} acc_rep inner join {field_data_field_acct_rep_num} rep_num on acc_rep.acct_rep_num = rep_num.field_acct_rep_num_value inner join {field_data_field_email} dta_mail on dta_mail.entity_id = rep_num.entity_id  inner join node n on n.nid = dta_mail.entity_id WHERE acct_id = :acct_id AND n.status =  1', array(':acct_id' => $acct_id))->fetchField();
-        cache_set('rep_mail-' . $acct_id, $mail, 'cache_custom');
+      $mail = db_query('SELECT field_email_value FROM {tbl_user_acct_rep} acc_rep inner join {field_data_field_acct_rep_num} rep_num on acc_rep.acct_rep_num = rep_num.field_acct_rep_num_value inner join {field_data_field_email} dta_mail on dta_mail.entity_id = rep_num.entity_id  inner join {node} n on n.nid = dta_mail.entity_id WHERE acct_id = :acct_id AND n.status =  1', array(':acct_id' => $acct_id))->fetchField();
+      cache_set('rep_mail-' . $acct_id, $mail, 'cache_custom');
     } else {
-        $mail = $object->data;
+      $mail = $object->data;
     }
-
     return $mail;
-//     $query = db_select('field_data_field_email', 'fm');
-//            $query->fields('fm', array('field_email_value'));
-//            $query->join('field_data_field_acct_rep_num', 'rep', 'rep.entity_id = fm.entity_id');
-//            $query->join('tbl_user_acct_rep', 'usr_acc', 'usr_acc.acct_rep_num = rep.field_acct_rep_num_value');
-//            $query->condition('usr_acc.acct_id', $user_acc_id, '=')
-//            ->execute()->fetchObject();
-//            return $query->field_email_value;
 }
 
 function acc_rep_detail($acct_rep_num = NULL) {
     $object = cache_get('rep_all_detail-' . $acct_rep_num, 'cache_custom');
     if (!$object) {
-        $data = db_query("SELECT node.title AS name,field_email_value as field_email_value, field_phone_value as field_phone_value, field_acct_rep_speciality_value as field_acct_rep_speciality_value, node.nid AS nid, node.created AS node_created
-                    FROM 
-                    {node} node
-                    LEFT JOIN {field_data_field_acct_rep_num} field_data_field_acct_rep_num ON node.nid = field_data_field_acct_rep_num.entity_id AND (field_data_field_acct_rep_num.entity_type = 'node' AND field_data_field_acct_rep_num.deleted = '0')
-                    LEFT JOIN {field_data_field_phone} field_data_field_phone ON node.nid = field_data_field_phone.entity_id
-                    LEFT JOIN {field_data_field_acct_rep_speciality} field_data_field_acct_rep_speciality ON node.nid = field_data_field_acct_rep_speciality.entity_id
-                    LEFT JOIN {field_data_field_email} field_data_field_email ON node.nid = field_data_field_email.entity_id
-                    WHERE (( (field_data_field_acct_rep_num.field_acct_rep_num_value = :acct_rep_num ) )AND(( (node.status = '1') AND (node.type IN  ('acct_rep')) )))
-                    ORDER BY node_created DESC  ", array(':acct_rep_num' => $acct_rep_num))->fetchAll();
-        cache_set('rep_all_detail-' . $acct_rep_num, $data, 'cache_custom');
+        $data = db_query("SELECT node.title AS name,field_email_value as field_email_value, field_phone_value as field_phone_value, node.nid AS nid, node.created AS node_created
+      FROM  {node} node
+      LEFT JOIN {field_data_field_acct_rep_num} field_data_field_acct_rep_num ON node.nid = field_data_field_acct_rep_num.entity_id AND (field_data_field_acct_rep_num.entity_type = 'node' AND field_data_field_acct_rep_num.deleted = '0')
+      LEFT JOIN {field_data_field_phone} field_data_field_phone ON node.nid = field_data_field_phone.entity_id
+      LEFT JOIN {field_data_field_email} field_data_field_email ON node.nid = field_data_field_email.entity_id
+      WHERE (( (field_data_field_acct_rep_num.field_acct_rep_num_value = :acct_rep_num ) )AND(( (node.status = '1') AND (node.type IN  ('acct_rep')) )))
+      ORDER BY node_created DESC  ", array(':acct_rep_num' => $acct_rep_num))->fetchAll();
+      cache_set('rep_all_detail-' . $acct_rep_num, $data, 'cache_custom');
     } else {
-        $data = $object->data;
+      $data = $object->data;
     }
     return $data;
 }
@@ -177,6 +166,37 @@ function _get_seats_hold($acct_id = NULL) {
 }
 
 
+// get seats on an Account
+function get_seats_on_an_account($acct_id = NULL) {
+ if ($acct_id) {
+  static $seat_detail = NULL;
+   if (!isset($seat_detail[$acct_id])) {
+    $seat_detail[$acct_id] =  _get_seats_on_account($acct_id);
+   }
+   return isset($seat_detail[$acct_id]) ? $seat_detail[$acct_id] : array();
+ }
+ return array();
+}
+
+
+// Helper for get_seats_on_an_account
+function _get_seats_on_account($acct_id = NULL) {
+  $object = cache_get('seat_on_account-' . $acct_id, 'cache_custom');
+  if (!$object) {
+    $seat_detail =  db_select('tmapi_seats_hold', 't')
+      ->fields('t')
+      ->condition('t.acct_id', $acct_id, '=')
+      ->orderBy('section_name', 'ASC')
+      ->orderBy('row_name', 'ASC')
+      ->execute()->fetchAll();
+    cache_set('seat_on_account-' . $acct_id, $seat_detail, 'cache_custom');
+  }
+  else {
+    $seat_detail = $object->data;
+  }
+  return $seat_detail;
+}
+
 // get seats hold by a customer
 function validate_user_acct_id($acct_id = NULL, $pin = NULL) {
  return (bool) db_select('tm_user_details', 't')
@@ -252,24 +272,28 @@ function get_tm_user_amount_info($acct_id) {
   $amount_due['invoice_id'] = '';
   $amount_due['due_amt'] = 0;
   if (count($seat_holds)):
-    $total = $paid = $parking_fee = $handlind_fee = $resale_acc_credit = 0;
-    $seats_info = array(variable_get('sth_full_season', '14SEAS'), variable_get('sth_chasesuites', '14GSRO'));
-    $parking_info = array(variable_get('sth_parking_full', '14PARK'), variable_get('sth_PARKVP', '14PARKVP'), variable_get('sth_PRANG', '14PRANG'));
+    $total = $paid = $parking_fee = $handling_fee = $resale_acc_credit = 0;
     foreach ($seat_holds as $seats) {
-      if ($seats->event_name == variable_get('sth_handlingfee', '14HSTH ')) {
-        //$handlind_fee += $seats->invoiced_amount ? $seats->invoiced_amount : 5;
+      $event_name = ($seats->item_name_long && !is_null($seats->item_name_long))? $seats->item_name_long : $seats->item_name;
+      $event_name1 = strtolower($event_name);
+      $pos = strpos($event_name1, 'parking');
+      $h_fee = strpos($event_name1, 'handling');
+      $invoice_id = (isset($invoice_id) && $invoice_id) ? $invoice_id : $seats->invoice_id;
+      if ($pos!== false) {
+        $parking_fee += $seats->invoiced_amount;
       }
-      if ($seats->event_name == (in_array($seats->event_name, $parking_info))) {
-        //$parking_fee += $seats->invoiced_amount;
+      elseif($h_fee!==false) {
+        $handling_fee += $seats->invoiced_amount;
       }
-     // if (isset($seats->seat_num) && $seats->seat_num && (in_array($seats->event_name, $seats_info))) {
+      else {
         $total += $seats->invoiced_amount;
-     // }
+      }
       $paid += $seats->paid_amount;
-      $amount_due['invoice_id'] = $seats->invoice_id;
     }
-    $amount_due['due_amt'] = ($total) - $paid;
+    $amount_due['invoice_id'] = $invoice_id;
+    $amount_due['due_amt'] = ($total + $parking_fee + $handling_fee) - $paid;
   endif;
+  flog_it($amount_due);
   return $amount_due;
 }
 
@@ -325,6 +349,7 @@ function tmapi_data_tm_user_details($acct_id, $data) {
     if (isset($data['alt_id_array']) && count($data['alt_id_array'])) {
         unset($data['alt_id_array']);
     }
+    
     if (!(bool) db_select('tm_user_details', 't')->fields('t', array('acct_id'))->condition('acct_id', $acct_id, '=')->range(0, 1)->execute()->fetchField()) {
       db_insert('tm_user_details')
         ->fields($data)
@@ -396,18 +421,6 @@ function tmapi_get_rsvp_access() {
   if (isset($acct_id) && $acct_id) {
     $object = cache_get('tmapi_seat_hold-' . $acct_id, 'cache_custom');
     if (!$object) {
-        /*
-         AER
-AR
-AN
-BON
-BOR
-BLN
-BLR
-CBLR
-CBLN
-
-         */
       $price_code = array('AER', 'AR', 'AN', 'BON', 'BOR', 'BLN', 'BLR', 'CBLR', 'CBLN');
       $seat_holds = (bool) db_select('tmapi_seats_hold')
       ->fields('tmapi_seats_hold', array('price_code'))
@@ -417,7 +430,7 @@ CBLN
       ->range(0, 1)->execute()->fetchField();
       $plan_name = 0;
      // $data = _tmapi_get_sth_status_rsvp($acct_id = NULL);
-      //flog_it( $acct_id . ' - ' . $_SESSION['plan_name11']);
+      flog_it( $acct_id . ' - ' . $_SESSION['plan_name11']);
       if (isset($_SESSION['plan_name11'])) {
         $array = array('14SEAS','14SEAS1','14SEAS2','14SEAS3','14SEAS4','14SEAS5','14SEAS6','14SEAS7','14SEAS8','14SEAS9');
         if (in_array($_SESSION['plan_name11'], $array)) {
@@ -444,3 +457,4 @@ function tmapi_get_rsvp_submission_result() {
   }
   return 0;
 }
+

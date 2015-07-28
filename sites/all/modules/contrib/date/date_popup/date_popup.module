@@ -366,7 +366,7 @@ function date_popup_process_date_part(&$element) {
   );
   $sub_element['#value'] = $sub_element['#default_value'];
   // TODO, figure out exactly when we want this description. In many places it is not desired.
-  $sub_element['#description'] = ' '. t('E.g., @date', array('@date' => date_format_date(date_example_date(), 'custom', date_popup_date_format($element))));
+  $sub_element['#description'] = ' '. t('Format: @date', array('@date' => custom_date_formats(date_popup_date_format($element), 'date')));
 
   return $sub_element;
 }
@@ -445,7 +445,7 @@ function date_popup_process_time_part(&$element) {
   // TODO, figure out exactly when we want this description. In many places it is not desired.
   $example_date = date_now();
   date_increment_round($example_date, $element['#date_increment']);
-  $sub_element['#description'] = t('E.g., @date', array('@date' => date_format_date($example_date, 'custom', date_popup_time_format($element))));
+  $sub_element['#description'] = t('Format: @date', array('@date' => custom_date_formats(date_popup_time_format($element), 'time')));
 
   return ($sub_element);
 }

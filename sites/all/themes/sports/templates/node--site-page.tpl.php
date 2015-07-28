@@ -86,7 +86,7 @@
  <?php if (user_access('Editor')) {?>
 <div class="stp-editor-links highlighted">
   <div class="tabs-wrap-primary-user"><div class="tabsoption-primary-user">
-    <div class="home-tgl"><i class="fa fa-angle-right"></i></div>
+    <div class="home-tgl"><div class="wrapper-icon-sidekick"><i class="fa fa-angle-right"></i><span class="sidekick-label"></span></div></div>
       <ul class="page-name"><li>Page:</li> <li><?php print $node->title;?></li></ul>
     </div>
     <ul class="tabs-primary-live nav"><li class="node-view"><?php print l('<i class="fa fa-eye"></i> View', 'node/' . $node->nid, array('attributes' => array('class' => array('active')), 'html' => TRUE));?></li>

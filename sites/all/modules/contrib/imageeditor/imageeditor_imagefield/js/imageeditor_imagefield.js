@@ -1,6 +1,8 @@
 /*global Drupal: false, jQuery: false */
 /*jslint devel: true, browser: true, maxerr: 50, indent: 2 */
 var selectopen =0;
+var selectopen1 =0;
+var selectopen_crop =0;
 (function ($) {
   "use strict";
 
@@ -38,17 +40,16 @@ var selectopen =0;
            var $imageeditor_source = $removebutton.parents('div.image-widget-data');
          //add open aviary editor on upload file.
           var $editors = $imageeditor_source.find('div.editors').find('div');
-          //console.log(options);
-        //  console.log($imagewidget);
-        //  console.log($createimage);
-       
-          if ($editors.length === 1 &&  selectopen ==0) {
-            
+          if ($editors.length === 1 &&  selectopen1 ==0) {
+            selectopen_crop = 1;
             $editors.click();
+            selectopen1 ==0;
           }
           else {
-            selectopen =0;
+            selectopen_crop = 0;
+            selectopen1 =0;
           }
+          
         }
         else if ($createimage.length && !$createimage.hasClass('imageeditor-imagefield-processed')) {
           $createimage.addClass('imageeditor-imagefield-processed');
@@ -73,6 +74,7 @@ var selectopen =0;
             });
           }
         }
+        
       });
       //TODO: remove the processed values from Drupal.settings - as the AJAX callback returns all the field values
       //Drupal.settings.imageeditor_imagefield[field_name].items = [];
@@ -108,14 +110,22 @@ var selectopen =0;
         else {
           // There is no new image upload - so we remove the old one first.
           $('[id^="' + Drupal.settings.imageeditor.save.element_id + '-remove-button"]').mousedown();
+          var $p = $('[id^="' + Drupal.settings.imageeditor.save.element_id + '-remove-button"]').parents('.image-widget');
+          if ($p) {
+            $p.append('<div class="ajax-progress ajax-progress-throbber"><div class="throbber">&nbsp;</div></div>');
+          //  $p.parents('form').addClass('imageeditor-upload-progess');
+            $p.find('.image-preview').hide();
+            $p.find('.image-widget-data').hide();
+          }
           // Upload new image in 0.5 seconds.
-          setTimeout(function() {Drupal.imageeditor_imagefield.saveloop(edit_id);}, 500);
+          setTimeout(function() {Drupal.imageeditor_imagefield.saveloop(edit_id);}, 25);
         }
       }
     },
     saveloop: function(edit_id) {
       // Check for the Remote URL source presence on the page.
       if (Drupal.imageeditor_imagefield.action(edit_id, 'check_remote_url')) {
+        selectopen1 =1;
         // Activate the Remote URL tab.
         Drupal.imageeditor_imagefield.action(edit_id, 'activate_remote_url');
         // Fill in the Remote URL textfield.
@@ -124,7 +134,7 @@ var selectopen =0;
         Drupal.imageeditor_imagefield.action(edit_id, 'submit_transfer');
       }
       else {
-        setTimeout(function() {Drupal.imageeditor_imagefield.saveloop(edit_id);}, 500);
+        setTimeout(function() {Drupal.imageeditor_imagefield.saveloop(edit_id);}, 25);
       }
     },
     action: function(edit_id, action) {
@@ -137,17 +147,32 @@ var selectopen =0;
           }).length;
         case 'activate_remote_url':
           // Activate the Remote URL tab.
-          $('a[id^="' + edit_id + '"][id$="-remote-source"]').filter(function() {
+         var $ddd =  $('a[id^="' + edit_id + '"][id$="-remote-source"]').filter(function() {
             var regexp = new RegExp('^' + edit_id + '[0-9]+-remote-source$');
             return regexp.test(this.id);
-          }).click();
+          });
+         var $p = $ddd.parents('.image-widget');
+         if ($p) {
+          $p.append('<div class="ajax-progress ajax-progress-throbber"><div class="throbber">&nbsp;</div></div>');
+           $p.next('.help-block').hide();
+           $p.find('.image-widget-data').hide();
+         }
+         //fix firefox issue : Syntax error, unrecognized expression
+          try {
+              $ddd.trigger('click');
+          }
+          catch(err) {
+            console.log('warning: click event is not working');
+          } 
           break;
         case 'fill_remote_url':
+           selectopen1 =1;
           // Fill in the Remote URL textfield.
           $('[id^="' + edit_id + '"][id*="-filefield-remote-url"]').filter(function() {
             var regexp = new RegExp('^' + edit_id + '[0-9]+-filefield-remote-url(--[0-9]+)?$');
             return regexp.test(this.id);
           }).val(Drupal.settings.imageeditor.save.image);
+          
           break;
         case 'submit_transfer':
           // Submit through the Transfer button.
@@ -155,7 +180,6 @@ var selectopen =0;
             var regexp = new RegExp('^' + edit_id + '[0-9]+-filefield-remote-transfer(--[0-9]+)?$');
             return regexp.test(this.id);
           }).mousedown();
-           selectopen =0;
           break;
       }
       return true;

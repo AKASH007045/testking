@@ -89,21 +89,20 @@ $nid = (isset($tab_page) && $tab_page) ? $tab_page : $node->nid;
  <?php if (user_access('Editor') && in_array($node->type, $pages)) {?>
 <div class="stp-editor-links highlighted">
   <div class="tabs-wrap-primary-user"><div class="tabsoption-primary-user">
-    <div class="home-tgl"><i class="fa fa-angle-right"></i></div>
+    <div class="home-tgl"><div class="wrapper-icon-sidekick"><i class="fa fa-angle-right"></i><span class="sidekick-label"></span></div></div>
       <ul class="page-name"><li>Page:</li> <li><?php print $node->title;?></li></ul>
     </div>
-    <ul class="tabs-primary-live nav"><li class="node-view"><?php print l('<i class="fa fa-eye"></i> View', 'node/' . $node->nid, array('attributes' => array('class' => array('active')), 'html' => TRUE));?></li>
+    <ul class="tabs-primary-live nav"><li class="node-view"><?php print l('<i class="fa fa-eye"></i> View', 'node/' . $nid, array('attributes' => array('class' => array('active')), 'html' => TRUE));?></li>
       <li data-id="node-<?php print $node->nid; ?>" data-type="<?php print $node->type;?>" class="edit-link"><a href="#"><i class="fa fa-edit"></i> Edit</a></li>
-      <?php if (in_array($node->type, array('stp_page', 'pdf', 'tab_page')))  { ?>
+      <?php if (in_array($node->type, array('stp_page', 'pdf', 'tab_page', 'video')))  { ?>
       <a href="/admin/manage/pages/add/pdf/<?php print $nid;?>"><button class="view-versions-btn"><i class="fa fa-icon-pdf"></i> Add PDF Tab</button></a>
+       <a href="/admin/manage/pages/add/video/<?php print $nid;?>"><button class="view-versions-btn">Add Video Tab</button></a>
        <a href="/admin/manage/pages/add/stp_page/<?php print $nid;?>"><button class="view-versions-btn">Add Content Tab</button></a>
-       <?php if (isset($tab_page) && $tab_page): ?>
-          <a href="/admin/manage/tab-pages/<?php print $nid;?>?destination=node/<?php print $tab_page;?>""><button class="view-versions-btn">Manage Tabs</button></a>
+       <?php if ((isset($tab_page) && $tab_page) && (isset($tab_page_count) && $tab_page_count > 1)): ?>
+          <a href="/admin/manage/tab-pages/<?php print $nid;?>"><button class="view-versions-btn">Manage Tabs</button></a>
        <a href="/node/<?php print $node->nid;?>/delete?destination=node/<?php print $tab_page;?>"><button class="view-versions-btn"><i class="fa fa-trash-o"></i>  Delete Tab</button></a>
        <?php endif;?>
-      <?php } if (isset($tab_page) && $tab_page): ?>
-        
-      <?php endif;?>
+      <?php } ?>
     </ul>
     <!--<a href="/node/<?php print $node->nid?>/revisions"><button class="view-versions-btn">View Versions</button></a>-->
    <!-- <button class="publish-btn">Publish</button>-->
@@ -115,7 +114,7 @@ $nid = (isset($tab_page) && $tab_page) ? $tab_page : $node->nid;
   <header>
     <?php print render($title_prefix); ?>
     <?php if (!$page && !empty($title)): ?>
-    <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
+    <h2<?php print $title_attributes; ?>><?php print $title; ?></h2>
     <?php endif; ?>
     <?php print render($title_suffix); ?>
     <?php if ($display_submitted): ?>
@@ -133,6 +132,7 @@ $nid = (isset($tab_page) && $tab_page) ? $tab_page : $node->nid;
     hide($content['field_tags']);
     print render($content);
   ?>
+      
   <?php if (!empty($content['field_tags']) || !empty($content['links'])): ?>
   <footer>
     <?php print render($content['field_tags']); ?>

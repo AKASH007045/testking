@@ -1,0 +1,166 @@
+<?php
+// @file
+
+/**
+ * Implements hook_menu()..
+ */
+function custom_mlb_import_menu() {
+  $items = array();  
+  $items['admin/ticketmaster/mlb_feed_import'] = array(
+    'title' => 'MLB Feed Import',
+    'description' => 'MLB XML Feed Import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_mlb_import_events_import'),
+    'access arguments' => array('administer game feed import'),
+    'file' => 'custom_mlb_import.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/manage/settings/mlb'] = array(
+    'title' => 'MLB Feed Import Settings',
+    'description' => 'MLB XML Feed Import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_mlb_import_settings'),
+    'access arguments' => array('administer game feed import'),
+    'file' => 'custom_mlb_import.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 19
+  );  
+  return $items;
+}
+
+/**
+ * Implements hook_cron().
+ *
+ * hook_cron() is the traditional (pre-Drupal 7) hook for doing "background"
+ * processing. It gets called every time the Drupal cron runs and must decide
+ */
+function custom_mlb_import_cron() {
+  // Default to an daily interval. Of course, cron has to be running at least
+  // daily for this to work.
+  $interval = variable_get('custom_mlb_ticketmaster_cron_interval', 24*60*60);
+  // We usually don't want to act every time cron runs (which could be every
+  // minute) so keep a time for the next run in a variable.
+  if (variable_get('ticketmaster_run_cron', 0) == 1) {
+    if (time() >= variable_get('custom_mlb_ticketmaster_cron_next_execution', 0)) {
+      // This is a silly example of a cron job.
+      // It just makes it obvious that the job has run without
+      // making any changes to your database.
+      module_load_include('inc', 'custom_mlb_import', 'custom_mlb_import');
+      custom_mlb_import_events_cron_import();
+      variable_set('custom_mlb_ticketmaster_cron_next_execution', time() + $interval);
+      watchdog('custom_mlb_import', 'MLB game feed import cron run');
+    }
+  }
+}
+
+/**
+ * function for XML Parsing
+ */
+function custom_mlb_import_xml2assoc($xml) {
+  $tree = null;
+  while($xml->read())
+    switch ($xml->nodeType) {
+      case XMLReader::END_ELEMENT: return $tree;
+      case XMLReader::ELEMENT:
+          $node = array('tag' => $xml->name, 'value' => $xml->isEmptyElement ? '' : custom_mlb_import_xml2assoc($xml));
+          if($xml->hasAttributes)
+              while($xml->moveToNextAttribute())
+                $node['attributes'][$xml->name] = $xml->value;
+          $tree[] = $node;
+      break;
+      case XMLReader::TEXT:
+      case XMLReader::CDATA:
+      $tree .= $xml->value;
+    }
+    return $tree;
+}
+
+/**
+ * custom function to parse nba feeds as array
+ * @params, $feed_url is the url of nba
+   //may be preseason or post season
+ */
+function custom_mlb_import_parseFeedXml(){
+  $xml = new XMLReader();
+  $url = 'http://www.milb.com/gen/stats/xml/clubs/147/schedule.xml';
+  $feed_url = variable_get('game_feed_url', $url);
+  if (fopen($feed_url, 'r')) {
+    $feed = file_get_contents($feed_url);
+  }
+  $xml->XML($feed);
+  $assoc = custom_mlb_import_xml2assoc($xml);	
+  $xml->close();	
+  $node_arr = array();
+  $c = 0;
+  $g = 0;
+  foreach($assoc[0]['value'] as $teams) {
+    $c = 0;
+     foreach ($teams['value']['0']['value'] as $key => $team) {
+      if ($team['tag'] == 'display-code') {
+        $data[$g]['t1_code'] = $team['value'];
+      }
+      if ($team['tag'] == 'runs') {
+        $data[$g]['t1_runs'] = $team['value'];
+      }
+     
+    }
+    //game time
+   
+    $data[$g]['t1_home_team'] = $teams['value']['0']['attributes']['home-team'];
+    foreach ($teams['value']['1']['value'] as $key => $team) {
+      if ($team['tag'] == 'display-code') {
+        $data[$g]['t2_code'] = $team['value'];
+      }
+      if ($team['tag'] == 'runs') {
+        $data[$g]['t2_runs'] = $team['value'];
+      }
+    }
+    $data[$g]['t2_home_team'] = $teams['value']['1']['attributes']['home-team'];
+    
+    $data[$g]['gamepk'] = $teams['attributes']['pk'];
+    $data[$g]['gamecode'] = $teams['attributes']['id'];
+    //
+    foreach ($teams['value'] as $k => $team_arr) {
+      if ($team_arr['tag'] == 'venue') {
+        $data[$g]['stadium'] = $team_arr['value'];
+      }
+      if ($team_arr['tag'] == 'game-time') {
+        $data[$g]['time'] = $team_arr['value'];
+      }
+      if ($team_arr['tag'] == 'status-code') {
+        $data[$g]['status_code'] = $team_arr['value'];
+      }
+    }
+    // Defining the home and away team
+    $home_team = 't1';
+    $other_team = 't2';
+    if ($data[$g]['t2_code'] == variable_get('home_team', t('NYY'))) {
+      $home_team = 't2';
+      $other_team = 't1';
+    }
+    $home_game = $data[$g][$home_team . '_home_team'];
+    $data[$g]['game_type'] = $home_game;
+    $data[$g]['home_game_event'] = $home_game;
+    $data[$g]['home-team'] = strtoupper($data[$g][$home_team . '_code']);
+    $data[$g]['team_score'] = $data[$g][$home_team . '_runs'];
+    $data[$g]['visiting-team'] = strtoupper($data[$g][$other_team . '_code']);
+    $data[$g]['other_team_score'] = $data[$g][$other_team . '_runs'];
+    $data[$g]['title'] = strip_tags(strtoupper($data[$g]['home-team']) . ' <span>@</span> ' . strtoupper($data[$g]['visiting-team']));
+    if ($home_game) {
+      $data[$g]['title'] = strip_tags(strtoupper($data[$g]['home-team']) . ' <span>VS</span> ' . strtoupper($data[$g]['visiting-team']));
+    }
+    $g++;
+  }
+  flog_it($data);
+  return $data;
+}
+
+/**
+ * Purpose: get home team nid
+ * This is very important to get home team of a site.
+ * Home team can be choose from "admin/manage/teams"
+ */
+function custom_mlb_get_hometeam_nid(){
+ $home_team_nid = db_query("SELECT n.entity_id FROM {field_data_field_home_team} n WHERE field_home_team_value = 1")->fetchField();
+ return $home_team_nid;
+}

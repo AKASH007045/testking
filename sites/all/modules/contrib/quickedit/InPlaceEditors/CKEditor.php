@@ -30,6 +30,8 @@ class CKEditor implements QuickEditInPlaceEditorInterface{
     // if there is a currently active text format, and that text format has an
     // associated CKEditor profile.
     elseif (!empty($instance['settings']['text_processing'])) {
+     
+      
       $format_id = $items[0]['format'];
       module_load_include('inc', 'ckeditor', 'includes/ckeditor.lib');
       if ($ckeditor_profile = ckeditor_get_profile($format_id)) {

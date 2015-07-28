@@ -64,6 +64,7 @@ else {
 }
 
 if (!empty($items)): ?>
+<div class="bg-page-link-edit stp-update-video"><i class="fa fa-edit"></i> Edit</div>
 <video id="<?php print $player_id; ?>-video" data-setup="{}" class="<?php print htmlspecialchars($class); ?>" width="<?php print $width; ?>" height="<?php print $height; ?>"<?php echo $attrs; ?>>
 <?php foreach ($items as $item): ?>
   <source src="<?php print $item['src']['safe']; ?>" type="<?php print $item['videotype']['safe'] ?>" />

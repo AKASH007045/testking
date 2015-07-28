@@ -24,8 +24,8 @@ function custom_tm_rest_call($data) {
           "command1" => array(
             "cmd" =>  "payment_request",
             "uid" => variable_get('tm_uid' . $api_sufix, 'iomed05'),
-            "dsn" => variable_get('tm_dsn' . $api_sufix, 'sackings'),
-            "site_name" => variable_get('tm_site_name' . $api_sufix, 'sackings'),
+            "dsn" => variable_get('tm_dsn' . $api_sufix, 'cowboys'),
+            "site_name" => variable_get('tm_site_name' . $api_sufix, 'cowboys'),
             //"order_num" => isset($data['tmuser_info']['order_num']) ? $data['tmuser_info']['order_num'] : '21788',
             "invoice_id" => $data['tmuser_info']['invoice_id'],
             "calling_reason" => "P",

@@ -34,21 +34,12 @@ function custom_block_social_feed() {
           if ($i >= 5) {
             break;
           }
-          /*$f_data[$i]->text = isset($val->message) ? $val->message : '';
+          $f_data[$i]->text = isset($val->message) ? $val->message : '';
           $f_data[$i]->timestamp = isset($val->created_time) ? strtotime($val->created_time) : '';
           $f_data[$i]->userphoto = isset($val->picture) ? $val->picture : $base_url . '/' . path_to_theme() . '/images/update_normal.jpg';
           $f_data[$i]->username = isset($val->from->name) ? $val->from->name : '';
           $f_data[$i]->media = 'fb';
-          $i++;*/
-          //Updated by dnaik, we need to display only text message
-          if(isset($val->message)){
-            $f_data[$i]->text = isset($val->message) ? $val->message : '';
-            $f_data[$i]->timestamp = isset($val->created_time) ? strtotime($val->created_time) : '';
-            $f_data[$i]->userphoto = isset($val->picture) ? $val->picture : $base_url . '/' . path_to_theme() . '/images/update_normal.jpg';
-            $f_data[$i]->username = isset($val->from->name) ? $val->from->name : '';
-            $f_data[$i]->media = 'fb';
-            $i++;
-          }
+          $i++;
         }
       }
     }

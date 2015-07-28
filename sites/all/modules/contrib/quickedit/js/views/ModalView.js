@@ -70,6 +70,7 @@
         .addClass('quickedit-animate-invisible')
         .on(Drupal.quickedit.util.constants.transitionEnd, function (e) {
           that.remove();
+          that.prev('.alertify-cover').remove();
         });
 
       var action = $(event.target).attr('data-quickedit-modal-action');

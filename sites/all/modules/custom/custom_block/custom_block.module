@@ -31,8 +31,8 @@ function custom_block_block_info() {
     'info' => t('Promo Tile'),
     'cache' => DRUPAL_NO_CACHE,
   );
-  $blocks['video_block'] = array(
-    'info' => t('Video Block'),
+  $blocks['main_navigation'] = array(
+    'info' => t('Main Navigation'),
     'cache' => DRUPAL_NO_CACHE,
   );
   return $blocks;
@@ -72,9 +72,9 @@ function custom_block_block_view($delta) {
        $block['subject'] = '';
        $block['content'] = custom_block_promo_tiles();
      return $block;
-    case 'video_block':
+    case 'main_navigation':
        $block['subject'] = '';
-       $block['content'] = custom_block_video_block();
+       $block['content'] = custom_block_main_navigation();
      return $block;
   }
 }

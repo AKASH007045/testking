@@ -1,18 +1,5 @@
 <?php
-  
- function custom_event_mgmt_theme($existing, $type, $theme, $path) {
-  return array(
-    'event_node_form' => array(
-      'render element' => 'form',
-      'template' => 'event-node-form',
-      // this will set to module/theme path by default:
-      'path' => drupal_get_path('module', 'custom_event_mgmt'),
-    ),
-  );
-}
-
-
-/**
+ /**
  * Preprocessor for theme('event_node_form').
  */
 function template_preprocess_event_node_form(&$variables) {    
@@ -70,22 +57,69 @@ function custom_event_mgmt_draggableviews_handler_native_arguments_alter(&$argum
  *  need to add back button so, that user can navigation between listing and add or edit node
  **/
 function custom_event_mgmt_form_alter(&$form, &$form_state, $form_id){
- //print_r($form);
+  /*******************  For ticket STPDEV-309      ****************************/
+    $form_type = arg(2);
+    $actionString = '';
+    $itemType = 'ahref';
+    if($form_type == 'edit')
+    {
+       if (arg(0) == 'node' && is_numeric(arg(1))) 
+       {
+            $nid = arg(1);
+            $node = node_load(array('nid' => $nid));
+            $form_type = $node->type;      
+        }
+    }    
+    if($form_type == 'other-event' || $form_type == 'other_event')
+    {
+        $backtitle = 'Back to 3rd Party Event listing';
+        $actionString = 'admin/manage/events/3rd-party-event';
+    }else if($form_type == 'games')
+    {
+        $backtitle = 'Back to Game listing';
+        $actionString = 'admin/manage/events';
+    }else if($form_type == 'event')
+    {
+        $backtitle = 'Back to STP Member Event listing';
+        $actionString = 'admin/manage/events/sth-event';
+    }
+    else if($form_type == 'take-over-pages')
+    {
+        $backtitle = 'Back to Takeover Page listing';
+        $actionString = 'admin/manage/take-over-pages';
+    }else 
+    {
+       $backtitle = 'Back';
+       $actionString = 'history.go(-1);';
+       $itemType = 'button';
+    }
+    /*******************  End For ticket STPDEV-309      **********************/
   if ($form_id == 'node_delete_confirm'){
-	  if(isset($form['#node']->title) && $form['#node']->title){
-		$form['description']['#markup'] = 'Are you sure you want to delete "'.$form['#node']->title.'"?';
-	  }  
+    if(isset($form['#node']->title) && $form['#node']->title){
+      $form['description']['#markup'] = 'Are you sure you want to delete "' . $form['#node']->title . '"?';
+    }  
  }
  
-  if(arg(0) == 'node' && (arg(1) == 'add' || arg(2) == 'edit')){
-  $weight = 50;  
-  $form['actions']['backtopage'] = array(
-      '#type' => 'button',
-      '#value'=>'Back',
-      '#weight' => $weight,
-      '#attributes' => array('onclick' => array('history.go(-1); return false;')),
-    );
+ /*******************  For ticket STPDEV-309      *****************************/
+ if(arg(0) == 'node' && (arg(1) == 'add' || arg(2) == 'edit'))
+ { 
+    $weight = 50; 
+    if($itemType == 'ahref')
+    { 
+      $form['actions']['backtopage'] = array('#type' => 'link',
+                                            '#title' => $backtitle,
+                                            '#href' => $actionString,
+                                            '#options' => array('html' => true,'style'=>'padding-top:5px;padding-bottom:5px'),
+                                            '#attributes' => array('class' => array('backtopage'))
+                                          );
+    }else if($itemType == 'button')
+    {
+      $form['actions']['backtopage'] = array('#type' => 'button',
+                                             '#value' => $backtitle,
+                                             '#attributes' => array('class' => array('backtopage'),'onclick'=>$actionString));     
+    }
   }
+/*******************  End For ticket STPDEV-309      ***************************/
   //remove weight from PDF form  
   if ($form_id == 'quickedit_field_form'){
     unset($form['weight']);  

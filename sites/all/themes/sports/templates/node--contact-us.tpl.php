@@ -83,7 +83,7 @@
 <?php if (user_access('Editor')) {?>
 <div class="stp-editor-links highlighted">
   <div class="tabs-wrap-primary-user"><div class="tabsoption-primary-user">
-    <div class="home-tgl"><i class="fa fa-angle-right"></i></div>
+    <div class="home-tgl"><div class="wrapper-icon-sidekick"><i class="fa fa-angle-right"></i><span class="sidekick-label"></span></div></div>
       <ul class="page-name"><li>Page:</li> <li><?php print $node->title;?></li></ul>
       <!--<div class="view-option-user"><label>View:</label> <select name="homeselect" id="homeselect" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
       <option <?php print (isset($arg) && $arg == 1112) ? 'selected="selected"' : '';?> value="/contact">Anonymous</a></option>
@@ -124,6 +124,14 @@
     print render($content['body']);
     print render($content);
   ?>
+  <?php
+  /*$field_id = '';
+  if(function_exists('custom_background_field_check')){
+    $field_id = custom_background_field_check($node->type);
+  }
+  if (user_access('administer site content')) {?>    
+    <a class="bg-page-link-edit" href="/update-custom-background/<?php print $nid; ?>"> <i class="fa fa-edit"></i>Edit</a> 
+    <?php } */?>
   <?php if (!empty($content['field_tags']) || !empty($content['links'])): ?>
   <footer>
     <?php print render($content['field_tags']); ?>

@@ -4,212 +4,113 @@
 
 
 /**
- * Implements hook_menu().
- */
-function custom_take_over_pages_menu() {
-  $items = array();
-  $items['admin/manage/add/takeover-page'] = array( // Menu for add take Over Page (Admin panel)
-    'title' => 'Add Takeover Pages',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('custom_add_take_over'),
-    'file' => 'custom_take_over_pages.pages.inc',
-    'access arguments' => array('STH User'),
-    'type' => MENU_CALLBACK
-  );
-  
-  $items['admin/post/take-over/ajax'] = array( // menu to save Nodes with Ajax, from Take over-view page (manage Take over Page)
-    'title' => 'Takeover Page Ajax Post',
-    'page callback' => 'test_test_ajax_post',
-    'access arguments' => array('STH User'),
-    'type' => MENU_CALLBACK
-  );
-  
-  $items['admin/config/take-over-page'] = array( // Menu for go-take over page, after login (Admin panel)
-    'title' => 'Takeover Pages Config',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('take_over_page_config'),      
-    'file' => 'custom_take_over_pages.pages.inc',
-    'type' => MENU_CALLBACK,
-    'access callback' => TRUE,  
-  );  
-  return $items;
-}
-
-
-
-/*
- * Function to Update Node URL, Form Called dynamically from View-take over page
- */
-function custom_take_over_pages_form($nid) {
-    $args = func_get_args();
-    
-    $form['url_alias'] = array(
-        '#type' => 'textfield',
-        '#title' => t('URL Alias'),
-        '#required' => true,
-        '#default_value' => drupal_strtolower(drupal_get_path_alias('node/'.$args[2])),
-    );
-    
-    $form['nid'] = array(
-        '#type' => 'textfield',
-        '#title' => t(' '),
-        '#default_value' => $args[2],
-        '#attributes' => array('class' => array('custom-to-page-nid')),        
-       );
-         
-    $form['submit'] = array(
-        '#type' => 'submit',
-        '#value' => t('Save'),
-        '#attributes' => array('class' => array('custom-to-page-form')),
-    );
-    return $form;    
-    
-}
-
-function custom_take_over_pages_form_submit($form, $form_state){
-  global $user;
-  $val = $form_state['values'];
-  
-  
-   $url_alias = db_select('url_alias', 'n')
-    ->fields('n',array('pid'))
-    ->condition('source', 'node/'.$val['nid'],'=')
-    ->orderBy('pid', 'DESC')//ORDER BY created  
-    ->range(0,1)           
-    ->execute()
-    ->fetchAssoc();
-  
-  $path = array(
-    'pid' => $url_alias['pid'],
-    'source' => 'node/'.$val['nid'],
-    'alias' => drupal_strtolower(str_replace(" ","-",$val['url_alias'])),
-  );
-  
-  path_save($path);    
-}
-
-
-
-/**
- * Implements hook_block_info().
- */
-function custom_take_over_pages_block_info() {
-  $blocks = array();
-  $blocks['take_over_pages_view'] = array( // Block for Calling All Url alias form on view-take over page
-    'info' => t('take over Pages'),
-    'cache' => DRUPAL_NO_CACHE,
-  );
-  return $blocks;
-}
-
-/**
- * Implements hook_block_view()..
- */
-function custom_take_over_pages_block_view($delta) {
-  $block = array();
-  global $user;
-  module_load_include('inc', 'custom_take_over_pages', 'custom_take_over_pages.pages');
-  switch ($delta) {
-    case 'take_over_pages_view':
-        $block['subject'] = t(' ');
-        $block['content'] = take_over_pages_view();
-      return $block;
+* Implements hook_user_login().
+*/
+function custom_take_over_pages_user_login(&$edit, $account) {
+ // module_load_include('inc', 'custom_take_over_pages', 'custom_take_over_pages.pages');
+ global $user;
+  if (!user_access('Editor') && !user_access('Site Admin')){
+     $destination = custom_take_over_page_check_page();
+    $invoice_amt = $_SESSION['invoice_detail'];
+ //print '<pre>';
+ //print_r($invoice_amt);exit;
+ //print $destination; exit;
+ $totalamt = (isset($invoice_amt['invoice_amounts']) && $invoice_amt['invoice_amounts'])  ? $invoice_amt['invoice_amounts'] : 0;
+ $paidamt = (isset($invoice_amt['paid_amounts']) && $invoice_amt['paid_amounts'])  ? $invoice_amt['paid_amounts'] : 0;
+ $amt = ($totalamt) - $paidamt;
+ $vid = 'node/1631';
+ if($amt > 0 && $destination == $vid){
+ $_GET['destination'] = $destination;
+ }else if($destination != $vid) {
+      $_GET['destination'] = $destination;
+    }
+    else{
+      $_GET['destination'] = '';
+    }
   }
 }
 
 
-
-
-function test_test_ajax_post(){
-    $data = $_POST['name'];
-    $type = "take_over_pages";
-    $nodes = node_load_multiple(array(), array('type' => $type)); 
-    foreach($nodes as $products){
-        if (in_array($products->nid, $data)) {
-            $products->status = 0;
-        }
-        else{
-            $products->status = 1;
-        }
-        node_save($products);
+function custom_take_over_page_check_page() {
+  global $user;
+  $takeovers = db_query("SELECT d.entity_id, o.field_occurence_value, UNIX_TIMESTAMP(d.field_run_from_value2) as timestamp FROM {field_data_field_run_from} d
+  INNER JOIN {field_data_field_occurence} o ON d.entity_id = o.entity_id
+  INNER JOIN {node} n on n.nid = d.entity_id WHERE d.bundle = 'take_over_pages' AND UNIX_TIMESTAMP(d.field_run_from_value2) > :time  and n.status = 1 ORDER BY d.field_run_from_value, d.field_run_from_value2", array(':time' => time()))->fetchAll();
+  foreach ($takeovers as $key => $takeover) {
+    if ($takeover->field_occurence_value == 1) {
+      $appearance = db_query("SELECT id FROM {tm_take_over} WHERE  acct_id = :uid AND nid = :nid", array(':uid' => $user->uid, ':nid'=> $takeover->entity_id))->fetchField();
+      if (!$appearance) {
+        custom_take_over_insert_data($takeover->entity_id, $user->uid);
+        return 'node/' .$takeover->entity_id;
+      }
     }
-    
+    else {
+      return 'node/' . $takeover->entity_id;
+    }
+  }
 }
-
-
-function take_over_page(){
-   global $user;
-    $query = db_select('weight_weights', 'w');
-    $query->join('node', 'n', 'w.entity_id = n.nid');
-    //$query->join('field_data_field_take_over_date', 'd', 'd.entity_id = n.nid');
-    $query->fields('n', array('nid'));
-    $query->condition('n.type', 'take_over_pages', '=');
-    //$query->where('d.field_take_over_date_value2 > now()');
-    //$query->where('d.field_take_over_date_value < now()');
-    $query->condition('n.status', '1', '=');
-    $query->orderBy('w.weight', 'DESC'); //ORDER BY created    
-    $result = $query->execute();
-    while ($record = $result->fetchAssoc()) {
-        $node = node_load($record['nid']);
-        
-        $occurence =  $node->field_occurence['und'][0]['value']; 
-        
-        $sql = "SELECT id FROM {tm_take_over} WHERE  acct_id = :uid AND nid = :nid";
-        $args = array(':uid' => $user->uid, ':nid' => $node->nid);
-        $view_count = db_query($sql, $args)->fetchField();
-    
-    
-        if(variable_get('birth_nid',0) != $node->nid && variable_get('pawp_nid',0) != $node->nid){ // if node is neither B'day and not PAWP
-            if((strtotime($node->field_take_over_date['und'][0]['value']) < time()) && (strtotime($node->field_take_over_date['und'][0]['value2']) > time())){
-                if($occurence == 1){
-                    if(!$view_count){
-                        take_over_insert_data($node->nid, $user->uid); // write date in takeover table
-                        $output = chk_take_over_conditions($node->nid); // chk conditions
-                    }
-                }
-                else{ // if take over have Multiple occurence, then we directly chlk the conditions
-                    $output = chk_take_over_conditions($node->nid);
-                }
+function custom_take_over_pages_form_alter(&$form, &$form_state, $form_id) {
+    global $base_path;
+    $path = drupal_get_path('theme','sports');    
+    if ($form_id == 'take_over_pages_node_form') {
+      $form['#validate'][] = 'custom_add_take_over_validate';
+      drupal_add_js('jQuery(document).ready(function () {
+        if (jQuery("#edit-field-select-layout-und-1").is(":checked")){
+          jQuery(".to-img1").addClass("active");
+        }
+        if (jQuery("#edit-field-select-layout-und-2").is(":checked")){
+            jQuery(".to-img2").addClass("active");
+        }
+        if (jQuery("#edit-field-select-layout-und-3").is(":checked")){
+            jQuery(".to-img3").addClass("active");
+        }
+        jQuery("#edit-field-select-layout .form-radio").change(function() {
+            if (jQuery("#edit-field-select-layout-und-1").is(":checked")) {
+                jQuery(".to-img1").addClass("active");
+                jQuery(".to-img2").removeClass("active");
+                jQuery(".to-img3").removeClass("active");
             }
-        }
-        else{ // if Node is ither B'day OR PAWP
-                $output = chk_take_over_conditions($node->nid);
-        }
+            if (jQuery("#edit-field-select-layout-und-2").is(":checked")) {
+                jQuery(".to-img2").addClass("active");
+                jQuery(".to-img1").removeClass("active");
+                jQuery(".to-img3").removeClass("active");
+            }
+            if (jQuery("#edit-field-select-layout-und-3").is(":checked")) {
+                jQuery(".to-img3").addClass("active");
+                jQuery(".to-img1").removeClass("active");
+                jQuery(".to-img2").removeClass("active");
+            }
+        });             
+        });',
+        array('type' => 'inline', 'scope' => 'footer', 'weight' => 5)
+      );
+      $form['field_run_from']['und'][0]['#title'] = '<div class="date-duration">Duration</div> <label class="date-label">Start Date:</label>';
+      //$form['body']['#prefix'] = '<div style="display:none;">';
+      //$form['body']['#suffix'] = '</div>';
+      //$form['field_bottom_text']['#prefix'] = '<div style="display:none;">';
+      //$form['field_bottom_text']['#suffix'] = '</div>';
+      $form['field_select_layout']['und']['#options'][1] = 'Top and Bottom Text with One Button <div class="to-img1"><img src="'.$base_path.$path.'/images/layout-1.png'.'"></div>';
+      $form['field_select_layout']['und']['#options'][2] = 'Top and Bottom Text with Two Buttons <div class="to-img2"><img src="'.$base_path.$path.'/images/layout-2.png'.'"></div>';
+      $form['field_select_layout']['und']['#options'][3] = 'Video Takeover <div class="to-img3"><img src="'.$base_path.$path.'/images/video-player-icon.png'.'"></div>';
+      unset($form['actions']['delete']); 
+	  
     }
-    
-    return $output;
 }
 
-
-function chk_take_over_conditions($nid){
-    
-  module_load_include('inc', 'webform', 'includes/webform.submissions');
-  // Check if PAWP enabled; If Yes we will redirect user to PAWP page
-  $check_pawp_submission = custom_pawp_check_cc_status(1);
-  // check if RSVP is enabled and user has access to it
-  $rsvp = variable_get('en_rsvp', 0);
-  $rsvp_access = tmapi_get_rsvp_access();
-  //$node = node_load('116');
-  $user_limit_exceeded = _webform_submission_user_limit_check($node);
-  $birthday_takeover_access = tm_user_birthday_access();
-  $birthday = variable_get('en_birthday', 0);
-  //$user_session = isset($_SESSION['Drupal_visitor_pawp']) ? $_SESSION['Drupal_visitor_pawp'] : 0;
-  if ($rsvp && $rsvp_access && !$user_limit_exceeded) {
-    $url = 'rsvp-form';
-  }
-  elseif ($birthday_takeover_access && $birthday && (variable_get('birth_nid',0) == $nid)) {
-    $url = 'birthday-wishes';
-  }
-  elseif ((variable_get('en_pawp', 0)) && !$check_pawp_submission && (variable_get('pawp_nid',0) == $nid)) {
-    $url = 'pawp/nojs/form';
-  }
-  else {
-    $url = 'node/'.$nid;
-  }
-  return $url;
+function custom_add_take_over_validate($form, $form_state) {
+    $data = $form_state['values']; 
+    $time = time();
+    $start_date = strtotime($data['field_run_from']['und'][0]['value']);
+    $end_date = strtotime($data['field_run_from']['und'][0]['value2']);
+    if($end_date < $start_date){
+      form_set_error('end_date','End Date must be greater than Start date.');
+    }
+    if($end_date < $time){
+      form_set_error('end_date','End Date must be greater than current date');
+    }    
 }
 
-function take_over_insert_data($nid, $uid){
+function custom_take_over_insert_data($nid, $uid){
     global $user;
    db_insert('tm_take_over')
     ->fields(
@@ -219,4 +120,38 @@ function take_over_insert_data($nid, $uid){
     )
   )
   ->execute();
+}
+
+function custom_take_over_pages_node_view($node, $view_mode, $langcode) {
+  global $user;
+  if ($node->type == "take_over_pages")  {
+    if ($node->field_occurence['und']['0']['value'] == 1 && !user_access('Editor')) {
+      $appearance = db_query("SELECT count(1) FROM {tm_take_over} WHERE  acct_id = :uid AND nid = :nid", array(':uid' => $user->uid, ':nid'=> $node->nid))->fetchField();
+      if ($appearance > 0) {
+        drupal_goto('home');
+      }
+      custom_take_over_insert_data($node->nid, $user->uid);
+    }
+	
+	//logic to do 
+	  if ($node->nid == '1631'){
+		  $seats = tm_get_seats_on_account($user->name);
+		  	  $rows = array();
+		  foreach ($seats as $key => $seat) {
+			//if (strpos(strtolower($seat->price_code), 'k') ===2) {
+			if (strpos(strtolower($seat->price_code), 'k') ===0) {
+				$rows[$seat->price_code] = $seat->price_code;
+			}
+		  }
+		  if (count($rows)) {
+		  global $base_url;
+			//$pdf_link = 'STH_15-16_RENEWAL_SeatingPricing_8.pdf';
+            //unset($node->content['field_button_2']);  
+		  $node->content['field_button_2']['#items'][0]['url'] = $base_url.'/sites/default/files/STH_15-16_RENEWAL_NEW_SeatingPricing_8.pdf';
+		  $node->content['field_button_2'][0]['#element']['url'] = $base_url.'/sites/default/files/STH_15-16_RENEWAL_NEW_SeatingPricing_8.pdf';
+
+		  
+		  }
+	  }
+  }
 }

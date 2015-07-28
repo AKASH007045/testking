@@ -272,7 +272,7 @@ function _custom_tm_rest_call_test($ch1, $cookies_file, $json = NULL, $web_url =
  */
 function custom_pawp_live_tm_rest($ch1, $cookies_file, $json = NULL) {
   //ticketmaster url
-  $adb_url = variable_get('tm_login_url', 'https://ws.ticketmaster.com/archtics/ats/ticketing_services.aspx?dsn=sackings');
+  $adb_url = variable_get('tm_login_url', 'https://ws.ticketmaster.com/archtics/ats/ticketing_services.aspx?dsn=cowboys');
   // set header for ticketmaster
   $header = array(
       'Content-Type: text/json; charset=utf-8',
@@ -319,9 +319,9 @@ function custom_pawp_live_tm_rest($ch1, $cookies_file, $json = NULL) {
  *     
  */
 function _custom_tm_rest_call($ch1, $cookies_file, $json = NULL, $web_url = NULL) {
-  $dsn = variable_get('tm_dsn', 'sackings');
+  $dsn = variable_get('tm_dsn', 'cowboys');
   //ticketmaster url
-  //$adb_url = variable_get('tm_login_url', 'https://ws.ticketmaster.com/archtics/ats/ticketing_services.aspx?dsn=sackings');
+  //$adb_url = variable_get('tm_login_url', 'https://ws.ticketmaster.com/archtics/ats/ticketing_services.aspx?dsn=cowboys');
   $adb_url = 'https://ws.ticketmaster.com/archtics/ats/' . $web_url . '?dsn=' . $dsn;
   // set header for ticketmaster
   $header = array(

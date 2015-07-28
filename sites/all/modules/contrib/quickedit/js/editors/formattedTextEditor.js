@@ -194,7 +194,6 @@
             top: mainToolbarId
           }
         };
-
         // Find the "Source" button, if any, and replace it with "Sourcedialog".
         // (The 'sourcearea' plugin only works in CKEditor's iframe mode.)
         var sourceButtonFound = false;
@@ -220,7 +219,8 @@
       // CKEditor requires an element to already have the contentEditable
       // attribute set to "true", otherwise it won't attach an inline editor.
       element.setAttribute('contentEditable', 'true');
-
+       //setTimeout(function(){ $(window).trigger('scroll'); }, 2000 );;
+       CKEDITOR.on('instanceReady', function() {$(window).trigger('scroll');});
       return !!CKEDITOR.inline(element, settings);
     },
 

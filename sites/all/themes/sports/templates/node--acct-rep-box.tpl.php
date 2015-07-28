@@ -91,9 +91,9 @@ exit;
 $language = isset($node->language) ? $node->language : 'und'?>
 <section class="dedicateserrep col-md-4">
   <div class="imgpics"><?php print theme('image_style', array('style_name' => 'rep_thumb_small', 'path' => $node->field_acct_rep_image[$language][0]['uri'])); ?></div>
-  <h5 class="dsr">ACCOUNT MANAGER</h5>
+  <h5 class="dsr">DEDICATED SERVICE REP.</h5>
   <div class="acc-hol-name">
-    <h5><?php print $title; ?></h5>
+    <h5><?php print $node->title; ?>&nbsp;<?php print isset($node->field_last_name[$language][0]['value']) ? $node->field_last_name[$language][0]['value'] : ''; ?></h5>
     <?php print isset($node->field_email[$language][0]['value']) ? l($node->field_email[$language][0]['value'], 'mailto:' . $node->field_email[$language][0]['value'], array('attributes' => array('class' => 'mail'))) : ''?>
     <div class="useadd"><?php print isset($node->field_phone[$language][0]['value']) ? $node->field_phone[$language][0]['value'] : ''?></div>
    </div>

@@ -231,17 +231,12 @@ function quickedit_field_edit($entity_type, $entity_id, $field_name, $langcode =
     'no_redirect' => TRUE,
     'bundle' => $bundle,
     'subform_id' => $subform_id,
-    //'always_process' => TRUE,
     'build_info' => array(
       'args' => array($entity, $field_name),
     ),
   
   );
-  flog_it($form_state);
- // $form_state['input']['form_build_id'] = array();
   $form = drupal_build_form('quickedit_field_form', $form_state);
-
-
   // Detect an edit conflict if the current entity timestamp is different
   // from the TempStore entity timestamp (whch is a copy from when the
   // editing process started).
@@ -258,7 +253,6 @@ function quickedit_field_edit($entity_type, $entity_id, $field_name, $langcode =
     if (!empty($form_state['executed'])) {
       // The form submission saved the entity in TempStore. Return the
       // updated view of the field from the TempStore copy.
-      flog_it($form_state);
       $entity = ctools_object_cache_get('quickedit', $tempstore_id);
 
       // Re-render the updated field.
@@ -281,40 +275,58 @@ function quickedit_field_edit($entity_type, $entity_id, $field_name, $langcode =
     // Otherwise, render the form. (And if it was insuccessfully submitted, there
     // will be form validation errors.)
     else {
-     //unset( $form['#cache_token']);
-      //flog_it($form);
-      //$form = drupal_rebuild_form($form_id, $form_state, $form);
-      //$form_state['#rebuild'] = TRUE;
-      //$form = drupal_build_form('quickedit_field_form', $form_state);
-      //quickedit_attachments();
+      $errors = form_get_errors();
+      if (count($errors)) {
+         _button_edit_children_replace_children($form);
+      }
       $commands[] = array(
         'command' => 'quickeditFieldForm',
         'data' => drupal_render($form),
       );
-
-      $errors = form_get_errors();
       if (count($errors)) {
-       
         $commands[] = array(
           'command' => 'quickeditFieldFormValidationErrors',
           'data' => theme('status_messages'),
         );
-      }
-      else {
-        
       }
     }
   }
 
   // When working with a hidden form, we don't want any CSS or JS to be loaded.
   if (isset($_POST['nocssjs']) && $_POST['nocssjs'] === 'true') {
-    drupal_static_reset('drupal_add_css');
-    drupal_static_reset('drupal_add_js');
+   drupal_static_reset('drupal_add_css');
+   drupal_static_reset('drupal_add_js');
   }
 
   return array('#type' => 'ajax', '#commands' => $commands);
 }
 
+
+/**
+ * recursively hunt down all form elements, editing submit button elements
+ */
+function _button_edit_children_replace_children(&$form){
+	if($form['#type']=='submit'|| $form['#type']=='button'){
+		$form = _button_edit_submit_markup($form);
+	}else{
+		if(is_array($form)){
+			$children=  element_children($form);
+			if(is_array($children)&&count($children>0))
+				foreach($children as $childkey){
+					_button_edit_children_replace_children($form[$childkey]);
+				}
+		}
+	}
+}
+/**
+ * edit element id (always match with ajax command id) and return updated submit button
+ */
+function _button_edit_submit_markup($element){
+  if (	isset($element['#id']) && 	isset($element['#name'])) {
+    $element['#id'] =  'edit-' . drupal_html_class($element['#name']);
+  }
+	return $element;
+}
 /**
  * Page callback: Saves an entity into the database, from TempStore.
  *
@@ -441,6 +453,7 @@ function quickedit_field_form($form, &$form_state, $entity, $field_name) {
 
   // Simplify it for optimal in-place use.
   quickedit_field_form_simplify($form, $form_state);
+  
   return $form;
 }
 

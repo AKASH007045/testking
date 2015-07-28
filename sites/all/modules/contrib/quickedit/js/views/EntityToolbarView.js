@@ -293,7 +293,7 @@
           // Resize the toolbar to match the dimensions of the field, up to a
           // maximum width that is equal to 90% of the field's width.
           .css({
-            'max-width': (document.documentElement.clientWidth < 950) ? document.documentElement.clientWidth : 950,
+            'max-width': (document.documentElement.clientWidth < 830) ? document.documentElement.clientWidth : 830,
             // Set a minimum width of 240px for the entity toolbar, or the width
             // of the client if it is less than 240px, so that the toolbar
             // never folds up into a squashed and jumbled mess.

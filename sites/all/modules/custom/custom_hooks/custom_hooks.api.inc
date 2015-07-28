@@ -16,6 +16,7 @@ function custom_hooks_account_manager() {
     $name = base64_decode($_SESSION['tmusn']);
     unset($_SESSION['tmusn']);
   }
+  $dsn = variable_get('tm_dsn', '');
   $pass = isset($_SESSION['tmupa']) ? base64_decode($_SESSION['tmupa']) : '';
   $output = '<html><body onload="document.formLogin.submit()">
   <div class="section-preloader" style="width: 100%;
@@ -26,7 +27,7 @@ function custom_hooks_account_manager() {
     left: 0;
     z-index: 99;">
   <form action="https://oss.ticketmaster.com/cgi/request.cgi" method="POST" name="formLogin" id="formLogin">
-  <input type="hidden" name="team" value="sackings">
+  <input type="hidden" name="team" value="' . $dsn . '">
   <input type="hidden" name="l" value="EN">
   <input type="hidden" name="STAGE" value="1">
   <input type="hidden" name="PROC" value="LOGIN">

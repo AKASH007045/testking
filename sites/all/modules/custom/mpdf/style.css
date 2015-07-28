@@ -1,376 +1,42 @@
-/* Basic Styles */
+.printWrapper{ width:100%;position:relative;float:left; font-family:Arial, Helvetica; font-size:12px;}
+.printHeader{ border-bottom:5px solid #e4701e;width: 100%;float:left;padding-bottom:10px;  font-size:14px; color:#666;}
+.printHeader .logo{ float:left; display:block; width:160px; text-align:center;}
+.head-cnt-mid {float:left; display:block; width:310px;}
+.head-cnt-mid .teamname{ font-size:21px; color:#e4701e; margin-bottom:10px;}
+.head-cnt-rgt {float:right; display:block; width:290px; margin-right:15px;}
+.head-cnt-rgt .date-tkt{ margin-top:37px; text-align:right;}
+.head-cnt-rgt .date-time{ text-align:right;}
+.wrp-main{ margin:0; padding:12px 0; width: 100%; float: left; position:relative;}
+.bdr3btn{ border-bottom:3px solid #b9babd;}
+.bdr2btn{ border-bottom:2px solid #b9babd;}
+.pdg5mrg{ padding-bottom:5px; margin-bottom:5px;}
+.lftblck{ float:left; display:block; width:150px; padding-left:10px;}
+.cmtblck{ float:left; display:block; width:330px;}
+.rgtblck {float:right; display:block; width:260px; margin-right:15px; color:#666;}
+.rgtblck .tcwrp{color:#666; width:100%; float:left; padding-right:15px;}
+.rgtblck .tcwrp .tcnm{ float:left; width:64%;}
+.rgtblck .tcwrp .tcamt{ float:right; width:35%; text-align:right;}
+.bdr5lft{ border-left:5px solid #e4701e; padding-left:8px; margin-right:0;}
+.trmwraprt{ float:left; display:block; width:610px; color:#666; font-family:Arial, Helvetica; font-size:12px;}
 
-*{margin: 0; padding: 0;}
-   /* body { font-size:14px; font-family:'Arial';  background:#fefefe; line-height: normal; }*/
-    .printHeading{
-        font-size: 18px;
-        color:#002A5C;
-        margin-bottom: 15px;  
-        font-weight: normal;
-    }
-    .greyBorder h2{
-        font-size: 12px;
-        margin-bottom: 0;
-        padding-bottom: 0;
-    }
-    .printWrapper{
-        width:98.5%; height:99%; position:relative; 
-    }
-    .printHeader{
-       border-bottom:6px solid #00295b; height:95px;
-        width: 100%;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-    }
-    .printHeader .logo{
-        width: 300x;
-        height: 76px;        
-        display: block;
-        float: left;
-    }
-    .printHeader .logo img{
-        width: 300px;
-        height: 76px;
-    }
-    .printHeader .printDate{
-        width: 200px;
-        /*vertical-align: top;*/
-        float: right;
-        text-align: right;
-        font-family: 'Arial Narrow',Arial,Helvetica;
-        font-size: 11px;
-        color: #8C8C8E;
-    }
-    .grayTxt{
-        color: #8C8C8E;
-        font-family: 'Arial Narrow',Arial,Helvetica;
-        letter-spacing: 1px;
-    }
-    .printFooter{
-        border-top:4px solid #cfced0;
-        height:65px;
-        /*position: absolute;
-        bottom: 0;*/
-        width: 100%;
-        font-family: "Arial",Helvetica;
-        color:#8c8c8e;
-        padding-top: 15px; 
-    }
-    .printFooter .mainHeading{
-        font-size: 12px;  
-        font-family: "Arial Black",Helvetica;
-    }
-    .printFooter .address{
-        font-size: 9px;  
-        font-family: 'Arial Narrow',Arial,Helvetica;
-    }
-    .ticketTable tr .td1{
-        width:28.5%;
-        text-align:left;
-        float: left;
-    }
-    .ticketTable tr .td2{
-        width:10%;
-    }
-    .ticketTable tr .td3{
-        width:15%;
-    }
-    .ticketTable tr .td4{
-        width:15%;
-    }
-    .ticketTable tr .td5{
-        width:15.5%;
-        text-align: right;        
-        font-family: 'oswaldbold',verdana,sans-serif; 
-        padding-right: 10px;
-    }
-    ticketTable td:nth-child(5){
-        width:17%;
-        text-align: right;
-         
-    }    
-    .ticketTable{
-        width:100%;
-        display: block;
-        border-collapse:collapse;
-	
-    }
-    .ticketTable thead,
-    .ticketTable tr.head td{
-        color: #00295b;
-        font-size: 1em;
-        line-height: 2.750em;
-        font-family: 'oswaldbold',verdana,sans-serif;
-        border-bottom:3px solid #CFCED0;
-        padding: 5px 0;
-        text-transform: uppercase;
-    }
-    .ticketTable tr.tableRow:last-child td{
-        border-bottom:30px !important;
-        display: inline-block;
-    }
-    .ticketTable tr.head td.tqty{
-        text-align: left;
-        float: left;        
-    }
-    .ticketTable tr.head td.totalCost{
-        text-align: right;
-        float: right;
-        padding-right: 10px;
-    }
-    .ticketTable tr.tableRow td{      
-        font-family: 'oswaldregular',verdana,sans-serif;
-    }
-
-     .ticketTable tr.tableRow td:last-child{      
-        font-family: 'oswaldbold',verdana,sans-serif;
-    }
- 
- 
-
-    .ticketTable tr, .tableRow td{
-        /*background: url("../images/separator.png") transparent repeat-x bottom;*/
-        border-bottom:2px solid #CFCED0;
-        padding: 5px 0;
-         /*margin-top: 30px;*/
-        display: block;
-        background-color: #ffffff;
-    }
-
-    
-    .ticketTable td{
-        color: #000;
-        font-size: 1em;
-        line-height: 2.750em;
-        text-align: center;
-    }
-    .ticketTable tr td:nth-child(4){
-        color: orange;
-    }
-
-    .namePanel {
-        font-family: 'oswaldregular',Arial,Helvetica;
-        position: relative;
-        padding-left: 2%;
-        margin-bottom: 45px; 
-    }
-    
-    .namePanel .yearHeading {
-        font-size: 1.25em;
-        color: #00295b;
-        margin-bottom: 10px;
-        letter-spacing: 1px;
-    }
-    .namePanel .contDetail {
-        font-family: 'Arial',Helvetica;
-        font-size: 12px;
-        line-height: 1.5em;
-        color: #000;
-        margin-bottom: 0;
-        padding-bottom: 0;
-    }
-        
-    .greyBorder{
-        border-left: 8px solid #8C8C8E;
-    }
-    .lightgreyBorder{
-        border-left: 8px solid #CFCED0;
-        padding-left: 2%;
-    }
-    .blueBorder{
-            border-left: 8px solid #00295b;
-        }
-    .greyColor {
-        background-color: #8c8c8e;
-    }
-    .blueColor {
-        background-color: #00295b;
-    }    
-    .leftBorder {
-        /*width: 9px;
-        height: 100%;
-        position: absolute;
-        left: 0;*/
-    }
-    
-    .contactInfoLeft {
-        float: left;
-        width: 45%;
-        
-    }
-    .contactInfoRight {
-        float: right;
-        text-align: right;
-        width: 45%;
-        
-    }
-    .contactInfoPanel{
-        width:50%;
-        float:right;  
-        margin-bottom: 20px !important;
-    }
-    .contactInfo {
-        /*background: url("../images/separator.png") transparent repeat-x bottom;*/
-        border-bottom:2px solid #CFCED0;
-        padding-bottom: 10px;
-        font-family: 'Arial',Helvetica;
-/*        margin-top: 30px; */       
-    }
-    
-    .namePanel h2 {
-        font-size: 15px;
-        /*text-transform: uppercase;*/
-        color: #00295b;
-        margin: 0;
-        padding: 0;
-        font-family: 'oswaldregular',Arial,Helvetica;
-        letter-spacing: 1px;
-        font-weight: normal;
-    }
-    .namePanel .accountDetail {
-        font-size: 12px;
-        line-height: 1em;
-        margin-top: 5px;
-        margin-bottom: 20px;
-        letter-spacing: 1px;
-    }
-    .blueTxt {
-        color: #00295b;
-    }
-    .amountInfo .amountInfoLeft{ 
-        font-family: 'oswaldregular',Arial,Helvetica;
-        padding-bottom: 0;
-        margin-bottom: 0;
-		padding-top:4px; line-height:15px; height:15px; vertical-align:baseline;
-		margin-bottom:-4px !important; height:15px; line-height:15px; padding:0;
-    }
-    .amountInfoLeft div:nth-child(1), .amountInfoRight {
-        font-family: 'oswaldregular',Arial,Helvetica; 
-        line-height: 1.5em;
-        color:#002A5C;  
-        letter-spacing: 1px;
-    }
-    .amountInfoLeft div:nth-child(1){
-        font-size: 17px;
-    }
-    .amountInfoRight{
-        font-size: 17px;
-		margin-top:0px;
-		margin-bottom:-2px !important; height:14px; line-height:14px; padding:0;
-    }
-   /*.topPanel{
-        
-    }
-    .ticketTableHolder{margin-top: 28px !important;}*/
-
-    .amountInfoLeft {
-        float: left;
-        width: 48%;
-    }
-    .amountInfoRight {
-        float: right;
-        text-align: right;
-        width:48%;
-    }
-    .amountInfo {
-        margin-top: 10px;
-        font-family: 'Arial',Helvetica;
-        position: relative;
-		margin-bottom:0; height:14px; line-height:14px; padding:0;
-    }
-    .ticketTableHolder{
-        height: 405px;
-        padding-left: 0;   
-    }
-    .pull-right{
-        float: right;
-    }
-    .pull-left{
-        float: left;
-    }
-    .width45{
-        width: 45%;
-    }
-    .text-right{
-        text-align: right;
-    }
-
-    .clearfix:before,
-    .clearfix:after,
-    .container:before,
-    .container:after,
-    .container-fluid:before,
-    .container-fluid:after,
-    .row:before,
-    .row:after,
-    .form-horizontal .form-group:before,
-    .form-horizontal .form-group:after,
-    .btn-toolbar:before,
-    .btn-toolbar:after,
-    .btn-group-vertical > .btn-group:before,
-    .btn-group-vertical > .btn-group:after,
-    .nav:before,
-    .nav:after,
-    .navbar:before,
-    .navbar:after,
-    .navbar-header:before,
-    .navbar-header:after,
-    .navbar-collapse:before,
-    .navbar-collapse:after,
-    .pager:before,
-    .pager:after,
-    .panel-body:before,
-    .panel-body:after,
-    .modal-footer:before,
-    .modal-footer:after {
-      display: table;
-      content: " ";
-    }
-    .clearfix:after,
-    .container:after,
-    .container-fluid:after,
-    .row:after,
-    .form-horizontal .form-group:after,
-    .btn-toolbar:after,
-    .btn-group-vertical > .btn-group:after,
-    .nav:after,
-    .navbar:after,
-    .navbar-header:after,
-    .navbar-collapse:after,
-    .pager:after,
-    .panel-body:after,
-    .modal-footer:after {
-      clear: both;
-    }
-.ticketTable, .yearHeading,.printHeading {
-
-    font-family: 'oswaldregular',Arial,Helvetica;
-    
-}
-
-
-
-/*  Invoice New CSS  */
-
-
-.greyBorder{
-        border-left: 8px solid #5d5b59;
-    }
-    .lightgreyBorder{
-        border-left: 8px solid #5d5b59;
-        padding-left: 2%;
-    }
-    .blueBorder{
-            border-left: 8px solid #5d5b59;
-        }
-    .greyColor {
-        background-color: #8c8c8e;
-    }
-    .blueColor {
-        background-color: #00295b;
-    }    
-	.printHeader{
-       border-bottom:6px solid #5d5b59; 
-	}
-	.printHeading,.blueTxt,.namePanel h2,.namePanel .yearHeading,.ticketTable tr.head td, .amountInfoRight{color:#714b9e;}
-	.ticketTable tr.head td{font-family:'oswaldregular', Arial, sans-serif;}
+.lftblck .actinf, .rgtblck .actinf {color:#e4701e; font-size:15px;}
+.cmtblck .addtl {color:#666; font-family:Arial, Helvetica; font-size:12px;}
+.rgtblck .ttlamtd {text-align:right; font-size:14px;}
+.rgtblck .ttlamtd .tlyl {color:#e4701e;}
+.fnt16glb { font-size:14px;}
+.fnt12ftr { font-size:11px; text-align:center; color:#666; font-family:Arial, Helvetica;}
+.pgbrk {/*page-break-after:always;*/}
+.tbl-chart { float:left; width:100%; padding-bottom:300px;}
+.ticketTable{ display: block; width:100%; float:left; padding:0; margin:0px 12px 0 12px;border-collapse:collapse; font-family:Arial, Helvetica;}
+.ticketTable tr.head td{color:#e4701e; font-size:14px; padding:2px 0; text-align: center;}
+.ticketTable tr.head td.tqty {text-align:right; padding-right:66px;}
+.ticketTable tr.head td.totalCost{text-align:right;}
+.ticketTable tr.head td.decr{text-align:left;}
+.ticketTable tr.tbr td {color:#666;}
+.ticketTable tr.tbr .td1{width:154px;text-align: right; padding-right:66px; }
+.ticketTable tr.tbr .td2{width:335px;text-align:left;}
+.ticketTable tr.tbr .td3{width:80px;text-align:center; }
+.ticketTable tr.tbr .td4{width:62px;text-align:center;}
+.ticketTable tr.tbr .td5{width:62px;text-align:center; }
+.ticketTable tr.tbr .td6{width:95px;text-align:right;}
+.head-cnt-mid .teamname, .lftblck .actinf, .rgtblck .actinf, .rgtblck .ttlamtd .tlyl, .ticketTable tr.head td, .rgtblck .ttlamtd, .rgtblck .tcwrp .tcnm {font-family:"oswaldregular",Arial,sans-serif;}

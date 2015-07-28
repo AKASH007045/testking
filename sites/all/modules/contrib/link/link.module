@@ -779,7 +779,7 @@ function link_field_process($element, $form_state, $complete_form) {
   if (!empty($settings['attributes']['target']) && $settings['attributes']['target'] == LINK_TARGET_USER) {
     $element['attributes']['target'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Open URL in a New Window'),
+      '#title' => t('Open link in a new tab'),
       '#return_value' => LINK_TARGET_NEW_WINDOW,
       '#default_value' => isset($attributes['target']) ? $attributes['target'] : FALSE,
     );
