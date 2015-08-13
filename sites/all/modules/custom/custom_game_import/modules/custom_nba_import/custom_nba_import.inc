@@ -168,8 +168,8 @@ function custom_nba_import_update_record(&$record){
     
         
     if (strstr($record['time'], 'Final')){
-      $record['time'] = trim(str_replace(array('ET', 'pm'), array('','PM'), $record['date'] . ' ' . '9:00 pm ET'));       
-      //$record['time'] = '';
+      //$record['time'] = trim(str_replace(array('ET', 'pm'), array('','PM'), $record['date'] . ' ' . '9:00 pm ET'));       
+      $record['time'] = '';
       
     }
     $record['time'] = strtotime($record['time']);    
