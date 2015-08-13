@@ -65,8 +65,8 @@
 		
 		// This function updates two digit positions at once
 		function updateDuo(minor,major,value){
-			//switchDigit(positions.eq(minor),Math.floor(value/10)%10);
-			//switchDigit(positions.eq(major),value%10);
+			switchDigit(positions.eq(minor),Math.floor(value/10)%10);
+			switchDigit(positions.eq(major),value%10);
 		}
 		
 		// This function updates three digit positions at once
@@ -118,6 +118,7 @@
 	function switchDigit(position,number){
 		
 		var digit = position.find('.digit')
+		
 		if(digit.is(':animated')){
 			return false;
 		}
