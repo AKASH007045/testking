@@ -1,23 +1,21 @@
 <?php
 function custom_game_cron_mail_settings(){
-  $form = array();
-  
-  /*$params['feed'] = 'My html Mail2';
-      $lang = LANGUAGE_NONE;
-      $to = variable_get('cron_recipients', ''); 
-      drupal_mail('custom_cron_alert', 'start', $to, $lang, $params); exit;*/
-  
+  $form = array();  
   $cron_recipients = variable_get('cron_recipients', '');
   $cron_success_subject = variable_get('cron_success_subject', '');
   $cron_success_body = variable_get('cron_success_body', '');
   $cron_start_subject = variable_get('cron_start_subject', '');
   $cron_start_body = variable_get('cron_start_body', '');
-    
+  
   $form['cron_mail_settings_fieldset'] = array(
     '#type' => 'fieldset',
     '#title' => t('Cron Job Mail Settings Form')
   );
-  
+  $form['cron_mail_settings_fieldset']['game_feed_cron_mail'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Game feed success mail?'),
+    '#default_value' => variable_get('game_feed_cron_mail'),
+  );
   $form['cron_mail_settings_fieldset']['cron_recipients'] = array(
     '#type' => 'textfield',
     '#title' => t('Cron Job Alert Recipient'),
@@ -37,16 +35,15 @@ function custom_game_cron_mail_settings(){
   );
 
   $form['cron_mail_settings_fieldset']['cron_start_body'] = array(
-	'#title' => t('Body - Cron Job Start'),
-	'#type' => 'text_format',
-	'#description' => t ('Alert email notification message body'),
-	'#default_value' => isset($cron_start_body['value'])?$cron_start_body['value']:"",
-	'#format' => 'full_html',
-	'#required' => TRUE,
-	
+    '#title' => t('Body - Cron Job Start'),
+    '#type' => 'text_format',
+    '#description' => t ('Alert email notification message body'),
+    '#default_value' => isset($cron_start_body['value'])?$cron_start_body['value']:"",
+    '#format' => 'full_html',
+    '#required' => TRUE,	
   );
   
-    $form['cron_mail_settings_fieldset']['cron_success_subject'] = array(
+  $form['cron_mail_settings_fieldset']['cron_success_subject'] = array(
     '#type' => 'textfield',
     '#title' => t('Subject - Cron Job Success'),
     '#default_value' => $cron_success_subject,
@@ -56,15 +53,13 @@ function custom_game_cron_mail_settings(){
   );
 
   $form['cron_mail_settings_fieldset']['cron_success_body'] = array(
-	'#title' => t('Body - Cron Job Success'),
-	'#type' => 'text_format',
-	'#description' => t ('Alert email notification message body'),
-	'#default_value' => isset($cron_success_body['value']) ? $cron_success_body['value'] : '',
-	'#format' => 'full_html',
-	'#required' => TRUE
+    '#title' => t('Body - Cron Job Success'),
+    '#type' => 'text_format',
+    '#description' => t ('Alert email notification message body'),
+    '#default_value' => isset($cron_success_body['value']) ? $cron_success_body['value'] : '',
+    '#format' => 'full_html',
+    '#required' => TRUE
   );
-   
-  
   return system_settings_form($form);
 }
 

@@ -1,0 +1,248 @@
+<?php
+// @file
+
+
+/**
+ * Implements hook_menu()..
+ */
+function custom_nfl_import_init() {
+  $home_team_nid = custom_nfl_get_hometeam_nid();
+  $team_abbreviation = '';
+  if ($home_team_nid){
+   $team_abbreviation = custom_game_import_get_hometeam_abbreviation($home_team_nid);
+  }  
+  $siteFullname = variable_get('home_ground');
+  
+  if (!$team_abbreviation || $team_abbreviation != variable_get('home_team')){
+    drupal_set_message('Home Team Abbreviation not found, please check', 'error');
+  }
+  
+  if (!$siteFullname){
+    drupal_set_message('Home Team Ground not found, please check', 'error');
+  }  
+}
+/**
+ * Implements hook_menu()..
+ */
+function custom_nfl_import_menu() {
+  $items = array();  
+  $items['admin/manage/settings/nfl_feed'] = array(
+    'title' => 'NFL Feed Import Settings',
+    'description' => 'NFL XML Feed Import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_nfl_import_settings'),
+    'access arguments' => array('administer rss game feed import'),
+    'file' => 'custom_game_import.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 18
+    );
+    
+    $items['admin/manage/settings/nfl_feed/settings'] = array(
+    'title' => 'NFL Feed Import Settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 19
+  );
+  $items['admin/manage/settings/nfl_feed/manual-import'] = array(
+   'title' => 'NFL Feed Import',
+    'description' => 'NFL Feed Import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_nfl_import_events_import'),
+    'access arguments' => array('administer game feed import'),
+    'file' => 'custom_nfl_import.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 20
+  );
+   
+  return $items;
+}
+/**
+ * function for XML Parsing
+ */
+function custom_nfl_import_xml2assoc($xml) {
+  $tree = null;
+  while($xml->read())
+    switch ($xml->nodeType) {
+      case XMLReader::END_ELEMENT: return $tree;
+      case XMLReader::ELEMENT:
+        $node = array('tag' => $xml->name, 'value' => $xml->isEmptyElement ? '' : custom_nfl_import_xml2assoc($xml));
+        if($xml->hasAttributes)
+        while($xml->moveToNextAttribute())
+        $node['attributes'][$xml->name] = $xml->value;
+        $tree[] = $node;
+      break;
+      case XMLReader::TEXT:
+      case XMLReader::CDATA:
+      $tree .= $xml->value;
+    }
+    return $tree;
+}
+
+function custom_nfl_import_parseFeedXml($feed){
+  if (isset($feed) && !empty($feed)){
+    $xml = new XMLReader();
+    $xml->XML($feed);
+    $assoc = custom_nfl_import_xml2assoc($xml); 
+    $xml->close();  
+    foreach ($assoc[0]['value'] as $gs) {
+      if ($gs['tag']=='accessList'){
+        $feed_url = substr($gs['value'], 0, 16);
+        break;
+      }     
+    }
+    return $feed_url;
+  }
+  else{
+    return array();
+  }
+}
+
+function custom_nfl_import_parseGameFeedXml($feed){
+  if (isset($feed) && !empty($feed)){
+    $xml = new XMLReader();
+    $xml->XML($feed);
+    $assoc = custom_nfl_import_xml2assoc($xml); 
+    $xml->close();
+    $node_array = array();
+    $c=0;
+    $g=0;
+    $home_team_nid = custom_nfl_get_hometeam_nid();
+    $team_abbreviation = custom_game_import_get_hometeam_abbreviation($home_team_nid);
+    $siteFullname = variable_get('home_ground');
+        
+    foreach ($assoc[0]['value'] as $gs) {
+      if ($gs['tag']=='pre'){
+        foreach ($gs['value'] as $schedule){
+                    
+          if ($schedule['value'][0]['attributes']['abbr']==$team_abbreviation || $schedule['value'][1]['attributes']['abbr']==$team_abbreviation){
+            $node_array[$c]['hometeam_nid'] = $home_team_nid;
+            $node_array[$c]['stadium'] = $schedule['attributes']['siteFullname'];
+            $node_array[$c]['team-id'] = custom_game_import_get_hometeam_get_team_id($abbr);
+            $node_array[$c]['gamecode'] = $schedule['attributes']['gameId'];
+            $node_array[$c]['team_score'] = '';            
+            $node_array[$c]['other_team_score'] = '';
+
+            if ($schedule['attributes']['siteFullname']==$siteFullname){
+              $node_array[$c]['home-team'] = $schedule['value'][0]['attributes']['abbr'];
+              $node_array[$c]['visiting-team'] = $schedule['value'][1]['attributes']['abbr'];
+              $node_array[$c]['game_type'] = 1;
+              $node_array[$c]['home_game_event'] = 1;
+              $node_array[$c]['title'] = $node_array[$c]['home-team'] . ' VS ' . $node_array[$c]['visiting-team'];
+            }
+            else{
+              $node_array[$c]['home-team'] = $schedule['value'][1]['attributes']['abbr'];
+              $node_array[$c]['visiting-team'] = $schedule['value'][0]['attributes']['abbr'];
+              $node_array[$c]['game_type'] = 0;
+              $node_array[$c]['home_game_event'] = 0;
+              $node_array[$c]['title'] = $node_array[$c]['home-team'] . ' @ ' . $node_array[$c]['visiting-team'];
+            }
+          $node_array[$c]['team-id'] = custom_game_import_get_hometeam_get_team_id($node_array[$c]['visiting-team']);
+          $node_array[$c]['date'] = $schedule['attributes']['gameDate'];
+          
+          $timestamp = trim($schedule['attributes']['gameDate'] . " " . $schedule['attributes']['gameTimeEastern']);          
+          $converted_time = stp_game_get_converted_time($timestamp);          
+          $sites_timestamp = strtotime($converted_time);      
+          $node_array[$c]['time'] = $sites_timestamp;
+          //custom_nfl_import_update_record($node_array[$c]);
+          $c++;
+        }
+        
+       }
+      }
+       
+       if ($gs['tag']=='reg'){
+         foreach ($gs['value'] as $schedule){
+           if ($schedule['value'][0]['attributes']['abbr']==$team_abbreviation || $schedule['value'][1]['attributes']['abbr']==$team_abbreviation){
+             $node_array[$c]['hometeam_nid'] = $home_team_nid;
+             $node_array[$c]['stadium'] = $schedule['attributes']['siteFullname'];
+             $node_array[$c]['team-id'] = '';
+             $node_array[$c]['gamecode'] = $schedule['attributes']['gameId'];
+             $node_array[$c]['team_score'] = '';            
+             $node_array[$c]['other_team_score'] = '';
+
+              if ($schedule['attributes']['siteFullname']==$siteFullname){
+                $node_array[$c]['home-team'] = $schedule['value'][0]['attributes']['abbr'];
+                $node_array[$c]['visiting-team'] = $schedule['value'][1]['attributes']['abbr'];
+                $node_array[$c]['game_type'] = 1;
+                $node_array[$c]['home_game_event'] = 1;
+                $node_array[$c]['title'] = $node_array[$c]['home-team'] . ' VS ' . $node_array[$c]['visiting-team'];
+              }
+              else{
+                $node_array[$c]['home-team'] = $schedule['value'][1]['attributes']['abbr'];
+                $node_array[$c]['visiting-team'] = $schedule['value'][0]['attributes']['abbr'];
+                $node_array[$c]['game_type'] = 0;
+                $node_array[$c]['home_game_event'] = 0;
+                $node_array[$c]['title'] = $node_array[$c]['home-team'] . ' @ ' . $node_array[$c]['visiting-team'];
+              }
+              $node_array[$c]['team-id'] = custom_game_import_get_hometeam_get_team_id($node_array[$c]['visiting-team']);
+              $node_array[$c]['date'] = $schedule['attributes']['gameDate'];
+              $timestamp = trim($schedule['attributes']['gameDate'] . " " . $schedule['attributes']['gameTimeEastern']);          
+              $converted_time = stp_game_get_converted_time($timestamp);          
+              $sites_timestamp = strtotime($converted_time);      
+              $node_array[$c]['time'] = $sites_timestamp;
+              //custom_nfl_import_update_record($node_array[$c]);
+              $c++;
+            }
+            
+        }
+       }
+    }
+    return $node_array;
+    
+  }
+  else{
+    return array();
+  }
+}
+/**
+ * Implements k_cron().
+ *
+ * hook_cron() is the traditional (pre-Drupal 7) hook for doing "background"
+ * processing. It gets called every time the Drupal cron runs and must decide
+*/
+function custom_nfl_import_cron() {  
+  // Default to an daily interval. Of course, cron has to be running at least
+  // daily for this to work.
+  $interval = variable_get('nfl_ticketmaster_cron_interval', 24*60*60);
+  // We usually don't want to act every time cron runs (which could be every
+  //minute) so keep a time for the next run in a variable.
+  if (variable_get('nfl_ticketmaster_run_cron') == 1) {    
+    if (time() >= variable_get('custom_nfl_ticketmaster_cron_next_execution', 0)) {
+    // This is a silly example of a cron job.
+    // It just makes it obvious that the job has run without
+    // making any changes to your database.
+    module_load_include('inc', 'custom_nfl_import', 'custom_nfl_import');
+    custom_nfl_import_events_cron_import();
+    variable_set('custom_nfl_ticketmaster_cron_next_execution', time() + $interval);
+    watchdog('custom_nfl_import', 'NFL game feed import cron run');
+    }
+  }
+}
+/**
+ * Custom function to import data from feeds.
+ */
+function custom_nfl_import_events_feed_import($url = '') {
+  if (isset($url) && !empty($url)){    
+    // init curl object
+    $ch1 = curl_init();
+    // create a temp cookies file for request.
+    $cookies_file = tempnam("cookies", "CURLCOOKIE");      
+    $login_response = _custom_tm_rest_login($ch1, $cookies_file);   
+    $response = _custom_tm_rest_call_test($ch1, $cookies_file, $login_response['response']);     
+    $feed_array = custom_nfl_import_parseGameFeedXml($response['response']);
+
+    //curl object close.
+    curl_close($ch1);
+
+    return $feed_array;
+  }
+}
+
+/**
+ * Purpose: get home team nid
+ * This is very important to get home team of a site.
+ * Home team can be choose from "admin/manage/teams"
+*/
+function custom_nfl_get_hometeam_nid(){
+  $home_team_nid = db_query("SELECT n.entity_id FROM {field_data_field_home_team} n WHERE field_home_team_value = 1")->fetchField();
+  return $home_team_nid;
+}

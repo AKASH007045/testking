@@ -5,8 +5,24 @@
  * Implements hook_menu()..
  */
 function custom_nba_import_menu() {
-  $items = array();  
-  $items['admin/ticketmaster/nba_feed_import'] = array(
+  $items = array(); 
+  $items['admin/manage/settings/nba_feed'] = array(
+    'title' => 'NBA Feed Import Settings',
+    'description' => 'NBA XML Feed Import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_nba_import_settings'),
+    'access arguments' => array('administer rss game feed import'),
+	   'file' => 'custom_game_import.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 18
+  );
+  
+  $items['admin/manage/settings/nba_feed/settings'] = array(
+    'title' => 'NBA feed Settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+	   'weight' => 19
+  );
+  $items['admin/manage/settings/nba_feed/manual-import'] = array(
     'title' => 'NBA Feed Import',
     'description' => 'NBA XML Feed Import',
     'page callback' => 'drupal_get_form',
@@ -14,16 +30,7 @@ function custom_nba_import_menu() {
     'access arguments' => array('administer game feed import'),
     'file' => 'custom_nba_import.inc',
     'type' => MENU_LOCAL_TASK,
-  );
-  $items['admin/manage/settings/nba_feed_import_settings'] = array(
-    'title' => 'NBA Feed Import Settings',
-    'description' => 'NBA XML Feed Import',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('custom_nba_import_settings'),
-    'access arguments' => array('administer rss game feed import'),
-	'file' => 'custom_game_import.admin.inc',
-    'type' => MENU_LOCAL_TASK,
-    'weight' => 19
+	   'weight' => 20
   );  
   return $items;
 }
@@ -37,20 +44,36 @@ function custom_nba_import_menu() {
 function custom_nba_import_cron() {
   // Default to an daily interval. Of course, cron has to be running at least
   // daily for this to work.
-  $interval = variable_get('custom_nba_ticketmaster_cron_interval', 24*60*60);
+  $interval = variable_get('nba_ticketmaster_cron_interval', 24*60*60);
+ 
   // We usually don't want to act every time cron runs (which could be every
   // minute) so keep a time for the next run in a variable.
-  if (variable_get('ticketmaster_run_cron', 1) == 1) {
+  if (variable_get('nba_ticketmaster_run_cron') == 1) {//This is for Season Ticket game
     if (time() >= variable_get('custom_nba_ticketmaster_cron_next_execution', 0)) {
       // This is a silly example of a cron job.
       // It just makes it obvious that the job has run without
       // making any changes to your database.
       module_load_include('inc', 'custom_nba_import', 'custom_nba_import');
-      custom_nba_import_events_cron_import();
-      variable_set('custom_nba_ticketmaster_cron_next_execution', time() + $interval);
+      custom_nba_import_events_cron_import();	  
+      variable_set('custom_nba_ticketmaster_cron_next_execution', time() + $interval); //On production activate this
       watchdog('custom_nba_import', 'custom_nba_feed_import game feed import cron run');
     }
   }
+  
+  //This is for Pre Season Ticket game
+  $interval = variable_get('ticketmaster_cron_interval_preseason', 24*60*60);  
+  if (variable_get('ticketmaster_run_cron_preseason') == 1) {
+    if (time() >= variable_get('custom_nba_ticketmaster_cron_next_execution_pre', 0)) {
+      // This is a silly example of a cron job.
+      // It just makes it obvious that the job has run without
+      // making any changes to your database.
+      module_load_include('inc', 'custom_nba_import', 'custom_nba_import');
+      custom_nba_import_events_cron_import('preseason');
+      variable_set('custom_nba_ticketmaster_cron_next_execution_pre', time() + $interval); //On production activate this
+      watchdog('custom_nba_import', 'custom_nba_feed_import game feed import cron run');
+    }
+  } 
+  
 }
 
 /**
@@ -165,6 +188,6 @@ function custom_nba_import_parseFeedXml($feed_url = NULL){
  * Home team can be choose from "admin/manage/teams"
  */
 function custom_nba_get_hometeam_nid(){
- $home_team_nid = db_query("SELECT n.entity_id FROM {field_data_field_home_team} n WHERE field_home_team_value = 1")->fetchField();
- return $home_team_nid;
+  $home_team_nid = db_query("SELECT n.entity_id FROM {field_data_field_home_team} n WHERE field_home_team_value = 1")->fetchField();
+  return $home_team_nid;
 }

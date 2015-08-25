@@ -6,7 +6,7 @@
  */
 function custom_nhl_import_menu() {
   $items = array();  
-  $items['admin/ticketmaster/nhl_feed_import'] = array(
+  /*$items['admin/ticketmaster/nhl_feed_import'] = array(
     'title' => 'NHL Feed Import',
     'description' => 'NHL Feed Import',
     'page callback' => 'drupal_get_form',
@@ -14,8 +14,8 @@ function custom_nhl_import_menu() {
     'access arguments' => array('administer game feed import'),
     'file' => 'custom_nhl_import.inc',
     'type' => MENU_LOCAL_TASK,
-  );
-  $items['admin/manage/settings/nhl_feed_import_settings'] = array(
+  );*/
+  $items['admin/manage/settings/nhl_feed'] = array(
     'title' => 'NHL Feed Import Settings',
     'description' => 'NHL XML Feed Import',
     'page callback' => 'drupal_get_form',
@@ -23,8 +23,23 @@ function custom_nhl_import_menu() {
     'access arguments' => array('administer rss game feed import'),
     'file' => 'custom_game_import.admin.inc',
     'type' => MENU_LOCAL_TASK,
-    'weight' => 19
-  );  
+    'weight' => 18
+  );
+ $items['admin/manage/settings/nhl_feed/settings'] = array(
+    'title' => 'NHL Feed Import Settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+	'weight' => 19
+  );
+  $items['admin/manage/settings/nhl_feed/manual-import'] = array(
+    'title' => 'NHL Feed Import',
+    'description' => 'NHL Feed Import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_nhl_import_events_import'),
+    'access arguments' => array('administer game feed import'),
+    'file' => 'custom_nhl_import.inc',
+    'type' => MENU_LOCAL_TASK,
+	'weight' => 20
+  );    
   return $items;
 }
 
@@ -40,7 +55,7 @@ function custom_nhl_import_cron() {
   $interval = variable_get('custom_nba_ticketmaster_cron_interval', 24*60*60);
   // We usually don't want to act every time cron runs (which could be every
   // minute) so keep a time for the next run in a variable.
-  if (variable_get('ticketmaster_run_cron', 1) == 1) {
+  if (variable_get('ticketmaster_run_cron') == 1) {
     if (time() >= variable_get('custom_nba_ticketmaster_cron_next_execution', 0)) {
       // This is a silly example of a cron job.
       // It just makes it obvious that the job has run without
@@ -60,14 +75,15 @@ function custom_nhl_import_events_feed_import($season = '') {
   $url = trim(variable_get('nhl_feed_base_url', ''));
   $partner = trim(variable_get('nhl_partner_name', ''));
   $key = trim(variable_get('nhl_secret_key', ''));
-     
+   
   $time =  ceil(microtime(true)*1000);
   $hash = sha1($partner . $time . $key);
   $feed_url = $url . '&auth=' . $partner . "|" . $time . "|" . $hash;
   if (fopen($feed_url, 'r')) {
     $feed = file_get_contents($feed_url);
     $schedule = array();
-    $json_schedule = json_decode($feed);    
+    $json_schedule = json_decode($feed);
+//print '<pre>'; print_r($json_schedule);  exit;  
     $c = 0;    
     foreach($json_schedule->games as $js){
       $schedule[$c]['time'] = $js->localStartTime;
@@ -112,6 +128,8 @@ function custom_nhl_import_events_feed_import($season = '') {
     return $schedule;    
    
   }
+  
+  print 'test failed '.$url.$partner.$key; exit;  
 }
 
 /**

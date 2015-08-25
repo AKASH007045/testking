@@ -1,6 +1,5 @@
-name= Custom NBA Game Feed Import
-description = Custom NBA Game Feed Importer
-version = VERSION
+name= STP NBA Game Feed Import
+description = Custom STP NBA Game Feed Importer
 package = Custom
 dependencies[] = custom_game_import
 configure   = admin/manage/settings/nba_feed_import_settings

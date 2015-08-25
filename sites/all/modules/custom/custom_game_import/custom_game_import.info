@@ -1,6 +1,5 @@
-name= Custom STP Game Import
-description = Helper module for STP development for Game import
-version = VERSION
+name= STP Game Import
+description = Very Important module for STP Game import. You can use RSS feed from different sources like NBA etc. This module required at least and only one  dependent module.
 package = Custom
 configure = admin/manage/settings/cron_mail_settings
 core = 7.x

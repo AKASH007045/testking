@@ -1,0 +1,9 @@
+name= STP WNBA Game Feed Import
+description = Custom STP WNBA Game Feed Importer
+package = Custom
+dependencies[] = custom_game_import
+configure   = admin/manage/settings/wnba_feed_import_settings
+
+core = 7.x
+project = "drupal"
+datestamp = "1419831772"

@@ -2,7 +2,8 @@
 /**
  * Function to import XML feed for Events
  */
-function custom_nhl_import_events_import($form, &$form_state) { 
+function custom_nhl_import_events_import($form, &$form_state) {
+	
   $form = array();	
   $form['category'] = array(
     '#type' => 'select',
@@ -30,13 +31,15 @@ function custom_nhl_import_events_import_submit($form, &$form_state) {
    return drupal_set_message(t('Home team not available, please set'), 'error');
   }
   
-  $feed = custom_nhl_import_events_feed_import($form_state['values']['category']);  
+  $feed = custom_nhl_import_events_feed_import($form_state['values']['category']);
+
   if (!$feed){
    $feed_url = l('Please set feed url', 'admin/manage/settings/nhl_feed_import_settings');
    drupal_set_message($feed, 'error');
   }
   
   if(count($feed)>0){
+	  //date_default_timezone_set('America/New_York'); //We see that every feeds time are in ET format. so, before saving in db make the default et timezone.
     foreach ($feed as $record) {
 	  $record['hometeam_nid'] = $home_team_nid;
 	  custom_nhl_import_update_record($record);
@@ -55,7 +58,7 @@ function custom_nhl_import_events_import_submit($form, &$form_state) {
     );
     
     batch_set($batch);
-    batch_process('admin/ticketmaster/nhl_feed_import');
+    batch_process('admin/manage/settings/nhl_feed/manual-import');
   }
   else{
     drupal_set_message("Feed has no data.");
@@ -76,12 +79,16 @@ function custom_nhl_import_events_cron_import() {
   drupal_mail('custom_game_import', 'start', $to, $lang, $params);
   
   $feed = custom_nhl_import_events_feed_import();
+  date_default_timezone_set('America/New_York'); //We see that every feeds time are in ET format. so, before saving in db make the default et timezone.
   
   foreach($feed as $record){    
       $record['hometeam_nid'] = $home_team_nid;
       custom_nhl_import_update_record($record);
       custom_game_import_create_game_event($record); //The function to run on each row. This function can be found in the parent module    
   }
+  //We have made default to ET timezone. Now make default to site time zone.
+  $sitetime_zone = date_default_timezone(FALSE); //don't use user time zone
+  date_default_timezone_set($sitetime_zone);
   //Send an email to specified users when cron successfully run  
   drupal_mail('custom_game_import', 'success', $to, $lang, $params); 
   
@@ -93,6 +100,9 @@ function custom_nhl_import_events_cron_import() {
  * @see custom_ticketmaster_import_customer_submit(),
  */
 function custom_nhl_import_finished() {
+  //We have made default to ET timezone. Now make default to site time zone.
+  //$sitetime_zone = date_default_timezone(FALSE); //don't use user time zone
+  //date_default_timezone_set($sitetime_zone);
   watchdog('custom_nhl_import', 'Data imported successfully', array(), WATCHDOG_INFO);
   return drupal_set_message(t('Data Import Completed Successfully'));
 }

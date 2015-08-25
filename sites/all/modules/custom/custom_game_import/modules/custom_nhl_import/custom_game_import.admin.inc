@@ -9,11 +9,11 @@ function custom_nhl_import_settings(){
   
   $form['game_feed_import_form'] = array(
     '#type' => 'fieldset',
-    '#title' => t('NBA Feed Import Settings Form')
+    '#title' => t('NHL Feed Import Settings Form')
   );
   $form['game_feed_import_form']['nhl_feed_base_url'] = array(
     '#type' => 'textfield',
-    '#title' => t('NBA Pre Season Game Feed Url'),
+    '#title' => t('NHL Season Game Feed Url'),
     '#default_value' => variable_get('nhl_feed_base_url', ''),
     '#description' => 'E.g. http://www.nhl.com/feed/nhl/club/schedule.json?team=NYR',
     '#size' => 250,
@@ -39,6 +39,18 @@ function custom_nhl_import_settings(){
     '#size' => 250,
     '#maxlength' => 300,
     '#required' => TRUE
+  );
+  
+  $form['game_feed_import_form']['ticketmaster_run_cron'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Run game Feed Import cron?'),
+    '#default_value' => variable_get('ticketmaster_run_cron', 1),
+  );
+  $form['game_feed_import_form']['ticketmaster_cron_interval'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Ticketmaster Cron Interval (in sec)'),
+    '#default_value' => variable_get('ticketmaster_cron_interval', 24 * 60 * 60),
+    '#required' => TRUE,
   );
 
   return system_settings_form($form);

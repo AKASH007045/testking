@@ -1,9 +1,8 @@
-name= STP NHL Game Feed Import
+name= STP NFL Game Feed Import
 description = Custom STP NHL Game Feed Importer
 package = Custom
 dependencies[] = custom_game_import
-configure   = admin/manage/settings/nhl_feed_import_settings
-
+configure   = admin/manage/settings/nfl_feed_import_settings
 core = 7.x
 project = "drupal"
-datestamp = "1419831772"
+datestamp = "1419831779"
