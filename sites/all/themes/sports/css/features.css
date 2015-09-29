@@ -1,3 +1,20 @@
 .field-type-image .form-item div.image-widget-data{float:inherit;}
 .page-calendar .container-fluid, .page-my-calendar .container-fluid, .page-full-calendar .container-fluid{background-color:#381952!important;}
 .calendar-calendar .month-view .full tr.single-day .game-away .cal-team-name, .calendar-calendar .month-view .full tr.single-day .game-away .cal-time{color:#D1D4D9;}
+
+/*  Invoice Payment  */
+
+.form-item-payment-plan-id #plandesccontainer ol {
+    padding-left: 30px;
+    margin-top: 5px;
+}
+.form-item-payment-plan-id #plandesccontainer ol li {
+    list-style-position: outside !important;
+    padding-bottom: 2px;
+}
+.form-item-payment-plan-id #plandesccontainer ol li span {
+    display: inline-block;
+}
+.form-item-payment-plan-id #plandesccontainer ol li span.duedate {
+    width: 60%;
+}
