@@ -363,44 +363,84 @@ function _tmapi_get_seats_on_account($acct_id = NULL) {
 }
 
 
-function tmapi_get_payment_plans() {
+function tmapi_get_payment_plans($acct_id = NULL, $invoice_id = NULL) {
   $param = tm_api_get_command_param('payment_plan_details');
   $json = drupal_json_encode($param);
-  $response = $plan_schedules = array();
+  $response = $plan_schedules = $sort_arr = $plans_sch = array();
   $response = tm_api_call($json, 'ticketing_services.aspx');
   if(isset($response['response_ok']) && $response['response_ok']) {
     $data = drupal_json_decode($response['response']);
     if (isset($data['command1']['result']) && $data['command1']['result'] == 0) {
-      $plans = (isset($data['command1']['plans']) && count($data['command1']['plans'])>0) ? $data['command1']['plans'] : false;
-      $payment_plans = explode(',', variable_get('payment_plans', ''));
-      if ($plans) {
-        foreach($plans as $plan) {
-          if (in_array($plan['payment_plan_id'], $payment_plans)) {
-            $plan_schedules[$plan['payment_plan_id']] = $plan;
-            $sort_arr[$plan['payment_plan_id']] = $plan['plan_desc'];
+      $plans = (isset($data['command1']['plans']) && count($data['command1']['plans']) > 0) ? $data['command1']['plans'] : FALSE;
+      array_unshift($plans, array(
+        'payment_plan_id' => 'default',
+        'plan_long_name' => 'Full Payment',
+        'plan_desc' => 'Full Payment',
+        'suppress_payment_plan_details' => 'N'
+      ));
+      /*//cache payment plans
+      if (!cache_get('tmapi_get_payment_plans')) {
+        cache_set('tmapi_get_payment_plans', $plans, 'cache', REQUEST_TIME + (24 * 60 * 60));
+      }*/
+      //cache payment plans
+        $cid = 'tmapi_get_payment_plans';
+        $cache_time = time() + 60*60*3; //flush cache every 3 hours
+        //$cache_time = time() + 120;
+        $cache = cache_get($cid);
+        if (!empty($cache->data)) {
+          if (time() >= $cache->expire) {
+            cache_clear_all($cid, 'cache');
+            cache_set($cid, $plans, 'cache', $cache_time);            
+          }
+           else {
+             $plans = $cache->data;
           }
         }
-        //sorting plan names
-        arsort($sort_arr);
-        foreach($sort_arr as $sa_key => $sa_value){
-          $plans_sch[$sa_key] = $plan_schedules[$sa_key];
+        else {
+          cache_set($cid, $plans, 'cache', $cache_time); 
         }
-        array_unshift($plans_sch, array(
-          'payment_plan_id' => 'default',
-          'plan_long_name' => 'Full Payment',
-          'plan_desc' => 'Full Payment',
-          'suppress_payment_plan_details' => 'N'
-        ));
-        return $plans_sch;
-      
-      }
       return $plans;
     }
     else {
-      return false;
+      return FALSE;
     }
   }
   return 1;
+}
+
+function filter_payment_plans($acct_id, $invoice_id, $plans) {
+  $pay_plans = "";
+  $payment_plans = $plan_schedules = array();
+  if (
+    (isset($acct_id) && $acct_id) &&
+    (isset($invoice_id) && $invoice_id)
+  ) {
+    $pay_plans = tmapi_get_payment_plans_for_invoice($acct_id, $invoice_id);
+    $payment_plans = explode(',', $pay_plans);
+    //add default plan for full payment
+    //comment the line below if you want to exclude
+    //full payment option
+    array_unshift($payment_plans, "default");
+    if ($plans) {
+      foreach ($plans as $plan) {
+        if (in_array($plan['payment_plan_id'], $payment_plans)) {
+          $plan_schedules[$plan['payment_plan_id']] = $plan;
+          $sort_arr[$plan['payment_plan_id']] = $plan['plan_desc'];
+        }
+      }
+      arsort($sort_arr);
+      foreach ($sort_arr as $sa_key => $sa_value) {
+        $plans_sch[$sa_key] = $plan_schedules[$sa_key];
+      }
+      return $plans_sch;
+    }
+    else{
+      return FALSE;
+    }
+  }
+  else{
+    return FALSE;
+  }
 }
 
 /*
@@ -414,10 +454,38 @@ function tmapi_get_payment_schedules($acct_id=NULL, $invoice_id=NULL, $plan_id=N
     $schedule_json = drupal_json_encode($param);
     $response = array();
     $response = tm_api_call($schedule_json, 'ticketing_services.aspx');
-    if(isset($response['response_ok']) && $response['response_ok']) {
+    if (isset($response['response_ok']) && $response['response_ok']) {
       $data_schedule = drupal_json_decode($response['response']);
-      if (isset($data_schedule['command1']['result']) && $data_schedule['command1']['result']==0) {
-        $payments = (isset($data_schedule['command1']['payments']) && count($data_schedule['command1']['payments'])>0)? $data_schedule['command1']['payments']:false;        
+      if (isset($data_schedule['command1']['result']) && $data_schedule['command1']['result'] == 0) {
+        $payments = (isset($data_schedule['command1']['payments']) && count($data_schedule['command1']['payments']) > 0) ? $data_schedule['command1']['payments'] : FALSE;
+        /*if (!cache_get('tmapi_get_payment_schedules-' . $plan_id)) {
+          cache_set('tmapi_get_payment_schedules-' . $plan_id, $payments, 'cache', REQUEST_TIME + (24 * 60 * 60));
+        }*/
+        return $payments;
+      }
+      else {
+        //Error in API response
+        return 0;
+      }
+    }
+  }
+  return 0;
+}
+
+/*
+* payment plans for invoice
+*/
+function tmapi_get_payment_plans_for_invoice($acct_id=NULL, $invoice_id=NULL) {
+  if(isset($invoice_id) && !empty($invoice_id)){ 
+    $param = tm_api_get_command_param('get_payment_plans_for_invoice', $acct_id);
+    $param['command1']['invoice_id'] = $invoice_id;
+    $schedule_json = drupal_json_encode($param);
+    $response = array();
+    $response = tm_api_call($schedule_json, 'ticketing_services.aspx');
+    if(isset($response['response_ok']) && $response['response_ok']) {
+      $data = drupal_json_decode($response['response']);
+      if (isset($data[0]['result_code']) && $data[0]['result_code']==0) {
+        $payments = (isset($data[0]['payment_plan_ids']) && $data[0]['payment_plan_ids'])? $data[0]['payment_plan_ids']:false;        
         return $payments;
       }
       else{

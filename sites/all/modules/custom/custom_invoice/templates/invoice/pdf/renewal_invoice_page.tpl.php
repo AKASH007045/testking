@@ -80,14 +80,6 @@
         <div class="tcwrp"><div class="tcnm fnt16glb">Total Amount Due:</div> <div class="tcamt actinf"><?php echo $due_amount;?></div></div>
     </div>
   </div>
-    <div class="wrp-main bdr2btn">
-    <div class="lftblck">
-      <div class="actinf">&nbsp;</div>
-    </div>
-    <div class="cmtblck">
-<!--      <div class="addtl">For assistance please contact your Account Rep below:</div>
-      <?php /*print $acct_rep_info; */?>
-    </div>-->
-  </div>
-  <div class="wrp-main fnt12ftr pgbrk"> Sacramento Kings &nbsp;I&nbsp; Sleep Train Arena &nbsp;I&nbsp; One Sports Parkway &nbsp;I&nbsp; Sacramento, CA 95834 &nbsp;I&nbsp; 916.928.0000 &nbsp;I&nbsp; www.kingsmembership.com  </div> 
+
+  <div class="wrp-main fnt12ftr"> Sacramento Kings &nbsp;I&nbsp; Sleep Train Arena &nbsp;I&nbsp; One Sports Parkway &nbsp;I&nbsp; Sacramento, CA 95834 &nbsp;I&nbsp; 916.928.0000 &nbsp;I&nbsp; www.kingsmembership.com  </div> 
 </div>

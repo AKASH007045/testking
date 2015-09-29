@@ -108,15 +108,16 @@ function _tmapi_user_invoice($pdf = NULL) {
   $cnt = 0;
   $tmapi_invoice = tmapi_get_sth_invoice($acct_id);
   if (isset($acct_id)) {
+    $plans = get_plans($acct_id, $invoice_id);
     $seat_holds = get_seats_hold($acct_id);
     $payment_flag = get_tm_payment_flag($acct_id);
     $user_info = invoice_user_info_block();
     $invoice_id = 0;
     $output = '';
-	
+    
 	 /*
     * Kings Specific - Add pricing link on invoice page
-    */
+    
     $pdf_link = 'sites/default/files/STH_15-16_RENEWAL_NEW_SeatingPricing_8.pdf';
     if(_price_code_check()){
       $pdf_link = 'sites/default/files/STH_15-16_RENEWAL_SeatingPricing_8.pdf';
@@ -174,7 +175,7 @@ function _tmapi_user_invoice($pdf = NULL) {
         $row['invoiced_amount'] = array('data' => (isset($seats->invoiced_amount) ? invoice_money_format($seats->invoiced_amount) : ""), 'class' => 'td6');
         $rows[] = array('data' => $row, 'class' => 'tbr');
       }
-      $payment_plans = tmapi_get_payment_plans();
+      //$payment_plans = tmapi_get_payment_plans();
       //$due_amount = ($total + $parking_fee + $handling_fee) - $paid;
 	   $due_amount = ($total) - $paid;
       $invoice_table = theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => array('ticketTable chrt-dtl')), 'sticky' => FALSE));
@@ -222,8 +223,10 @@ function custom_invoice_payment_request() {
     $inv_detail = $_SESSION['invoice_detail'];
   }
   $invoice_id = $get_amount_info['invoice_id'];
-  //$plans = custom_invoice_get_plans($acct_id, $invoice_id); 
-  $plans = tmapi_get_payment_plans($plans);
+  $plans = get_plans($acct_id, $invoice_id);
+  //filter plans
+  $plans = filter_payment_plans($acct_id, $invoice_id, $plans);
+  
   foreach($plans as $plan) {
     //Only select active plans
     $options_plans[$plan['payment_plan_id']] = isset($plan['plan_long_name']) ? $plan['plan_long_name'] : $plan['plan_name'];
@@ -575,23 +578,78 @@ function _save_payment_plan($data=array()) {
 * New onchange of Plans
 */
 function custom_invoice_payment_plans_desc($pid) {
-  if (!is_numeric($pid) && $pid!='default') {
+  if (!is_numeric($pid) && ($pid!='default')) {
     return "";
   }
+  /*$ops['type'] = arg(2);
+  drupal_json_output($ops);
+ exit;*/
+  module_load_include('inc', 'tm_api', 'tm_api.helper');
   global $user;
   if ($user->uid) {
     $acct_id = $user->name;
     if ($acct_id) {
-      $get_amount_info = get_tm_user_amount_info($acct_id);
+      $get_amount_info = $_SESSION['invoice_detail'];
     }
   }
-  module_load_include('inc', 'tm_api', 'tm_api.helper');
-  $invoice_id = $get_amount_info['invoice_id'];
-  $plans = tmapi_get_payment_plans(); 
-  $ops = get_schedule_for_plan_id($acct_id, $invoice_id, $pid, $get_amount_info, $plans);
-  $ops['amount_due_today'] = "0.00";
-  $ops['item_list'] = "No Payment breakup available for this plan";
-  $ops['desc'] = "No description available for this plan.";
+  
+  $invoice_id = $get_amount_info['invoice_ids'];
+  $plans = get_plans($acct_id, $invoice_id);
+  //filter plans
+  $plans = filter_payment_plans($acct_id, $invoice_id, $plans);
+  foreach ($plans as $plan) {
+    if ($plan['payment_plan_id'] == $pid) {
+      $plandesc = $plan['plan_desc'] . '<br/>' . $plan['plan_text'];
+    }
+  }
+
+  $ops = cache_get('tmapi_get_payment_schedules-' . $pid);
+  if (!$ops) {
+    $ops = get_schedule_for_plan_id($acct_id, $invoice_id, $pid, $get_amount_info, $plans);
+  }
+  else{
+    $ops = isset($ops->data)?$ops->data:"";
+  }
+  //$ops['amount_due_today'] = "0.00";
+  //$ops['item_list'] = "No Payment breakup available for this plan";
+  if(isset($plandesc) && $plandesc){
+    $ops['desc'] = $plandesc;
+  }
+  else{
+    $ops['desc'] = "No description available for this plan.";
+  }
   drupal_json_output($ops);
   exit;
+}
+
+function get_plans($acct_id, $invoice_id){
+  module_load_include('inc', 'tm_api', 'tm_api.helper');
+  /*
+  $plans = cache_get('tmapi_get_payment_plans');
+  if (!cache_get('tmapi_get_payment_plans')) {
+    $plans = tmapi_get_payment_plans($acct_id, $invoice_id);
+  }
+  else{
+    $plans = isset($plans->data)?$plans->data:"";
+  }*/
+  //cache payment plans
+  $cid = 'tmapi_get_payment_plans';        
+  $cache = cache_get($cid);  
+  //$timed = format_date($cache->expire);
+  //$now_time = format_date(time());
+  //flog_it('now time '.$now_time);  
+  if (!empty($cache->data)) {
+   //flog_it('Expire_time '.$timed);
+    if (time() >= $cache->expire) {
+      $plans = tmapi_get_payment_plans($acct_id, $invoice_id);            
+    }
+     else {
+       $plans = $cache->data;
+    }
+  }
+  //If first time user is calling.
+  else {
+    $plans = tmapi_get_payment_plans($acct_id, $invoice_id);
+  }
+  return $plans;
 }

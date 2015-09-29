@@ -148,9 +148,9 @@ function custom_hooks_node_view($node, $view_mode, $langcode) {
  * Implementation of hooks_preprocess_page().
  */
 function custom_hooks_init() {
-  $detect = mobile_detect_get_object();
-  $is_mobile = $detect->isMobile();
-  $is_tablet = $detect->isTablet();
+  //$detect = mobile_detect_get_object();
+  //$is_mobile = $detect->isMobile();
+  //$is_tablet = $detect->isTablet();
   /*if ($is_mobile && !$is_tablet) {
     if (arg(0) == 'calendar') {
       drupal_goto('schedule');
@@ -497,6 +497,7 @@ function custom_hooks_theme($existing, $type, $theme, $path) {
  */
 function get_user_full_name($user) {
   if ($user->uid) {
+    module_load_include('inc', 'tm_data', 'tm_data.inc');
     $user_info = get_user_info($user->name);
     if (isset($user_info->acct_id) && $user_info->acct_id) {
       if ($user_info->name_first) {
