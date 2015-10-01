@@ -493,7 +493,14 @@ function success_payment_admin_notification($data=array(), $cc_num=NULL, $notify
 function failure_payment_admin_notification($data=array(), $cc_num=NULL, $site_mail=NULL){
   if ((count($data)>0) && (isset($cc_num) && !empty($cc_num)) && (isset($site_mail) && !empty($site_mail))) {
     $params = array();
-    $to = 'awolfe@io-media.com, rkumar@io-media.com, adeb@io-media.com, pmanas@io-media.com';
+    //$to = 'awolfe@io-media.com, rkumar@io-media.com, adeb@io-media.com, pmanas@io-media.com';
+	$to = '';
+	if (variable_get('invoice_payment_failure_additional_mail', '')){
+	 $to = variable_get('invoice_payment_failure_additional_mail', '');
+	 $to_array = explode(',', $to);
+	 $to_array = array_map('trim',$to_array);	 
+	 $to = implode(',', array_unique($to_array));
+	}
     $params['subject'] = t('Payment Request failed for Account -  %acct_id', array('%acct_id' => $data['tmuser_info']['acct_id']));
     $params['body'] = t('Payment Request has been failed for Acct_ID %acct_id with card ending in %cc_num<br/><br/>TM Raw Response: %response', array('%acct_id' => $data['tmuser_info']['acct_id'], '%cc_num' => $cc_num, '%response' => $data['tm_raw_response']));
     drupal_mail('custom_hooks', 'tm_payment_notify', $to, LANGUAGE_NONE, $params, $site_mail);
@@ -506,7 +513,14 @@ function failure_payment_admin_notification($data=array(), $cc_num=NULL, $site_m
 function api_failure_mail($data=array(), $cc_num=NULL, $site_mail=NULL){
   if((count($data)>0) && (isset($cc_num) && !empty($cc_num)) && (isset($site_mail) && !empty($site_mail))) {
     // API Failure mail
-    $to = 'awolfe@io-media.com, rkumar@io-media.com, adeb@io-media.com, pmanas@io-media.com';
+    //$to = 'awolfe@io-media.com, rkumar@io-media.com, adeb@io-media.com, pmanas@io-media.com';
+	$to = '';
+	if (variable_get('invoice_payment_failure_additional_mail', '')){
+	 $to = variable_get('invoice_payment_failure_additional_mail', '');
+	 $to_array = explode(',', $to);
+	 $to_array = array_map('trim',$to_array);	 
+	 $to = implode(',', array_unique($to_array));
+	}
     $params['subject'] = t('No TM Response: Payment Request failed for Account- %acct_id', array('%acct_id' => $data['tmuser_info']['acct_id']));
     $params['body'] = t('Payment Request has been failed for Acct_ID %acct_id with card ending in %cc_num<br/> Resaon: No TM Response', array('%acct_id' => $data['tmuser_info']['acct_id'], '%cc_num' => $cc_num));
     drupal_mail('custom_hooks', 'tm_payment_notify', $to, LANGUAGE_NONE, $params, $site_mail);
@@ -584,10 +598,12 @@ function custom_invoice_payment_plans_desc($pid) {
   foreach ($plans as $plan) {
     if ($plan['payment_plan_id'] == $pid) {
       $plandesc = $plan['plan_desc'] . '<br/>' . $plan['plan_text'];
+      
     }
   }
 
   $ops = cache_get('tmapi_get_payment_schedules-' . $pid);
+  
   if (!$ops) {
     $ops = get_schedule_for_plan_id($acct_id, $invoice_id, $pid, $get_amount_info, $plans);
   }
@@ -598,11 +614,14 @@ function custom_invoice_payment_plans_desc($pid) {
   //$ops['item_list'] = "No Payment breakup available for this plan";
   if(isset($plandesc) && $plandesc){
     $ops['desc'] = $plandesc;
+    
   }
   else{
     $ops['desc'] = "No description available for this plan.";
   }
+  
   drupal_json_output($ops);
+
   exit;
 }
 

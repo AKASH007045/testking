@@ -169,7 +169,7 @@ function custom_invoice_get_plans($acct_id = NULL, $invoice_id=NULL){
 }
 
 function get_schedule_for_plan_id($acct_id=NULL, $invoice_id=NULL, $plan_id=NULL , $get_amount_info, $plans = NULL){
-  if((isset($acct_id) && !empty($acct_id)) && (isset($invoice_id) && !empty($invoice_id)) && (isset($plan_id) && !empty($plan_id))) { 
+  if((isset($acct_id) && !empty($acct_id)) && (isset($invoice_id) && !empty($invoice_id)) && (isset($plan_id) && !empty($plan_id))) {
     $items = array();
     $title = t(''); //Blank to show no header for item list
     $amount_due_today = "0.00";
@@ -185,25 +185,20 @@ function get_schedule_for_plan_id($acct_id=NULL, $invoice_id=NULL, $plan_id=NULL
     }
     else {
       module_load_include('inc', 'tm_api', 'tm_api.helper');
-      //$plans = tmapi_get_payment_plans();
-      foreach ($plans as $plan) {
-        if ($plan['payment_plan_id'] == $plan_id) {
-          $plandesc = $plan['plan_desc'];
-        }
-      }
       $schedules = tmapi_get_payment_schedules($acct_id, $invoice_id, $plan_id);
-      flog_it($schedules);
-      //$schedules = get_plan_schedules($acct_id, $invoice_id, $plan_id);
-      foreach($schedules as $schedule){ 
-        $ttl = date('F d, Y', strtotime($schedule['payment_due_date']));      
-        
-        if(isset($schedule['amount_due_today']) && !empty($schedule['amount_due_today'])){
-          $amount_due_today = $schedule['amount_due_today'];
+
+      if (isset($schedules) && $schedules) {
+        foreach($schedules as $schedule){ 
+          $ttl = date('F d, Y', strtotime($schedule['payment_due_date']));      
+          
+          if(isset($schedule['amount_due_today']) && !empty($schedule['amount_due_today'])){
+            $amount_due_today = $schedule['amount_due_today'];
+          }
+          
+          $items[] = array(
+            'data' => '<span class="duedate">'.$ttl.'</span> <span class="dollars">'.invoice_money_format($schedule['owed_amount']).'</span>'
+          );
         }
-        
-        $items[] = array(
-          'data' => '<span class="duedate">'.$ttl.'</span> <span class="dollars">'.invoice_money_format($schedule['owed_amount']).'</span>'
-        );
       }
     }    
     
@@ -212,19 +207,25 @@ function get_schedule_for_plan_id($acct_id=NULL, $invoice_id=NULL, $plan_id=NULL
       $ops = array();
       $ops['amount_due_today'] = number_format((double)$amount_due_today, 2, '.', '');
       $ops['amount_due_detail'] = invoice_money_format($amount_due_today);
-      $ops['desc'] = $plandesc;
       $ops['item_list'] = $desc_options;
-      drupal_json_output($ops);
-      exit;
+      return $ops;
     }
     else{
-      echo "";
-      exit;
+      $amount_due_today = 0;
+      $ops = array();
+      $ops['amount_due_today'] = number_format((double)$amount_due_today, 2, '.', '');
+      $ops['amount_due_detail'] = invoice_money_format($amount_due_today);
+      $ops['item_list'] = "Payment schedule not available for this plan.";
+      return $ops;
     }
   }
   else{
-    echo "";
-    exit;
+    $amount_due_today = 0;
+    $ops = array();
+    $ops['amount_due_today'] = number_format((double)$amount_due_today, 2, '.', '');
+    $ops['amount_due_detail'] = invoice_money_format($amount_due_today);
+    $ops['item_list'] = "Payment schedule not available for this plan.";
+    return $ops;
   }  
 }
 
