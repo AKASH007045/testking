@@ -1,0 +1,140 @@
+/*BG colour in black behind the content in all the pages*/
+.main-wrap .region-content {
+	.node, .node-video .field-name-field-bottom-content {
+		$experimental-support-for-svg:	true;
+		@include background-image($inner-content-blk-gradient);
+	}
+}
+
+
+/*My PDF page*/
+
+#block-views-tab-pages-block ul.nav-tabs {
+	/*Tabbing BG*/
+	border: 0;
+	background-color: $black-bgd;
+	
+	li {
+		/*Tabbing li*/
+		border-right: 1px solid $lgtgray;
+		
+		a:hover, &.active a {
+		/*Tabbing li a hover*/
+			color: $white;
+			text-decoration: underline;
+		}
+		a {
+		/*Tabbing li a*/
+			background: none;
+			color: $lgtgray;
+		}
+	}
+}
+
+
+
+.main-wrap .region-content .node-take-over-pages.node {
+	background: none;
+}
+
+
+.page-node-1174 .node.node-page p, .page-node-1173 .node.node-page p, .page-403 .node.node-page p, .nav-tabs li.bv-tab-error > a, .has-error .css3 li a {
+  color: #a94442;
+}
+
+.nav-tabs li.bv-tab-success > a {
+  color: #3c763d;
+}
+
+/*   Inner Content Slider Prev/Next Hover   */
+.main-wrap .flex-direction-nav a{
+	color: $arrow-default-color;
+}
+.main-wrap .flex-direction-nav a:hover{
+	color: $brand-color;
+}
+
+
+
+/** Benefit Start Here */
+.container-fluid .main-wrap .node, body.page-user .container-fluid .main-wrap .region-content,
+.container-fluid .main-wrap .node .quickedit-field.quickedit-editable{
+	min-height: 620px;
+}
+
+.node-type-benefits .node ul {
+	padding-left: 20px;
+	margin-top: 30px;
+}
+
+.node-type-contact-us .container-fluid .main-wrap .node,
+body.front .container-fluid .main-wrap .node,
+body.page-home .container-fluid .main-wrap .node {
+	min-height: 20px;
+}
+.node-promo_tile-form .field-type-datetime legend.panel-heading {
+  width: 83px;
+  margin-top: 0;
+  line-height: 0.8em;
+}
+
+.node-type-tab-page .view-tab-pages .nav-tabs {
+  text-align: center;
+}
+
+.node-type-tab-page .view-tab-pages .nav-tabs li {
+  float: none;
+}
+
+
+
+.field-name-field-welcome-text .field-item.even,
+.field-name-field-video,
+.field-name-field-page-body,
+.field-name-body .field-item.even,
+.field-name-field-pdf,
+.node-contact-us .field-name-field-top-content .field-item.even,
+.node-contact-us .field-name-field-bottom-content .field-item.even {
+  top: 0 !important;
+  left: 0 !important;
+  padding: 0 !important;
+  margin-bottom: 0 !important;
+  width: auto !important;
+}
+
+.table-responsive a.tabledrag-handle .handle,
+.node.node-site-page .draggable a.tabledrag-handle .handle {
+  background-position: 6px 6px;
+  height: 22px;
+  width: 22px;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+
+.table-responsive a.tabledrag-handle-hover .handle,
+.node.node-site-page .draggable a.tabledrag-handle-hover .handle {
+  background-position: 6px -14px;
+}
+
+/*Pagination*/
+article.node-site-page .field .field-items .field-item.active,
+.node.node-site-page div.field-items div.field-item.active {
+  display: block;
+}
+
+
+/*  Video Page  */
+
+.node-type-video{
+	.container-fluid{
+		> section.main-wrap{
+			article.node{
+				p:last-child{
+					padding:40px 40px 80px 40px;
+				}
+			}
+		}
+	}
+}
+.typeform-empty-placeholder{width:auto;display:inline-block;border:2px dashed rgba(255,255,255,1);line-height:40px;padding:0px 25px;}

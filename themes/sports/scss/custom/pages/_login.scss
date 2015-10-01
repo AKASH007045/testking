@@ -1,0 +1,185 @@
+/** User Login Start here */
+.ticket_cloud_logo {
+	text-align: center;
+	margin-top: 18px;
+}
+
+.page-user .login_text_title, .forgot_text_title {
+	text-align: center;
+}
+
+#user-login {
+	padding: 37px 45px 58px 45px;
+	max-width: 403px;
+	margin: 0 auto 100px auto;
+	
+	.form-type-textfield input, .form-type-password input {
+		padding: 5px 9px 5px 18px;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
+		font-weight: normal;
+		font-size: 1em;
+	}
+	#edit-actions {
+		margin-top: 0px;
+		margin-bottom: 10px;
+		
+		button.form-submit{
+			border: 1px solid $nav-item-hover-border;
+			@include box-shadow($nav-item-hover-shadow 0px 2px 0px inset);
+			@include text-shadow($blk-txt-shadow -1px -1px 0);
+			$experimental-support-for-svg:	true;
+			@include background-image($login-page-button);
+			
+			&:hover,&:focus{
+				background: $brand-color;
+			}
+		}
+	}
+	.form-item-remember-me {
+		float: left;
+		width: 130px;
+		margin-top: 0px;
+		margin-left: 0;
+		
+		label {
+			padding-left: 0;
+			color: $black;
+		}
+		
+	}
+	#edit-form-description {
+		/*Text color Account Manager*/
+		color:$usr-login-description-text;
+		text-align: center;
+		margin-top: 0;
+		margin-bottom: 31px;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
+		font-weight: normal;
+		line-height: 1.22em;
+		font-size: 18px;
+	}
+
+	.need_help{
+		float: right;
+		margin: 0 1px 0 1px;
+		
+		a {
+			color: $black;
+		}
+	}
+	border: 1px solid $user-login-border;
+	background:$user-login-bg;
+}
+
+.having-trouble-box {
+	padding: 49px 45px 51px 45px;
+	max-width: 403px;
+	margin: 0 auto 100px auto;
+	color: $signin-text-color;
+	border: 1px solid #252525;
+	background: #f7f6f6;
+	
+	a{
+		color: $signin-text-color;
+		
+	}
+	.button_blue a {
+		display: block;
+		margin: 26px auto 0 auto;
+		cursor: pointer;
+		text-decoration: none;
+		color: $white;
+		border: 1px solid $nav-item-hover-border;
+		@include box-shadow($nav-item-hover-shadow 0px 2px 0px inset);
+		@include text-shadow($blk-txt-shadow -1px -1px 0);
+		$experimental-support-for-svg:	true;
+		@include background-image($login-page-button);
+		
+		&:hover,&:focus{
+			background: $brand-color;
+		}
+	}
+}
+
+
+h4.element-invisible {
+	text-align: center !important;
+}
+
+
+.page-node-1175 .main-wrap .region-content .node {
+	background: none;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+body.page-user-login,body.page-node-1175 { 
+    .main-container > .main-wrap{
+       padding-bottom:85px;
+    }
+}
+.page-user #user-login .form-item-name label, 
+.page-user #user-login .form-item-pass label,
+#user-login .alert-danger .close,
+form#user-login .form-item-remember-me span input {
+  display: none;
+}
+
+a.forgot-pass{
+	color:$forgot-password;font-weight:bold;
+	&:hover, &:focus{
+		color:$forgot-password; text-decoration:underline;
+	}
+}
+
+.form-control {
+	@include border-radius(0);
+}
+
+.has-feedback .form-control-feedback {
+  top: 6px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: .6em;
+}
+
+.bv-form .help-block {
+  margin-bottom: 0;
+}
+
+#user-login {
+  border: 1px solid #252525;
+  background: #f7f6f6;
+}
+/* line 1062, ../sass/custom/_stp-theme.scss */
+#user-login #edit-form-description {
+  /*Text color Account Manager*/
+  color: #404040;
+}
+/* line 1066, ../sass/custom/_stp-theme.scss */
+#user-login .form-item-remember-me label, #user-login .need_help a {
+  /*Text color*/
+  color: #000000;
+}
+
+/* line 1074, ../sass/custom/_stp-theme.scss */
+form#user-login .form-item-remember-me span {
+  /*Radio Icon image*/
+  background: url(../images/remember-me-sprite.png) no-repeat 0 0px;
+}
+
+form#user-login .form-item-remember-me span {
+    float: left;
+    margin: 2px 0 0 0;
+    overflow: hidden;
+    display: block;
+    width: 22px;
+    height: 18px;
+}
+form#user-login .form-item-remember-me span.active {
+    background-position: 0px -21px;
+}
+.page-user-login button.btn-default, .button_blue a {  width: 100%;}

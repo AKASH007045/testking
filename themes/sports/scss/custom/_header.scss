@@ -1,0 +1,164 @@
+.navbar-default{
+	border: none;
+	border-top: 2px solid $nav-top-border-color;
+	$experimental-support-for-svg: true;
+	@include background-image($nav-gradient);
+	@include box-shadow($nav-box-shadow 0px 0px 8px inset);
+	@include border-radius(0);
+	min-height: 42px;
+	margin-left: 50px;
+	font-size: 1.0714em;
+	.nav > li > a:hover, .navbar-nav > .active-trail > a.active-trail {
+		border: 1px solid $nav-item-hover-border;
+		@include box-shadow($top-nav-link-box-shadow);
+		@include text-shadow($blk-txt-shadow -1px -1px 0);
+		$experimental-support-for-svg: true;
+		@include background-image($nav-gradient-hover);
+	}
+	.nav li{
+		&:hover{
+			> a{
+				border: 1px solid $nav-item-hover-border;
+				@include box-shadow($top-nav-link-box-shadow);
+				@include text-shadow($blk-txt-shadow -1px -1px 0);
+				$experimental-support-for-svg: true;
+				@include background-image($nav-gradient-hover);
+			}
+		}
+	}
+	.navbar-nav{
+		li.open > a.dropdown-toggle{
+			$experimental-support-for-svg: true;
+			@include background-image($nav-gradient-hover);
+		}
+		> .active > a{
+			border: 1px solid $nav-item-hover-border;
+			@include box-shadow($top-nav-link-box-shadow);
+			@include text-shadow($blk-txt-shadow -1px -1px 0);
+			$experimental-support-for-svg: true;
+			@include background-image($nav-gradient-hover);
+			&:hover, &:focus{
+				border: 1px solid $dropdown-toggle-border;
+				@include box-shadow($dropdown-toggle-shadow 0px 0px 0px inset);
+				@include text-shadow($blk-txt-shadow -1px -1px 0);
+				$experimental-support-for-svg: true;
+				@include background-image($nav-gradient-hover);
+		  	}
+		}
+		> li, .dropdown{
+			position:inherit;
+		}
+		> li > a,.active > a {
+			color: $nav-font-color;
+			&:hover, &:focus {
+				color: $nav-hover-font-color;
+			}
+		}
+	}
+	.dropdown-menu{
+		background:$nav-drop-down-bg;
+		-moz-box-shadow: inset 0 -5px 18px rgba(0, 0, 0, 0.5), 0 3px 5px rgba(0, 0, 0, 0.3);
+		-webkit-box-shadow: inset 0 -5px 18px rgba(0, 0, 0, 0.5), 0 3px 5px rgba(0, 0, 0, 0.3);
+		box-shadow: inset 0 -5px 18px rgba(0, 0, 0, 0.5), 0 3px 5px rgba(0, 0, 0, 0.3);
+		@include border-radius(0);
+		padding: 3px 0 !important;
+		width: 100%;
+		min-height: 39px;
+		padding: 0 0 0 70px !important;
+		border: 0;
+		z-index: 10;
+		> li > a {
+			padding:0px 15px;
+			margin-right: 3px;
+			line-height:39px;
+			color: $white;
+			&:last-child {
+				margin-right: 0;
+			}
+			&:hover, &:focus {
+				background:$nav-drop-down-item-hover;
+				color: $white;border:none;box-shadow:none;
+			}
+			.active > a {
+				color: $white;
+				background:$nav-drop-down-item-hover;
+				&:hover, &:focus {
+					color: $white;
+					background:$nav-drop-down-item-hover;
+				}
+			}
+		}
+		li.active{
+			a.active-trail{
+				&.active{
+					background:$nav-drop-down-item-hover;
+					color: $white;
+				}
+			}
+		}
+	}
+	#block-custom-block-main-navigation, #block-system-user-menu{
+		position: inherit;
+	}
+	#block-system-user-menu{
+		.dropdown-menu li.leaf{
+			float:right;
+		}
+	}
+	.dropdown:hover .dropdown-menu {
+		display: block;
+		padding: 0;
+	}
+	> .navbar-right .region-user-info section.block {
+		position: inherit;
+	}
+	ul li .caret{
+		display: none;
+	}
+	.navbar-collapse {
+		padding-left: $nav-left-position;
+		width: 100%;
+		border-top: 0;
+	}
+}
+.not-logged-in .navbar-default{
+	margin-top:49px;
+}
+#block-custom-block-user-info{
+	padding: 24px 18px 8px 0;
+	font-size: 1.0714em;
+	line-height: 18px;
+	text-align: right;
+}
+#block-system-user-menu ul.menu .dropdown-menu{
+	margin: 0;
+}
+.navbar-default{ 
+	.navbar-nav, .nav {
+    > li > a{
+      padding: 0px 14px;
+      line-height:40px;
+      text-transform: uppercase;
+      letter-spacing: .0252em;
+      border: 1px solid transparent;
+        &:hover, &:focus {
+          text-transform: uppercase;
+          letter-spacing: .0252em;
+          /*border: 1px solid transparent;*/
+        }
+     }
+  }
+}
+.navbar-nav > li.expanded ul li.leaf, .navbar-default .navbar-collapse .region-main-menu {
+  float: left;
+}
+
+/*  Position for logo  */
+.navbar .navbar-brand{
+	left: $logo-left-position;
+	top: $logo-top-position;
+	padding: 0;
+	z-index: 11;
+	position: absolute;
+	outline: 0;
+}

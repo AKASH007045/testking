@@ -1,0 +1,10 @@
+# Ignore phpstorm settings file
+.idea/*
+# Ignore configuration files that may contain sensitive information.
+settings*.php
+# Ignore paths that contain user-generated content.
+files*
+drupal.log
+themes/sports/sass/*
+themes/.sass-cache/*
+themes/sports/.sass-cache/*

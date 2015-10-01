@@ -1,3 +1,0 @@
-Extract and paste the folder into plugins directory.
-
-Add this line: config.extraPlugins = 'lineheight'; in config.js file.

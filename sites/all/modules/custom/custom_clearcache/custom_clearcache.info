@@ -1,7 +1,0 @@
-name= Custom Clear Cache
-description = Custom Clear Cache
-version = VERSION
-package = Custom
-core = 7.x
-project = "drupal"
-datestamp = "1352325357"

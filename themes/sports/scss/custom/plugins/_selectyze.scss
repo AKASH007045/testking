@@ -1,0 +1,90 @@
+.css3 {
+	position:relative;
+	float:right;
+	
+	ul{
+		list-style:none;
+	}
+	.UlSelectize {
+		background-color: $white-bgd;
+		border: 1px solid $lgt-gray;
+		top:26px;
+		left:0;
+		width:200px;
+		padding-left:0; 
+		max-height: 130px;
+		overflow-y: auto !important;
+		position:absolute;
+		z-index:9999;
+		display:none;
+		
+		li{
+			padding-left: 0;margin-left: 0;
+		}
+	}
+	li a {
+		color: $black;
+		font-size: 12px;
+		background-color:transparent;
+		padding:3px 5px;
+		text-align:left;
+		display:block;
+		text-decoration:none;
+		
+		&:hover {
+			background-color: $select-box-color;
+			color: $white;
+		}
+	}
+	.optgroupTitle {
+		background-color: #3e3d3d;
+		color: $white;
+		margin-top:15px;
+		font-size:17px;
+		font-style:italic;
+		padding-left:10px;
+		font-weight:700;
+		display:block;
+	}
+	.selectyzeValue {
+		color: #666666;
+		background-color: $white-bgd;
+		border: 1px solid $lgt-gray;
+		position:relative;
+		font-size:14px;
+		line-height:29px;
+		padding:0px 30px 0px 5px;
+		width:200px;
+		height:27px;
+		text-align:left;
+		white-space:nowrap;
+		text-overflow:ellipsis;
+		overflow:hidden;
+		position:relative;
+		z-index:10;
+		display:block;
+		text-decoration:none;
+		
+		&:after {
+			width:24px;
+			height:24px;
+			background: $select-box-color;
+			content:'\FE40';
+			position:absolute;
+			right:1px;
+			top:1px;
+			color:#ffffff;
+			text-align:center;
+			padding-top: 4px;
+    		font-weight: bold;
+		}
+	}
+}
+.has-error{
+	.css3{
+		.selectyzeValue {
+			border: 1px solid #b94a48 !important;
+			color: #a94442;
+		}
+	}
+}

@@ -1,0 +1,174 @@
+html {
+  height: 100%;
+}
+
+body { 
+  font-family: Arial, Helvetica, sans-serif;
+  color: $white;
+  padding-right: 0 !important;
+}
+a{
+	color: $white;
+	&:hover, &:focus {
+		color: $white;
+		outline:none;
+	}
+}
+
+.container-fluid {
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.container-fluid .page-header {
+  text-align: center;
+  border-bottom: none;
+  letter-spacing: .0444em;
+  line-height: normal;
+  margin-top: 0;
+  padding-bottom: 16px;
+  margin-bottom: 0;
+}
+
+.page-user-login .container-fluid .page-header, .node-type-page .container-fluid .page-header {
+  text-transform: inherit;
+  padding-bottom: 37px;
+}
+
+button,a,a:hover{outline:none;}
+.btn-success[disabled]{
+	border-color:$success-button-disabled-border;
+}
+
+div.messages {
+  background-position: 8px 12px;
+}
+.container-fluid {
+	min-width: 768px;
+	padding:0px;
+}
+/*Text Field*/
+input.form-control,
+select.form-control,
+.form-item-title .counter,
+#user-login .alert-danger,
+.help-block,
+select {
+  font-size: 12px;
+}
+
+select.form-control {
+  padding: 0;
+}
+
+input.form-control {
+  padding-left: 5px;
+}
+
+input[type="radio"], input[type="checkbox"] {  margin-top: 2px;}
+
+/**Buttons**/
+
+.global-button{display:inline-block;
+	&:hover,&:focus{text-decoration:none}
+}
+
+.amountduewrap .amountduettl .pull-right a:hover,.payment-amount-box .make-payment-wrapper button#edit-submit:hover,.global-button:hover, .page-invoice-payment button.form-submit,.page-pawp .container-fluid .main-wrap section.block button.btn-default:hover,.page-pawp .container-fluid #user-login #edit-actions .form-submit:hover, .takeover-btn-wrap .tk-btn .field a:hover{
+	color:$white;
+	background:$default-button-hover;
+	border:1px solid $default-button-hover-border;
+}
+.page-user .btn-default,.page-user .btn-default:focus, .season-invoice-detail .btn-default, .button_blue a, #renewal-countdown-timer #edit-actions .form-submit, .page-invoice-payment button.form-submit, .page-invoice .season-invoice-detail .pull-right .btn-default:focus,.page-invoice-payment .btn-default.return-home,.page-invoice-payment .btn-default.return-home:focus{
+	/*Email and Print Btn*/
+	border: 1px solid $email-buttons-border;
+	@include box-shadow(0px 1px 1px $email-buttons-box-shadow inset);
+	color: $white;
+	
+	$experimental-support-for-svg:	true;
+	@include background-image($email-button-bg);
+}
+
+.page-invoice .season-invoice-detail .pull-right a:hover,.page-invoice-payment .btn-default.return-home:hover,.page-user .btn-default:hover,.having-trouble-box .button_blue a:hover{
+	background:$email-button-hover-bg;
+}
+
+.btn-light, .make-payment-wrapper button.form-submit, .page-invoice .pull-right .btn-default:focus,.payment-amount-box .make-payment-wrapper button#edit-submit,.payment-amount-box .make-payment-wrapper button#edit-submit:focus, .global-button,.global-button:focus, .page-invoice-payment button.form-submit,.page-pawp .container-fluid .main-wrap section.block button.btn-default, .page-invoice-payment button.form-submit,.page-pawp .container-fluid .main-wrap section.block button.btn-default:focus,.page-pawp .container-fluid #user-login #edit-actions .form-submit,.page-pawp .container-fluid #user-login #edit-actions .form-submit:focus, .takeover-btn-wrap .tk-btn .field a, .takeover-btn-wrap .tk-btn .field a:focus{
+	/* Pay Button */
+	border: 1px solid $default-button-border-color;
+	@include box-shadow(0px 1px 1px $default-button-box-shadow inset);
+	$experimental-support-for-svg: true;
+ 	@include background-image($default-button-gradient);
+	color: $white;
+}
+
+.front h1.page-header, .page-home h1.page-header, .page-my-calendar .page-header, 
+.page-full-calendar h1.page-header, .page-calendar h1.page-header, .view-seat-information .node-page header {
+  display: none;
+}
+
+/*Model Box Overlay*/
+#modal_bootstrap .poupatstud {
+  float: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 65%;
+}
+
+#modal_bootstrap .pptic-evt {
+  float: left;
+  font-size: 0.85em;
+  text-align: right;
+  text-transform: uppercase;
+  width: 35%;
+}
+
+.modal-dialog {
+  width: 988px;
+}
+
+#modal_bootstrap .modal-dialog .modal-content {
+  border: medium none;
+  border-radius: 0;
+  overflow: hidden;
+  /*height:519px;*/
+}
+
+#modal_bootstrap .modal-dialog {
+  left: 0;
+  margin: auto;
+  top: 0;
+  width: 992px;
+}
+
+#modal_bootstrap .modal-dialog.game-popup-dialog .modal-body {
+  padding-top: 70px;
+}
+
+#modal_bootstrap .pptic-evt .closePopup {
+  cursor: pointer;
+  height: 28px;
+  width: 29px;
+  box-shadow: none;
+  border: 0;
+  margin-top: 5px;
+  position:absolute;
+  right:3px;
+  top:15px;
+}
+
+#modal_bootstrap {
+  position: fixed;
+  left: 50%;
+  margin-left: -496px;
+  top: 50%;
+  margin-top: -261px;
+  z-index: 9999;
+}
+#modal_bootstrap .mgTicket {
+  display: inline-block;
+  padding: 0 48px 0 15px;
+}
+
+

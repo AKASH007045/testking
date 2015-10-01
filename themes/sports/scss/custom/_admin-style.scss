@@ -1,0 +1,776 @@
+body, #admin-menu{
+	background: $black-bgd;
+}
+
+body {
+  &.front .container-fluid > .bg-page-link-edit, &.page-home .container-fluid > .bg-page-link-edit {
+    right: 0;
+    bottom: inherit;
+    top: 600px;
+  }
+}
+
+.page-update-custom-background {
+  .imageeditor, .group-sth-event-user-type-access {
+    display: none;
+  }
+}
+.page-update-custom-background a.bg-page-link-edit { display: none;}
+section.container .bg-page-link-edit {
+  right: 0;
+}
+
+
+body.page-update-custom-background.not-front .container-fluid > section.main-wrap {
+  margin-top: 0;
+}
+body.page-update-custom-background{
+	.container-fluid{
+		fieldset{
+			&.form-wrapper{
+				display:none;
+			}
+		}
+		section.main-wrap{
+			.field-name-field-background-image{
+				.form-type-managed-file{
+					min-height:121px;
+				}
+			}
+			section.block{
+				margin-bottom:0px;
+			}
+			form.node-form{
+				#edit-field-image{
+					display:none;
+				}
+			}
+		}
+	}
+}
+#overlay {
+  width: 1024px;
+  padding:0px;
+}
+
+#admin-menu { border-bottom: solid 2px #9f7501;
+	.dropdown {
+		a {
+			color:$white;
+		}
+		.admin-menu-icon > a, .admin-menu-toolbar-category > a.active-trail {
+			border:1px solid $ylw-bdr-edt;		
+			background: $golden-drk;
+			$experimental-support-for-svg: true;
+			@include background-image(linear-gradient(top, $golden-drk 0%, $yallowclr 100%));
+				&:hover, &.active-trail:hover{ background: $golden-drk;	}
+		 }		
+	   }
+		li.admin-menu-account > a {
+		border:1px solid $ylw-bdr-edt;
+		background: $golden-drk;	
+		$experimental-support-for-svg: true;
+		@include background-image(linear-gradient(top, $golden-drk 0%, $yallowclr 100%));
+				&:hover {background: $golden-drk;}
+	}
+}
+
+/*Overlay BG*/
+
+#overlay-content {
+	background: $lightgray;
+	$experimental-support-for-svg:true;
+	@include background-image(linear-gradient(to bottom, $lightgray 0%, $ctlgray 100%));
+}
+
+.main-wrap ul.tabs-primary-live li a {
+  border-radius: 6px;
+  cursor: pointer;
+  display: block;
+  line-height: 20px;
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-right: 5px;
+  background-color: transparent;
+  border: solid 1px transparent;
+}
+
+.main-wrap ul.tabs-primary-live li a i {
+  font-size: 19px;
+  float: left;
+  margin-right: 3px;
+  margin-top: 1px;
+}
+
+/*End nav-tabs images*/
+.main-wrap ul.nav-tabs li.edit,
+.main-wrap ul.nav-tabs li.live-edit {
+  margin: 0 0 3px 0px;
+}
+
+/*Top Admin Navigation - bg hover for home icon and editor */
+
+.bg-page-link-edit {
+  display: inline-block;
+  position: absolute;
+  bottom: 443px;
+  right: 0;
+  padding: 0px 4px;
+  z-index: 9;
+  line-height: 24px;
+  border-radius: 3px 0px 0px 3px;
+  -moz-border-radius: 3px 0px 0px 3px;
+  -webkit-border-radius: 3px 0px 0px 3px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.bg-page-link-edit .fa-edit {
+  font-size: 19px;
+  float: left;
+  margin-top: 3px;
+  margin-right: 4px;
+}
+.bg-page-link-edit {
+	border: 1px solid $ylw-bdr-edt;
+	background: $golden-drk;  
+	$experimental-support-for-svg:true;
+	@include background-image(linear-gradient(top, $golden-drk 0%, $yallowclr 100%));
+	&:hover { @include box-shadow(-1px 3px 5px $blk-bx-shadow);
+			  text-decoration: none;
+	}
+	&.stp-update-pdf, &.stp-update-video {
+		display: none;
+	 }
+}
+	.bg-page-link-edit:hover {
+		background: $golden-drk;
+		text-decoration: none;
+	}
+
+
+/*---------------Side Click----------------*/
+.main-wrap .highlighted {
+  padding: 0;
+  position: fixed;
+  right: 0px;
+  top: 12%;
+  width: 250px;
+  z-index: 101;
+}
+.main-wrap .highlighted section {
+  position: relative;
+}
+
+.main-wrap .highlighted .tabs-wrap-primary-user {
+  padding: 10px 10px 16px;
+}
+
+.home-tgl span.bg {
+  right: 0;
+  bottom: -1px;
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  display: none;
+}
+
+.main-wrap .highlighted.slide {
+  right: -250px;
+}
+
+.home-tgl {
+  border-right: none;
+  left: -26px;
+  line-height: inherit;
+  padding: 0 13px;
+  position: absolute;
+  top: 0;
+  font-size: 19px;
+  cursor: pointer;
+  display: block;
+  height: 100%;
+}
+
+.stp-editor-links .home-tgl {
+  left: -26px;
+}
+/*Right Side sidekick - Global*/
+
+.home-tgl {
+  /*sidekick - yellow bg*/
+  border: 1px solid $ylw-bdr-edt;
+  $experimental-support-for-svg:	true;
+  @include background-image($admin-side-kick-bg);
+  &:hover {
+    /*sidekick - yellow bg on hover*/
+    background: $golden-drk;
+  }
+}
+.home-tgl .sidekick-label {
+  text-shadow: 0 1px 2px $blk-txt-shadow;
+  background: url(../images/sidekick.png) no-repeat left top;
+}
+.home-tgl .sidekick-label {
+  display: block;
+  left: 0;
+  top: 50%;
+  width: 24px;
+  height: 65px;
+}
+
+.home-tgl .fa {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  margin-left: 8px;
+}
+
+.main-wrap ul.tabs--primary {
+  padding: 10px 10px 8px 15px;
+  right: 0;
+  top: 12%;
+  width: 166px;
+  border: 2px solid #03F;
+}
+
+.tabs-wrap-primary-user ul.tabs-primary-live.nav-tabs {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  width: 100%;
+  float: left;
+  border-bottom: 0;
+}
+
+.tabs-wrap-primary-user ul li {
+  float: left;
+}
+
+.page-home .tabs-wrap-primary-user ul.page-name li:first-child {
+  width: 85px;
+}
+
+.tabs-wrap-primary-user ul.page-name li:first-child {
+  width: 50px;
+}
+
+.tabs-wrap-primary-user ul.tabs--primary li:first-child {
+  width: 70px;
+}
+
+.tabs-wrap-primary-user ul.page-name {
+  margin-bottom: 10px;
+  padding-left: 0;
+  list-style-type: none;
+  overflow: hidden;
+  border-bottom: solid 1px #616161;
+  padding-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.main-wrap .tabs-wrap-primary-user .view-option-user select {
+  width: 130px;
+  display: inline;
+}
+
+.tabs-wrap-primary-user ul.page-name li:last-child {
+  max-width: 170px;
+}
+
+.main-wrap .tabs-wrap-primary-user ul.tabs--primary {
+  padding: 0px;
+  margin: 0px;
+  border: 0;
+  display: block;
+  top: 0;
+  width: auto;
+}
+
+.main-wrap .tabs-wrap-primary-user ul.tabs-primary-live .live {
+  margin-top: 5px;
+  width: 77px;
+}
+
+.main-wrap .tabs-wrap-primary-user button.view-versions-btn,
+.main-wrap .tabs-wrap-primary-user button.publish-btn {
+  width: 100%;
+  float: left;
+  margin-top: 10px;
+  padding: 6px 0;
+}
+
+.main-wrap .tabsoption-primary-user {
+  overflow: hidden;
+}
+
+.page-home .main-wrap .tabsoption-primary-user {
+  margin-bottom: 10px;
+}
+
+.main-wrap .tabs-wrap-primary-user .tabsoption-primary-user label {
+  font-weight: normal;
+  min-width: 60px;
+  margin-right: 15px;
+}
+
+/*Admin Top Section*/
+#admin-menu-wrapper {  padding: 0;}
+
+#admin-menu > div > .dropdown > li > a {
+  margin-top: 4px;
+  line-height: 22px;
+}
+#admin-menu .dropdown li li.expandable ul { margin-top:-24px;}
+#admin-menu .dropdown .admin-menu-icon > a {
+  margin: 8px 5px 0 10px;
+}
+
+#admin-menu .dropdown .admin-menu-action a {
+  line-height: 15px;
+  margin-top: 7px;
+}
+.admin-menu #homecountdown {text-align:center;line-height:40px;font-family:"oswaldregular", Arial;}
+.home-tgl, .bg-page-link-edit { font-family:"oswaldregular", Arial;}
+.main-wrap {
+  .highlighted {
+    .tabs-wrap-primary-user {
+      /*sidekick - box border*/
+      border: 1px solid $ylw-bdr-edt;
+      border-right: none;
+    }
+    /*sidekick - black bg in the box*/
+    background: #1b1b1b;
+  }
+  .tabs-wrap-primary-user button {
+    /*Tab links*/
+    background: #333333;
+    color: $white;
+  }
+}
+
+@media only screen and (max-width: 1024px) { 
+ html body.admin-menu {
+    margin-top: 0 !important;
+  }
+ #admin-menu, .highlighted{
+    display: none !important;
+  } 
+}
+
+@media only screen and (max-width: 768px) { 
+		 body.admin-menu .navbar-default .dropdown-menu{
+			width: 100%;
+		  }
+		 html body.admin-menu {
+			margin-top: 0 !important;
+		  }
+		   .main-wrap .highlighted {
+			display: none !important;
+			border: solid 1px #F00;
+		  }
+
+}
+/*Editor BG*/
+
+.quickedit-toolbar-container > .quickedit-toolbar-content {
+	$experimental-support-for-svg:	true;
+	@include background-image(linear-gradient(to bottom, white 0%, #e4e4e4 100%));	
+}
+
+/*Green Button shade*/
+
+/*.imageeditor div.aviary-feather,*/ .field-type-image button.btn-default, .field-type-file button.btn-default, .main-wrap ul.tabs-primary-live li a:hover {
+	$experimental-support-for-svg:	true;
+	@include background-image($green-button);
+	border: 1px solid $green-button-border;
+	color: $white;
+}
+
+.imageeditor div.aviary-feather:hover, .field-type-image button.btn-default:hover, .field-type-file button.btn-default:hover {
+	background: $green-button-hover;
+}
+
+/*Save button Start - Blue*/
+
+button.btn-success, .alertify-button-cancel, .quickedit-button.action-save {
+	$experimental-support-for-svg:	true;
+	@include background-image($success-button);
+	border-color: $success-button-border;
+	color: $white;
+}
+
+button.btn-success:hover, .alertify-button-cancel:hover, .quickedit-button.action-save:hover {
+	background: $success-button-hover;
+	border: 1px solid $success-button-border-hover;
+	color:$white;
+}
+
+
+/*  Sidekick Internal Content CSS  */
+
+.main-wrap ul.tabs-primary-live li {
+  &.view a.active, &.edit a.active, a.active {
+	$experimental-support-for-svg:	true;
+	@include background-image(linear-gradient(top, #337ab7 0, #265a88 100%));
+    border-color: $sidekick-border-color;
+    color: $white;
+  }
+}
+
+
+
+/*Delete btn - red*/
+
+.btn-danger {
+	$experimental-suuprt-for-svg:	true;
+	@include background-image($danger-button);
+	border-color:$danger-button-border;
+	&:hover{
+		background:$danger-button-border-hover;
+	}
+}
+
+
+/*  Inline Edit Cancel Button  */
+
+.title .popup-close, .quickedit-toolbar-container .quickedit-button.action-cancel, .quickedit-button {
+	$experimental-support-for-svg:	true;
+	@include background-image($inline-edit-cancel);
+	border: 1px solid $lgt-gray;
+}
+
+.title .popup-close:hover, .quickedit-toolbar-container .quickedit-button.action-cancel:hover {
+	background:$inline-edit-cancel-hover;
+}
+
+
+.quickedit-button{
+	&:hover, &:active{
+		background:$quickedit-hover;
+	}
+}
+
+
+/*Editable Section on click Edit*/
+
+.quickedit-field {
+	&.quickedit-editable, .quickedit-editable {
+		box-shadow: 0 0 0 0px #999;
+		outline: dashed 2px #0CE000;
+	}
+}
+
+/*Model Popup*/
+
+.image-preview img, #quickedit_modal, #alertify, .main-wrap .tabs-wrap-primary-user button {
+	border: 1px solid #616161;
+}
+
+.quickedit-form, #quickedit_modal, section.alertify {
+	#experimental-support-for-svg:	true;
+	@include background-image(linear-gradient(to bottom, $lightgray 0%, $ctlgray 100%));
+}
+
+.quickedit-form, #quickedit_modal, section.alertify, .field-type-datetime .panel-title, .help-block, #edit-field-pdf .file-widget a, #edit-field-video .file-widget a {
+	color: $black;
+}
+
+
+fieldset, .field-type-image .form-item {
+	$experimental-support-for-svg:	true;
+	@include background-image($fieldset-bg);
+	border: 1px solid $fieldset-border;
+	padding: 15px 15px 10px 15px;
+	position: relative;
+}
+
+.page-update-custom-background {
+	.badge {
+		color: #929292;
+	}
+	.file a {
+		color: $black;
+	}
+	#overlay-close {
+		&:before {
+			color: $black;
+		}
+    	$experimental-support-for-svg:	true;
+		@include background-image($overlay-close-bg);
+    	
+		&:hover{
+			$experimental-support-for-svg:	true;
+			@include background-image($overlay-close-bg-hover);
+		}
+	}
+}
+a.cke_dialog_ui_button{margin:14px 0px 0px 0px!important;}
+/*   Editor Popup for text change  */
+.quickedit-toolgroup.ops button{height:30px;line-height:28px;}
+/*div.form-managed-file .image-widget-data button.btn-danger{position:absolute;right:0px;top:0px;}*/
+div.image-widget-data{float:none;}
+
+/*------------------inline-edit Start Here --------------*/
+
+.indication-popup {
+  .modal-content {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    #custom-admin-update-promo-tile-form {
+      margin-bottom: 30px;
+      margin-top: 15px;
+    }
+  }
+  .ctools-modal-dialog .modal-content {
+    float: left;
+    padding: 20px;
+  }
+  #custom-admin-update-promo-tile-form {
+    .field-type-image label {
+      margin-top: 20px;
+      font-weight: normal;
+    }
+    div.image-widget-data {
+      float: inherit;
+      margin-top: 20px;
+      .file {
+        margin-left: 1.5em;
+      }
+      .file-size {
+        padding: .0em .2em .0em .2em;
+      }
+      .btn-danger {
+        float: right;
+      }
+    }
+    .form-type-textfield .form-control {
+      width: 63%;
+    }
+  }
+}
+
+#block-workbench-block, .node-event-form.overlay-processed #footer { 
+  display: none;
+}
+
+.indication-popup {
+  .vertical-tabs {
+    display: none;
+  }
+  .modal-content #custom-admin-update-promo-tile-form {
+    #edit-preview, #edit-delete {
+      display: none;
+    }
+  }
+  #custom-admin-update-promo-tile-form .field-type-image .file a {
+    display: none;
+  }
+}
+
+.main-wrap .tabs--primary > li {
+  &.moderate, &.access-control {
+    display: none;
+  }
+}
+
+.indication-popup .modal-content #custom-admin-update-promo-tile-form #edit-field-link .link-attributes {
+  margin-top: 20px;
+}
+
+#modalContent {
+  .indication-popup .modal-header .popups-close .close {
+    height: 28px;
+    width: 29px;
+    text-indent: -300px;
+    overflow: hidden;
+    margin-right: 12px;
+  }
+  top: 15% !important;
+}
+
+.main-wrap .region-content .node-take-over-pages.node {
+  padding: 0;
+  min-height: 400px;
+}
+
+.form-type-managed-file .form-file {
+  width: 210px;
+}
+
+.field-type-image button.btn-default, .field-type-file button.btn-default {
+  float: right;
+  text-transform: capitalize;
+  font-size: 14px;
+  border-top-left-radius: 6px !important;
+  border-bottom-left-radius: 6px !important;
+}
+
+
+
+.ajax-progress .glyphicon.glyphicon-refresh {
+  font-size: 85%;
+}
+#overlay .btn, #edit-field-pdf .btn, #edit-field-video .btn{-moz-border-radius:6px;-webkit-border-radius:6px;border-radius:6px;padding:0px 15px;line-height:28px;}
+.field-name-field-pdf.quickedit-editable .stp-update-pdf, .node-video.quickedit-entity-active .stp-update-video, .quickedit-editable .stp-update-video {
+  display: inline-block;  position: absolute;  bottom: 15px;  right: 0;  padding: 1px 4px;  z-index: 1; }
+
+/*-----------------------------------Inline-edit End Here------------------------------*/
+
+
+#overlay-content {
+  padding: 15px;
+}
+
+.page-update-custom-background .main-wrap {
+  padding: 0;
+}
+
+.page-update-custom-background .badge {
+  background: none;
+  font-weight: normal;
+}
+
+.page-update-custom-background .btn-danger {
+  float: right;
+}
+
+.page-update-custom-background .image-widget-data .form-group {
+  display: inline-block;
+}
+
+.page-update-custom-background .node-form > div .form-actions .btn-success {
+  position: inherit;
+}
+
+.page-update-custom-background .container-fluid.main-container {
+  background: none!important;
+}
+
+.page-update-custom-background #overlay .form-control.form-file {
+  width: 448px;
+}
+
+.page-update-custom-background #overlay-close:before {
+  content: "X";
+  position: absolute;
+  right: 0;
+  top:0px;
+  width: 100%;
+  height:26px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+  padding-top: 2px;
+}
+
+/*Cross Icons Start*/
+.title .popup-close {
+  position: relative;
+  float: right;
+  height: 16px;
+  text-decoration: none;
+  min-width: 2.5em;
+  min-height: 2.24em;
+  margin-top: -6px;
+  text-indent: -9999px;
+}
+
+.title .popup-close:before {
+  height: 100%;
+  width: 100%;
+  content: "";
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+/*Save Button Start*/
+.node-form > div .form-actions .btn-success {
+  position: absolute;
+  top: 4px;
+  right: 55px;
+}
+
+.imageeditor div.aviary-feather {
+  position: relative;
+}
+
+.imageeditor div.aviary-feather:hover,
+.field-type-image button.btn-default:hover,
+.field-type-file button.btn-default:hover {
+  border-radius: 6px;
+}
+
+
+/*tabing in game day info*/
+
+.quickedit-validation-error .messages.error ul li {
+  margin-bottom: 0;
+}
+
+.input-group {
+  display: inherit;
+}
+
+.quickedit-form-container,
+.quickedit-editable form {
+  cursor: default;
+}
+
+#overlay .form-control.form-file {
+  width: 88%;
+}
+
+/*firefox CSS hack*/
+@-moz-document url-prefix() {
+  .form-control.form-file {
+    padding: 4px;
+    height: auto;
+  }
+}
+
+
+/*Admin section for events*/
+.event-link-edit {
+  position: absolute;
+  left: 48%;
+  z-index: 10;
+}
+
+.event-link-edit a {
+	padding: 0px 5px;
+	width: 24px;
+	display: inline-block;
+	height: 22px;
+	overflow: hidden;
+}
+#overlay{
+	.container-fluid{
+		> section.main-wrap{
+			form{
+				div.form-actions{
+					margin-bottom:0px;
+				}
+			}
+		}
+	}
+}
+
+/*  Color Picker */
+
+.sp-picker-container{
+	.sp-initial{
+		.sp-cf{
+			span{
+				width:22px;
+			}
+		}
+	}
+	.sp-button-containe{
+		&.sp-cf{
+			a.sp-cancel{
+				padding:0px 10px!important;
+			}
+		}
+	}
+}

@@ -1,0 +1,33 @@
+.vjs-loading-spinner{
+	display:none;
+	position:absolute;
+	top:50%;
+	left:50%;
+	width:1em;
+	height:1em;
+	margin-left:0;
+	margin-top:0;
+	opacity: 0.75;
+	-webkit-animation:none;
+	moz-animation:none;
+	-o-animation:none;
+	animation:none;
+	font-size:0px;
+}
+.video_ldr_color div{
+	background: $white!important;
+}
+.vjs-default-skin .vjs-loading-spinner:before,
+.vjs-default-skin .vjs-loading-spinner:after{content: "";position: absolute;top: 0;left: 0;width: 1em;height: 1em;text-align: center;text-shadow: none;}
+
+.js_spin_loader{
+	position:absolute;
+	z-index:99999;
+	top:calc(50% - 17px);
+	left:calc(50% - 17px);
+	background-color: $black!important;
+	
+	@include border-radius(5px);
+	padding:18px;
+	opacity:0.7;
+}

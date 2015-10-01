@@ -1,0 +1,8 @@
+// Font Face
+@mixin background-opacity($color, $opacity: .3) {
+    background-color: $color;
+    $red: red($color);
+    $green: green($color);
+    $blue: blue($color);
+    background-color: rgba($red, $green, $blue, $opacity);
+} 

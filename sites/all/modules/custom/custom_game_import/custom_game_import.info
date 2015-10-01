@@ -1,8 +1,0 @@
-name= Custom STP Game Import
-description = Helper module for STP development for Game import
-version = VERSION
-package = Custom
-configure = admin/manage/settings/cron_mail_settings
-core = 7.x
-project = "drupal"
-datestamp = "1419831772"

@@ -1,0 +1,335 @@
+body { 
+  &.front .main-wrap .node, &.page-home .main-wrap .node {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  &.front .container-fluid, &.page-home .container-fluid {
+    position: relative;
+    height: 100%;
+    padding: 0;
+  }
+   &.front #billboard, &.page-home #billboard {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+  }
+  &.front, &.page-home {
+    height: 100%;
+  }
+  &.front .hero, &.page-home .hero {
+    background-size: 1440px auto;
+    min-height: 525px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+  }
+  &.front .mainNavigation, &.pahe-home .mainNavigation, .username {
+    max-width: 1024px;
+    margin: 0 auto;
+    float: none;
+  }
+  &.not-front .container-fluid {
+    header {
+      max-width: 994px;
+      margin: 0 auto;
+      z-index: 0;
+      position: relative;
+    }
+    > section.main-wrap {
+      max-width: 1024px;
+      width: 100%;
+      margin-top: 39px;
+    }
+  }
+}
+
+.front .container h1, .page-home .container h1 {
+  font-size: 52px;
+  letter-spacing: 0.12em;
+}
+.front .container h1, .page-home .container h1, .front .container h3, .page-home .container h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding: 0;
+  text-shadow:1px 1px 1px $home-page-txt-shadow;
+}
+
+.nextgame-timer .countdownHolder > *{
+	font-family: "iona-medium-webfont",Arial,sans-serif;
+}
+
+.nextgame-timer .countdownHolder > *{
+	float:left;
+	margin-right:2px;
+}
+.countDiv{
+	width:7px;
+	height:1.6em;
+	font-size:19px;
+	display:inline-block;
+	width:7px;
+	height:/*1.6em*/56px;
+	position:relative;
+
+	&:before{
+		position:absolute;
+		width:5px;
+		height:5px;
+		background-color:#ffffff;
+		border-radius:50%;
+		left:50%;
+		margin-left:-3px;
+		top:0.5em;
+		content:'';
+		top:1.9em;
+		@include box-shadow(1px 1px 1px rgba(4,4,4,0.5));
+	}
+	&:after{
+		position:absolute;
+		width:5px;
+		height:5px;
+		background-color:#ffffff;
+		border-radius:50%;
+		left:50%;
+		margin-left:-3px;
+		top:0.5em;
+		@include box-shadow(1px 1px 1px rgba(4,4,4,0.5));
+		content:'';
+		top:2.4em;
+	}
+
+}
+.container-fluid{
+	.heroHolder{min-height:610px;}
+}
+
+.container-fluid .heroHolder {
+  max-height: 700px;
+  position: relative;
+  float: left;
+  width: 100%;
+  height: 100%;
+  min-height: 525px;
+}
+.bg-holder {
+  position: absolute;
+  z-index: -100;
+  bottom: 0;
+  text-align: center;
+}
+
+.bg-inner-holder {
+  position: absolute;
+  z-index: -100;
+  bottom: 0;
+  text-align: center;
+  > img {
+    width: 100%;
+  }
+}
+
+.bg-holder > img {
+  display: block;
+  margin: auto;
+}
+
+.bg-holder, .bg-inner-holder {
+  top: auto;
+}
+
+
+.page-home .home-page-countdown{
+		.field-item.even { display:table; margin:0 auto;}
+	
+			.countdownHolder{
+				background:rgba(0,0,0,0.85);
+				border:1px solid rgba(255,255,255,0.25);
+				padding:15px 15px 15px 15px;
+				height:102px;
+				width: auto;
+				display:table-cell;
+			}
+	
+	.quickedit-editable{
+		cursor:default;
+	}
+	> * {
+		font-family: "iona-medium-webfont";
+	}
+	.countdownHolder{
+		> * {
+			float:left;
+			margin-right:15px;
+		}
+		.countdown-timer:last-of-type{
+			margin-right:0px;
+		}
+		.digit, .digit.static{
+			font-size:36px!important;
+			line-height:35px!important;
+		}
+		.position{
+			width:21px;
+			height:45px;
+		}
+		span.date_label{
+			font-family:"oswaldregular", Arial;
+			letter-spacing:0.1px;
+			display:block;
+			padding-top:7px;
+			padding-bottom:1px;
+			text-align:left;
+			font-size:13px; text-indent:2px;
+		}
+		.countDiv{
+			height:68px;
+			
+			&:before{
+				top:2em;
+			}
+			&:after{
+				top:2.7em;
+			}
+		}
+	}
+}
+.count-days{
+	padding-top:15px;
+	
+	> * {
+		display:inline-block;
+		font-family:"oswaldregular", Arial;
+		font-size:21px;
+	}
+	span#countdown_num_days{
+		background:rgba(0,0,0,0.85);
+		border:1px solid rgba(255,255,255,0.25);
+		padding:2px 7px;
+		margin:0px 5px;
+		line-height:50px;
+		font-size:32px;
+		letter-spacing:1px;
+	}
+}
+
+/* Homepage middle content start here */
+
+.view-id-home {
+  max-width: 986px;
+  margin: 0 auto;
+}
+
+.container{
+	.jumbotron{
+		background: none;
+		padding-top: 48px;
+		h2{
+			letter-spacing:0.05em;
+			@include text-shadow(5px 0px 10px rgba(0,0,0,0.3));
+			margin-top:15px;
+			font-size:36px;
+		}
+	}
+	span.countdownHolder{
+		background:rgba(0,0,0,0.85);
+		border:1px solid rgba(255,255,255,0.25);
+		padding:2px 7px;
+		margin:0px 5px;
+		line-height:28px;
+		font-size:32px;
+		letter-spacing:1px;
+	}
+	span.countdown-timer{
+		background:rgba(0,0,0,0.85);
+		border:1px solid rgba(255,255,255,0.25);
+		padding:10px;
+		width:372px;
+		margin:0 auto;
+	}
+	.global-button.btn.btn-default{
+		font-size:17px;
+		margin:5px 10px 3px 10px;
+		line-height:43px;
+		text-decoration:none;
+		display:inline-block;
+		min-width:175px;
+		min-height:45px;
+		span{display:block;
+			a{float:left;width:100%;text-align:center;text-decoration:none;
+				&:hover{text-decoration:none;}
+			}	
+		}	
+	}
+	.global-button{
+		a{text-decoration:none;
+			&:hover, &focus{text-decoration:none;}
+		}
+	}
+	p.selection{
+		margin-bottom:10px;font-family:"oswaldregular", Arial;font-size:21px;
+		button{margin-bottom:10px;font-size:0.7em;min-width:165px;padding:0px 5px;}
+		/*span{font-size:0.7em;}*/
+		a{
+			text-decoration:underline;font-size:17px;
+			&:hover,&:focus{
+				text-decoration:none;
+			}
+			span{
+				display:block;
+			}
+		}
+	}
+	span#homecountdown{display:block;height:102px;position:relative;margin-top: 15px;
+		.countDays span.Days, .countHours span.Hours, .countMins span.Mins, .countSecs span.Secs{font-family:"oswaldregular", Arial;font-size:15px;position:absolute;left:0px;top:0px;width:81px;text-align:center;}
+		.countdown-timer{/*position:absolute;left:0px;top:0px;*/width:81px;float:left;position:relative;height:82px;text-align:center;/*padding-top:25px;*/
+			span.position{
+				top:27px;font-family:"iona-medium-webfont";width:20px;line-height:50px;float:none;display:inline-block;overflow:hidden;position: relative;
+                .digit.static,.digit{
+                    font-size: 40px;
+                }
+			}
+		}
+		span.countDiv{float:left;height:100%;text-indent:-999px;overflow:hidden;
+			&:before{top:2.45em;}
+			&:after{top:3.15em;}	
+		}
+		span.countDiv:before{top:2.45em;}
+	}
+}
+
+.page-home .field-name-field-welcome-text .quickedit-editable {
+  overflow-y: auto;
+  /*max-height: 230px;*/
+}
+.page-home .count-days .quickedit-field .quickedit-editable{ padding:5px 0 !important;}
+/* Homepage middle content End here */
+
+/*Create page*/
+
+.front .quickedit-validation-errors {
+  position: absolute;
+  top: -62px;
+  width: 50%;
+  right: -5px;
+  z-index: 9999;
+}
+
+.front .quickedit-validation-errors .messages.error {
+  width: 100%;
+}
+.page-home{
+	.quickedit-toolbar-container{
+		left:50%!important;
+		margin-left:-415px!important;
+	}
+}
+.digit{width:21px;background:none!important;}
+.page-home .home-page-countdown .countdownHolder .countDiv3{display:none;}

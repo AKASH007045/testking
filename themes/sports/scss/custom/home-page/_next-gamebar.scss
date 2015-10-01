@@ -1,0 +1,157 @@
+
+.home-nextgamebg{
+    $experimental-support-for-svg: true;
+    @include background-image(linear-gradient(top,  rgba(230,230,230,0.24) 0%,rgba(206,206,206,0.24) 18%,rgba(113,113,113,0.24) 100%));
+    border-top: 1px solid $game-bar-border-color;
+    border-bottom: 1px solid $game-bar-border-color;
+    @include box-shadow(0px -1px 5px $game-bar-box-shadow);
+    height: $game-bar-height;
+    position: absolute;
+    bottom: 0;
+    clear: both;
+    width: 100%;
+    > .container {
+      padding: 0;
+    }
+    .nextgamevs {
+      margin: 0 auto;
+      display: table;
+      width: 100%;
+    }
+    
+    .field-type-image {
+      float: left;
+      display: inline-block;
+      margin: 2.5px 18px 2px 18px;
+    }
+    
+    .nextgame-away {
+      font-size: 1.428em;
+      width: 25px;
+      text-align: center;
+    }
+    .nextgame-home {
+      font-size: 1.4285em;
+      padding-top: 1.5px;
+    }
+    .gamelogo-section {
+      position: absolute;
+      display: table;
+      left: 50%;
+	  
+	  @media only screen and (max-width: 768px){
+		  left: 36%;
+	  }
+	  
+      margin-left: -104.5px;
+    }
+    .nextgame-timer {
+      float: right;
+      width: 197px;
+      .countdownHolder {
+        letter-spacing: -11px;
+        line-height: 1.18;
+        > * {
+          float: left;
+          margin-right: 2px;
+        }
+        .countDiv {
+          width: 7px;
+          /*height: 1.6em;*/
+          height:56px;
+          text-indent:-999px;
+          overflow:hidden;
+          font-size: 19px;
+          &:before {
+            top: 1.9em;
+          }
+          &:after {
+            top: 2.4em;
+          }
+        }
+        .digit {
+          box-shadow: none;
+          background: none;
+          width: auto;
+          font-size: 31px;
+          &.static {
+            box-shadow: none;
+            background: none;
+            width: auto;
+            font-size: 31px;
+          }
+        }
+        .position {
+          height: 2.4em;
+          width: 1.25em;
+          float: left;
+        }
+        .countDiv.countDiv3 {
+          display: none;
+        }
+      }
+      .date_label {
+        letter-spacing: 0.1px;
+        display: block;
+        padding-top: 7px;
+        padding-bottom: 1px;
+        text-align:left;
+        font-size: 11px;
+		text-indent:2px;
+      }
+    }
+    .bottomBar {
+      position: relative;
+      @include text-shadow(1px 1px 1px $black);
+      .bottomBarInner {
+        display: table;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .timeHolder {
+        position: absolute;
+        right: 215px;
+        top: 1px;
+        width: 205px;
+      }
+    }
+  }
+/**Date and Stadium**/
+.home-nextgamebg{
+  .nextgametx {
+      font-size: 1.4285em;
+      display: table-cell;
+      vertical-align: middle;
+      text-transform: uppercase;
+      height: 64px;
+      > a {
+        text-decoration: underline;
+      }
+      &.leftside {
+        width: 42.5%;
+        text-align: right;
+      }
+      &.rightside {
+        width: 42.5%;
+      }
+    }
+}
+/**Date and Stadium**/
+.digit{
+  color: $white;
+}
+
+.countDiv {
+  &:before, &:after {
+    /*countDiv dot seprator*/
+    background-color: $white-bgd;
+  }
+}
+
+.view-content .month-view {
+  position: relative;
+}
+
+/*  IE9 hack for Game Bar  */
+.gamelogo-section .bottomBar,.gamelogo-section .nextgame-home,.gamelogo-section a.gamelogo{float:left\0/IE9;}
+.gamelogo-section .nextgame-home{line-height:64px\0/IE9;}

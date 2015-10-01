@@ -1,0 +1,77 @@
+.main-wrap .region-content {
+  .node, .node-video .field-name-field-bottom-content {
+    padding: 5px 22px 22px 22px;
+  }
+  .view-video-library .node .field-items .field-item p:last-child {
+    text-align: center;
+    margin-bottom: 0;
+  }
+}
+.node-type-benefits .main-wrap .region-content .node,
+.main-wrap .region-content .node{
+	padding-top: 80px;
+	padding-left: 80px;
+	padding-right: 80px;
+	margin-bottom: 40px;
+	position: relative;
+}
+.main-wrap .region-content .view-tab-pages .node.node-pdf,
+.node-type-tab-page .view-tab-pages .node-stp-page, .node-type-tab-page .node.node-video {
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+.node-type-tab-page .main-wrap .node.node-video .field-name-field-bottom-content{background:none; padding:0;}
+.quickedit-validation-errors .messages.error {
+	font-size: 14px;
+	padding: 6px;
+	letter-spacing: normal;
+	text-transform: none;
+}
+
+.node-stp-page .slider .flex-viewport {
+  min-height: 560px;
+  padding-bottom:20px;
+}
+.view-tab-pages .node header {  display: none;}
+/*  Content Pagination CSS  */
+.main-wrap .flex-control-paging li a{
+	@include background-opacity($white, 0.15);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+	color: transparentize($white,0.75);
+	text-align:center;
+	
+	&:hover,&:focus{
+		@include background-opacity($white, 0.25);
+		color: transparentize($white,0.75);
+	}
+	
+	&.flex-active{
+		background-color: $brand-color;
+		color: $white;
+		
+		&:hover, &:focus{
+			background-color: $brand-color;
+			color: $white;
+		}
+	}
+}
+.modal-open, .modal-close {overflow: auto;}
+
+body.page-node-1174 .node.node-page, body.page-node-1173 .node.node-page,
+body.page-403 .node.node-page,
+body.page-403 .node.node-page {
+	min-height: 370px;
+	max-width: 470px;
+	margin: 0 auto 40px auto;
+}
+.page-node-1174 .node.node-page p, .page-node-1173 .node.node-page p,
+.page-403 .node.node-page p,
+.page-403 .node.node-page p {
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: .5px;
+	font-size: 1.2em;
+}

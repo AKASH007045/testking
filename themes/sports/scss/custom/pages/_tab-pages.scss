@@ -1,0 +1,74 @@
+.view-tab-pages .node ul li ul {
+	padding-left: 20px;
+}
+
+.container-fluid .sxtnpx {
+	font-size: 16px;
+}
+
+/** Global Tab here */
+.main-wrap .view-tab-pages ul.nav-list {
+  float: left;
+  margin-top: 10px;
+}
+
+.main-wrap .view-tab-pages ul.nav-list li {
+  display: inline-block;
+  margin-left: -4px;
+}
+
+.main-wrap .view-tab-pages ul.nav-list li:last-child {
+  border-right: none;
+}
+
+.main-wrap .view-tab-pages ul.nav-list li a {
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: 1.15em;
+}
+
+.page-menus .main-wrap .view-tab-pages ul.nav-list {
+  margin-left: 31%;
+}
+
+.page-club-map .main-wrap .view-tab-pages ul.nav-list {
+  margin-left: 21%;
+}
+
+.page-stadium-maps .main-wrap .view-tab-pages ul.nav-list {
+  margin-left: 3.5%;
+}
+
+.node-tab-page .field-name-field-type {
+  visibility: hidden;
+}
+
+#workbench-moderation-moderate-form select {
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+article.node-tab-page, .tab-page-list-wrapper {
+  display: none;
+}
+
+#block-views-tab-pages-block ul.nav-tabs li a {
+  font-size: 1.15em;
+  padding-left: 30px;
+  padding-right: 30px;
+  border: 0;
+}
+
+#block-views-tab-pages-block ul.nav-tabs li {
+  display: inline-block;
+  margin-left: 0;
+}
+
+#block-views-tab-pages-block ul.nav-tabs {
+  margin-bottom: 0;
+  padding-top: 10px;
+}
+
+#block-views-tab-pages-block ul.nav-tabs li:last-child {
+  border-right: none;
+}

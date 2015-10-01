@@ -1,0 +1,237 @@
+/* When true, asset path helpers are used, otherwise regular url() is used
+   When there no function is defined, `fn('')` is parsed as string that equals the right hand side
+   NB: in Sass 3.3 there is a native function: function-exists(twbs-font-path)
+   $bootstrap-sass-asset-helper: (twbs-font-path("") != unquote('twbs-font-path("")')) !default;*/
+
+
+/*   Variables== Colors   */
+
+$white:                     #ffffff;
+$black:                     #000000;
+$lgtgray:                   #9e9e9e;
+$error-message-color:		#cc092f; 
+$calendar-head-title:		#cdd0d2;  
+
+/*   brand-color   */
+$brand-color:               #5a4099;     /*   Brand Color   */
+//$brand-color:               #00295b;     /*   Brand Color   */
+$invoice-page-color:		$brand-color;
+$select-box-color:			$brand-color;
+/*   Variables that needs to be changed for every Product   */
+
+/*   Navigation bar   */
+$nav-gradient:				linear-gradient(to bottom, #1f1f1f 0%, #222222 25%, #181818 50%, #0e0e0e 75%, #120e16 100%);   /*  Default Navigation Gradient  */
+//$nav-gradient:			linear-gradient(to bottom, rgba(0,33,68,1) 0%,rgba(0,33,68,1) 21%,rgba(1,31,65,1) 28%,rgba(0,16,32,1) 67%,rgba(0,13,26,1) 82%,rgba(0,13,29,1) 85%,rgba(1,13,27,1) 97%,rgba(15,25,37,1) 100%);
+$nav-gradient-hover:		linear-gradient(to bottom, #734c9f 0%, #734c9f 26%, #6f489b 36%, #5f3685 62%, #5a317f 74%, #5c3180 100%);         /*  Hover & Active Navigation Gradient  */
+//$nav-gradient-hover:		linear-gradient(to bottom, rgba(202,202,202,1) 0%,rgba(195,195,195,1) 2%,rgba(168,168,168,1) 22%,rgba(79,79,79,1) 71%,rgba(63,63,63,1) 82%,rgba(46,46,46,1) 96%,rgba(38,38,38,1) 100%);
+$nav-drop-down-bg:			linear-gradient(to bottom, rgba(133, 133, 133, 0.85) 0%, rgba(44, 44, 44, 0.85) 100%);
+//$nav-drop-down-bg:			rgba(0,22,45,0.85);
+$nav-drop-down-item-hover:	#2b2b2b;
+//$nav-drop-down-item-hover:	rgba(93,93,93,0.85);
+$nav-box-shadow:		#2b2b2b;
+//$nav-box-shadow:			none;
+$nav-item-hover-shadow:     #2b2b2b;
+//$nav-item-hover-shadow:     rgba(0,0,0,0.75);
+$brand-bx-shadow:			#011b3a;
+//$brand-bx-shadow:			rgba(0,0,0,0.3);
+$promo-tile-tilehead-bg:		linear-gradient(to bottom, #444444 0%, #363636 26%, #1e1e1e 53%, #080806 85%, #010101 98%, #070709 100%);
+//$promo-tile-tilehead-bg:		linear-gradient(to bottom, rgba(0,30,61,0.95) 0%,rgba(0,30,61,0.95) 22%,rgba(0,28,58,0.95) 30%,rgba(0,14,30,0.95) 65%,rgba(0,12,24,0.95) 76%,rgba(0,12,24,0.95) 100%);
+/*    Buttons   */
+
+/*  $default-button-gradient:   	linear-gradient(to bottom, #00479e 0%, #001938 100%);   */
+$default-button-gradient:   	linear-gradient(to bottom, #434343 0%, #020202 100%);   /*  Default Navigation Gradient  */
+$default-button-border-color: 	#3f2a72;
+$default-button-box-shadow: 	rgba(255, 255, 255, 0.25);
+$default-button-hover: 			#3f2a72; 
+$default-button-hover-border:	#3f2a72;
+
+/*   Variables that may be changed for every Product   */
+$nav-top-border-color:      $brand-color; /*   Navigation Border Top  */
+
+
+/*   Email/Print Buttons    */
+$email-button-bg:				linear-gradient(to bottom,  rgba(98,98,98,1) 0%,rgba(78,78,78,1) 23%,rgba(32,32,32,1) 62%,rgba(26,26,26,1) 69%,rgba(7,7,7,1) 87%,rgba(3,3,3,1) 92%,rgba(4,4,4,1) 100%);
+$email-button-hover-bg:			#030303;
+$email-buttons-border:			rgba(3,3,3,1);
+$email-buttons-box-shadow:		rgba(91,91,91,1);
+
+/*  Position for logo  */
+$logo-top-position: 			-45px;
+$logo-left-position: 			-54px;
+$nav-left-position: 			 60px;
+
+/*   Promo Tile Background Gradient  */
+$promo-tile-bg:					linear-gradient(to bottom, #2d2d2d 0%, #000000 100%);
+$countdown-promo-tile-days-bg:	$black;
+$promo-tile-hover-bg:			$brand-color;	/*    Promo Tile Light Bg Hover   */
+
+
+/*   Sign In Box    */
+$signin-button-gradient:		$nav-gradient-hover;
+$signin-text-color:				#404040;
+
+
+/*   Contact Page   */
+
+$acc-reps-bg:					transparentize($brand-color,0.25);;
+
+/*   Calender   */
+
+$away-game-legend:									#000000;
+
+$calender-list-panel-gradient:						linear-gradient(to bottom, #797979 0%, #303030 100%);
+$calender-list-panel-border-color:					#dddddd;
+$calender-list-panel-hover-bg:						#001a3a;
+$calender-list-panel-hover-border-color:			#001a3a;
+$home-game-color:									transparentize($brand-color,0.25);
+$away-game-color:									transparentize($white,0.25);
+$calendar-td-text-color:							$white;
+$home-game-td-box-color:							$white;
+$away-game-td-box-color:							$brand-color;
+$event-star-legend-color:							#ffc20f;
+$away-game-legend:									$white;
+$legend-text-color:									#565658;
+$list-view-panel-heading-shadow:					transparentize($black, 0.4);
+$list-view-panel-heading-hover:						$brand-color;
+
+
+
+/*   Next Game Bar   */
+
+$game-bar-gradient: linear-gradient(to bottom,  rgba(230,230,230,0.24) 0%,rgba(206,206,206,0.24) 18%,rgba(113,113,113,0.24) 100%);
+$game-bar-border-color : #3D3D3D;
+$game-bar-box-shadow : #5C5C5C;
+$game-bar-height : 66px;
+
+
+/*   Events Page   */
+
+$events-heading-bg:			$brand-color;
+$events-thumbnail-bg:		linear-gradient(top,  rgba(0,71,158,0.85) 0%,rgba(0,25,56,0.85) 100%);   /*   This is the 85% opacity version of  $nav-gradient-hover  */
+$more-info-content:			transparentize($brand-color, 0.5);
+
+
+
+/*  Variables== Background   */
+
+$black-bgd:  				$black;
+$yallowclr:  	   			#cb9400;
+$golden-drk:  	    		#cb9400;
+$lightgray:  	   			#f4f4f4;
+$ctlgray:  	        		#d0d2d0;
+$white-bgd:  	        	$white;
+
+	
+
+/*    Variables== Navigation    */
+
+$nav-font-color:            $white;
+$nav-hover-font-color:      $white;
+$nav-item-hover-border:     transparentize($black, 0.25); /*   Navigation Border Top Hover  */ 
+$dropdown-toggle-border:    $nav-item-hover-border;
+$dropdown-toggle-shadow:    $nav-item-hover-shadow;
+$nav-bdr:                   $nav-item-hover-border;
+/*$brand-bx-shadow:           $nav-item-hover-shadow;*/
+
+
+
+/*   Variables== Border   */
+
+$black-bdr:                 #000000;
+$ylw-bdr-edt:               #f8b401;
+$lgt-gray:                  #cccccc;
+$gry-bdr:                   #3D3D3D;
+$mid-gry:                   #778087;
+$invoice-tabular-border:	rgba(0,0,0,0.1);
+
+/*   Variables== Box-Shadow   */
+
+$blk-txt-shadow:            rgba(0, 0, 0, 0.3);
+$seat-view-txt-shadow:		rgba(0, 0, 0, 0.7);
+$home-page-txt-shadow:		$seat-view-txt-shadow;
+$blk-bx-shadow:             #000000;
+$gry-bx-sdw:                #5C5C5C;
+
+
+/*   Copyright Text   */
+
+$copyright-text-color:      #717171;
+
+
+/*   Invoice CSS  */
+
+$table-head-gradient-first:			linear-gradient(to bottom,  rgba(37,81,144,1) 0%,rgba(35,77,137,1) 17%,rgba(31,72,128,1) 25%,rgba(18,47,89,1) 79%,rgba(15,41,78,1) 100%);
+$table-head-gradient-second:		linear-gradient(to bottom, rgba(251,249,250,1) 0%,rgba(254,253,251,1) 2%,rgba(252,251,247,1) 7%,rgba(247,251,250,1) 12%,rgba(247,247,247,1) 27%,rgba(240,240,240,1) 37%,rgba(229,229,229,1) 61%,rgba(216,216,216,1) 100%);
+
+
+/*   Tilehead Font   */
+
+$promo-tile-title:						1.428em;
+$promo-tile-ipad-landscape-title:		1.25em;
+$promo-tile-ipad-portrait-title:		0.9em;
+
+$promo-tile-countdown-days-text:					35px;   /*   Promo Tile Countdown Days Text   */
+$promo-tile-countdown-days-text-ipad-portrait:		23px;
+$promo-tile-countdown-days-size:					0.7em;  /*   Promo Tile Countdown Days Numeral   */
+$promo-tile-countdown-days-size-ipad-portrait:		0.6em;
+
+
+
+/*   Login Page Buttons  */
+$login-page-button:					$nav-gradient-hover;
+
+
+
+/*   Fixed Variables   */
+
+/*  Seat View Title Bg  */
+
+$seat-view-title-bg:				linear-gradient(to bottom, #3c3c3c 0%, #646464 100%);
+$admin-side-kick-bg:				linear-gradient(to right, $yallowclr 0%, $golden-drk 63%, $golden-drk 100%);
+$green-button:						linear-gradient(to bottom, #5cb85c 0, #419641 100%);
+$green-button-border:				#3e8f3e;
+$green-button-hover:				#359a00;
+
+$success-button:					linear-gradient(to bottom, #337ab7 0, #265a88 100%);
+$success-button-border:				#245580;
+$success-button-border-hover:		#2b669a;
+$success-button-disabled-border:	$success-button-border-hover;
+$success-button-hover:				#265a88;
+
+$danger-button:						linear-gradient(to bottom, #d9534f 0, #c12e2a 100%);
+$danger-button-border:				#b92c28;
+$danger-button-border-hover:		#d43f3a;
+
+$inline-edit-cancel:				linear-gradient(to bottom, #fff 0, #e0e0e0 100%);
+$inline-edit-cancel-hover:			#e0e0e0;
+$quickedit-hover:					$inline-edit-cancel-hover;
+$inner-content-blk-gradient:		linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.81) 75%, rgba(0, 0, 0, 0.61) 85%, rgba(0, 0, 0, 0.41) 90%, rgba(0, 0, 0, 0) 100%);
+$usr-login-description-text:		#404040;
+$sidekick-border-color:				#245580;
+
+
+
+/*   Fieldset Bg  */
+
+$fieldset-bg:					linear-gradient(to bottom, white 0%, #e7e7e7 100%);
+$fieldset-border:				#929292;
+
+$overlay-close-bg:				linear-gradient(to bottom, $lightgray 0%, $ctlgray 100%);
+$overlay-close-bg-hover:		linear-gradient(to bottom, $lightgray 0%, $ctlgray 100%);
+
+$user-login-border:				#252525;
+$user-login-bg:					#f7f6f6;
+$forgot-password:				#a94442;
+$forgot-password-hover:			$forgot-password;
+
+$pawp-bg:						linear-gradient(to bottom,  rgba(0,0,0,1) 0%,rgba(0,0,0,0.81) 75%,rgba(0,0,0,0.61) 85%,rgba(0,0,0,0) 100%);
+
+$contact-us-reps-min-height:	205px;
+$invoice-info-panel-wrap-bg:	rgba(97, 97, 97, 0.15);
+$invoice-amount-due-wrap-bg:	rgba(158, 158, 158, 0.35);
+
+$arrow-default-color:			transparentize($white, 0.25);
+$seat-view-info-bdr:			rgba(255,255,255,0.05);
+
+/*   Top Nav Link Box Shadow   */
+$top-nav-link-box-shadow:		$nav-item-hover-shadow 0px 0px 0px inset;

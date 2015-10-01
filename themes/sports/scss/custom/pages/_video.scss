@@ -1,0 +1,113 @@
+/*Video Player CSS Starts Here*/
+
+.vjs-default-skin {
+	.vjs-big-play-button {
+		border-radius:50%;
+		width:153px;
+		height:153px;
+		left:50%;
+		top:50%;
+		font-size:4em;
+		margin-left:-75px;
+		margin-top:-75px;
+		
+		&:before {
+			line-height: 147px;
+			left: 0px;
+			top: 0;
+			text-shadow: none;
+			padding:0px 0px 0px 15px;
+		}
+	}
+	.vjs-menu-button {
+		display: none;
+	}
+}
+
+/*Video Player CSS Ends Here*/
+/* Video Page CSS Starts Here */
+.node-type-video #quickedit-entity-toolbar {
+  max-width: 975px !important;
+}
+.field-widget-file-generic .form-type-managed-file .form-managed-file {
+	img.file-icon {
+		float: left;
+	}
+	span.file a {
+		float: left;
+		margin-top: -3px;
+	}
+}
+#edit-field-pdf .btn-danger, #edit-field-video .btn-danger {
+  float: right;
+  margin: -5px 0 7px;
+}
+
+.container-fluid .main-wrap .node.node-video .quickedit-field.quickedit-editable {
+	min-height: 500px;
+	top: 0px;
+	left: 0px;
+}
+
+
+#videojs-110-field-video-video, .node-type-video .node-video .vjs-default-skin {
+	min-width: 100% !important;
+	margin: auto;
+}
+
+.video-js {
+	/*border:1px solid #616161!important;*/
+	width:100%!important;
+}
+
+.main-wrap .region-content .node-video .field-name-field-bottom-content {
+	margin-top: 25px!important;
+	padding-top: 22px;
+}
+
+.node-type-video .main-wrap .region-content .node-video {
+	background: none;
+	padding: 0;
+}
+
+.vjs-paused .vjs-big-play-button {
+	display: block !important;
+}
+
+.vjs-lock-showing {
+	z-index: 100;
+}
+
+/*Video page*/
+
+.field-name-field-video.quickedit-processed {
+	/*Video Border*/
+	border: 1px solid #717174;
+}
+/*.node-type-video{
+	.field-name-field-video.quickedit-processed {
+		border:0px;
+	}
+}*/
+
+.video-js {
+	/*Video BG*/
+	background-color: #101010;
+}
+
+.vjs-default-skin {
+	.vjs-big-play-button {
+		/*Video Icon BG*/
+		border: 0.09em solid #fff;
+		@include background-opacity($brand-color, 0.75);
+		
+		@media only screen and (max-device-width : 768px){
+			background: $brand-color;
+			z-index:9999;
+		}
+	}
+	&:hover .vjs-big-play-button, .vjs-big-play-button:focus {
+		/*Video Icon BG on hover*/
+		background-color: $brand-color;
+	}
+}

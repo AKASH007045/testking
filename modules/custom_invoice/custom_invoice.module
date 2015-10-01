@@ -1,0 +1,243 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function custom_invoice_menu() {
+  $items = array();
+  $items['invoice'] = array(
+    'title' => 'Invoice',
+    'page callback' => 'custom_invoice_page',
+    'access arguments' => array('STH User'),
+    'file' => 'custom_invoice.pages.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['invoice/email'] = array(
+    'title' => 'Email invoice in PDF format',
+    'page callback' => 'custom_invoice_email',
+    'access arguments' => array('STH User'),
+    'file' => 'custom_invoice.pages.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['invoice/print'] = array(
+    'title' => 'Print invoice in PDF format',
+    'page callback' => 'custom_invoice_print',
+    'access arguments' => array('STH User'),
+    'file' => 'custom_invoice.pages.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['invoice/print/error'] = array(
+    'title' => 'Print Invoice',
+    'page callback' => 'custom_invoice_print_error',
+    'access arguments' => array('STH User'),
+    'file' => 'custom_invoice.pages.inc',
+    'type' => MENU_CALLBACK
+  );
+  
+  $items['admin/manage/invoice'] = array(
+    'title' => 'Manage Invoice',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_invoice_settings'),
+    'access arguments' => array('administer invoice settings'),
+    'file' => 'custom_invoice.admin.inc',
+   // 'type' => MENU_CALLBACK,
+  );
+
+  $items['invoice/payment'] = array(
+    'title' => 'Payment',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_invoice_payment_request'),
+    'access arguments' => array('STH User'),
+    'file' => 'custom_invoice.pages.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['invoice/payment/success'] = array(
+    'title' => 'Payment',
+    'page callback' => 'custom_invoice_payment_success',
+    'access arguments' => array('STH User'),
+    'file' => 'custom_invoice.pages.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['invoice/payment/failure'] = array(
+    'title' => 'Payment',
+    'page callback' => 'custom_invoice_payment_failure',
+    'access arguments' => array('STH User'),
+    'file' => 'custom_invoice.pages.inc',
+    'type' => MENU_CALLBACK
+  );
+   $items['plandescription/%'] = array(
+    'title' => 'Plan description callback',
+    'page callback' => 'custom_invoice_payment_plans_desc', //'plan_desc_get_description',
+    'page arguments' => array(1),
+    'file' => 'custom_invoice.pages.inc',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function custom_invoice_permission() {
+  return array(
+    'administer invoice settings' => array(
+      'title' => t('Administer for invoice settings'),
+      'description' => t('Perform administration tasks for invoice.'),
+    ),
+  );
+}
+/**
+ * Implements hook_theme()
+ */
+
+function custom_invoice_theme($existing, $type, $theme, $path) {
+  return array(
+    'renewal_invoice' => array(
+      'arguments' => array('seat_holds' => NULL, 'name' => NULL, 'user_info' => NULL),
+      'template' => 'templates/invoice/renewal_invoice_page'
+    ),
+    'renewal_invoice_pdf' => array(
+      'arguments' => array('seat_holds' => NULL, 'name' => NULL, 'user_info' => NULL),
+      'template' => 'templates/invoice/pdf/renewal_invoice_page'
+    ),
+    'invoice_page' => array(
+      'arguments' => array('output' => NULL),
+      'template' => 'templates/invoice_page'
+    ),
+    'invoice_user_info_block' =>  array(
+      'arguments' => array('user_info' => NULL, 'name' => NULL, 'acct_rep' => NULL, 'type' => NULL),
+      'template' => 'templates/user_info_block'
+    ),
+     'tm_payment_success' => array(
+      'arguments' => array('name' => NULL, 'acct_id' => NULL, 'cc_num' => NULL),
+      'template' => 'templates/tm-payment-success'
+    ),
+    'tm_payment_error' => array(
+      'arguments' => array('name' => NULL, 'acct_id' => NULL, 'cc_num' => NULL),
+      'template' => 'templates/tm-payment-error'
+    ),
+    'invoice_print_error' => array(
+      'arguments' => array(),
+      'template' => 'templates/invoice-print-error'
+    ),
+  );
+}
+
+/**
+ * Invoice Page user info Block
+ * @arguments
+ * $type = 1 for print/page
+ * $type = 2 for pdf page
+ */
+function invoice_user_info_block($type = 1) {
+  module_load_include('inc', 'custom_block', 'custom_block.block');
+  global $user;
+  $acct_id = $user->name;
+  $cnt = 0;
+  if (isset($acct_id)) {
+    $name = get_user_full_name($user);
+    $user_info = get_user_info($acct_id);
+    $acct_rep = custom_block_account_rep('block_2');
+    $output = '';
+    return theme('invoice_user_info_block', array('user_info' => $user_info, 'name' => $name, 'acct_rep' => $acct_rep, 'type' => $type));
+  }
+  return '';
+}
+
+
+function custom_invoice_get_plans($acct_id = NULL, $invoice_id=NULL){
+  if ((isset($acct_id) && !empty($acct_id)) && (isset($invoice_id) && !empty($invoice_id))) {
+    module_load_include('inc', 'tm_api', 'tm_api.helper');
+    $plan_schedules = array();
+    $plans = tmapi_get_payment_plans();
+    if($plans){
+      foreach($plans as $plan){
+        $plan_schedules[$plan['payment_plan_id']]['plan'] = $plan; 
+      }
+      return $plan_schedules;
+    }
+    else{
+      //No Plans present
+      return false;
+    }    
+  }
+  else{
+    //Either account ID or Invoice ID is NULL
+    return false;
+  }
+}
+
+function get_schedule_for_plan_id($acct_id=NULL, $invoice_id=NULL, $plan_id=NULL , $get_amount_info, $plans = NULL){
+  if((isset($acct_id) && !empty($acct_id)) && (isset($invoice_id) && !empty($invoice_id)) && (isset($plan_id) && !empty($plan_id))) { 
+    $items = array();
+    $title = t(''); //Blank to show no header for item list
+    $amount_due_today = "0.00";
+    $type = 'ol';
+    $ttl = NULL;
+    
+    if($plan_id=='default') {
+      $amount_due_today = isset($get_amount_info['current_due_amounts'])?$get_amount_info['current_due_amounts']:'0.00';
+      $amount_due_today = ($amount_due_today<0) ? "0.00": $amount_due_today;
+      $items[] = array(
+        'data' => '<span class="duedate">Full Payment</span> <span class="dollars">' . invoice_money_format($amount_due_today) . '</span>'
+      );
+    }
+    else {
+      module_load_include('inc', 'tm_api', 'tm_api.helper');
+      //$plans = tmapi_get_payment_plans();
+      foreach ($plans as $plan) {
+        if ($plan['payment_plan_id'] == $plan_id) {
+          $plandesc = $plan['plan_desc'];
+        }
+      }
+      $schedules = tmapi_get_payment_schedules($acct_id, $invoice_id, $plan_id);
+      flog_it($schedules);
+      //$schedules = get_plan_schedules($acct_id, $invoice_id, $plan_id);
+      foreach($schedules as $schedule){ 
+        $ttl = date('F d, Y', strtotime($schedule['payment_due_date']));      
+        
+        if(isset($schedule['amount_due_today']) && !empty($schedule['amount_due_today'])){
+          $amount_due_today = $schedule['amount_due_today'];
+        }
+        
+        $items[] = array(
+          'data' => '<span class="duedate">'.$ttl.'</span> <span class="dollars">'.invoice_money_format($schedule['owed_amount']).'</span>'
+        );
+      }
+    }    
+    
+    if(isset($items) &&count($items)>0) {
+      $desc_options = theme_item_list(array('items' => $items, 'title' => $title, 'type' => $type, 'attributes' => array()));
+      $ops = array();
+      $ops['amount_due_today'] = number_format((double)$amount_due_today, 2, '.', '');
+      $ops['amount_due_detail'] = invoice_money_format($amount_due_today);
+      $ops['desc'] = $plandesc;
+      $ops['item_list'] = $desc_options;
+      drupal_json_output($ops);
+      exit;
+    }
+    else{
+      echo "";
+      exit;
+    }
+  }
+  else{
+    echo "";
+    exit;
+  }  
+}
+
+function _price_code_check() {
+  module_load_include('inc', 'tm_data', 'tm_data'); 
+  global $user;
+  $rows = array();
+  $seats = array();    
+  $seats = tm_get_seats_on_account($user->name);
+  foreach ($seats as $key => $seat) {
+    if (strpos(strtolower($seat->price_code), 'k') ===2) {
+      return true;
+    }
+  }
+  return false;
+}

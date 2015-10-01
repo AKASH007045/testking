@@ -1,8 +1,0 @@
-name= 3D Seat View
-description = Custom Seat View Module
-version = VERSION
-package = Custom
-core = 7.x
-project = "drupal"
-dependencies[] = tm_data
-datestamp = "1352325357"

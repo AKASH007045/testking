@@ -1,0 +1,489 @@
+.global-blue{
+	color: $brand-color;
+}
+.page-invoice{
+	.page-header {
+		color: $invoice-page-color;
+	}
+}
+
+.infoPanelwrap{
+	background-color: $invoice-info-panel-wrap-bg;
+	color: $black;
+	position:relative;
+	padding-bottom:20px;
+	float:left;
+	width:100%;
+	
+	.dedicateserrep{
+		background-color: $black-bgd;
+		border: 1px solid $black-bdr;
+		color: $white;
+		float:right;
+		width:292px;
+		padding:26px 0px 30px 16px;
+		
+		h5.dsr{
+			border-bottom:4px solid $white;
+			float:right;
+			padding-bottom:3px;
+			padding-left:6px;
+			padding-right:15px;
+			width:68%;
+			margin-bottom:0;
+			margin-top:0;
+			clear:both;
+		}
+		.imgpics{
+			left:16px;
+			top:24px;
+			position:absolute;
+		}
+	}
+	h2{
+		font-size:1.855em;
+		margin-top:25px;
+		
+		span {
+			color: $invoice-page-color;
+		}
+	}
+	.acc-hol-name{
+		float:right;
+		width:62%;
+		
+		h5{
+			margin-bottom:2px;
+		}
+	}
+	.useadd{
+		margin-bottom:5px;
+		font-size:0.85em;
+		clear:both;
+	}
+	.mail{
+		margin-bottom:5px;
+		font-size:0.85em;
+		clear:both;
+		display:inline-block;
+	}
+	.namecntinf{
+		padding-left:22px;
+		width:32%;
+		
+		@media only screen and (max-width:1024px){
+			float:left;width:32%;
+		}
+	}
+	.account-panel {float:left;width:285px;
+	
+		@media only screen and (max-width : 1024px){
+			width:200px;
+		}
+	}
+}
+.season-invoice-detail{
+	background-color: $invoice-info-panel-wrap-bg;
+	color: $black;
+	position:relative;
+	padding-bottom:20px;
+	float:left;
+	width:100%;
+	padding:0px 22px 40px 22px;
+	
+	h3 {
+		color: $invoice-page-color;
+		letter-spacing: 1px;
+	}
+	.ticketTable{
+		width:100%;
+		text-align:left;
+		margin-bottom:35px;
+		
+		tr.head{
+			td {
+				color: $invoice-page-color;
+				border-bottom: 1px solid #b1b1b1;
+				font-family:inherit;
+				border:none;
+				padding:5px 0px;
+				
+				&:last-child{
+					text-align:right;
+				}
+			}
+		}
+		tr.tbr{
+			td{
+				&:last-child{
+					text-align:right;
+				}
+			}
+		}
+	}
+	.btnprint{
+		margin-left:6px;
+	}
+}
+.payment-amount-box{
+	background-color: $invoice-info-panel-wrap-bg;
+	color: $black;
+	position:relative;
+	padding:38px 0px 60px 0px;
+	
+	.amount-due{
+		label{
+			font-weight:normal;
+			margin-top:13px;
+			margin-bottom:0;
+			float:left;
+		}
+		.ttlamt{
+			font-weight:normal;
+			font-size:1.855em;
+			float:right;
+			font-family:"oswaldregular", Arial;
+		}
+	}
+	.make-payment-wrapper{
+		float:left;
+		margin-top:7px;
+		width:100%;
+		
+		label{
+			margin-top:3px;
+		}
+		button.form-submit{
+			float:right;
+			margin-top:12px;
+		}
+		.form-group{
+			overflow:hidden;
+		}
+		a{
+			color:$black;
+			
+			&:hover,&:focus{
+				color:$black;
+			}
+		}
+	}
+	.form-control{
+		float:right;
+		width:197px;
+		height:28px;
+		padding:4px 20px 4px 5px;
+	}
+}
+.thankyou-footer{
+	background-color: $invoice-info-panel-wrap-bg;
+	color: $black;
+	position:relative;
+	padding-bottom:20px;
+	min-height:200px;
+}
+
+.amountduewrap{
+	background-color:$invoice-amount-due-wrap-bg;
+	color: $black;
+	background-image: url("../images/invoice-bg-star.png");
+	background-repeat: no-repeat;
+	background-position:9% center;
+	float:left;
+	width:100%;
+	min-height:280px;
+	padding:25px 22px;
+  
+	.amountdueinfo{
+		border-bottom: 1px solid #b1b1b1;
+		font-weight: bold;
+		float:right;
+		width:58.555%;
+		padding-top:5px;
+		padding-bottom:25px;
+		
+		.contactInfoRight{
+			text-align:right;
+			padding-right:0;
+		}
+	}
+	.amountduettl{
+		float:right;
+		width:58.555%;
+		padding-top:5px;
+		padding-bottom:25px;
+		
+		.amountInfoRight{
+			text-align:right;
+			padding-right:0;
+		}
+		.deadlineTxt{
+			font-size:0.85em;
+			margin-top:-8px;
+		}
+	}
+	h2{
+		font-size:1.855em;
+		margin-top:25px;
+	}
+}
+.payment-user-form-wrapper{
+	background-color:$invoice-amount-due-wrap-bg;
+	color: $black;
+	float:left;
+	width:100%;
+	min-height:280px;
+	padding:35px 0px;
+	
+	.form-group{
+		margin-bottom:7px;
+		float:left;
+		width:100%;
+		
+		.DivSelectyze{
+			
+			.selectyzeValue{
+				width:197px;height:28px;padding-left: 12px;
+			}
+			.UlSelectize{
+				width:197px;top:27px;overflow-y: auto !important;max-height:210px;
+				max-height:180px !important;overflow-y:scroll !important;-webkit-overflow-scrolling: touch !important;
+				
+				li{
+					a{
+						padding:4px 5px 4px 12px;font-size:14px;
+					}
+				}
+			}
+		}
+	}
+	.conf-email{
+		font-size:0.85em;
+		margin-top:14px;
+		margin-bottom:7px;
+		float:left;
+		width:100%;
+		
+		.selectyzeValue{
+			width:197px;height:28px;padding-left: 12px;
+		}
+		.UlSelectize{
+			width:197px;top:27px;overflow-y: auto !important;max-height:210px;
+			max-height:180px !important;overflow-y:scroll !important;-webkit-overflow-scrolling: touch !important;
+		}
+		li{
+			a{
+				padding:4px 5px 4px 12px;font-size:14px;
+			}
+		}
+	}
+	.form-control{
+		float:right;
+		width:197px;
+		height:28px;
+		padding:4px 20px 4px 5px;
+	}
+	.form-type-select{
+		select{
+			&#edit-ctype{
+				padding: 0;height: 0;border: none;
+			}
+		}
+	}
+	.form-item-Avs-postal-code, .form-item-exp-date, .form-item-cin{
+		.form-control{
+			width:76px;
+		}
+	}
+}
+.payment-thankyou-wrapper{
+	background-color:$invoice-amount-due-wrap-bg;
+	color: $black;
+	float:left;
+	width:100%;
+	min-height:280px;
+	padding:35px 0px;
+	text-align:center;
+	letter-spacing:1px;
+	
+	h1{
+		margin-top:28px;
+		margin-bottom:8px;
+		font-size: 53px;
+	}
+	h2{
+		margin-top:0;
+		margin-bottom:20px;
+		font-size:22px;
+	}
+}
+.payment-unsuccessful{
+	background-color:$invoice-amount-due-wrap-bg;
+	color: $black;
+	float:left;
+	width:100%;
+	min-height:280px;
+	padding:35px 0px;
+	text-align:center;
+	letter-spacing:1px;
+	
+	h1{
+		margin-top:28px;
+		margin-bottom:8px;
+		color: $error-message-color;
+		font-size: 53px;
+	}
+	
+	h2 {
+		color: $error-message-color;
+		margin-top:0;
+		margin-bottom:20px;
+		font-size:22px;
+	}
+}
+.page-invoice-payment{
+	.main-wrap{
+		#block-system-main{
+			position:relative;
+			
+			div.error{
+				background:none;
+				border:none;
+				position:absolute;
+				left:82px;
+				bottom:-20px;
+				font-size:0.85em;
+				
+				.close{
+					display:none;
+				}
+			}
+		}
+	}
+	.payment-user-form-wrapper{
+		.required-error{
+			position:absolute;
+			bottom:-28px;
+			left:15px;
+			font-size:0.85em;
+		}
+	}
+	.form-item-payment-plan-id{
+		label{
+			&.control-label{
+				font-size:22px;
+				font-weight:normal;
+				margin-bottom:22px;
+			}
+		}
+		.DivSelectyze{
+			float:left;
+			margin-bottom:8px;
+			position:relative;
+			z-index:9!important;
+		}
+	}
+}
+.page-invoice{
+	.main-wrap{
+		.block-system{
+			margin-bottom:190px;
+		}
+	}
+}
+
+
+.page-invoice{
+	#block-custom-block-user-info {
+		color: $black;
+	}
+	.container-fluid {
+		background-color: $white-bgd !important;
+	}
+}
+
+
+.page-invoice-payment-success .payment-thankyou-wrapper {
+	h1, h2 {
+		color: $brand-color;
+	}
+}
+#block-custom-block-invoice-page{
+	.accountnbr{
+		float:left;font-size:1.855em;
+	}
+}
+.main-wrap .table-striped > tbody > tr:nth-child(2n+1) > td, 
+.main-wrap .table-striped > tbody > tr:nth-child(2n+1) > th, 
+.main-wrap .table-hover > tbody > tr:hover > td, 
+.main-wrap .table-hover > tbody > tr:hover > th{
+	background-color:transparent;
+}
+
+#plansbreif{
+	clear:both;
+}
+.front #modal-content .card-panel .form-item-ctype .DivSelectyze{
+	display:none;
+}
+.front #modal-content .card-panel .form-item-ctype div.css3{
+	display:block!important;
+	margin-bottom:7px;
+}
+.personal-info{
+	#plansloading{
+		text-align:center;
+	}
+	.card-panel{
+		@media only screen and (max-width : 1024px){
+			float:right;
+		}
+	}
+	.form-item-payment-plan-id{
+		.css3{
+			float:left;
+		}
+	}
+}
+@media only screen and (max-width : 1024px) {
+	.dropdown-menu, .dropdownmenu {top:auto;}
+}
+
+@media only screen and (max-width : 768px) { 
+	.payment-user-form-wrapper .form-item-exp-date .form-control{margin-left:5px;}
+}
+
+
+body.page-invoice-list .container-fluid > section.main-wrap section.block{min-height:500px;}
+
+table#invoices-list-table{
+	td, th{
+		color:#000000;
+		border:0px;
+		font-family:"oswaldregular", Arial;
+		border-right: 1px solid $invoice-tabular-border;
+		border-bottom: 1px solid $invoice-tabular-border;
+		border-left: 1px solid $invoice-tabular-border;
+		padding: 0px 15px;
+		line-height: 62px;
+		text-transform: uppercase;
+		font-weight: 500;
+		font-size: 18px;
+	}
+	th{
+		border-top: 1px solid $invoice-tabular-border;
+		
+		&:first-child{
+			color:#ffffff;
+			$experimental-support-for-svg:	true;
+			@include background-image($table-head-gradient-first); 
+		}
+		&:nth-child(2){
+			$experimental-support-for-svg:	true;
+			@include background-image($table-head-gradient-second);
+		}
+		&:last-child{
+			background:rgba(251,249,250,1);
+		}
+	}
+}

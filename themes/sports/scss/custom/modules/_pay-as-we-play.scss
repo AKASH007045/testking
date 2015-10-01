@@ -1,0 +1,15 @@
+.page-pawp{
+	.container-fluid{
+		.main-wrap{
+			section.block{text-align:center;}
+		}
+		#user-login{
+			border:0px;
+			$experimental-support-for-svg:	true;
+			@include background-image($pawp-bg);		
+		}
+	}
+	.main-container{
+		padding-top:130px;
+	}
+}

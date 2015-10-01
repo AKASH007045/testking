@@ -1,0 +1,223 @@
+
+.countdown-promo-tile-days {
+	height: 133px;
+	float: left;
+	font-size: 5.5714em;
+	text-align: center;
+	line-height: 1.2em;
+	position: relative;
+	padding:0 2%;
+	max-width:41%;
+	@include background-opacity($countdown-promo-tile-days-bg, 0.66);
+	border: 1px solid $lgt-gray;
+	
+	> span {
+		font-size:$promo-tile-countdown-days-text;
+		
+		@media screen and (max-width: 768px) and (orientation:portrait){
+			font-size:$promo-tile-countdown-days-text-ipad-portrait;
+		}
+		text-transform: uppercase;
+		display: block;
+		line-height: 1.1em;
+		&.timer-day {
+			font-size: $promo-tile-countdown-days-size;
+			
+			@media screen and (max-width: 768px) and (orientation:portrait){
+				font-size:$promo-tile-countdown-days-size-ipad-portrait;
+			}	
+			
+			height:78px;
+			display: block;
+			line-height: inherit;
+		}
+	}
+}
+
+.countdown-promo-tile-title {
+	font-size: 2.2em;
+	width:57%;
+	float:right;
+	padding-left:5px;
+	line-height: 1.35em;
+	overflow: hidden;
+	padding-top: 0.75em;
+}
+
+.promo-tile {
+	max-width: 1440px;
+	margin: 0 auto;
+	.row {
+		padding-top: 15px;
+		padding-bottom: 15px;
+		$experimental-support-for-svg:	true;
+		@include background-image($promo-tile-bg);
+	}
+	.promo-box {
+		display: block;
+		height: 195px;
+		overflow: hidden;
+		border: 1px solid #616161;
+		position: relative;
+		.promo-link .field-type-image img {
+			max-width: none;
+			margin-left: -165px;
+			position: relative;
+			left: 50%;
+		}
+		.promo-countdown {
+			position: absolute;
+			top: 50px;
+			left: 10px;
+			right: 10px;
+			bottom: 10px;
+		}
+		&.regular{
+			 a.promo-link{
+				 &:hover{
+					 .second {
+						@include background-opacity($promo-tile-hover-bg, 0.15);
+						 width: 100%;
+						  min-height: 195px;
+						  position: absolute;
+						  top: 39px;
+						  left: 0;
+						  z-index: 98;
+					}
+				 }
+			 }
+		}
+	}
+	.tilehead {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		z-index: 9;
+		min-height: 39px;
+		$experimental-support-for-svg:	true;
+		@include background-image($promo-tile-tilehead-bg);	
+		@include box-shadow(2px 2px 5px $blk-bx-shadow);
+		a.social {
+			float: right;
+			width: 1.888em;
+			display: inline-block;
+			padding: .3em .0em .35em .465em;
+			font-size: 1.1em;
+			line-height: 1.85em;
+			border-left: solid 1px #3a3b3f;
+			color: #9f9f9f;
+			
+			&.active, &:hover {
+				color: $white;
+			}
+		}
+		span {
+			display: block;
+			font-size:$promo-tile-title;
+			letter-spacing: 1px;
+			text-align: center;
+			line-height: 39px;
+			
+			@media screen and (max-width: 768px) and (orientation:landscape){
+				font-size: $promo-tile-ipad-landscape-title;
+			}
+			@media screen and (max-width: 768px) and (orientation:portrait){
+				font-size: $promo-tile-ipad-portrait-title;
+			}
+		}
+	}
+	.carousel {
+		height: 190px;
+		width: 100%;
+		display: inline-block;
+		overflow-y: hidden;
+		position: relative;
+		z-index: 2;
+	}
+	.feed-details {
+		margin-top: 50px;
+		margin-left: 10%;
+		float: left;
+		position: relative;
+		width: 78%;
+		z-index: 999;
+		.feed-logo {
+			float: left;
+			display: inline-block;
+			margin-right: 12px;
+		}
+		.feedtime {
+			float: left;
+			margin-top: 10px;
+			font-size: 0.786em;
+			font-weight: bold;
+		}
+		.feedtex {
+			float: left;
+			margin-top: 10px;
+			font-size: 0.786em;
+			font-weight: bold;
+			line-height: 1.2em;
+			width: 100%;
+			clear: both;
+			word-wrap: break-word;
+			
+			.text-white {
+				text-decoration: none;
+			}
+		}
+	}
+}
+.promo-tile .tilehead a.social.active, .promo-tile .tilehead a.social:hover{cursor:pointer;}
+#block-custom-social-feed-custom-social-feed .tilehead span {
+	text-align: left;
+	padding-left: 15px;
+}
+.block-custom-social-feed .promo-box {
+	background: url("../images/bottom-tile.jpg") no-repeat top center;
+}
+
+.bottom-promo-tile .field-type-list-text .form-control {
+  width: 360px;
+  float: right;
+}
+
+.bottom-promo-tile .field-name-field-link .link-attributes .control-label {
+  font-size: 13px;
+}
+
+.promo-tile .tilehead > div {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+
+
+.promo-box .feed-details.item {
+  display: none;
+  &.active {
+    display: block;
+  }
+}
+
+.bottom-promo-tile .bg-page-link-edit {
+  z-index: 99;
+  right: 16px;
+  bottom: 15px;
+  top: inherit;
+}
+
+body.node-type-take-over-pages .bottom-promo-tile .bg-page-link-edit {
+  pointer-events: none !important;
+  cursor: default;
+}
+
+.bottom-promo-tile {
+  position: relative;
+}
+
+.bottom-promo-tile input[type=file] {
+  color: transparent;
+}

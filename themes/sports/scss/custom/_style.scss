@@ -1,0 +1,74 @@
+
+.node.node-site-page form .field-multiple-table td.field-multiple-drag {
+  width: 0px;
+}
+.node.node-site-page .field-multiple-table .cke_toolbar_break {
+  clear: none;
+}
+/*MMW Editor */
+.node.node-site-page .quickedit-form .form-wrapper,
+.node.node-site-page .quickedit-form form {  margin: 0;  padding: 0;}
+
+.node.node-site-page .panel-body,
+.node.node-site-page .ckeditor_links,
+.node.node-site-page .tabledrag-toggle-weight-wrapper,
+.node.node-site-page #field-page-body-values thead,
+#quickedit-field-form #edit-submit, #edit-ctype,
+.payment-user-form-wrapper .form-item-exp-date .help-block,
+.make-payment-wrapper .form-item-amount .help-block,
+.node-type-take-over-pages .promo-tile a.promo-link:hover .second,
+html.js div.contextual-links-wrapper,
+div.contextual-links-wrapper, button.form-submit div {
+  display: none !important;
+}
+
+.btn.btn-default, button.quickedit-button,.imageeditor div.aviary-feather,.title .popup-close,.button_blue a,.global-button,
+.page-invoice-payment .btn-default.return-home,.page-pawp .container-fluid .main-wrap section.block form#custom-pawp-sign-up button#btn-default, .make-payment-wrapper button{
+  border-radius: 4px;
+  padding:0 20px;
+  font-size: 1.2em;
+  text-align: center;
+  text-transform: none;
+  outline:none; line-height:33px;
+}
+.container span.global-button.btn.btn-default {padding:0;}
+span.global-button a{ padding:0 20px;display:block;}
+
+.quickedit-form {
+  width: 100.5%;
+  max-width: none;
+  margin: 3px 0 0 -2px;
+}
+
+.quickedit-form .form-wrapper {
+  margin: 0 0.4em 0 0.5em;
+}
+
+.quickedit-toolbar-container .quickedit-button.action-cancel {
+  margin-right: 7px;
+}
+
+.quickedit .icon-close::before {  top: 7px;}
+.quickedit-toolgroup .file {
+  margin-top: 3px;
+  display: inline-block;
+  float: left;
+  margin-right: 5px;
+}
+
+.wrapper-icon-sidekick {
+  margin-top: 1px;
+  position: absolute;
+  top: 0;
+  left: 1px;
+}
+.stp-editor-links .tabs-wrap-primary-user {  padding: 10px;}
+.quickedit-field.quickedit-editable, .quickedit-field .quickedit-editable{word-wrap:break-word;}
+
+/*******************CK editor Image upload changes*********************/
+.page-tabs, article.node-site-page .field .field-items .field-item, .node.node-site-page div.field-items div.field-item, .node.node-site-page form .field-multiple-table td.field-multiple-drag .text-warning, 
+.promo-link-edit-hidden, .page-update-custom-background header, .page-update-custom-background footer, .page-update-custom-background h1.page-header, .page-update-custom-background .tabbable, .page-update-custom-background .node-form > div .form-actions .btn-success span, .page-update-custom-background .field-name-field-images, .quickedit-toolbar-container > .quickedit-toolbar-pointer, 
+.page-update-custom-background #block-views-tab-pages-block, .page-update-custom-background .field-name-field-video, .page-update-custom-background .field-name-field-pdf, .page-update-custom-background .field-name-field-for-logged-in{
+  display: none;
+}
+
