@@ -188,12 +188,12 @@ input[type="radio"], input[type="checkbox"] {
   border: 1px solid #3f2a72;
   -webkit-box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.25) inset;
   box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.25) inset;
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzQzNDM0MyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAyMDIwMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzVhNDA5OSIvPjxzdG9wIG9mZnNldD0iMSUiIHN0b3AtY29sb3I9IiM0ZTM2ODciLz48c3RvcCBvZmZzZXQ9IjMlIiBzdG9wLWNvbG9yPSIjNGUzNjg3Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjM2YyYTcyIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background-size: 100%;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #434343), color-stop(100%, #020202));
-  background-image: -moz-linear-gradient(top, #434343 0%, #020202 100%);
-  background-image: -webkit-linear-gradient(top, #434343 0%, #020202 100%);
-  background-image: linear-gradient(to bottom, #434343 0%, #020202 100%);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5a4099), color-stop(1%, #4e3687), color-stop(3%, #4e3687), color-stop(100%, #3f2a72));
+  background-image: -moz-linear-gradient(top, #5a4099 0%, #4e3687 1%, #4e3687 3%, #3f2a72 100%);
+  background-image: -webkit-linear-gradient(top, #5a4099 0%, #4e3687 1%, #4e3687 3%, #3f2a72 100%);
+  background-image: linear-gradient(to bottom, #5a4099 0%, #4e3687 1%, #4e3687 3%, #3f2a72 100%);
   color: #ffffff;
 }
 
@@ -380,6 +380,12 @@ body.page-403 .node.node-page {
   text-transform: uppercase;
   letter-spacing: .5px;
   font-size: 1.2em;
+}
+
+/* line 79, ../scss/custom/_content.scss */
+.form-item-payment-plan-id div#plandesccontainer li span.duedate {
+  display: inline-block;
+  width: 60%;
 }
 
 /* line 2, ../scss/custom/_style.scss */
@@ -2106,8 +2112,8 @@ body.node-type-contact-us .container-fluid .main-wrap .node {
 /* line 27, ../scss/custom/pages/_login.scss */
 #user-login #edit-actions button.form-submit {
   border: 1px solid rgba(0, 0, 0, 0.75);
-  -webkit-box-shadow: #2b2b2b 0px 2px 0px inset;
-  box-shadow: #2b2b2b 0px 2px 0px inset;
+  -webkit-box-shadow: #2b2b2b 0px 0px 1px inset;
+  box-shadow: #2b2b2b 0px 0px 1px inset;
   text-shadow: rgba(0, 0, 0, 0.3) -1px -1px 0;
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzczNGM5ZiIvPjxzdG9wIG9mZnNldD0iMjYlIiBzdG9wLWNvbG9yPSIjNzM0YzlmIi8+PHN0b3Agb2Zmc2V0PSIzNiUiIHN0b3AtY29sb3I9IiM2ZjQ4OWIiLz48c3RvcCBvZmZzZXQ9IjYyJSIgc3RvcC1jb2xvcj0iIzVmMzY4NSIvPjxzdG9wIG9mZnNldD0iNzQlIiBzdG9wLWNvbG9yPSIjNWEzMTdmIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNWMzMTgwIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background-size: 100%;
@@ -2336,63 +2342,64 @@ form#user-login .form-item-remember-me span.active {
 /* line 53, ../scss/custom/pages/_calendar.scss */
 .sth-calendar .calendar-calendar thead tr, .sth-calendar .calendar-calendar th.days {
   color: #cdd0d2;
+  text-shadow: 1px 1px 0px #000000;
 }
-/* line 58, ../scss/custom/pages/_calendar.scss */
+/* line 59, ../scss/custom/pages/_calendar.scss */
 .sth-calendar .month-view .full td.single-day.empty, .sth-calendar .month-view .full td.date-box.empty {
   color: #cdd0d2;
 }
 
-/* line 65, ../scss/custom/pages/_calendar.scss */
+/* line 66, ../scss/custom/pages/_calendar.scss */
 .view-header > ul li a {
   /*month and list tabbing*/
   color: #9e9e9e;
 }
-/* line 69, ../scss/custom/pages/_calendar.scss */
+/* line 70, ../scss/custom/pages/_calendar.scss */
 .view-header > ul li:first-child {
   /*month and list tabbing*/
   border-right: 1px solid #9e9e9e;
 }
 
-/* line 77, ../scss/custom/pages/_calendar.scss */
+/* line 78, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .single-day td .inner, .calendar-calendar .single-day.no-entry.future .inner, .calendar-calendar .single-day.future.empty .inner, .calendar-calendar .single-day.future.game-away .inner, .calendar-calendar .single-day.today.game-away .inner, .calendar-calendar .single-day.past.game-away .inner {
   background: url(../images/calenderbg.png) 0 0 repeat transparent;
 }
-/* line 81, ../scss/custom/pages/_calendar.scss */
+/* line 82, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar td {
   color: rgba(0, 0, 0, 0.8);
 }
-/* line 83, ../scss/custom/pages/_calendar.scss */
+/* line 84, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar td:last-child {
   border-right: 0px;
 }
-/* line 87, ../scss/custom/pages/_calendar.scss */
+/* line 88, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full tr.single-day.single-day > td .inner {
   border: 1px solid #778087;
 }
-/* line 91, ../scss/custom/pages/_calendar.scss */
+/* line 92, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full tr.single-day .game-away .cal-team-name, .calendar-calendar .month-view .full tr.single-day .game-away .cal-time {
   color: #5a4099;
   font-weight: normal;
 }
-/* line 96, ../scss/custom/pages/_calendar.scss */
+/* line 97, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar tr {
   background-color: transparent;
 }
-/* line 100, ../scss/custom/pages/_calendar.scss */
+/* line 101, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .single-day .inner .item .game-home {
   background: rgba(90, 64, 153, 0.75) !important;
 }
-/* line 103, ../scss/custom/pages/_calendar.scss */
+/* line 104, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .single-day .inner .item .game-away {
   background: rgba(255, 255, 255, 0.75) !important;
 }
-/* line 107, ../scss/custom/pages/_calendar.scss */
+/* line 108, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .cal-team-name, .calendar-calendar .cal-time, .calendar-calendar .month-view .full td.game-home .inner div.day {
   /*Table TD logo text color*/
   color: #ffffff;
 }
 
-/* line 113, ../scss/custom/pages/_calendar.scss */
+/* line 114, ../scss/custom/pages/_calendar.scss */
 .calendar-legend .calendar-legend-right > li a {
   text-transform: uppercase;
   letter-spacing: .0252em;
@@ -2404,18 +2411,18 @@ form#user-login .form-item-remember-me span.active {
   padding: 10px 15px;
 }
 
-/* line 124, ../scss/custom/pages/_calendar.scss */
+/* line 125, ../scss/custom/pages/_calendar.scss */
 .calendar-legend {
   /*Table bottom game and schedule event*/
   background: url(../images/calenderbg.png) 0 0 repeat transparent;
 }
-/* line 129, ../scss/custom/pages/_calendar.scss */
+/* line 130, ../scss/custom/pages/_calendar.scss */
 .calendar-legend .cal-home-legend, .calendar-legend .cal-away-legend, .calendar-legend .cal-event-legend {
   position: relative;
   height: 17px;
   padding-left: 28px;
 }
-/* line 134, ../scss/custom/pages/_calendar.scss */
+/* line 135, ../scss/custom/pages/_calendar.scss */
 .calendar-legend .cal-home-legend:before, .calendar-legend .cal-away-legend:before, .calendar-legend .cal-event-legend:before {
   position: absolute;
   width: 20px;
@@ -2424,21 +2431,21 @@ form#user-login .form-item-remember-me span.active {
   left: 0;
   top: 0;
 }
-/* line 143, ../scss/custom/pages/_calendar.scss */
+/* line 144, ../scss/custom/pages/_calendar.scss */
 .calendar-legend span {
   color: #565658;
 }
-/* line 147, ../scss/custom/pages/_calendar.scss */
+/* line 148, ../scss/custom/pages/_calendar.scss */
 .calendar-legend .cal-home-legend:before {
   border: 1px solid #000000;
   background: #5a4099;
 }
-/* line 151, ../scss/custom/pages/_calendar.scss */
+/* line 152, ../scss/custom/pages/_calendar.scss */
 .calendar-legend .cal-away-legend:before {
   border: 1px solid #000000;
   background: #ffffff;
 }
-/* line 156, ../scss/custom/pages/_calendar.scss */
+/* line 157, ../scss/custom/pages/_calendar.scss */
 .calendar-legend .cal-event-legend:before {
   position: absolute;
   width: 20px;
@@ -2453,36 +2460,36 @@ form#user-login .form-item-remember-me span.active {
   content: '\f005';
   font-family: FontAwesome;
 }
-/* line 172, ../scss/custom/pages/_calendar.scss */
+/* line 173, ../scss/custom/pages/_calendar.scss */
 .calendar-legend .calendar-legend-right > li a.active, .calendar-legend .calendar-legend-right > li a:hover {
   /*Table bottom game and schedule event BG*/
   border: 1px solid rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 1px 1px 1px #011b3a inset;
   box-shadow: 1px 1px 1px #011b3a inset;
   text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzQzNDM0MyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAyMDIwMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzYyNjI2MiIvPjxzdG9wIG9mZnNldD0iMjMlIiBzdG9wLWNvbG9yPSIjNGU0ZTRlIi8+PHN0b3Agb2Zmc2V0PSI2MiUiIHN0b3AtY29sb3I9IiMyMDIwMjAiLz48c3RvcCBvZmZzZXQ9IjY5JSIgc3RvcC1jb2xvcj0iIzFhMWExYSIvPjxzdG9wIG9mZnNldD0iODclIiBzdG9wLWNvbG9yPSIjMDcwNzA3Ii8+PHN0b3Agb2Zmc2V0PSI5MiUiIHN0b3AtY29sb3I9IiMwMzAzMDMiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwNDA0MDQiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
   background-size: 100%;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #434343), color-stop(100%, #020202));
-  background-image: -moz-linear-gradient(top, #434343 0%, #020202 100%);
-  background-image: -webkit-linear-gradient(top, #434343 0%, #020202 100%);
-  background-image: linear-gradient(to bottom, #434343 0%, #020202 100%);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #626262), color-stop(23%, #4e4e4e), color-stop(62%, #202020), color-stop(69%, #1a1a1a), color-stop(87%, #070707), color-stop(92%, #030303), color-stop(100%, #040404));
+  background-image: -moz-linear-gradient(top, #626262 0%, #4e4e4e 23%, #202020 62%, #1a1a1a 69%, #070707 87%, #030303 92%, #040404 100%);
+  background-image: -webkit-linear-gradient(top, #626262 0%, #4e4e4e 23%, #202020 62%, #1a1a1a 69%, #070707 87%, #030303 92%, #040404 100%);
+  background-image: linear-gradient(to bottom, #626262 0%, #4e4e4e 23%, #202020 62%, #1a1a1a 69%, #070707 87%, #030303 92%, #040404 100%);
 }
-/* line 182, ../scss/custom/pages/_calendar.scss */
+/* line 183, ../scss/custom/pages/_calendar.scss */
 .calendar-legend .nav > li > a:hover, .calendar-legend .nav > li > a:focus {
   /*Table bottom game and schedule event BG*/
   border: 1px solid rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 1px 1px 1px #011b3a inset;
   box-shadow: 1px 1px 1px #011b3a inset;
   text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzQzNDM0MyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAyMDIwMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzYyNjI2MiIvPjxzdG9wIG9mZnNldD0iMjMlIiBzdG9wLWNvbG9yPSIjNGU0ZTRlIi8+PHN0b3Agb2Zmc2V0PSI2MiUiIHN0b3AtY29sb3I9IiMyMDIwMjAiLz48c3RvcCBvZmZzZXQ9IjY5JSIgc3RvcC1jb2xvcj0iIzFhMWExYSIvPjxzdG9wIG9mZnNldD0iODclIiBzdG9wLWNvbG9yPSIjMDcwNzA3Ii8+PHN0b3Agb2Zmc2V0PSI5MiUiIHN0b3AtY29sb3I9IiMwMzAzMDMiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwNDA0MDQiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
   background-size: 100%;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #434343), color-stop(100%, #020202));
-  background-image: -moz-linear-gradient(top, #434343 0%, #020202 100%);
-  background-image: -webkit-linear-gradient(top, #434343 0%, #020202 100%);
-  background-image: linear-gradient(to bottom, #434343 0%, #020202 100%);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #626262), color-stop(23%, #4e4e4e), color-stop(62%, #202020), color-stop(69%, #1a1a1a), color-stop(87%, #070707), color-stop(92%, #030303), color-stop(100%, #040404));
+  background-image: -moz-linear-gradient(top, #626262 0%, #4e4e4e 23%, #202020 62%, #1a1a1a 69%, #070707 87%, #030303 92%, #040404 100%);
+  background-image: -webkit-linear-gradient(top, #626262 0%, #4e4e4e 23%, #202020 62%, #1a1a1a 69%, #070707 87%, #030303 92%, #040404 100%);
+  background-image: linear-gradient(to bottom, #626262 0%, #4e4e4e 23%, #202020 62%, #1a1a1a 69%, #070707 87%, #030303 92%, #040404 100%);
 }
 
-/* line 194, ../scss/custom/pages/_calendar.scss */
+/* line 195, ../scss/custom/pages/_calendar.scss */
 #modal_bootstrap .modal-dialog.game-popup-dialog .modal-header {
   /*Popup heading bg on click logo*/
   border-bottom: 1px solid #778087;
@@ -2491,26 +2498,26 @@ form#user-login .form-item-remember-me span.active {
   box-shadow: 0px 0px 10px #011b3a inset;
   color: #9e9e9e;
 }
-/* line 201, ../scss/custom/pages/_calendar.scss */
+/* line 202, ../scss/custom/pages/_calendar.scss */
 #modal_bootstrap .pptic-evt .closePopup {
   /*Popup Cross icon on click logo */
   background: url("../images/btnClose.png") no-repeat 0 0;
 }
-/* line 205, ../scss/custom/pages/_calendar.scss */
+/* line 206, ../scss/custom/pages/_calendar.scss */
 #modal_bootstrap .modal-dialog {
   /*Popup border on click logo */
   border: 1px solid #778087;
 }
 
-/* line 212, ../scss/custom/pages/_calendar.scss */
+/* line 213, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .mth-list {
   top: -61px;
 }
-/* line 215, ../scss/custom/pages/_calendar.scss */
+/* line 216, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .promo-tile {
   margin-top: 11px;
 }
-/* line 220, ../scss/custom/pages/_calendar.scss */
+/* line 221, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading {
   -webkit-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.6) inset;
   box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.6) inset;
@@ -2523,49 +2530,49 @@ form#user-login .form-item-remember-me span.active {
   background-image: linear-gradient(to bottom, #797979 0%, #303030 100%);
   color: #ffffff;
 }
-/* line 232, ../scss/custom/pages/_calendar.scss */
+/* line 233, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title a.collapsed span.list-view-child:nth-child(5) {
   background: none;
   padding: 0px 5px;
 }
-/* line 236, ../scss/custom/pages/_calendar.scss */
+/* line 237, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title a.collapsed span.list-view-child:nth-child(5) i {
   transform: rotate(0deg);
   -ms-transform: rotate(0deg);
   -webkit-transform: rotate(0deg);
 }
-/* line 247, ../scss/custom/pages/_calendar.scss */
+/* line 248, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(5) {
   background: none;
   padding: 0px 5px;
 }
-/* line 251, ../scss/custom/pages/_calendar.scss */
+/* line 252, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(5) i {
   font-size: 2em;
   transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
 }
-/* line 258, ../scss/custom/pages/_calendar.scss */
+/* line 259, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(1), .page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(2) {
   background: url("/sites/all/modules/custom/custom_calendar/images/side-bg.png") no-repeat right bottom;
 }
-/* line 265, ../scss/custom/pages/_calendar.scss */
+/* line 266, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel {
   border: 1px solid rgba(95, 87, 79, 0.9);
 }
-/* line 269, ../scss/custom/pages/_calendar.scss */
+/* line 270, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel.panel-default {
   border-color: #7D7B7B;
 }
-/* line 282, ../scss/custom/pages/_calendar.scss */
+/* line 283, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .list-view .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(5) i {
   transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
 }
 
-/* line 305, ../scss/custom/pages/_calendar.scss */
+/* line 306, ../scss/custom/pages/_calendar.scss */
 .page-my-calendar .modal-header .pptic-evt .mInfo a.active {
   position: relative;
   width: 91px;
@@ -2574,7 +2581,7 @@ form#user-login .form-item-remember-me span.active {
   top: 0px;
   left: 25px;
 }
-/* line 313, ../scss/custom/pages/_calendar.scss */
+/* line 314, ../scss/custom/pages/_calendar.scss */
 .page-my-calendar .modal-header .pptic-evt .mInfo a.active:before {
   position: absolute;
   text-indent: 0px;
@@ -2590,12 +2597,12 @@ form#user-login .form-item-remember-me span.active {
   font-family: FontAwesome;
 }
 
-/* line 336, ../scss/custom/pages/_calendar.scss */
+/* line 337, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading:hover, .page-season-schedule .view-content .panel-group .next-game-active .panel-heading {
   background: #5a4099;
 }
 
-/* line 343, ../scss/custom/pages/_calendar.scss */
+/* line 344, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full td .inner div.day, .calendar-calendar .month-view .full td .inner div.day a {
   text-align: center;
   padding-left: 6px;
@@ -2606,7 +2613,7 @@ form#user-login .form-item-remember-me span.active {
   border-radius: 0px 0px 5px 0px;
 }
 
-/* line 345, ../scss/custom/pages/_calendar.scss */
+/* line 346, ../scss/custom/pages/_calendar.scss */
 img.sth-event-star-icon {
   position: absolute;
   left: 4px;
@@ -2614,25 +2621,25 @@ img.sth-event-star-icon {
   top: 0px;
 }
 
-/* line 346, ../scss/custom/pages/_calendar.scss */
+/* line 347, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-collapse .panel-body .topvscnt {
   left: 50%;
   /*margin-left: -20px;*/
 }
 
-/* line 350, ../scss/custom/pages/_calendar.scss */
+/* line 351, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule {
   float: left;
   width: 100%;
 }
-/* line 353, ../scss/custom/pages/_calendar.scss */
+/* line 354, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group {
   width: 100%;
   margin: 0 auto 0px auto;
   padding: 0;
   max-width: 610px;
 }
-/* line 358, ../scss/custom/pages/_calendar.scss */
+/* line 359, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel {
   float: left;
   width: 100%;
@@ -2641,7 +2648,7 @@ img.sth-event-star-icon {
   -webkit-border-radius: 0px;
   border-radius: 0px;
 }
-/* line 366, ../scss/custom/pages/_calendar.scss */
+/* line 367, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading {
   list-style: none;
   padding: 0px 0px;
@@ -2654,18 +2661,18 @@ img.sth-event-star-icon {
   float: left;
   width: 100%;
 }
-/* line 377, ../scss/custom/pages/_calendar.scss */
+/* line 378, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title {
   font-size: 30px;
 }
-/* line 379, ../scss/custom/pages/_calendar.scss */
+/* line 380, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title a {
   float: left;
   width: 100%;
   display: inline-block;
   text-decoration: none;
 }
-/* line 384, ../scss/custom/pages/_calendar.scss */
+/* line 385, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child {
   float: left;
   padding-top: 14px;
@@ -2674,40 +2681,40 @@ img.sth-event-star-icon {
   padding-right: 5px;
   text-align: center;
 }
-/* line 391, ../scss/custom/pages/_calendar.scss */
+/* line 392, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(1) {
   width: 118px;
 }
-/* line 394, ../scss/custom/pages/_calendar.scss */
+/* line 395, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(2) {
   width: 180px;
 }
-/* line 397, ../scss/custom/pages/_calendar.scss */
+/* line 398, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(3) {
   width: 60px;
 }
-/* line 404, ../scss/custom/pages/_calendar.scss */
+/* line 405, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-collapse {
   float: left;
   width: 100%;
   position: relative;
 }
-/* line 408, ../scss/custom/pages/_calendar.scss */
+/* line 409, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-collapse .panel-body {
   border-top: none;
   padding: 0;
 }
-/* line 411, ../scss/custom/pages/_calendar.scss */
+/* line 412, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-collapse .panel-body .toplogolft {
   float: left;
   width: 50%;
 }
-/* line 415, ../scss/custom/pages/_calendar.scss */
+/* line 416, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-collapse .panel-body .toplogorgt {
   float: right;
   width: 50%;
 }
-/* line 419, ../scss/custom/pages/_calendar.scss */
+/* line 420, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-collapse .panel-body .topvscnt {
   position: absolute;
   top: 100px;
@@ -2718,7 +2725,7 @@ img.sth-event-star-icon {
   z-index: 999;
   font-family: "oswaldregular",Arial;
 }
-/* line 429, ../scss/custom/pages/_calendar.scss */
+/* line 430, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-collapse .panel-body .bottom-text-wrap {
   position: absolute;
   bottom: 10px;
@@ -2727,35 +2734,35 @@ img.sth-event-star-icon {
   text-align: center;
   text-transform: uppercase;
 }
-/* line 440, ../scss/custom/pages/_calendar.scss */
+/* line 441, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(4) {
   width: 190px;
   padding: 0px;
 }
-/* line 444, ../scss/custom/pages/_calendar.scss */
+/* line 445, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(1), .page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(2) {
   min-width: 106px;
 }
-/* line 447, ../scss/custom/pages/_calendar.scss */
+/* line 448, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:nth-child(5) {
   width: 52px;
 }
-/* line 450, ../scss/custom/pages/_calendar.scss */
+/* line 451, ../scss/custom/pages/_calendar.scss */
 .page-season-schedule .view-content .panel-group .panel-heading .panel-title a span.list-view-child:last-child {
   padding-left: 10px !important;
   text-align: right;
 }
 
-/* line 457, ../scss/custom/pages/_calendar.scss */
+/* line 458, ../scss/custom/pages/_calendar.scss */
 .panel-title > a {
   color: #ffffff;
 }
 
-/* line 458, ../scss/custom/pages/_calendar.scss */
+/* line 459, ../scss/custom/pages/_calendar.scss */
 .view-header {
   position: relative;
 }
-/* line 460, ../scss/custom/pages/_calendar.scss */
+/* line 461, ../scss/custom/pages/_calendar.scss */
 .view-header > ul {
   position: absolute;
   left: 0;
@@ -2763,7 +2770,7 @@ img.sth-event-star-icon {
   z-index: 9;
   padding-left: 0;
 }
-/* line 466, ../scss/custom/pages/_calendar.scss */
+/* line 467, ../scss/custom/pages/_calendar.scss */
 .view-header > ul li {
   margin: 0;
   padding: 0;
@@ -2771,19 +2778,19 @@ img.sth-event-star-icon {
   list-style: none;
   text-shadow: 1px 1px 0 #000000;
 }
-/* line 472, ../scss/custom/pages/_calendar.scss */
+/* line 473, ../scss/custom/pages/_calendar.scss */
 .view-header > ul li.active {
   padding: 10px 20px;
   text-decoration: underline;
 }
-/* line 476, ../scss/custom/pages/_calendar.scss */
+/* line 477, ../scss/custom/pages/_calendar.scss */
 .view-header > ul li a {
   display: inline-block;
   padding: 10px 20px;
   text-decoration: none;
 }
 
-/* line 485, ../scss/custom/pages/_calendar.scss */
+/* line 486, ../scss/custom/pages/_calendar.scss */
 .sth-calendar .date-nav-wrapper .date-nav, .page-season-schedule .date-nav-wrapper .date-nav {
   margin-bottom: 0;
   padding-bottom: 0;
@@ -2796,14 +2803,14 @@ img.sth-event-star-icon {
   position: relative;
 }
 
-/* line 499, ../scss/custom/pages/_calendar.scss */
+/* line 500, ../scss/custom/pages/_calendar.scss */
 .sth-calendar .calendar-calendar thead tr, .sth-calendar .calendar-calendar th.days {
   background: none;
   font-size: 1.41em;
   font-weight: normal;
   text-transform: uppercase;
 }
-/* line 507, ../scss/custom/pages/_calendar.scss */
+/* line 508, ../scss/custom/pages/_calendar.scss */
 .sth-calendar .month-view .full td.single-day.empty, .sth-calendar .month-view .full td.date-box.empty {
   background: none;
   font-size: 1.41em;
@@ -2811,7 +2818,7 @@ img.sth-event-star-icon {
   text-transform: uppercase;
 }
 
-/* line 517, ../scss/custom/pages/_calendar.scss */
+/* line 518, ../scss/custom/pages/_calendar.scss */
 .view-header .date-nav-wrapper .date-heading {
   position: relative;
   width: 100%;
@@ -2819,7 +2826,7 @@ img.sth-event-star-icon {
   text-align: center;
   z-index: 0;
 }
-/* line 523, ../scss/custom/pages/_calendar.scss */
+/* line 524, ../scss/custom/pages/_calendar.scss */
 .view-header .date-nav-wrapper .date-heading h3 {
   line-height: 43px;
   font-size: 2.6em;
@@ -2829,55 +2836,55 @@ img.sth-event-star-icon {
   padding: 0;
   text-shadow: 0px 0px 1px #000000;
 }
-/* line 533, ../scss/custom/pages/_calendar.scss */
+/* line 534, ../scss/custom/pages/_calendar.scss */
 .view-header .pager {
   float: left;
   margin: 17px 0;
 }
-/* line 538, ../scss/custom/pages/_calendar.scss */
+/* line 539, ../scss/custom/pages/_calendar.scss */
 .view-header .date-nav-wrapper li.date-prev, .view-header .date-nav-wrapper li.date-next {
   padding: 0px;
   top: -19px;
   background: none;
 }
-/* line 545, ../scss/custom/pages/_calendar.scss */
+/* line 546, ../scss/custom/pages/_calendar.scss */
 .view-header .pager li.date-prev > a, .view-header .pager li.date-next > a {
   border: none;
   opacity: 1;
   font-size: 0px;
 }
 
-/* line 555, ../scss/custom/pages/_calendar.scss */
+/* line 556, ../scss/custom/pages/_calendar.scss */
 .view-header .date-nav-wrapper .date-prev {
   left: 0;
   right: inherit;
 }
 
-/* line 560, ../scss/custom/pages/_calendar.scss */
+/* line 561, ../scss/custom/pages/_calendar.scss */
 .month-view > table {
   border-collapse: collapse;
 }
 
-/* line 564, ../scss/custom/pages/_calendar.scss */
+/* line 565, ../scss/custom/pages/_calendar.scss */
 .sth-calendar table .date-box td {
   min-height: 36px;
   height: auto !important;
   height: 36px;
 }
 
-/* line 570, ../scss/custom/pages/_calendar.scss */
+/* line 571, ../scss/custom/pages/_calendar.scss */
 .sth-cal-poup .pouptopwrap {
   float: left;
   width: 100%;
 }
 
-/* line 575, ../scss/custom/pages/_calendar.scss */
+/* line 576, ../scss/custom/pages/_calendar.scss */
 .team-info.event {
   z-index: 99;
   cursor: pointer;
 }
 
-/* line 580, ../scss/custom/pages/_calendar.scss */
+/* line 581, ../scss/custom/pages/_calendar.scss */
 .pouptopwrap .sthevent-image .more-info, .sthevent-body.more-info, .vr-seat-view-wrapper .content .seat-info-box {
   position: absolute;
   top: 0;
@@ -2886,42 +2893,42 @@ img.sth-event-star-icon {
   bottom: 0;
 }
 
-/* line 588, ../scss/custom/pages/_calendar.scss */
+/* line 589, ../scss/custom/pages/_calendar.scss */
 .pouptopwrap .more-info, .event-gallary-big-box .sthevent-image .more-info {
   padding: 120px 70px 17px 70px;
   z-index: 15;
   display: none;
 }
 
-/* line 594, ../scss/custom/pages/_calendar.scss */
+/* line 595, ../scss/custom/pages/_calendar.scss */
 .pouptopwrap .sthevent-image, .event-gallary-big-box .sthevent-image {
   position: relative;
 }
 
-/* line 599, ../scss/custom/pages/_calendar.scss */
+/* line 600, ../scss/custom/pages/_calendar.scss */
 .pouptopwrap .toplogolft, .pouptopwrap .topvscnt, .pouptopwrap .toplogorgt {
   float: left;
   display: inline-block;
   text-align: center;
 }
-/* line 604, ../scss/custom/pages/_calendar.scss */
+/* line 605, ../scss/custom/pages/_calendar.scss */
 .pouptopwrap .vslogo {
   min-height: 110px;
   margin-bottom: 15px;
   display: inline-table;
 }
-/* line 609, ../scss/custom/pages/_calendar.scss */
+/* line 610, ../scss/custom/pages/_calendar.scss */
 .pouptopwrap .ppcntname {
   clear: both;
   display: block;
   font-size: 1.355em;
 }
-/* line 614, ../scss/custom/pages/_calendar.scss */
+/* line 615, ../scss/custom/pages/_calendar.scss */
 .pouptopwrap .toplogolft, .pouptopwrap .toplogorgt {
   width: 50%;
 }
 
-/* line 619, ../scss/custom/pages/_calendar.scss */
+/* line 620, ../scss/custom/pages/_calendar.scss */
 .modal-body {
   padding: 0;
   width: 990px;
@@ -2929,7 +2936,7 @@ img.sth-event-star-icon {
   float: left;
 }
 
-/* line 627, ../scss/custom/pages/_calendar.scss */
+/* line 628, ../scss/custom/pages/_calendar.scss */
 .pouptopwrap .topvscnt {
   width: 10%;
   font-size: 3.333em;
@@ -2941,34 +2948,34 @@ img.sth-event-star-icon {
   margin-left: -50px;
   font-family: "oswaldregular", Arial;
 }
-/* line 638, ../scss/custom/pages/_calendar.scss */
+/* line 639, ../scss/custom/pages/_calendar.scss */
 .pouptopwrap .toplogolft:hover, .pouptopwrap .toplogorgt:hover {
   text-decoration: none;
 }
 
-/* line 643, ../scss/custom/pages/_calendar.scss */
+/* line 644, ../scss/custom/pages/_calendar.scss */
 .modal-content {
   z-index: 100;
 }
 
-/* line 647, ../scss/custom/pages/_calendar.scss */
+/* line 648, ../scss/custom/pages/_calendar.scss */
 .modal {
   overflow: auto;
 }
-/* line 649, ../scss/custom/pages/_calendar.scss */
+/* line 650, ../scss/custom/pages/_calendar.scss */
 .modal.fade.in {
   width: 100%;
   height: 100%;
 }
 
-/* line 656, ../scss/custom/pages/_calendar.scss */
+/* line 657, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .modal-dialog {
   top: 0;
   left: 0;
   width: 992px;
   margin: 0;
 }
-/* line 662, ../scss/custom/pages/_calendar.scss */
+/* line 663, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .poupatstud {
   width: 65%;
   float: left;
@@ -2977,7 +2984,7 @@ img.sth-event-star-icon {
   overflow: hidden;
 }
 
-/* line 671, ../scss/custom/pages/_calendar.scss */
+/* line 672, ../scss/custom/pages/_calendar.scss */
 .event-gallary-big-box .poupatstud {
   width: 65%;
   float: left;
@@ -2986,17 +2993,17 @@ img.sth-event-star-icon {
   overflow: hidden;
 }
 
-/* line 679, ../scss/custom/pages/_calendar.scss */
+/* line 680, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .poupatstud > div, .event-gallary-big-box .poupatstud > div {
   float: left;
 }
 
-/* line 683, ../scss/custom/pages/_calendar.scss */
+/* line 684, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .poupatstud > span, .event-gallary-big-box .poupatstud > span {
   text-transform: uppercase;
 }
 
-/* line 687, ../scss/custom/pages/_calendar.scss */
+/* line 688, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .pptic-evt, .event-gallary-big-box .pptic-evt {
   width: 35%;
   float: left;
@@ -3005,7 +3012,7 @@ img.sth-event-star-icon {
   text-transform: uppercase;
 }
 
-/* line 695, ../scss/custom/pages/_calendar.scss */
+/* line 696, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .pptic-evt a.active, .event-gallary-big-box .modal-header .pptic-evt a.active, #modal_bootstrap .mgTicket a.active {
   visibility: visible;
   /*width: 52px;
@@ -3015,65 +3022,65 @@ img.sth-event-star-icon {
   font-size: 0;
 }
 
-/* line 706, ../scss/custom/pages/_calendar.scss */
+/* line 707, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .pptic-evt .mgTicket, .event-gallary-big-box .pptic-evt .mgTicket {
   border-right: 1px solid grey;
 }
 
-/* line 710, ../scss/custom/pages/_calendar.scss */
+/* line 711, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .pptic-evt .mgTicket:nth-last-child(2), .event-gallary-big-box .pptic-evt .mgTicket:nth-last-child(2) {
   border: none;
 }
 
-/* line 714, ../scss/custom/pages/_calendar.scss */
+/* line 715, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .pptic-evt .closePopup, .event-gallary-big-box .pptic-evt .closePopup {
   width: 29px;
   height: 28px;
   cursor: pointer;
 }
 
-/* line 720, ../scss/custom/pages/_calendar.scss */
+/* line 721, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .pptic-evt > div, .event-gallary-big-box .pptic-evt > div {
   display: inline-block;
   padding: 0 15px;
 }
 
-/* line 725, ../scss/custom/pages/_calendar.scss */
+/* line 726, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .pptic-evt .closePopup {
   display: inline-block;
   margin-bottom: -5px;
 }
 
-/* line 730, ../scss/custom/pages/_calendar.scss */
+/* line 731, ../scss/custom/pages/_calendar.scss */
 .event-gallary-big-box .pptic-evt > div:last-child {
   padding-right: 0;
 }
 
-/* line 734, ../scss/custom/pages/_calendar.scss */
+/* line 735, ../scss/custom/pages/_calendar.scss */
 .container-fluid .view-content .game-popup {
   position: absolute;
 }
 
-/* line 739, ../scss/custom/pages/_calendar.scss */
+/* line 740, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full td.date-box .inner, .calendar-calendar .week-view .full td.date-box .inner {
   float: left;
 }
-/* line 743, ../scss/custom/pages/_calendar.scss */
+/* line 744, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full td.single-day .inner div > img {
   width: 141px;
   height: 112px;
 }
-/* line 747, ../scss/custom/pages/_calendar.scss */
+/* line 748, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full td.single-day .inner div .team-info.event img.sth-event-star-icon {
   width: 18px;
   height: 17px;
   margin-top: 28px;
 }
-/* line 752, ../scss/custom/pages/_calendar.scss */
+/* line 753, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full td.single-day .inner div .field-item {
   height: 112px;
 }
-/* line 756, ../scss/custom/pages/_calendar.scss */
+/* line 757, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .cal-team-name {
   width: 48%;
   float: left;
@@ -3083,7 +3090,7 @@ img.sth-event-star-icon {
   padding: 0 3px !important;
   font-weight: normal;
 }
-/* line 765, ../scss/custom/pages/_calendar.scss */
+/* line 766, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .cal-time {
   width: 55%;
   float: right;
@@ -3095,68 +3102,68 @@ img.sth-event-star-icon {
   padding: 0 2px !important;
   font-weight: normal;
 }
-/* line 776, ../scss/custom/pages/_calendar.scss */
+/* line 777, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full td, .calendar-calendar .week-view .full td, .calendar-calendar .day-view td {
   padding: 0;
 }
-/* line 779, ../scss/custom/pages/_calendar.scss */
+/* line 780, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full td .inner div.day {
   text-align: center;
   padding-left: 6px;
   font-size: 1.285em;
 }
-/* line 783, ../scss/custom/pages/_calendar.scss */
+/* line 784, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full td .inner div.day a {
   text-align: left;
   padding-left: 6px;
   font-size: 1.285em;
 }
 
-/* line 791, ../scss/custom/pages/_calendar.scss */
+/* line 792, ../scss/custom/pages/_calendar.scss */
 .sth-calendar .month-view .full td.date-box.empty {
   padding-top: 0;
 }
-/* line 792, ../scss/custom/pages/_calendar.scss */
+/* line 793, ../scss/custom/pages/_calendar.scss */
 .sth-calendar .month-view .full td.date-box.empty .month.day {
   padding: 0 5px;
   display: none;
 }
 
-/* line 801, ../scss/custom/pages/_calendar.scss */
+/* line 802, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .date-box > td {
   height: 40px !important;
 }
-/* line 806, ../scss/custom/pages/_calendar.scss */
+/* line 807, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full tr.single-day.single-day > td {
   height: 71px !important;
 }
-/* line 808, ../scss/custom/pages/_calendar.scss */
+/* line 809, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full tr.single-day.single-day > td .inner .item:nth-child(2) {
   position: absolute;
   top: 0;
   overflow: hidden;
 }
-/* line 815, ../scss/custom/pages/_calendar.scss */
+/* line 816, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full tr td.single-day.today, .calendar-calendar .month-view .full tr td.date-box.today {
   border: none;
 }
-/* line 820, ../scss/custom/pages/_calendar.scss */
+/* line 821, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full tr.single-day.single-day > td:first-child .inner {
   width: 143px;
 }
-/* line 823, ../scss/custom/pages/_calendar.scss */
+/* line 824, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full tr.single-day.single-day > td .inner {
   z-index: 2;
 }
-/* line 828, ../scss/custom/pages/_calendar.scss */
+/* line 829, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full td.date-box {
   padding-bottom: 0;
 }
-/* line 831, ../scss/custom/pages/_calendar.scss */
+/* line 832, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full tr.date-box > td.inner {
   z-index: 3;
 }
-/* line 836, ../scss/custom/pages/_calendar.scss */
+/* line 837, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .single-day td > .inner {
   width: 143px;
   height: 112px !important;
@@ -3164,7 +3171,7 @@ img.sth-event-star-icon {
   top: -40px;
   left: inherit;
 }
-/* line 844, ../scss/custom/pages/_calendar.scss */
+/* line 845, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full tr.single-day .no-entry .inner {
   width: 143px;
   height: 112px !important;
@@ -3172,84 +3179,84 @@ img.sth-event-star-icon {
   top: -40px;
   left: inherit;
 }
-/* line 851, ../scss/custom/pages/_calendar.scss */
+/* line 852, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view table {
   margin-bottom: -1px;
 }
-/* line 855, ../scss/custom/pages/_calendar.scss */
+/* line 856, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full td {
   position: relative;
 }
-/* line 859, ../scss/custom/pages/_calendar.scss */
+/* line 860, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full tr td.multi-day .inner, .calendar-calendar .month-view .full tr td.date-box .inner {
   z-index: 3;
   position: relative;
 }
-/* line 864, ../scss/custom/pages/_calendar.scss */
+/* line 865, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full td.single-day div.monthview {
   background: transparent;
 }
-/* line 869, ../scss/custom/pages/_calendar.scss */
+/* line 870, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .week-view .full td.single-day div.weekview, .calendar-calendar .day-view .full td.single-day div.dayview {
   background: transparent;
 }
 
 @media all and (-ms-high-contrast: none) {
-  /* line 876, ../scss/custom/pages/_calendar.scss */
+  /* line 877, ../scss/custom/pages/_calendar.scss */
   .calendar-calendar .single-day td > .inner, .calendar-calendar .month-view .full tr.single-day .no-entry .inner {
     top: -37px;
     height: 109px !important;
   }
 
   /* IE10 */
-  /* line 882, ../scss/custom/pages/_calendar.scss */
+  /* line 883, ../scss/custom/pages/_calendar.scss */
   *::-ms-backdrop {
     top: -37px;
     height: 109px !important;
   }
 
-  /* line 887, ../scss/custom/pages/_calendar.scss */
+  /* line 888, ../scss/custom/pages/_calendar.scss */
   .calendar-calendar .single-day td > .inner, .calendar-calendar .month-view .full tr.single-day .no-entry .inner {
     top: -37px;
     height: 109px !important;
   }
 
   /* IE11 */
-  /* line 893, ../scss/custom/pages/_calendar.scss */
+  /* line 894, ../scss/custom/pages/_calendar.scss */
   .bottomBarInner .gamelogo {
     display: inline-block;
   }
 
-  /* line 896, ../scss/custom/pages/_calendar.scss */
+  /* line 897, ../scss/custom/pages/_calendar.scss */
   .calendar-calendar .month-view .full td.single-day .inner div .field-item {
     height: 107px;
   }
 }
-/* line 899, ../scss/custom/pages/_calendar.scss */
+/* line 900, ../scss/custom/pages/_calendar.scss */
 .calendar-legend {
   z-index: 10;
   margin-bottom: 40px;
 }
 
-/* line 904, ../scss/custom/pages/_calendar.scss */
+/* line 905, ../scss/custom/pages/_calendar.scss */
 .calendar-legend-left {
   width: 50%;
   float: left;
   height: 42px;
 }
 
-/* line 910, ../scss/custom/pages/_calendar.scss */
+/* line 911, ../scss/custom/pages/_calendar.scss */
 .calendar-legend-right {
   width: 48%;
   float: right;
 }
 
-/* line 915, ../scss/custom/pages/_calendar.scss */
+/* line 916, ../scss/custom/pages/_calendar.scss */
 .calendar-legend-left > span {
   margin: 12px 10px;
 }
 
-/* line 919, ../scss/custom/pages/_calendar.scss */
+/* line 920, ../scss/custom/pages/_calendar.scss */
 .calendar-legend span {
   font-size: 1em;
   font-weight: bold;
@@ -3259,29 +3266,29 @@ img.sth-event-star-icon {
   line-height: 18px;
 }
 
-/* line 928, ../scss/custom/pages/_calendar.scss */
+/* line 929, ../scss/custom/pages/_calendar.scss */
 .calendar-legend-right {
   margin: 0;
   padding: 0;
 }
-/* line 931, ../scss/custom/pages/_calendar.scss */
+/* line 932, ../scss/custom/pages/_calendar.scss */
 .calendar-legend-right > li {
   float: left;
 }
-/* line 933, ../scss/custom/pages/_calendar.scss */
+/* line 934, ../scss/custom/pages/_calendar.scss */
 .calendar-legend-right > li button {
   width: 100%;
 }
-/* line 937, ../scss/custom/pages/_calendar.scss */
+/* line 938, ../scss/custom/pages/_calendar.scss */
 .calendar-legend-right .first {
   width: 60%;
 }
-/* line 940, ../scss/custom/pages/_calendar.scss */
+/* line 941, ../scss/custom/pages/_calendar.scss */
 .calendar-legend-right .last {
   width: 40%;
 }
 
-/* line 945, ../scss/custom/pages/_calendar.scss */
+/* line 946, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .cal-game-result {
   width: 100%;
   bottom: 0;
@@ -3291,18 +3298,18 @@ img.sth-event-star-icon {
   font-weight: normal;
 }
 
-/* line 953, ../scss/custom/pages/_calendar.scss */
+/* line 954, ../scss/custom/pages/_calendar.scss */
 .node-type-event .container-fluid .main-wrap section.block,
 .page-season-schedule .container-fluid .main-wrap section.block {
   margin-bottom: 40px;
 }
 
-/* line 957, ../scss/custom/pages/_calendar.scss */
+/* line 958, ../scss/custom/pages/_calendar.scss */
 .pouptopwrap .sthevent-image .carousel-inner img.img-responsive {
   width: 100%;
 }
 
-/* line 958, ../scss/custom/pages/_calendar.scss */
+/* line 959, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .month-view .full td.single-day div.monthview,
 .calendar-calendar .week-view .full td.single-day div.weekview,
 .calendar-calendar .day-view .full td.single-day div.dayview {
@@ -3311,12 +3318,12 @@ img.sth-event-star-icon {
   border-radius: 0px;
 }
 
-/* line 963, ../scss/custom/pages/_calendar.scss */
+/* line 964, ../scss/custom/pages/_calendar.scss */
 body.page-my-calendar .container-fluid > section.main-wrap .view-content {
   margin-right: 1px;
 }
 
-/* line 964, ../scss/custom/pages/_calendar.scss */
+/* line 965, ../scss/custom/pages/_calendar.scss */
 .sth-calendar-event {
   float: left;
   width: auto;
@@ -4916,6 +4923,18 @@ table#invoices-list-table th:nth-child(2) {
 /* line 485, ../scss/custom/modules/_invoice.scss */
 table#invoices-list-table th:last-child {
   background: #fbf9fa;
+}
+
+/* line 491, ../scss/custom/modules/_invoice.scss */
+.form-item-payment-plan-id #plandesccontainer ol {
+  padding-left: 30px;
+  margin-top: 5px;
+}
+
+/* line 496, ../scss/custom/modules/_invoice.scss */
+.form-item-payment-plan-id #plandesccontainer ol li {
+  list-style-position: outside !important;
+  padding-bottom: 2px;
 }
 
 /* line 1, ../scss/custom/modules/_takeover.scss */
