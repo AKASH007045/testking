@@ -1,6 +1,6 @@
 <?php
-define('DRUPAL_STH_USER', 4);
-define('DRUPAL_STH_CLUB_USER', 5);
+/*define('DRUPAL_STH_USER', 4);
+define('DRUPAL_STH_CLUB_USER', 5);*/
 
 /**
  * Implements hook_menu().
