@@ -142,7 +142,7 @@ function _tmapi_get_sth_status($acct_id = NULL) {
 function _tmapi_get_sth_status_rsvp($acct_id = NULL) {
   $param = tm_api_get_command_param('get_sth_status', $acct_id);
   $json = drupal_json_encode($param);
-  $param['command1']['uid'] = 'ATS01';
+  //$param['command1']['uid'] = 'ATS01';
   $response = array();
   $response = tm_api_call($json, 'ticketing_services.aspx');
   //check for sth status and validate with response.
@@ -344,7 +344,7 @@ function _tmapi_payment_request($data) {
  */
 function _tmapi_get_seats_on_account($acct_id = NULL) {
   $param = tm_api_get_command_param('get_seats_on_account', $acct_id);
-  $param['command1']['uid'] = 'ATS01';
+  //$param['command1']['uid'] = 'ATS01';
   $json = drupal_json_encode($param);
   $response = array();
   //$response = tm_api_call($json, 'atsext/ext.asp');
