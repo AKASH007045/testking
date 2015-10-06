@@ -91,10 +91,10 @@ function custom_take_over_pages_form_alter(&$form, &$form_state, $form_id) {
         array('type' => 'inline', 'scope' => 'footer', 'weight' => 5)
       );
       $form['field_run_from']['und'][0]['#title'] = '<div class="date-duration">Duration</div> <label class="date-label">Start Date:</label>';
-      //$form['body']['#prefix'] = '<div style="display:none;">';
-      //$form['body']['#suffix'] = '</div>';
-      //$form['field_bottom_text']['#prefix'] = '<div style="display:none;">';
-      //$form['field_bottom_text']['#suffix'] = '</div>';
+      $form['body']['#prefix'] = '<div style="display:none;">';
+      $form['body']['#suffix'] = '</div>';
+      $form['field_bottom_text']['#prefix'] = '<div style="display:none;">';
+      $form['field_bottom_text']['#suffix'] = '</div>';
       $form['field_select_layout']['und']['#options'][1] = 'Top and Bottom Text with One Button <div class="to-img1"><img src="'.$base_path.$path.'/images/layout-1.png'.'"></div>';
       $form['field_select_layout']['und']['#options'][2] = 'Top and Bottom Text with Two Buttons <div class="to-img2"><img src="'.$base_path.$path.'/images/layout-2.png'.'"></div>';
       $form['field_select_layout']['und']['#options'][3] = 'Video Takeover <div class="to-img3"><img src="'.$base_path.$path.'/images/video-player-icon.png'.'"></div>';
