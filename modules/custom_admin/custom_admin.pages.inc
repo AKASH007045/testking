@@ -155,7 +155,7 @@ function custom_admin_add_page($form, &$form_state, $variable) {
   return $form;
 }
 
-function custom_admin_add_page_validate($form, &$form_state) {
+/*function custom_admin_add_page_validate($form, &$form_state) {
   $data = $form_state['values'];
   $nid = arg(5);
   if (isset($data['box2']['parent_menu']) && $data['box2']['parent_menu']) {
@@ -172,7 +172,7 @@ function custom_admin_add_page_validate($form, &$form_state) {
     }
   }
  
-}
+}*/
 /**
  * Submit handler for Create pdf/video/content pages
  */
