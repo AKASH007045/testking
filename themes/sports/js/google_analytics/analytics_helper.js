@@ -32,8 +32,8 @@ function get_month_year(hosturl, nxtprvclkurl, state, lgstr){
         "month": month_arr[mpurl[1]-1]
       };      
       var month_year = str_urltext + '/' + n.month + ' ' + n.year;
-      /*alert(month_year);
-      alert(lgstr + ' | ' + str_urltext + ' | ' + state + " | " + n.month + ' ' + n.year);*/
+     /*alert(month_year);
+       alert(lgstr + ' | ' + str_urltext + ' | ' + state + " | " + n.month + ' ' + n.year);*/
       /**********************   For ticket STPDEV-704 *************************/
       jQuery(".js_spin_loader").show();
       /********************** End For ticket STPDEV-704 ***********************/
@@ -75,17 +75,12 @@ function calendar_popups(userid){
     var a_title = elem.find('a.inline').attr('ga-title');
     var pathstring = "";
     var classVal = ""; 
-    if(jQuery(this).parents('div.open-game-popup').hasClass('nhl')){
-    	classVal = 'NYR';
-    }
-    else if(jQuery(this).parents('div.open-game-popup').hasClass('nba')){
-    	classVal = 'NYK';
-    }
+    
     if(elem.hasClass('game-home')){ 
-      pathstring = "home game (" + classVal + ") | ";
+      pathstring = "home game | ";
     }
     else if(elem.hasClass('game-away')){
-      pathstring = "away game (" + classVal + ") | ";
+      pathstring = "away game | ";
     }
     else if(elem.hasClass('sth-calendar-event')){
       pathstring = "event | ";

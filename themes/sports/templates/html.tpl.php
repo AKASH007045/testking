@@ -63,11 +63,7 @@
      <!--[if lte IE 9]>
 		<script src="/sites/all/themes/sports/js/pdf-ie9.js"></script>
 	 <![endif]-->
-  <script>
-  	jQuery(document).ready(function(){
-		
-	});
-  </script>
+  
 </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
   <div id="skip-link">
