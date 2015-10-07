@@ -26,5 +26,4 @@
             print (isset($user_info->state) && !empty($user_info->state)) ? $user_info->state . ', ' : '' ;
             print (isset($user_info->zip) && !empty($user_info->zip)) ? $user_info->zip : '&nbsp;' ; ?></div>
     <div class="addtl"><?php print (isset($user_info->email) && $user_info->email) ? $user_info->email : ''; ?></div>
-    <div class="addtl"><?php print (isset($user_info->email) && $user_info->email) ? $user_info->email : ''; ?></div>
 <?php } ?>

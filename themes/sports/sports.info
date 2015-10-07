@@ -4,7 +4,9 @@ core = 7.x
 base theme = bootstrap
 
 
-;;;;;;;;;;;;;;;;;;;;;;; Regions ;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;
+;; Regions 
+;;;;;;;;;;;;;;;;;;;;;
 
 regions[navigation]     = 'Navigation'
 regions[header]         = 'Top Bar'
