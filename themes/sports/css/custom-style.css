@@ -4475,7 +4475,7 @@ article.node-site-page .field .field-items .field-item.active,
 
 /* line 5, ../scss/custom/modules/_invoice.scss */
 .page-invoice .page-header {
-  color: #5a4099;
+  color: #381951;
 }
 
 /* line 10, ../scss/custom/modules/_invoice.scss */
@@ -4524,7 +4524,7 @@ article.node-site-page .field .field-items .field-item.active,
 }
 /* line 50, ../scss/custom/modules/_invoice.scss */
 .infoPanelwrap h2 span {
-  color: #5a4099;
+  color: #381951;
 }
 /* line 54, ../scss/custom/modules/_invoice.scss */
 .infoPanelwrap .acc-hol-name {
@@ -4584,7 +4584,7 @@ article.node-site-page .field .field-items .field-item.active,
 }
 /* line 97, ../scss/custom/modules/_invoice.scss */
 .season-invoice-detail h3 {
-  color: #5a4099;
+  color: #381951;
   letter-spacing: 1px;
 }
 /* line 101, ../scss/custom/modules/_invoice.scss */
@@ -4595,7 +4595,7 @@ article.node-site-page .field .field-items .field-item.active,
 }
 /* line 107, ../scss/custom/modules/_invoice.scss */
 .season-invoice-detail .ticketTable tr.head td {
-  color: #5a4099;
+  color: #381951;
   border-bottom: 1px solid #b1b1b1;
   font-family: inherit;
   border: none;
