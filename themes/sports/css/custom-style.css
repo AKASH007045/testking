@@ -6373,7 +6373,7 @@ div.image-widget-data {
 
   /* line 111, ../scss/custom/_mobile.scss */
   .navbar-default .dropdown-menu {
-    padding: 0px 0px 0px 68px !important;
+    padding: 0px 0px 0px 48px !important;
   }
 
   /* line 115, ../scss/custom/_mobile.scss */
@@ -6442,7 +6442,7 @@ div.image-widget-data {
 
   /* line 161, ../scss/custom/_mobile.scss */
   .navbar-default .navbar-collapse {
-    padding-left: 68px;
+    padding-left: 48px;
   }
 
   /* line 164, ../scss/custom/_mobile.scss */
