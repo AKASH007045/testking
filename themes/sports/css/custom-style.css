@@ -2504,12 +2504,7 @@ form#user-login .form-item-remember-me span.active {
   -webkit-box-shadow: 1px 1px 1px #0F0F0F inset;
   box-shadow: 1px 1px 1px #0F0F0F inset;
   text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzVhNDA5OSIvPjxzdG9wIG9mZnNldD0iMSUiIHN0b3AtY29sb3I9IiM0ZTM2ODciLz48c3RvcCBvZmZzZXQ9IjMlIiBzdG9wLWNvbG9yPSIjNGUzNjg3Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjM2YyYTcyIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
-  background-size: 100%;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5a4099), color-stop(1%, #4e3687), color-stop(3%, #4e3687), color-stop(100%, #3f2a72));
-  background-image: -moz-linear-gradient(top, #5a4099 0%, #4e3687 1%, #4e3687 3%, #3f2a72 100%);
-  background-image: -webkit-linear-gradient(top, #5a4099 0%, #4e3687 1%, #4e3687 3%, #3f2a72 100%);
-  background-image: linear-gradient(to bottom, #5a4099 0%, #4e3687 1%, #4e3687 3%, #3f2a72 100%);
+  background-image: -webkit-linear-gradient(top, #434343 0%, #020202 100%);
 }
 /* line 182, ../scss/custom/pages/_calendar.scss */
 .calendar-legend .nav > li > a:hover, .calendar-legend .nav > li > a:focus {
@@ -2518,12 +2513,7 @@ form#user-login .form-item-remember-me span.active {
   -webkit-box-shadow: 1px 1px 1px #0F0F0F inset;
   box-shadow: 1px 1px 1px #0F0F0F inset;
   text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzVhNDA5OSIvPjxzdG9wIG9mZnNldD0iMSUiIHN0b3AtY29sb3I9IiM0ZTM2ODciLz48c3RvcCBvZmZzZXQ9IjMlIiBzdG9wLWNvbG9yPSIjNGUzNjg3Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjM2YyYTcyIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
-  background-size: 100%;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5a4099), color-stop(1%, #4e3687), color-stop(3%, #4e3687), color-stop(100%, #3f2a72));
-  background-image: -moz-linear-gradient(top, #5a4099 0%, #4e3687 1%, #4e3687 3%, #3f2a72 100%);
-  background-image: -webkit-linear-gradient(top, #5a4099 0%, #4e3687 1%, #4e3687 3%, #3f2a72 100%);
-  background-image: linear-gradient(to bottom, #5a4099 0%, #4e3687 1%, #4e3687 3%, #3f2a72 100%);
+  background-image: -webkit-linear-gradient(top, #434343 0%, #020202 100%);
 }
 
 /* line 194, ../scss/custom/pages/_calendar.scss */
