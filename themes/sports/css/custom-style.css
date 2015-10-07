@@ -3486,7 +3486,7 @@ body.page-my-calendar .container-fluid > section.main-wrap .view-content {
 /* line 93, ../scss/custom/pages/_video.scss */
 .video-js {
   /*Video BG*/
-  background-color: #101010;
+  /*background-color: #101010;*/
 }
 
 /* line 99, ../scss/custom/pages/_video.scss */
