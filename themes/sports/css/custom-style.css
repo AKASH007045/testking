@@ -340,12 +340,12 @@ input[type="radio"], input[type="checkbox"] {
 }
 /* line 51, ../scss/custom/_content.scss */
 .main-wrap .flex-control-paging li a.flex-active {
-  background-color: #5a4099;
+  background-color: #73509e;
   color: #ffffff;
 }
 /* line 55, ../scss/custom/_content.scss */
 .main-wrap .flex-control-paging li a.flex-active:hover, .main-wrap .flex-control-paging li a.flex-active:focus {
-  background-color: #5a4099;
+  background-color: #73509e;
   color: #ffffff;
 }
 
@@ -607,7 +607,7 @@ span.global-button a {
 /* line 1, ../scss/custom/_header.scss */
 .navbar-default {
   border: none;
-  border-top: 2px solid #5a4099;
+  border-top: 2px solid #73509e;
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzFmMWYxZiIvPjxzdG9wIG9mZnNldD0iMjUlIiBzdG9wLWNvbG9yPSIjMjIyMjIyIi8+PHN0b3Agb2Zmc2V0PSI1MCUiIHN0b3AtY29sb3I9IiMxODE4MTgiLz48c3RvcCBvZmZzZXQ9Ijc1JSIgc3RvcC1jb2xvcj0iIzBlMGUwZSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzEyMGUxNiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
   background-size: 100%;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #1f1f1f), color-stop(25%, #222222), color-stop(50%, #181818), color-stop(75%, #0e0e0e), color-stop(100%, #120e16));
@@ -1061,8 +1061,8 @@ body.overlay .main-container > .main-wrap {
 }
 /* line 78, ../scss/custom/home-page/_promo-tile.scss */
 .promo-tile .promo-box.regular a.promo-link:hover .second {
-  background-color: #5a4099;
-  background-color: rgba(90, 64, 153, 0.3);
+  background-color: #73509e;
+  background-color: rgba(115, 80, 158, 0.3);
   width: 100%;
   min-height: 195px;
   position: absolute;
@@ -2012,7 +2012,7 @@ body.not-front .container-fluid > section.main-wrap {
 }
 /* line 112, ../scss/custom/pages/_contact-page.scss */
 #block-views-acct-reps-block .view-acct-reps a:hover span:before {
-  color: #5a4099;
+  color: #73509e;
 }
 /* line 117, ../scss/custom/pages/_contact-page.scss */
 #block-views-acct-reps-block .view-acct-reps a.bg-page-link-edit {
@@ -2157,7 +2157,7 @@ body.node-type-contact-us .container-fluid .main-wrap .node {
 }
 /* line 34, ../scss/custom/pages/_login.scss */
 #user-login #edit-actions button.form-submit:hover, #user-login #edit-actions button.form-submit:focus {
-  background: #5a4099;
+  background: #73509e;
 }
 /* line 39, ../scss/custom/pages/_login.scss */
 #user-login .form-item-remember-me {
@@ -2227,7 +2227,7 @@ body.node-type-contact-us .container-fluid .main-wrap .node {
 }
 /* line 100, ../scss/custom/pages/_login.scss */
 .having-trouble-box .button_blue a:hover, .having-trouble-box .button_blue a:focus {
-  background: #5a4099;
+  background: #73509e;
 }
 
 /* line 107, ../scss/custom/pages/_login.scss */
@@ -2361,7 +2361,7 @@ form#user-login .form-item-remember-me span.active {
 }
 /* line 29, ../scss/custom/pages/_calendar.scss */
 .view-header .pager li.date-prev:hover a:before, .view-header .pager li.date-next:hover a:before {
-  color: #5a4099;
+  color: #73509e;
 }
 /* line 37, ../scss/custom/pages/_calendar.scss */
 .view-header .pager li.date-prev > a:before {
@@ -2419,7 +2419,7 @@ form#user-login .form-item-remember-me span.active {
 }
 /* line 100, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .single-day .inner .item .game-home {
-  background: rgba(90, 64, 153, 0.75) !important;
+  background: rgba(115, 80, 158, 0.75) !important;
 }
 /* line 103, ../scss/custom/pages/_calendar.scss */
 .calendar-calendar .single-day .inner .item .game-away {
@@ -2470,7 +2470,7 @@ form#user-login .form-item-remember-me span.active {
 /* line 147, ../scss/custom/pages/_calendar.scss */
 .calendar-legend .cal-home-legend:before {
   border: 1px solid #000000;
-  background: #5a4099;
+  background: #73509e;
 }
 /* line 151, ../scss/custom/pages/_calendar.scss */
 .calendar-legend .cal-away-legend:before {
@@ -3498,20 +3498,20 @@ body.page-my-calendar .container-fluid > section.main-wrap .view-content {
 .vjs-default-skin .vjs-big-play-button {
   /*Video Icon BG*/
   border: 0.09em solid #fff;
-  background-color: #5a4099;
-  background-color: rgba(90, 64, 153, 0.75);
+  background-color: #73509e;
+  background-color: rgba(115, 80, 158, 0.75);
 }
 @media only screen and (max-device-width: 768px) {
   /* line 99, ../scss/custom/pages/_video.scss */
   .vjs-default-skin .vjs-big-play-button {
-    background: #5a4099;
+    background: #73509e;
     z-index: 9999;
   }
 }
 /* line 109, ../scss/custom/pages/_video.scss */
 .vjs-default-skin:hover .vjs-big-play-button, .vjs-default-skin .vjs-big-play-button:focus {
   /*Video Icon BG on hover*/
-  background-color: #5a4099;
+  background-color: #73509e;
 }
 
 /* line 1, ../scss/custom/pages/_events-page.scss */
@@ -3651,7 +3651,7 @@ body.node-type-event .carousel-control span:before, .page-my-calendar .carousel-
 }
 /* line 137, ../scss/custom/pages/_events-page.scss */
 body.node-type-event .carousel-control span:hover, .page-my-calendar .carousel-control span:hover {
-  color: #5a4099;
+  color: #73509e;
 }
 /* line 142, ../scss/custom/pages/_events-page.scss */
 body.node-type-event .carousel-control.left, .page-my-calendar .carousel-control.left {
@@ -3736,9 +3736,9 @@ body.node-type-event .carousel-control.right span:before, .page-my-calendar .car
 }
 /* line 237, ../scss/custom/pages/_events-page.scss */
 .event-gallary-big-box .sthevent-image .carousel-indicators li.active, .page-my-calendar .sthevent-image .carousel-indicators li.active {
-  background-color: #5a4099;
-  background-color: rgba(90, 64, 153, 0.75);
-  border: 1px solid #5a4099;
+  background-color: #73509e;
+  background-color: rgba(115, 80, 158, 0.75);
+  border: 1px solid #73509e;
   width: 10px;
   height: 10px;
 }
@@ -3758,7 +3758,7 @@ body.node-type-event .carousel-control.right span:before, .page-my-calendar .car
 
 /* line 260, ../scss/custom/pages/_events-page.scss */
 .pouptopwrap .sthevent-image .more-info, .sthevent-body.more-info, .sthevent-form.openpop {
-  background: rgba(90, 64, 153, 0.5);
+  background: rgba(115, 80, 158, 0.5);
 }
 
 /* line 264, ../scss/custom/pages/_events-page.scss */
@@ -4055,7 +4055,7 @@ article.node-tab-page, .tab-page-list-wrapper {
 
 /* line 53, ../scss/custom/pages/_content.scss */
 .main-wrap .flex-direction-nav a:hover {
-  color: #5a4099;
+  color: #73509e;
 }
 
 /** Benefit Start Here */
@@ -4345,7 +4345,7 @@ article.node-site-page .field .field-items .field-item.active,
 /* line 167, ../scss/custom/modules/_seat-view.scss */
 .vr-seat-view-wrapper .content .seat-vv-info li a:hover {
   text-decoration: none;
-  background: #5a4099;
+  background: #73509e;
   display: block;
   cursor: pointer;
   text-shadow: 1px 1px 2px #000000;
@@ -4356,8 +4356,8 @@ article.node-site-page .field .field-items .field-item.active,
 }
 /* line 182, ../scss/custom/modules/_seat-view.scss */
 .vr-seat-view-wrapper .content .seat-info-box {
-  background-color: #5a4099;
-  background-color: rgba(90, 64, 153, 0.85);
+  background-color: #73509e;
+  background-color: rgba(115, 80, 158, 0.85);
 }
 /* line 186, ../scss/custom/modules/_seat-view.scss */
 .vr-seat-view-wrapper .vrview-reset-view {
@@ -4470,12 +4470,12 @@ article.node-site-page .field .field-items .field-item.active,
 
 /* line 1, ../scss/custom/modules/_invoice.scss */
 .global-blue {
-  color: #5a4099;
+  color: #73509e;
 }
 
 /* line 5, ../scss/custom/modules/_invoice.scss */
 .page-invoice .page-header {
-  color: #5a4099;
+  color: #381951;
 }
 
 /* line 10, ../scss/custom/modules/_invoice.scss */
@@ -4489,7 +4489,7 @@ article.node-site-page .field .field-items .field-item.active,
 }
 /* line 18, ../scss/custom/modules/_invoice.scss */
 .infoPanelwrap .dedicateserrep {
-  background-color: rgba(90, 64, 153, 0.75);
+  background-color: rgba(115, 80, 158, 0.75);
   border: 1px solid rgba(0, 0, 0, 0.5);
   color: #ffffff;
   float: right;
@@ -4524,7 +4524,7 @@ article.node-site-page .field .field-items .field-item.active,
 }
 /* line 50, ../scss/custom/modules/_invoice.scss */
 .infoPanelwrap h2 span {
-  color: #5a4099;
+  color: #381951;
 }
 /* line 54, ../scss/custom/modules/_invoice.scss */
 .infoPanelwrap .acc-hol-name {
@@ -4584,7 +4584,7 @@ article.node-site-page .field .field-items .field-item.active,
 }
 /* line 97, ../scss/custom/modules/_invoice.scss */
 .season-invoice-detail h3 {
-  color: #5a4099;
+  color: #381951;
   letter-spacing: 1px;
 }
 /* line 101, ../scss/custom/modules/_invoice.scss */
@@ -4595,7 +4595,7 @@ article.node-site-page .field .field-items .field-item.active,
 }
 /* line 107, ../scss/custom/modules/_invoice.scss */
 .season-invoice-detail .ticketTable tr.head td {
-  color: #5a4099;
+  color: #381951;
   border-bottom: 1px solid #b1b1b1;
   font-family: inherit;
   border: none;
@@ -4920,7 +4920,7 @@ article.node-site-page .field .field-items .field-item.active,
 
 /* line 411, ../scss/custom/modules/_invoice.scss */
 .page-invoice-payment-success .payment-thankyou-wrapper h1, .page-invoice-payment-success .payment-thankyou-wrapper h2 {
-  color: #5a4099;
+  color: #73509e;
 }
 
 /* line 416, ../scss/custom/modules/_invoice.scss */
@@ -5227,7 +5227,7 @@ body.node-type-take-over-pages footer.footer-copyright .btn-logo a {
 }
 /* line 34, ../scss/custom/plugins/_selectyze.scss */
 .css3 li a:hover {
-  background-color: #5a4099;
+  background-color: #73509e;
   color: #ffffff;
 }
 /* line 39, ../scss/custom/plugins/_selectyze.scss */
@@ -5265,7 +5265,7 @@ body.node-type-take-over-pages footer.footer-copyright .btn-logo a {
 .css3 .selectyzeValue:after {
   width: 24px;
   height: 24px;
-  background: #5a4099;
+  background: #73509e;
   content: '\FE40';
   position: absolute;
   right: 1px;
