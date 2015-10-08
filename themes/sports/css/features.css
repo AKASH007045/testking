@@ -1,3 +1,6 @@
 /*   Site specific CSS   */
 #block-views-acct-reps-block .profile-detail .namedetil .field-label, .node-type-contact-us .container-fluid div.carousel-inner div.textdtl p b{color:#393f96;}
 .page-season-schedule .container-fluid{background-color:#381952!important;}
+.vjs-default-skin .vjs-big-play-button{width:100px;height:100px;background:url('../images/video-button.png') no-repeat;background-color:transparent;border:0px;margin-left:-50px;margin-top:-50px;box-shadow:none;}
+.vjs-default-skin .vjs-big-play-button:before{display:none;}
+.vjs-default-skin:hover .vjs-big-play-button, .vjs-default-skin .vjs-big-play-button:focus{background-color:transparent;box-shadow:none;}
