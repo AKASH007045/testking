@@ -35,7 +35,7 @@
      .lftblck .actinf, .rgtblck .actinf {color:<?php print $color; ?>;}
      .rgtblck .ttlamtd .tlyl {color:<?php print $color; ?>;}
      .chrt-dtl tr.head td{color:<?php print $color; ?>;}
-	 .tbl-chart{padding-top:8px;height:350px;padding-bottom:25px;}
+	 .tbl-chart{padding-top:8px;height:390px;padding-bottom:25px;}
 </style>
 <div class="printWrapper">
   <div class="printHeader">
