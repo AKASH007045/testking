@@ -94,7 +94,11 @@ $language = isset($node->language) ? $node->language : 'und'?>
    <div class="imgpics">
        <?php print theme('image_style', array('style_name' => 'rep_thumb_large', 'path' => $node->field_acct_rep_image[$language][0]['uri']));?>
      </div>
-  <h4 class="dedicated-representatives"><?php print $title; ?></h4>
+  <h4 class="dedicated-representatives"><?php if($content['field_acct_rep_speciality'] != ''): ?>
+        <p><?php print render($content['field_acct_rep_speciality']);?></p>
+        <?php else: ?>
+        <p>DEDICATED SERVICE COORDINATOR</p>
+        <?php endif; ?></h4>
     <div class="namedetil">
      <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 col-fixed"><h4 class="usename"><?php print $node->title; ?>&nbsp;<?php print isset($node->field_last_name[$language][0]['value']) ? $node->field_last_name[$language][0]['value'] : ''; ?></h4>
       <?php print isset($node->field_email[$language][0]['value']) ? l($node->field_email[$language][0]['value'], 'mailto:' . $node->field_email[$language][0]['value']) : ''?>
