@@ -95,9 +95,9 @@ $language = isset($node->language) ? $node->language : 'und'?>
        <?php print theme('image_style', array('style_name' => 'rep_thumb_large', 'path' => $node->field_acct_rep_image[$language][0]['uri']));?>
      </div>
   <h4 class="dedicated-representatives"><?php if($content['field_acct_rep_speciality'] != ''): ?>
-        <p><?php print render($content['field_acct_rep_speciality']);?></p>
+        <?php print render($content['field_acct_rep_speciality']);?>
         <?php else: ?>
-        <p>DEDICATED SERVICE COORDINATOR</p>
+        <p>New Arena Account Manager, Ticket Services</p>
         <?php endif; ?></h4>
     <div class="namedetil">
      <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 col-fixed"><h4 class="usename"><?php print $node->title; ?>&nbsp;<?php print isset($node->field_last_name[$language][0]['value']) ? $node->field_last_name[$language][0]['value'] : ''; ?></h4>
