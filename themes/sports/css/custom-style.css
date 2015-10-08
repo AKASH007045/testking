@@ -2504,7 +2504,12 @@ form#user-login .form-item-remember-me span.active {
   -webkit-box-shadow: 1px 1px 1px #0F0F0F inset;
   box-shadow: 1px 1px 1px #0F0F0F inset;
   text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzQzNDM0MyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAyMDIwMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #434343), color-stop(100%, #020202));
+  background-image: -moz-linear-gradient(top, #434343 0%, #020202 100%);
   background-image: -webkit-linear-gradient(top, #434343 0%, #020202 100%);
+  background-image: linear-gradient(to bottom, #434343 0%, #020202 100%);
 }
 /* line 182, ../scss/custom/pages/_calendar.scss */
 .calendar-legend .nav > li > a:hover, .calendar-legend .nav > li > a:focus {
@@ -2513,7 +2518,12 @@ form#user-login .form-item-remember-me span.active {
   -webkit-box-shadow: 1px 1px 1px #0F0F0F inset;
   box-shadow: 1px 1px 1px #0F0F0F inset;
   text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzQzNDM0MyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAyMDIwMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #434343), color-stop(100%, #020202));
+  background-image: -moz-linear-gradient(top, #434343 0%, #020202 100%);
   background-image: -webkit-linear-gradient(top, #434343 0%, #020202 100%);
+  background-image: linear-gradient(to bottom, #434343 0%, #020202 100%);
 }
 
 /* line 194, ../scss/custom/pages/_calendar.scss */
