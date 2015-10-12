@@ -28,6 +28,13 @@ function custom_admin_add_page_settings() {
     '#default_value' => variable_get('default_video_url', ''),
     '#required' => TRUE,
   );
+  $form['default_page_title_limit'] = array(//character limit for title field
+    '#type' => 'textfield',
+    '#title' => t('Default Page Title Limit'),
+    '#description' => t('Please enter the character limit for page title.'),
+    '#default_value' => variable_get('default_page_title_limit', '35'),
+    '#required' => TRUE,
+  );
   return system_settings_form($form);
 }
  
@@ -70,6 +77,7 @@ function custom_admin_add_page($form, &$form_state, $variable) {
     '#type' => 'textfield',
     '#title' => (isset($nid) && $nid) ? 'Tab Title' : t('Title'),
     '#required' => TRUE,
+    '#maxlength' => variable_get('default_page_title_limit', '35'),
   );
   if (!(isset($nid) && $nid)) {
     $form['box2'] = array(
@@ -155,24 +163,6 @@ function custom_admin_add_page($form, &$form_state, $variable) {
   return $form;
 }
 
-/*function custom_admin_add_page_validate($form, &$form_state) {
-  $data = $form_state['values'];
-  $nid = arg(5);
-  if (isset($data['box2']['parent_menu']) && $data['box2']['parent_menu']) {
-     $submenu_count = db_query("SELECT mlid FROM {menu_links} WHERE module = 'menu' AND link_title NOT IN ('Bullpen', 'Stand-Alone', 'Archive') and plid = :plid", array(':plid' => $data['box2']['parent_menu']))->rowCount();
-    if ($submenu_count >=5) {
-      form_set_error('title', 'Maximum of 5 menus can be added in SubNavigation bar.');
-    }
-  }
-  
-  if (isset($nid) && $nid) {
-    $count = db_query("SELECT entity_id FROM {field_data_field_tab_page} WHERE field_tab_page_nid = :nid", array(':nid' => $nid))->rowCount();
-    if ($count >=5) {
-      form_set_error('title', 'Maximum of 5 tabs can be added in Page.');
-    }
-  }
- 
-}*/
 /**
  * Submit handler for Create pdf/video/content pages
  */
@@ -260,6 +250,12 @@ function custom_admin_add_page_submit($form, &$form_state) {
     $new_node->field_bottom_content[$lang][0]['value'] = variable_get('default_page_content', '');
     $new_node->field_bottom_content[$lang][0]['format'] = 'full_html';
     $new_node->field_bottom_content[$lang][0]['safe_value'] = variable_get('default_page_content', '');
+  }
+  // Create a Video
+  if ($data['type'] == 'typeform') {
+    $new_node->body[$lang][0]['value'] = variable_get('default_page_content', '');
+    $new_node->body[$lang][0]['format'] = 'full_html';
+    $new_node->body[$lang][0]['safe_value'] = variable_get('default_page_content', '');
   }
   // Add Menu Items
   if (isset($data['parent_menu']) && $data['parent_menu']) {
