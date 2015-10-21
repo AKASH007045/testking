@@ -368,7 +368,7 @@ function custom_admin_create_tab_node($node, $title) {
   $lang = LANGUAGE_NONE;
   $new_node = new stdClass();
   $new_node->uid = $user->uid;
-  $new_node->status = 1;
+  $new_node->status = $node->status;
   $new_node->language = $lang;
   $new_node->type = 'tab_page';
   $new_node->title = isset($node->title) ? $node->title : $title;
@@ -390,6 +390,7 @@ function custom_admin_create_tab_node($node, $title) {
   module_invoke_all('per_node', $settings);
   // If new tab page node created we will add existing page under newly created tab
   $node->field_tab_page[$lang][0]['nid'] = $new_node->nid;
+  $node->status = 1;
   node_save($node);
   return $new_node;
   //drupal_goto('node/' . $new_node->nid);
