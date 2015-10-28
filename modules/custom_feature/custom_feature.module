@@ -1,0 +1,15 @@
+<?php
+/* function to create custom menu links for events*/
+function custom_feature_menu() {
+  $items = array();
+  /*------ Skydata SSO login----------*/
+  $items['go-to-loyalty'] = array(
+     'title' => 'Go to Loyalty Points Program',
+    'page callback' => 'custom_feature_loyalty_points',
+    'access callback' => TRUE,
+    'file' => 'custom_feature.api.inc',
+    'type' => MENU_CALLBACK
+  );
+  
+ return $items;
+}
