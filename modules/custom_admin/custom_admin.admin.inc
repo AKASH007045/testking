@@ -497,6 +497,12 @@ function custom_admin_tm_signon_settings() {
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
+  $form['tmapi_other']['tm_api_sth_status'] = array(
+    '#type' => 'textfield',
+    '#title' => t('TM API STH status'),
+    '#default_value' => variable_get('tm_api_sth_status', 'get_sth_status'),
+    '#required' => TRUE,
+  );
   
   $form['tmapi_other']['en_tm_invoice'] = array(
     '#type' => 'checkbox',
