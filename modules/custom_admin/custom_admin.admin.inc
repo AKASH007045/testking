@@ -76,6 +76,13 @@ function custom_admin_general_settings() {
     '#title' => t('Enable Invoice Print APIs?'),
     '#default_value' => variable_get('stp_print_api', 0),
   );
+    $form['stp_browser_support'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Browser Support IE'),
+    '#default_value' => variable_get('stp_browser_support', '9.0'),
+    '#description' => t('Please enter suported IE version e.g. 9.0'),
+    '#required' => TRUE,
+  );
   return system_settings_form($form);
 }
 
