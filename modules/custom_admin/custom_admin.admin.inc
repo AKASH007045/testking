@@ -240,6 +240,10 @@ function custom_admin_invoice_payment_setting() {
     '#type' => 'fieldset',
     '#attributes' => array('class' => array('stp-legend-heading')),
   );
+  $form['invoice_payment_failure'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Invoice Payment Failure Recipient Email address'),    
+  ); 
   $form['box6']['payment_plans'] = array(
     '#type' => 'textfield',
     '#title' => t('Payment Plans'),
