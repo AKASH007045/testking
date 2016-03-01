@@ -244,6 +244,12 @@ function custom_admin_invoice_payment_setting() {
     '#type' => 'fieldset',
     '#title' => t('Invoice Payment Failure Recipient Email address'),    
   ); 
+  $form['invoice_payment_failure']['invoice_payment_failure_additional_mail'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Enter email by comma seperated'),
+    '#default_value' => variable_get('invoice_payment_failure_additional_mail', ''),
+  '#required' => TRUE,
+  ); 
   $form['box6']['payment_plans'] = array(
     '#type' => 'textfield',
     '#title' => t('Payment Plans'),
