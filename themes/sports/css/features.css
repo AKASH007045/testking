@@ -4,3 +4,9 @@
 .vjs-default-skin .vjs-big-play-button{width:100px;height:100px;background:url('../images/video-button.png') no-repeat;background-color:transparent;border:0px;margin-left:-50px;margin-top:-50px;box-shadow:none;}
 .vjs-default-skin .vjs-big-play-button:before{display:none;}
 .vjs-default-skin:hover .vjs-big-play-button, .vjs-default-skin .vjs-big-play-button:focus{background-color:transparent;box-shadow:none;}
+
+
+.footer-copyright .copyright {
+	margin-left:74px;
+	float:left;
+}
