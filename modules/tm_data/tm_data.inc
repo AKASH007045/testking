@@ -3,6 +3,7 @@
 define('R_19', 7);
 define('NOT_R_19', 8);
 define('R_20', 9);
+define('R_21', 10);
 
 module_load_include('inc', 'tm_api', 'tm_api.helper');
 function tm_user_birthday_access($page = NULL) {
@@ -448,6 +449,10 @@ function tmapi_data_account_update($acct_id = NULL, $data = NULL) {
          if(in_array(20, $nk)) 
         {
          $roles[R_20] = TRUE;    
+        }
+		 if(in_array(21, $nk)) 
+        {
+         $roles[R_21] = TRUE;    
         }
        }
        if((!$roles[R_19]))
