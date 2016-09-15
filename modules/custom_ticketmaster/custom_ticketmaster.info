@@ -1,0 +1,7 @@
+name= IOMEDIA Ticketmaster Import
+description = IOMEDIA custom module for all ticketmaster apis and data import
+version = VERSION
+package = Custom
+core = 7.x
+project = "drupal"
+datestamp = "1352325357"
