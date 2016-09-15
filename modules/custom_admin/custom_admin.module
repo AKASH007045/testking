@@ -1,6 +1,6 @@
 <?php
-/*define('DRUPAL_STH_USER', 4);
-define('DRUPAL_STH_CLUB_USER', 5);*/
+define('DRUPAL_STH_USER', 4);
+define('DRUPAL_STH_CLUB_USER', 5);
 
 /**
  * Implements hook_menu().
@@ -547,7 +547,7 @@ function custom_admin_login_authenticate_validate($form, &$form_state) {
             $_SESSION['plan_name11'][] = $plans['plan_name'];
           }
           if (!isset($data['error_detail']) && isset($data['result']) && $data['result'] == 0) {
-            $account = tmapi_data_account_update($acct_id, $data['customer']);
+            $account = tmapi_data_account_update($acct_id, $data);
             $form_state['uid'] = $uid = $account->uid;
             $fail = 0;
             $_SESSION['tmupa'] = base64_encode($password);

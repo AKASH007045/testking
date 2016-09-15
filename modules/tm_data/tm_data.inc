@@ -1,5 +1,9 @@
 <?php
 //@file
+define('R_19', 7);
+define('NOT_R_19', 8);
+define('R_20', 9);
+
 module_load_include('inc', 'tm_api', 'tm_api.helper');
 function tm_user_birthday_access($page = NULL) {
   global $user;
@@ -112,7 +116,7 @@ function acct_rep_load($acct_id = NULL) {
 }
 
 // Helper for acct_rep_load
-function _acct_rep_load($acct_id) {
+function _acct_rep_load($acct_id= NUlL) {
   //$object = cache_get('rep_detail-' . $acct_id, 'cache_custom');
   //get products if cache is not set.
   //if (!$object) {
@@ -433,14 +437,35 @@ function get_tm_payment_flag($acct_id) {
  * function to create/update TM user from API
  */
 function tmapi_data_account_update($acct_id = NULL, $data = NULL) {
-  $users = db_select('users', 'u')
+
+  $acc_grp = $data['account_groups'];
+  foreach($acc_grp as $key=>$nk) 
+       {
+        if(in_array(19, $nk)) 
+        {
+         $roles[R_19] = TRUE;    
+        }
+         if(in_array(20, $nk)) 
+        {
+         $roles[R_20] = TRUE;    
+        }
+       }
+       if((!$roles[R_19]))
+       {
+        $roles[NOT_R_19] = TRUE;
+       }
+     $users = db_select('users', 'u')
     ->fields('u', array('uid'))
     ->condition('u.name', $acct_id, '=')
     ->range(0, 1)->execute()->fetchObject();
-  $roles = array(DRUPAL_STH_USER => TRUE);
+   // print_r($nk);die();
+ $roles[DRUPAL_STH_USER] = TRUE;
+  // $roles = array(DRUPAL_STH_USER => TRUE);
   // we will create a new array for user
   if ((isset($users->uid) && $users->uid)) {
     $account = user_load($users->uid);
+     $account->roles = $roles;
+    user_save($account);
     if (isset($account->mail) && isset($data['email']) && $account->mail != $data['email'])
     $edit = array();
     $edit['mail'] = isset($data['email']) ? $data['email'] : $account->mail;
@@ -464,6 +489,7 @@ function tmapi_data_account_update($acct_id = NULL, $data = NULL) {
     $account = user_save($account, $new_user);
     watchdog('tm_api','User created with account id: %name', array('%name' => $account->name), WATCHDOG_INFO);
   }
+ // print_r($account); die();
   // update tm_user_details data
   //tmapi_data_tm_user_details($acct_id, $data);
    cache_clear_all('user_info-' . $acct_id, 'cache_custom', $wildcard = FALSE);

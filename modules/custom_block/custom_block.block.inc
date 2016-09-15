@@ -104,11 +104,11 @@ function custom_block_promo_tiles() {
     $node = node_load($nid->nid);
     $lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
     $user_type = (isset($node->field_user_type[$lang][0]['value'])) ? $node->field_user_type[$lang][0]['value'] : '';
-    if ($user_type == 1 && $count_loggedin < 3) {
+    if ($user_type == 1 && $count_loggedin < 4) {
       $promo_logged_in .= render(node_view($node, $view_mode = 'full', $langcode = NULL));
       $count_loggedin++;
     }
-    if($user_type == 0 && $count_anon < 3) {
+    if($user_type == 0 && $count_anon < 4) {
       $promo_anonymous .= render(node_view($node, $view_mode = 'full', $langcode = NULL));
       $count_anon++;
     }
@@ -119,7 +119,7 @@ function custom_block_promo_tiles() {
   if (user_access('Editor') && (arg(0) == 'home') && arg(1) == 1) {
     return $promo_anonymous;
   }
-  if ($user->uid) {
+  if ($user->uid && !user_access('guest user') || ($user->uid == 1)) {
     return $promo_logged_in;
   }
   return $promo_anonymous;
