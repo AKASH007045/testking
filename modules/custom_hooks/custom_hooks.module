@@ -102,7 +102,7 @@ function custom_hooks_menu() {
     'file' => 'custom_hooks.pages.inc',
     'type' => MENU_CALLBACK
   );
-    $items['acc_20'] = array(
+    $items['acc_not_R_19'] = array(
     'title' => 'contact-us',
     'page callback' => 'custom_hooks_contact_us_access',
     'access callback' => 'custom_hooks_access_20',
@@ -158,7 +158,7 @@ function custom_hooks_access_19(){
 
 function custom_hooks_access_20(){
   global $user;
-   if(in_array('R_20', $user->roles) || in_array('EDITOR', $user->roles)|| in_array('administrator', $user->roles)){      
+   if(in_array('NOT_R_19', $user->roles) || in_array('EDITOR', $user->roles)|| in_array('administrator', $user->roles)){      
         return true; 
     }
    else{

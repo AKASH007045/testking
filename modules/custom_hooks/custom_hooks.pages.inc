@@ -50,7 +50,7 @@ function custom_hooks_contact_us_access(){
     if(in_array('R_19', $user->roles)){      
         drupal_goto('contact-us'); 
     }
-    else if(in_array('R_20', $user->roles)){      
+    else if(in_array('NOT_R_19', $user->roles)){      
         drupal_goto('contact-us'); 
     }
    else{
