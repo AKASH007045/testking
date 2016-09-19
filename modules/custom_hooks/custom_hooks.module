@@ -95,6 +95,20 @@ function  custom_hooks_node_edit_validate($form,&$form_state){
  */
 function custom_hooks_menu() {
   $items = array();
+   $items['<nolink>acc_19'] = array(
+    'title' => 'contact_us',
+    'page callback' => 'custom_hooks_contact_us_access',
+    'access callback' => 'custom_hooks_access_19',
+    'file' => 'custom_hooks.pages.inc',
+    'type' => MENU_CALLBACK
+  );
+    $items['<nolink>acc_20'] = array(
+    'title' => 'contact_us',
+    'page callback' => 'custom_hooks_contact_us_access',
+    'access callback' => 'custom_hooks_access_20',
+    'file' =>'custom_hooks.pages.inc',
+    'type' => MENU_CALLBACK
+  );
   $items['goto-account-manager'] = array(
     'title' => 'Go to Account Manager',
     'page callback' => 'custom_hooks_account_manager',
@@ -104,7 +118,7 @@ function custom_hooks_menu() {
   );
   $items['cowboys-clear-cache'] = array(
     'title' => 'Clear Cache',
-    'page callback' => 'custom_hooks_clear_custom_cache',
+    'page callback' => ' ',
     'access callback' => TRUE,
     'file' => 'custom_hooks.pages.inc',
     'type' => MENU_CALLBACK
@@ -131,6 +145,28 @@ function custom_hooks_menu() {
 /**
  * Implementation of hooks_menu_alter().
  */
+function custom_hooks_access_19(){
+  global $user;
+    if(in_array('R_19', $user->roles) || in_array('EDITOR', $user->roles)|| in_array('administrator', $user->roles)){      
+        return true; 
+    }
+   else{
+       return false; 
+   }      
+}
+ 
+
+function custom_hooks_access_20(){
+   if(in_array('R_20', $user->roles) || in_array('EDITOR', $user->roles)|| in_array('administrator', $user->roles)){      
+        return true; 
+    }
+   else{
+       return false; 
+   }      
+
+  }
+
+
 function custom_hooks_menu_alter(&$items) {
   unset($items['node/%node/pdf']);
   $items['user/register']['access callback'] = FALSE;

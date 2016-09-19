@@ -160,7 +160,7 @@ function get_user_info($acct_id = NULL) {
       }
       return (object)$data;
     }
-    return (object)$object->data;
+    return (isset($object->data) && $object->data) ? (object)$object->data : '';
   }
   return 0;
 }

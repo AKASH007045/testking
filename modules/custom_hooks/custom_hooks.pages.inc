@@ -42,6 +42,21 @@ function custom_hooks_email_invoice() {
   drupal_goto('invoice');
   return '';
 }
+
+function custom_hooks_contact_us_access(){
+  module_load_include('inc', 'tm_data', 'tm_data.inc');
+  global $user;
+   //print_r($user);
+    if(in_array('R_19', $user->roles)){      
+        drupal_goto('contact-us'); 
+    }
+     if(in_array('R_20', $user->roles)){      
+        drupal_goto('contact-us'); 
+    }
+   else{
+       return false; 
+   }          
+}
 /**
 * function to print invoice
 */
