@@ -95,15 +95,15 @@ function  custom_hooks_node_edit_validate($form,&$form_state){
  */
 function custom_hooks_menu() {
   $items = array();
-   $items['<nolink>acc_19'] = array(
+   $items['acc_19'] = array(
     'title' => 'contact_us',
     'page callback' => 'custom_hooks_contact_us_access',
     'access callback' => 'custom_hooks_access_19',
     'file' => 'custom_hooks.pages.inc',
     'type' => MENU_CALLBACK
   );
-    $items['<nolink>acc_20'] = array(
-    'title' => 'contact_us',
+    $items['acc_20'] = array(
+    'title' => 'contact-us',
     'page callback' => 'custom_hooks_contact_us_access',
     'access callback' => 'custom_hooks_access_20',
     'file' =>'custom_hooks.pages.inc',
@@ -157,6 +157,7 @@ function custom_hooks_access_19(){
  
 
 function custom_hooks_access_20(){
+  global $user;
    if(in_array('R_20', $user->roles) || in_array('EDITOR', $user->roles)|| in_array('administrator', $user->roles)){      
         return true; 
     }

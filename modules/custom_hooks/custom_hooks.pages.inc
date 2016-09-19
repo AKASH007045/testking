@@ -44,13 +44,13 @@ function custom_hooks_email_invoice() {
 }
 
 function custom_hooks_contact_us_access(){
-  module_load_include('inc', 'tm_data', 'tm_data.inc');
+  // module_load_include('inc', 'tm_data', 'tm_data.inc');
   global $user;
    //print_r($user);
     if(in_array('R_19', $user->roles)){      
         drupal_goto('contact-us'); 
     }
-     if(in_array('R_20', $user->roles)){      
+    else if(in_array('R_20', $user->roles)){      
         drupal_goto('contact-us'); 
     }
    else{
