@@ -147,7 +147,7 @@ function custom_hooks_menu() {
  */
 function custom_hooks_access_19(){
   global $user;
-    if(in_array('R_19', $user->roles) || in_array('EDITOR', $user->roles)|| in_array('administrator', $user->roles)){      
+    if(in_array('R_19', $user->roles) || in_array('Editor', $user->roles)|| in_array('administrator', $user->roles)){      
         return true; 
     }
    else{
