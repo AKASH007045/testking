@@ -15,3 +15,4 @@
 #invoices-list-pending-table th:last-child{width:28% !important;}
 .amountduewrap .amountdueinfo{width: 100% !important;}
 .amountduewrap .amountduettl{width: 100% !important;}
+.navbar-default .navbar-nav > li > a, .navbar-default .nav > li > a{padding: 0px 10px;}
