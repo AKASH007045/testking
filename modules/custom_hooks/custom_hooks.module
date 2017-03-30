@@ -510,6 +510,9 @@ function custom_hooks_mail($key, &$message, $params) {
   if (isset($params['body'])) {
     $message['body'][] = $params['body'];
   }
+  if (isset($params['headers'])) {
+    $message['headers'] += $params['headers'];
+  }
   if ($key == 'triggerkey') {
     $file_content = file_get_contents($params['file']);
     $attachments = array(
@@ -519,6 +522,16 @@ function custom_hooks_mail($key, &$message, $params) {
     );
     $message['params']['attachments'][] = $attachments;
   }
+   if($key == 'stpmail_template' && isset($params['file'])){
+     $file_content = file_get_contents($params['file']);
+     $attachments = array(
+      'filecontent' => $file_content,
+      'filename' => $params['filename'],
+      'filemime' => 'application/pdf'
+    );
+    $message['params']['attachments'][] = $attachments;
+  }
+
 }
 
 /**

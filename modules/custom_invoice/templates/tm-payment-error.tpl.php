@@ -7,14 +7,12 @@
 * $type block no(1,2,3)
 **/
 print $user_info;
+$message = $_SESSION['failure_message'];
+unset($_SESSION['failure_message']);
 ?>
-    <article class="col-sm-12 payment-unsuccessful">
-
-          <h1>AN ERROR OCCURRED</h1>
-         <h2>PLEASE GO BACK AND TRY AGAIN</h2>
-         
-        <a class="btn btn-default return-home" href="/invoice/payment">Go Back <i class="fa fa-chevron-right"></i></a>
-          
-       </article>
-        <div class="col-sm-12 thankyou-footer">&nbsp;</div>
-        
+<article class="col-sm-12 payment-unsuccessful">
+	<h1>AN ERROR OCCURRED</h1>
+	<p><?php print isset($message) ? $message : 'The transaction was declined. Please use a different card or contact your bank.';?></p>
+	<p><a class="btn btn-default return-home" href="/invoice/<?php print arg(1)?>/payment/<?php print arg(3)?>"><i class="fa fa-chevron-left"></i> TRY AGAIN</a></p>
+</article>
+<div class="col-sm-12 thankyou-footer">&nbsp;</div>

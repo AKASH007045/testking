@@ -2,6 +2,8 @@ name= Custom Invoice
 description = Custom Invoice module
 version = VERSION
 package = Custom
+dependencies[] = iom_color_library
+
 core = 7.x
 project = "drupal"
 datestamp = "1352325357"

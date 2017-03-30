@@ -1,27 +1,75 @@
 <?php
 
 /**
+  * hook_init().
+  * Purpose: for css automation.
+  */
+function custom_invoice_init(){ 
+   $arg_0 = arg(0);
+   if ($arg_0 == 'invoice'){
+     $options = array('weight' => 50, 'group' => CSS_THEME, 'preprocess' => FALSE);        
+     $path_to_public_file = variable_get('file_public_path', conf_path() . '/files');
+     $css_file_auto = $path_to_public_file . '/invoice_automation.css';
+      if (file_exists($css_file_auto)) {
+        drupal_add_css($css_file_auto, $options);
+      }
+      
+      else {
+        //Get data from database and automatiallly create css file.
+        $select = db_select('tbl_manage_branding_invoice', 'tbs');  
+        $select->fields('tbs');//We need all field always.
+        $select->orderBy('id', 'DESC');
+        $select->range(0,1);
+        $results = $select->execute();
+        $form_state = array();
+        $form = array();
+        if ($results){
+          foreach ($results as $robj) {                    
+            $form_state['values'] = (array)$robj;
+            break;
+          }
+          module_load_include('inc', 'custom_invoice', 'custom_invoice.admin');
+          custom_invoice_admin_manage_invoice_css_submit($form, $form_state);
+          if ($file_created) {
+            drupal_add_css($css_file_auto, $options);
+          }
+        }       
+      }
+   }
+}
+
+/**
  * Implements hook_menu().
  */
 function custom_invoice_menu() {
   $items = array();
-  $items['invoice'] = array(
+  $items['invoice/list'] = array(
+    'title' => 'My Invoice',
+    'page callback' => 'invoices_list_page',
+    'access arguments' => array('STH User'),
+    'file' => 'custom_invoice.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['invoice/%/%'] = array(
     'title' => 'Invoice',
     'page callback' => 'custom_invoice_page',
+    'page arguments' => array(1, 2),
     'access arguments' => array('STH User'),
     'file' => 'custom_invoice.pages.inc',
     'type' => MENU_CALLBACK
   );
-  $items['invoice/email'] = array(
+  $items['invoice/%/email/%'] = array(
     'title' => 'Email invoice in PDF format',
     'page callback' => 'custom_invoice_email',
+    'page arguments' => array(1, 3),
     'access arguments' => array('STH User'),
     'file' => 'custom_invoice.pages.inc',
     'type' => MENU_CALLBACK
   );
-  $items['invoice/print'] = array(
+  $items['invoice/%/print/%'] = array(
     'title' => 'Print invoice in PDF format',
     'page callback' => 'custom_invoice_print',
+    'page arguments' => array(1, 3),
     'access arguments' => array('STH User'),
     'file' => 'custom_invoice.pages.inc',
     'type' => MENU_CALLBACK
@@ -33,41 +81,128 @@ function custom_invoice_menu() {
     'file' => 'custom_invoice.pages.inc',
     'type' => MENU_CALLBACK
   );
-  
-  $items['admin/manage/invoice'] = array(
+
+  /*$items['admin/manage/invoice'] = array(
     'title' => 'Manage Invoice',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('custom_invoice_settings'),
     'access arguments' => array('administer invoice settings'),
     'file' => 'custom_invoice.admin.inc',
-   // 'type' => MENU_CALLBACK,
-  );
+      // 'type' => MENU_CALLBACK,
+  );*/
 
-  $items['invoice/payment'] = array(
+
+  $items['invoice/%/payment/%'] = array(
     'title' => 'Payment',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('custom_invoice_payment_request'),
+    'page arguments' => array('custom_invoice_payment_request', 1, 3),
     'access arguments' => array('STH User'),
     'file' => 'custom_invoice.pages.inc',
     'type' => MENU_CALLBACK
   );
-  $items['invoice/payment/success'] = array(
+   $items['invoice/%/typeform/%/%node'] = array(
+    'title' => 'Typeform',
+    'page callback' => 'custom_invoice_get_stored_typeform',
+    'access arguments' => array('STH User'),
+    'page arguments' => array(1, 3, 4),
+    'file' => 'custom_invoice.pages.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['invoice/%/payment/%/success'] = array(
     'title' => 'Payment',
     'page callback' => 'custom_invoice_payment_success',
     'access arguments' => array('STH User'),
+    'page arguments' => array(1, 3),
     'file' => 'custom_invoice.pages.inc',
     'type' => MENU_CALLBACK
   );
-  $items['invoice/payment/failure'] = array(
+  $items['invoice/%/payment/%/failure'] = array(
     'title' => 'Payment',
     'page callback' => 'custom_invoice_payment_failure',
     'access arguments' => array('STH User'),
+    'page arguments' => array(1, 3),
     'file' => 'custom_invoice.pages.inc',
     'type' => MENU_CALLBACK
   );
-   $items['plandescription/%'] = array(
+  $items['plandescription/%/%'] = array(
     'title' => 'Plan description callback',
     'page callback' => 'custom_invoice_payment_plans_desc', //'plan_desc_get_description',
+    'page arguments' => array(1, 2),
+    'file' => 'custom_invoice.pages.inc',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/manage/settings/invoice/list'] = array(
+    'title' => 'Multiple Invoices',
+    'description' => 'Invoice List settings',
+    'page callback' => 'custom_invoice_admin_invoice_list',
+    'access arguments' => array('administer site settings'),
+    'file' => 'custom_invoice.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/manage/settings/invoice/manage-branding'] = array(
+    'title' => 'Manage Branding',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_invoice_admin_manage_invoice_css'),
+    'access arguments' => array('administer site settings'),
+    'file' => 'custom_invoice.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/manage/settings/invoice/cardtypes'] = array(
+    'title' => 'Manage Payment Types',
+    'description' => 'Choose payment methods',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_invoice_payment_methods'),
+    'access arguments' => array('administer site settings'),
+    'file' => 'custom_invoice.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/manage/settings/invoice/%'] = array(
+    'title' => 'Add Invoices',
+    'description' => 'Invoice List settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_invoice_admin_invoice_form', 4),
+    'access arguments' => array('administer site settings'),
+    'file' => 'custom_invoice.admin.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/manage/settings/invoice-clone/%'] = array(
+    'title' => 'Clone Invoices',
+    'description' => 'Invoice List settings',
+    'page callback' => 'custom_invoice_admin_clone_invoice',
+    'page arguments' => array(4),
+    'access arguments' => array('administer site settings'),
+    'file' => 'custom_invoice.admin.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/manage/settings/success-message/%'] = array(
+    'title' => 'Clone Invoices',
+    'description' => 'Successful Message settings',
+    'page callback' => 'custom_invoice_admin_clone_message',
+    'page arguments' => array(4),
+    'access arguments' => array('administer site settings'),
+    'file' => 'custom_invoice.admin.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/manage/mail_preview/%'] = array(
+    'title' => 'Preview Node',
+    'page callback' => 'custom_invoice_admin_preview', //'plan_desc_get_description',
+    'page arguments' => array(3),
+    'file' => 'custom_invoice.admin.inc',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/manage/settings/invoice/invoice-list'] = array(
+    'title' => 'Invoice List Page',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_invoice_admin_list_page'),
+    'access arguments' => array('administer site settings'),
+    'file' => 'custom_invoice.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+ $items['cc_query/%'] = array(
+    'title' => 'Get cc query callback',
+    'page callback' => 'custom_invoice_get_cc_query',
     'page arguments' => array(1),
     'file' => 'custom_invoice.pages.inc',
     'access callback' => TRUE,
@@ -87,29 +222,21 @@ function custom_invoice_permission() {
     ),
   );
 }
+
 /**
  * Implements hook_theme()
  */
-
 function custom_invoice_theme($existing, $type, $theme, $path) {
   return array(
-    'renewal_invoice' => array(
-      'arguments' => array('seat_holds' => NULL, 'name' => NULL, 'user_info' => NULL),
-      'template' => 'templates/invoice/renewal_invoice_page'
-    ),
-    'renewal_invoice_pdf' => array(
-      'arguments' => array('seat_holds' => NULL, 'name' => NULL, 'user_info' => NULL),
-      'template' => 'templates/invoice/pdf/renewal_invoice_page'
-    ),
     'invoice_page' => array(
       'arguments' => array('output' => NULL),
       'template' => 'templates/invoice_page'
     ),
-    'invoice_user_info_block' =>  array(
+    'invoice_user_info_block' => array(
       'arguments' => array('user_info' => NULL, 'name' => NULL, 'acct_rep' => NULL, 'type' => NULL),
-      'template' => 'templates/user_info_block'
+      'template' => 'templates/user_info_details_block'
     ),
-     'tm_payment_success' => array(
+    'tm_payment_success' => array(
       'arguments' => array('name' => NULL, 'acct_id' => NULL, 'cc_num' => NULL),
       'template' => 'templates/tm-payment-success'
     ),
@@ -121,6 +248,47 @@ function custom_invoice_theme($existing, $type, $theme, $path) {
       'arguments' => array(),
       'template' => 'templates/invoice-print-error'
     ),
+    // For pdf header
+    'invoice_header' => array(
+      'arguments' => array(''),
+      'template' => 'templates/invoice/pdf/invoice_header'
+    ),
+    // For pdf footer
+    'invoice_footer' => array(
+      'arguments' => array(''),
+      'template' => 'templates/invoice/pdf/invoice_footer'
+    ),
+    'invoice_list' => array(
+      'arguments' => array('data' => NULL),
+      'template' => 'templates/invoice_list'
+    ),
+    'invoice' => array(
+      'arguments' => array('data' => NULL),
+      'template' => 'templates/invoice/invoice'
+    ),
+    'invoice_pdf' => array(
+      'arguments' => array('data' => NULL),
+      'template' => 'templates/invoice/pdf/invoice-pdf'
+    ),
+    'custom_preview_node' => array(
+      'arguments' => array('data' => NULL),
+      'template' => 'templates/invoice/admin/custom-preview-node'
+    ),
+    'node__email_template' => array(
+        'base hook' => 'node',
+        'template' => 'node--email-template',
+        'path' => drupal_get_path('module', 'custom_invoice') . '/templates',
+       ),
+    'html__email_template' => array(
+        'base hook' => 'html',
+        'template' => 'html--email-template',
+        'path' => drupal_get_path('module', 'custom_invoice') . '/templates',
+       ),
+    'page__email_template' => array(
+        'base hook' => 'page',
+        'template' => 'page--email-template',
+        'path' => drupal_get_path('module', 'custom_invoice') . '/templates',
+       ),
   );
 }
 
@@ -145,100 +313,456 @@ function invoice_user_info_block($type = 1) {
   return '';
 }
 
-
-function custom_invoice_get_plans($acct_id = NULL, $invoice_id=NULL){
+function custom_invoice_get_plans($acct_id = NULL, $invoice_id = NULL) {
   if ((isset($acct_id) && !empty($acct_id)) && (isset($invoice_id) && !empty($invoice_id))) {
     module_load_include('inc', 'tm_api', 'tm_api.helper');
     $plan_schedules = array();
     $plans = tmapi_get_payment_plans();
-    if($plans){
-      foreach($plans as $plan){
-        $plan_schedules[$plan['payment_plan_id']]['plan'] = $plan; 
+    if ($plans) {
+      foreach ($plans as $plan) {
+        $plan_schedules[$plan['payment_plan_id']]['plan'] = $plan;
       }
       return $plan_schedules;
     }
-    else{
+    else {
       //No Plans present
       return false;
-    }    
+    }
   }
-  else{
+  else {
     //Either account ID or Invoice ID is NULL
     return false;
   }
 }
 
-function get_schedule_for_plan_id($acct_id=NULL, $invoice_id=NULL, $plan_id=NULL , $get_amount_info, $plans = NULL){
-  if((isset($acct_id) && !empty($acct_id)) && (isset($invoice_id) && !empty($invoice_id)) && (isset($plan_id) && !empty($plan_id))) {
+/*
+ *  Function to fetch the schedule plan ids for invoice payment page.
+ */
+
+function get_schedule_for_plan_id($acct_id = NULL, $invoice_id = NULL, $plan_id = NULL, $get_amount_info, $plans = NULL) {
+  if ((isset($acct_id) && !empty($acct_id)) && (isset($invoice_id) && !empty($invoice_id)) && (isset($plan_id) && !empty($plan_id))) {
     $items = array();
     $title = t(''); //Blank to show no header for item list
     $amount_due_today = "0.00";
     $type = 'ol';
     $ttl = NULL;
-    
-    if($plan_id=='default') {
-      $amount_due_today = isset($get_amount_info['current_due_amounts'])?$get_amount_info['current_due_amounts']:'0.00';
-      $amount_due_today = ($amount_due_today<0) ? "0.00": $amount_due_today;
+
+    if ($plan_id == 'default') {
+      $amount_due_today = isset($get_amount_info['current_due_amounts']) ? $get_amount_info['current_due_amounts'] : '0.00';
+      $amount_due_today = ($amount_due_today < 0) ? "0.00" : $amount_due_today;
       $items[] = array(
         'data' => '<span class="duedate">Full Payment</span> <span class="dollars">' . invoice_money_format($amount_due_today) . '</span>'
       );
     }
     else {
       module_load_include('inc', 'tm_api', 'tm_api.helper');
-      $schedules = tmapi_get_payment_schedules($acct_id, $invoice_id, $plan_id);
-
-      if (isset($schedules) && $schedules) {
-        foreach($schedules as $schedule){ 
-          $ttl = date('F d, Y', strtotime($schedule['payment_due_date']));      
-          
-          if(isset($schedule['amount_due_today']) && !empty($schedule['amount_due_today'])){
-            $amount_due_today = $schedule['amount_due_today'];
-          }
-          
-          $items[] = array(
-            'data' => '<span class="duedate">'.$ttl.'</span> <span class="dollars">'.invoice_money_format($schedule['owed_amount']).'</span>'
-          );
+      //$plans = tmapi_get_payment_plans();
+      foreach ($plans as $plan) {
+        if ($plan['payment_plan_id'] == $plan_id) {
+          $plandesc = $plan['plan_desc'] . '<br/>' . $plan['plan_text'];
         }
       }
-    }    
-    
-    if(isset($items) &&count($items)>0) {
-      $desc_options = theme_item_list(array('items' => $items, 'title' => $title, 'type' => $type, 'attributes' => array()));
-      $ops = array();
-      $ops['amount_due_today'] = number_format((double)$amount_due_today, 2, '.', '');
-      $ops['amount_due_detail'] = invoice_money_format($amount_due_today);
-      $ops['item_list'] = $desc_options;
-      return $ops;
+      $schedules = tmapi_get_payment_schedules($acct_id, $invoice_id, $plan_id);
+      $invoice_setting = cache_get('invoice-setting-' . $acct_id, 'cache_custom')->data;
+      $suppress_date = $invoice_setting->invoice_en_suppress_dates;
+      $suppress_amount = $invoice_setting->invoice_en_suppress_amount;
+      //$schedules = get_plan_schedules($acct_id, $invoice_id, $plan_id);
+      foreach ($schedules as $schedule) {
+          // Suppress Dates if value is Y
+        if ($plans[$plan_id]['suppress_payment_plan_details'] == 'N' || ($suppress_date == 1 && $plans[$plan_id]['suppress_payment_plan_details'] == 'Y')) {
+          $ttl = date('F d, Y', strtotime($schedule['payment_due_date']));
+        }
+        if($plans[$plan_id]['suppress_payment_plan_details'] == 'N' || ($suppress_amount == 1 && $plans[$plan_id]['suppress_payment_plan_details'] == 'Y')){
+          $owed_amount = invoice_money_format($schedule['owed_amount']);   
+        }
+        if (isset($schedule['amount_due_today']) && !empty($schedule['amount_due_today'])) {
+          $amount_due_today = $schedule['amount_due_today'];
+        }
+        $items[] = array(
+          'data' => (isset($ttl) && $ttl ? '<span class="duedate">'.$ttl.'</span>' : '') .  " " . (isset($owed_amount) && $owed_amount != '' ? '<span class="dollars">'.$owed_amount.'</span>' : '')
+        );
+      }
     }
-    else{
-      $amount_due_today = 0;
+    if (isset($items) && count($items) > 0) {
+      $desc_options = theme_item_list(array('items' => $items, 'title' => $title, 'type' => $type, 'attributes' => array()));    
+      if($owed_amount == '' && $ttl == '' && $plan_id != 'default'){
+        $desc_options = '';
+      }
       $ops = array();
-      $ops['amount_due_today'] = number_format((double)$amount_due_today, 2, '.', '');
+      if($suppress_date == 0 && $suppress_amount == 0 && $plan_id != 'default') {
+        $ops['suppress'] = 1;  
+      } 
+      $ops['amount_due_today'] = number_format((double) $amount_due_today, 2, '.', '');
       $ops['amount_due_detail'] = invoice_money_format($amount_due_today);
-      $ops['item_list'] = "Payment schedule not available for this plan.";
-      return $ops;
+      $ops['desc'] = $plandesc;
+      $ops['item_list'] = $desc_options;
+      drupal_json_output($ops);
+      exit;
+    }
+    else {
+      echo "";
+      exit;
     }
   }
-  else{
-    $amount_due_today = 0;
-    $ops = array();
-    $ops['amount_due_today'] = number_format((double)$amount_due_today, 2, '.', '');
-    $ops['amount_due_detail'] = invoice_money_format($amount_due_today);
-    $ops['item_list'] = "Payment schedule not available for this plan.";
-    return $ops;
-  }  
+  else {
+    echo "";
+    exit;
+  }
 }
 
-function _price_code_check() {
-  module_load_include('inc', 'tm_data', 'tm_data'); 
-  global $user;
-  $rows = array();
-  $seats = array();    
-  $seats = tm_get_seats_on_account($user->name);
-  foreach ($seats as $key => $seat) {
-    if (strpos(strtolower($seat->price_code), 'k') ===2) {
-      return true;
+/**
+ * Implements hook_delete_content_type().
+ */
+function custom_invoice_delete_content_type($type) {
+  // First, delete nodes
+  $results = db_select('node', 'n')
+      ->fields('n', array('nid'))
+      ->condition('type', $type)
+      ->execute();
+  foreach ($results as $result) {
+    $nids[] = $result->nid;
+  }
+  if (!empty($nids)) {
+    node_delete_multiple($nids);
+    drupal_set_message(t('%count nodes has been deleted.', array('%count' => count($nids))));
+  }
+  // Then, delete content type
+  if (node_type_load($type)) {
+    node_type_delete($type);
+    variable_del('node_preview_' . $type);
+    drupal_set_message(t('%type content type has been deleted.', array('%type' => $type)));
+  }
+  node_types_rebuild();
+  menu_rebuild();
+}
+
+/**
+ * Submit callback: import data.
+ * Note: this is a clone function of Bundle copy module's bundle_copy_import_submit().
+ *  when the "bundle_copy" module updates this function should update.
+ *  Different between this function and bundle_copy_import_submit().
+ *  only "eval($form_state['values']['macro']);" is the difference.
+ */
+function custom_invoice_bundle_copy_import($data) {
+  // Evaluate data.
+  //eval($form_state['values']['macro']); //
+  if (isset($data) && is_array($data)) {
+    $modules = module_list();
+    $bc_info = bundle_copy_get_info();
+    // Create bundles.
+    foreach ($data['bundles'] as $key => $bundle) {
+      $entity_type = '';
+      if (is_object($bundle)) {
+        $entity_type = $bundle->bc_entity_type;
+      }
+      elseif (is_array($bundle)) {
+        $entity_type = $bundle['bc_entity_type'];
+      }
+      if (!empty($entity_type)) {
+        $existing_bundles = _bundle_copy_bundle_info($entity_type);
+        $bundle_save_callback = $bc_info[$entity_type]['bundle_save_callback'];
+        $bundle_info = $bundle_save_callback($bundle);
+        if (!isset($existing_bundles[$key])) {
+          drupal_set_message(t('%bundle bundle has been created.', array('%bundle' => $bundle->name)));
+        }
+        else {
+          drupal_set_message(t('%bundle bundle has been updated.', array('%bundle' => $bundle->name)));
+        }
+      }
+    }
+    // Create or update fields and their instances
+    if (isset($data['fields'])) {
+      foreach ($data['fields'] as $key => $field) {
+        // Check if the field module exists.
+        $module = $field['module'];
+        if (!isset($modules[$module])) {
+          drupal_set_message(t('%field_name field could not be created because the module %module is disabled or missing.', array('%field_name' => $key, '%module' => $module)), 'error');
+          continue;
+        }
+        if (isset($data['instances'][$key])) {
+          // Create or update field.
+          $prior_field = field_read_field($field['field_name'], array('include_inactive' => TRUE));
+          if (!$prior_field) {
+            field_create_field($field);
+            drupal_set_message(t('%field_name field has been created.', array('%field_name' => $key)));
+          }
+          else {
+            $field['id'] = $prior_field['id'];
+            field_update_field($field);
+            drupal_set_message(t('%field_name field has been updated.', array('%field_name' => $key)));
+          }
+          // Create or update field instances.
+          foreach ($data['instances'][$key] as $ikey => $instance) {
+            // Make sure the needed key exists.
+            if (!isset($instance['field_name'])) {
+              continue;
+            }
+            $prior_instance = field_read_instance($instance['entity_type'], $instance['field_name'], $instance['bundle']);
+            if (!$prior_instance) {
+              field_create_instance($instance);
+              drupal_set_message(t('%field_name instance has been created for @bundle in @entity_type.', array('%field_name' => $key, '@bundle' => $instance['bundle'], '@entity_type' => $instance['entity_type'])));
+            }
+            else {
+              $instance['id'] = $prior_instance['id'];
+              $instance['field_id'] = $prior_instance['field_id'];
+              field_update_instance($instance);
+              drupal_set_message(t('%field_name instance has been updated for @bundle in @entity_type.', array('%field_name' => $key, '@bundle' => $instance['bundle'], '@entity_type' => $instance['entity_type'])));
+            }
+          }
+        }
+      }
+    }
+    // Create / update fieldgroups.
+    if (isset($data['fieldgroups'])) {
+      if (module_exists('field_group')) {
+        ctools_include('export');
+        $existing_field_groups = field_group_info_groups();
+        foreach ($data['fieldgroups'] as $identifier => $fieldgroup) {
+          if (isset($existing_field_groups[$fieldgroup->entity_type][$fieldgroup->bundle][$fieldgroup->mode][$fieldgroup->group_name])) {
+            $existing = $existing_field_groups[$fieldgroup->entity_type][$fieldgroup->bundle][$fieldgroup->mode][$fieldgroup->group_name];
+            $fieldgroup->id = $existing->id;
+            if (!isset($fieldgroup->disabled)) {
+              $fieldgroup->disabled = FALSE;
+            }
+            ctools_export_crud_save('field_group', $fieldgroup);
+            ctools_export_crud_set_status('field_group', $fieldgroup, $fieldgroup->disabled);
+            drupal_set_message(t('%fieldgroup fieldgroup has been updated for @bundle in @entity_type.', array('%fieldgroup' => $fieldgroup->label, '@bundle' => $fieldgroup->bundle, '@entity_type' => $fieldgroup->entity_type)));
+          }
+          else {
+            unset($fieldgroup->id);
+            unset($fieldgroup->export_type);
+            if (!isset($fieldgroup->disabled)) {
+              $fieldgroup->disabled = FALSE;
+            }
+            ctools_export_crud_save('field_group', $fieldgroup);
+            $fieldgroup->export_type = 1;
+            ctools_export_crud_set_status('field_group', $fieldgroup, $fieldgroup->disabled);
+            drupal_set_message(t('%fieldgroup fieldgroup has been saved for @bundle in @entity_type.', array('%fieldgroup' => $fieldgroup->label, '@bundle' => $fieldgroup->bundle, '@entity_type' => $fieldgroup->entity_type)));
+          }
+        }
+      }
+      else {
+        drupal_set_message(t('The fieldgroups could not be saved because the <em>Field group</em> module is disabled or missing.'), 'error');
+      }
+    }
+    // Clear caches.
+    field_info_cache_clear();
+    if (module_exists('field_group')) {
+      cache_clear_all('field_groups', 'cache_field');
     }
   }
-  return false;
+  else {
+    drupal_set_message(t('The pasted text did not contain any valid export data.'), 'error');
+  }
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function custom_invoice_views_api() {
+  return array('api' => 3.0);
+}
+
+/*
+ * Implements hook_views_default_views()
+ */
+
+function custom_invoice_views_default_views() {
+  // Check for all view file in views directory
+  $files = file_scan_directory(drupal_get_path('module', 'custom_invoice') . '/view', '/.*\.inc$/');
+// Add view to list of views
+  foreach ($files as $filepath => $file) {
+    require $filepath;
+    if (isset($view)) {
+      $views[$view->name] = $view;
+    }
+  }
+  // At the end, return array of default views.
+  return $views;
+}
+
+/**
+ * Implementation of hook_preprocess_HOOK().
+ */
+function custom_invoice_preprocess_html(&$variables) {
+  $node = node_load(arg(1));
+  if (isset($node) && $node->type == 'email_template' && arg(2) != 'edit' && arg(2) != 'delete') {
+    $variables['theme_hook_suggestions'][] = 'html__email_template';
+  }
+}
+
+function custom_invoice_preprocess_page(&$variables) {
+  if (isset($variables['node']) && $variables['node']->type == 'email_template') {
+    $variables['theme_hook_suggestions'][] = 'page__email_template';
+  }
+}
+
+function custom_invoice_preprocess_node(&$variables) {
+  if (isset($variables['node']) && $variables['node']->type == 'email_template') {
+    $variables['theme_hook_suggestions'][] = 'node__email_template';
+  }
+}
+
+function custom_invoice_services_fetch_invoice_table($stp_invoice_setttings, $seat_holds) {
+  $cnt= 0;
+  foreach ($stp_invoice_setttings->details as $key => $inv_settings) {
+    if ($inv_settings->field == 'section_name' || $inv_settings->field == 'row_name' || $inv_settings->field == 'seat_num-last_seat') {
+      $width += $inv_settings->class;
+      if (!(isset($count) && $count)) {
+        $count = $cnt;
+        $cnt++;
+      }
+      $hrow[$count] = array('data' => 'DETAILS', 'type' => 'field', 'width' => $width . '%');
+      $irow['details'] = 'details';
+      $details_irow[$inv_settings->field] = $inv_settings->title;
+    }
+    else {
+      $hrow[$cnt] = array('data' => $inv_settings->title, 'type' => 'field', 'width' => $inv_settings->class . '%');
+      $irow[$inv_settings->field] = $inv_settings->field;
+      $cnt++;
+    }
+  }
+  foreach ($seat_holds as $seats) {
+    $row = array();
+    $p_fee = $h_fee = false;
+    $event_name = ($seats['item_name_long'] && !is_null($seats['item_name_long']))? $seats['item_name_long'] : $seats['event_name'];
+    //create parking variable and use here
+    
+    $paid += $seats['paid_amount'];
+    if ($stp_invoice_setttings->invoice_en_park) {
+      $park_values = explode(',', $stp_invoice_setttings->invoice_park_event);
+      foreach($park_values as $park) {
+         $p_fee = strpos(strtolower($seats[$stp_invoice_setttings->invoice_park_api_field]), strtolower($park));
+      }   
+    }
+    if ($stp_invoice_setttings->invoice_en_hand) {
+      $hand_values = explode(',', $stp_invoice_setttings->invoice_hand_event);
+      foreach($hand_values as $hand) {
+        $h_fee = strpos(strtolower($seats[$stp_invoice_setttings->invoice_hand_api_field]), strtolower($hand));
+      }
+    }
+    if ($p_fee !== false) {
+      $parking_fee += $seats['invoiced_amount'];
+    }
+    elseif($h_fee !== false) {
+      $handling_fee += $seats['invoiced_amount'];
+    }
+    else {
+      $total += $seats['invoiced_amount'];
+    }
+    //print_r($irow);die;
+    foreach ($irow as $invfield) {
+      if ($invfield == 'details') {
+        $d_row = array();
+        foreach ($details_irow as $det_invfield => $det_invtitle) {
+          if ($det_invfield == 'seat_num-last_seat' && $seats['ga_indicator'] != 'Y' && $seats['ga_indicator'] != 'G') {
+            $d_row[] = $det_invtitle . ': ' . $seats['seat_num'] . '-' .  $seats['last_seat'];
+          }
+          elseif (($det_invfield == 'section_name' || $det_invfield == 'row_name'|| $det_invfield == 'seat_num-last_seat') && ($seats['ga_indicator'] == 'Y' || $seats['ga_indicator'] == 'G')) {
+            $d_row[] = ''; 
+          }
+          else {
+            $d_row[] = $det_invtitle . ': ' . $seats[$det_invfield];
+          }
+        }
+        $row[] = implode('<br/>', $d_row);
+      }
+      elseif ($invfield == 'event_name_inet' || $invfield == 'event_description') {
+        $row[] = isset($event_details_invoice[$seats['event_name']][$invfield]) ? $event_details_invoice[$seats['event_name']][$invfield] : $seats['event_name'];
+      }
+      elseif ($invfield == 'invoiced_amount') {
+        $row[] = invoice_money_format($seats[$invfield]);
+      }
+      else {
+        $row[] = $seats[$invfield];
+      }   
+    }
+   /* $expression = "[invoiced_amount] * 2 + [num_seats]";
+    $pattern = '([a-z0-9_]+)'; // Field name.
+  $pattern .= '(:([0-9]+))?'; // Delta.
+  $pattern .= '(:([a-zA-Z0-9_]+))?'; // Column.
+  preg_match_all("/(\[$pattern\])/x", $expression, $matches);
+
+  $fields = $matches[0]; // Full tokens including brackets.
+*/
+    $rows[] = array('data' => $row, 'class' => 'tbr');
+  }
+      
+  $data['header'] = $hrow;
+  $data['data'] = $rows;
+  $data['parking'] = $parking_fee;
+  $data['handling'] = $handling_fee;
+  $data['paid'] = $paid;
+  $data['total'] = $total;
+  return $data;
+}
+
+function custom_invoice_fetch_invoice_table($stp_invoice_setttings, $seat_holds) {
+  foreach ($stp_invoice_setttings->details as $key => $inv_settings) {
+    $hrow[] = array('data' => $inv_settings->title, 'type' => 'field', 'width' => $inv_settings->class . '%', 'class' => 'inv_table_th_' . $inv_settings->field);
+    $irow[$inv_settings->field] = $inv_settings->field;
+  }
+  $event_details_invoice = tmapi_get_event_details_cache();
+  foreach ($seat_holds as $seats) {
+    $row = array();
+    $p_fee = $h_fee = false;
+    $event_name = ($seats['item_name_long'] && !is_null($seats['item_name_long']))? $seats['item_name_long'] : $seats['event_name'];
+    //create parking variable and use here
+    
+    $paid += $seats['paid_amount'];
+    if ($stp_invoice_setttings->invoice_en_park) {
+      $park_values = explode(',', $stp_invoice_setttings->invoice_park_event);
+      foreach($park_values as $park) {
+         $p_fee = strpos(strtolower($seats[$stp_invoice_setttings->invoice_park_api_field]), strtolower($park));
+      }   
+    }
+    if ($stp_invoice_setttings->invoice_en_hand) {
+      $hand_values = explode(',', $stp_invoice_setttings->invoice_hand_event);
+      foreach($hand_values as $hand) {
+        $h_fee = strpos(strtolower($seats[$stp_invoice_setttings->invoice_hand_api_field]), strtolower($hand));
+      }
+    }
+    if ($p_fee !== false) {
+      $parking_fee += $seats['invoiced_amount'];
+    }
+    elseif($h_fee !== false) {
+      $handling_fee += $seats['invoiced_amount'];
+    }
+    else {
+      $total += $seats['invoiced_amount'];
+    }
+    foreach ($irow as $invfield) {
+      if ($invfield == 'seat_num-last_seat' && $seats['ga_indicator'] != 'Y' && $seats['ga_indicator'] != 'G') {
+        $row[] = array('data' => $seats['seat_num'] . '-' .  $seats['last_seat'], 'class' => 'inv_table_td_'. $invfield);
+      }
+      elseif (($invfield == 'section_name' || $invfield == 'row_name') && ($seats['ga_indicator'] == 'Y' || $seats['ga_indicator'] == 'G')) {
+        $row[] = ''; 
+      }
+      elseif ($invfield == 'event_name_inet' || $invfield == 'event_description') {
+        $row[] = isset($event_details_invoice[$seats['event_name']][$invfield]) ? array('data' => $event_details_invoice[$seats['event_name']][$invfield], 'class' => 'inv_table_td_' . $invfield) : $seats['event_name'];
+      }
+      elseif ($invfield == 'invoiced_amount') {
+        $row[] = array('data' => invoice_money_format($seats[$invfield]), 'class' => 'inv_table_td_'. $invfield);
+      }
+      else {
+        $row[] = array('data' => $seats[$invfield], 'class' => 'inv_table_td_'. $invfield);
+      }   
+    }
+   /* $expression = "[invoiced_amount] * 2 + [num_seats]";
+    $pattern = '([a-z0-9_]+)'; // Field name.
+  $pattern .= '(:([0-9]+))?'; // Delta.
+  $pattern .= '(:([a-zA-Z0-9_]+))?'; // Column.
+  preg_match_all("/(\[$pattern\])/x", $expression, $matches);
+
+  $fields = $matches[0]; // Full tokens including brackets.
+*/
+    $rows[] = array('data' => $row, 'class' => 'tbr');
+  }
+  $data['header'] = $hrow;
+  $data['data'] = $rows;
+  $data['parking'] = $parking_fee;
+  $data['handling'] = $handling_fee;
+  $data['paid'] = $paid;
+  $data['total'] = $total;
+  return $data;
 }
