@@ -10,7 +10,8 @@
 	margin-left:74px;
 	float:left;
 }
-#invoices-list-pending-table th:first{width:34% !important;}
-#invoices-list-pending-table th:last{width:28% !important;}
+
+#invoices-list-pending-table th:first-child{width:34% !important;}
+#invoices-list-pending-table th:last-child{width:28% !important;}
 .amountduewrap .amountdueinfo{width: 100% !important;}
 .amountduewrap .amountduettl{width: 100% !important;}
