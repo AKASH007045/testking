@@ -1,0 +1,53 @@
+<?php
+
+/*
+ * hook_schema is implemented
+ */
+function custom_typeform_schema(){
+  $schema['tbl_typeform_results'] = array(
+    'description' => t('Store typeform results.'),
+	'fields' =>array(
+     'id'=> array(
+       'description' => t('The Primary Identifier'),
+       'type' => 'serial',
+       'unsigned' => TRUE,
+       'not null' => TRUE,
+     ),
+     'acct_id' => array(
+       'description'=> t('Account ID.'),
+       'type' => 'varchar',
+	    'length' => '255',
+        'not null' => TRUE,
+     ),
+	 'typeform_id' => array(
+       'description'=> t('Typeform ID.'),
+       'type' => 'varchar',
+	    'length' => '255',
+        'not null' => TRUE,
+     ),
+	 'response_id' => array(
+       'description'=> t('Response ID.'),
+       'type' => 'int',
+	   'unsigned' => TRUE,
+        'small' => 'small',
+        'default' => 0,
+        'not null' => TRUE,
+     ),
+    'data' => array(
+      'description'=> t('Typeform Result'),
+      'type' => 'text',
+      'size' => 'big',
+       'not null' => TRUE,
+    ),
+    ),
+	  'primary key' => array('id'),
+  );
+  return $schema;	
+}
+
+/*
+ * hook_disable is implemented
+ */
+function custom_typeform_disable() {
+  drupal_uninstall_schema('tbl_typeform_results');
+}

@@ -1,0 +1,413 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function custom_typeform_menu() {
+  $items = array();
+  $items['typeform'] = array(
+    'title' => 'Type Form',
+    'page callback' => 'custom_typeform_submitform',
+    'access arguments' => array('STH User'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['admin/manage/settings/typeform'] = array(
+    'title' => 'TypeForm',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_typeform_settings'),
+    'access arguments' => array('administer site settings'),
+    'file' => 'custom_typeform.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+ // Retrive typeform all data
+   $items['typeform_data_retrival/%'] = array(
+    'title' => 'TypeForm Data Retrival',
+    'page callback' => '_convert_csv_formate',
+    'page arguments' => array(1),
+    'access arguments' => array('administer site settings'),
+    'file' => 'custom_typeform.admin.inc',
+    'type' => MENU_CALLBACK,
+  );
+  // Retrive typeform data for particular account group
+  $items['acctgrp_typeform_data/%/%'] = array(
+    'title' => 'TypeForm Data Retrival',
+    'page callback' => 'typeform_account_group_data',
+    'page arguments' => array(1,2),
+    'access arguments' => array('STH User'),
+    'file' => 'custom_typeform.admin.inc',
+    'type' => MENU_CALLBACK,
+  );
+  // Retrive typeform all data
+   $items['typeform_csv_reports/%'] = array(
+    'title' => 'TypeForm CSV Reports',
+    'page callback' => '_custom_tyform_data_report',
+    'page arguments' => array(1),
+    'access arguments' => array('administer site settings'),
+    'file' => 'custom_typeform.admin.inc',
+    'type' => MENU_CALLBACK,
+  );
+  // Retrive typeform data for particular account group
+  $items['typeform/error/%node'] = array(
+    'title callback' => 'node_page_title',
+    'title arguments' => array(2),
+    'page callback' => 'typeform_account_thankyou_page',
+    'page arguments' => array(2),
+    'access arguments' => array('STH User'),
+    'file' => 'custom_typeform.admin.inc',
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_services_resources().
+ */
+function custom_typeform_services_resources() {
+  return array(
+    'save' => array(
+      'actions' => array(
+          'typeform' => array(
+          'help' => 'Save Typeform Data',
+          'file' => array('type' => 'inc', 'module' => 'custom_typeform', 'name' => 'custom_typeform.resource'),
+          'callback' => '_custom_services_save_data',
+          'access callback' => '_custom_typeform_access',
+          'access arguments' => array('view'),
+          'access arguments append' => TRUE,
+          'args' => array(
+              array(
+                'name' => 'typeform_id',
+                'type' => 'int',
+                'description' => 'The typeform_id of the typeform being submitted.',
+                'source' => array('path' => 1),
+                'optional' => FALSE,
+              ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+/*
+ * Access callback for the resource
+ */
+function _custom_typeform_access($op = 'view', $args = array()) {
+  return TRUE;
+} 
+/**
+ * Implements hook_node_access().
+ */
+function custom_typeform_node_view($node, $view_mode) {
+  if (($node->type == 'typeform') && (field_info_field('field_submission_type') != NULL)) {
+    $typeform_url = $node->field_typeform_url['und'][0]['value'];
+    $typeform_id = explode("/", $typeform_url);
+    if (isset($node->field_submission_type['und'][0]['value']) && ($node->field_submission_type['und'][0]['value'] == 1) && (custom_typeform_is_submitted(end($typeform_id)) != 0)) {
+      drupal_goto('typeform/error/' . $node->nid);
+    }
+  }
+}
+
+
+/*
+ * Access Callback for one type submission typeform
+ */
+
+function custom_typeform_access($op, $node) {
+  if (($node->type == 'typeform')  && (field_info_field('field_submission_type') != NULL)) {
+    $typeform_url = $node->field_typeform_url['und'][0]['value'];
+    $typeform_id = explode("/", $typeform_url);
+    if (isset($node->field_submission_type['und'][0]['value']) && ($node->field_submission_type['und'][0]['value'] == 1) && (custom_typeform_is_submitted(end($typeform_id)) != 0)) {
+      return false;
+    }
+  }
+  return node_access($op, $node);
+}
+
+/*
+ * Function to fetch the count of typeform submission by current user.
+ */
+function custom_typeform_is_submitted($typeform_id = NULL) {
+  if (isset($typeform_id) && $typeform_id != '') {    
+    global $user;
+    $result = db_select('tbl_typeform_results', 'tbr')
+      ->fields('tbr', array('acct_id', 'typeform_id'))
+      ->condition('acct_id', $user->name, '=')
+      ->condition('typeform_id', $typeform_id, 'LIKE')
+      ->countQuery()->execute()->fetchField();
+    return $result;
+  }
+}
+
+/**
+ * Implements hook_preprocess_node()
+ * @Tyform Node Creation
+ */
+function custom_typeform_preprocess_node(&$vars) {
+  $node = $vars['node'];
+  global $user,$base_url;
+  if ($node->type == 'typeform' && $vars['view_mode'] == 'full') {
+     module_load_include('inc','tm_data', 'tm_data');
+    $user_data = get_user_info($user->name);
+    $user_detail = (isset($user_data->customer) && $user_data->customer) ? (object)$user_data->customer : '';
+    $lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
+    // Fetch field collection items
+    $items = field_get_items('node', $node, 'field_typeform_mapping');
+    $rows = array();
+    if ($items && count($items)) {
+      $key = 0;
+      foreach ($items as $key => $fc) {
+	$fc_items = $options = array();
+	$item = field_collection_field_get_entity($fc);
+	$rows[$item->field_typeform_hidden_field['und'][0]['value']] = isset($user_detail->{$item->field_stp_field['und'][0]['value']}) ? $user_detail->{$item->field_stp_field['und'][0]['value']} : $user_data->{$item->field_stp_field['und'][0]['value']};
+      }
+    }
+ 
+    $vars['typeform']['name'] = isset($node->field_typeform_name[$lang][0]['value']) ? $node->field_typeform_name[$lang][0]['value'] : 'Typeform';
+    $vars['typeform']['width'] = isset($node->field_typeform_width[$lang][0]['value']) ? $node->field_typeform_width[$lang][0]['value'] : '100%';
+    $vars['typeform']['height'] = isset($node->field_typeform_height[$lang][0]['value']) ? $node->field_typeform_height[$lang][0]['value'] : '500px';
+    $vars['typeform']['uid'] = isset($node->field_typeform_url[$lang][0]['value']) ? $node->field_typeform_url[$lang][0]['value'] : '';
+    $vars['typeform']['nid'] = $node->nid;
+    $vars['typeform']['type'] = isset($node->field_typeform_type[$lang][0]['value']) ? $node->field_typeform_type[$lang][0]['value'] : '';
+    $data_url = isset($node->field_typeform_url[$lang][0]['value']) ? url($node->field_typeform_url[$lang][0]['value'], array('query' => $rows, 'external' => TRUE)) : 0;
+    //$link =  url($data_url, array('query' => $rows));
+    $vars['typeform']['url'] = $data_url;
+  }  
+}
+
+/**
+ * Implements hook_theme()
+ */
+
+function custom_typeform_theme($existing, $type, $theme, $path) {
+  return array(
+    'typeform_error_page' => array(
+      'arguments' => array(),
+      'template' => 'templates/typeform_error_page'
+    ),
+  );
+}
+
+function custom_typeform_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'typeform_node_form') {
+    $form['field_typeform_width']['#disabled']= TRUE;
+    $form['field_typeform_height']['#disabled']= TRUE;
+    $form['field_typeform_url']['#element_validate'] = array('custom_typeform_validate_url_field');
+  }
+}
+
+/**
+ * Elemente validate function
+ */
+function custom_typeform_validate_url_field($element, &$form_state) {
+  $typeform_url = isset($form_state['values']['field_typeform_url']['und'][0]['value']) ? $form_state['values']['field_typeform_url']['und'][0]['value'] : '';
+  if (!empty($typeform_url) && (strpos($typeform_url, variable_get('typeform_root_url', '')) === false)) {
+    form_error($element, t('Unauthorized typeform url. Please enter the correct typeform url starting with !url', array('!url' => variable_get('typeform_root_url', ''))));
+  }
+}
+/**
+ * Implements hook_cron().
+ */
+/*function custom_typeform_cron($form_id, $email_addresses) {
+  global $language;
+  $query= db_query("SELECT * FROM {node} WHERE type = 'typeform' and status = 1");
+  $result = $query->fetchAll();
+  module_load_include('inc','custom_typeform', 'custom_typeform.admin');
+  foreach ( $result as $key => $val ) {
+    $node = node_load($val->nid);
+    $lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
+	$url = isset($node->field_typeform_url[$lang][0]['value']) ? $node->field_typeform_url[$lang][0]['value'] : '';
+	$explode_url = explode('/', $url);
+    $form_id = $explode_url[4];
+	// Send Reports
+    if(isset($form_id) && !empty($form_id)){
+      _custom_tyform_data_report($form_id, $email_addresses);
+    }
+  }
+}*/
+
+/*function custom_typeform_cron() {
+ module_load_include('inc','custom_typeform', 'custom_typeform.admin');
+  
+  // Daily rmail of typefrom reports
+  $daily = variable_get('daily');
+  $daily_time = variable_get('daily_time');
+  $daily_recipients = variable_get('daily_recipients');
+  $daily_typeform = variable_get('daily_typeform');
+  $time = strtotime($daily_time);
+  foreach ( $daily_typeform as $key => $val ) {
+    $node = node_load($val);
+    $lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
+	$url = isset($node->field_typeform_url[$lang][0]['value']) ? $node->field_typeform_url[$lang][0]['value'] : '';
+	$explode_url = explode('/', $url);
+    $form_id = $explode_url[4];
+	// Send Reports
+    if(isset($daily) && $daily = '1') {
+      if((time() >= $time) && isset($daily_recipients)) {
+	    $email_addresses = $daily_recipients;
+	     _custom_tyform_data_report($form_id, $email_addresses);
+	    $daily_time = variable_set(date('h:i',$time)+(24*60*60));
+	  }
+    }
+  }*/
+  
+  // Weekly mail of typefrom reports
+ /* $weekly = variable_get('weekly');
+  $weekly_time = variable_get('weekly_time');
+  $weekly_day = variable_get('weekly_day');
+  $weekly_recipients = variable_get('weekly_recipients');
+  $weekly_typeform = variable_get('weekly_typeform');
+  $time = strtotime($weekly_time);
+  foreach ( $weekly_typeform as $key => $val ) {
+    $node = node_load($val);
+    $lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
+	$url = isset($node->field_typeform_url[$lang][0]['value']) ? $node->field_typeform_url[$lang][0]['value'] : '';
+	$explode_url = explode('/', $url);
+    $form_id = $explode_url[4];
+	
+	// Send Reports
+    if(isset($weekly) && $weekly = '1') {
+      //if((time() >= $time) && isset($weekly_recipients)) {
+	    $email_addresses = $weekly_recipients;
+	     _custom_tyform_data_report($form_id, $email_addresses);
+	    $weekly_time = variable_set(date('h:i',$time)+(7*24*60*60));
+	  //}
+    }
+  }
+  
+  // Monthly mail of typefrom reports
+  $monthly = variable_get('monthly');
+  $monthly_time = variable_get('monthly_time');
+  $monthly_date = variable_get('monthly_date');
+  $monthly_recipients = variable_get('monthly_recipients');
+  $monthly_typeform = variable_get('monthly_typeform');
+  $time = strtotime($monthly_time);
+  foreach ( $monthly_typeform as $key => $val ) {
+    $node = node_load($val);
+    $lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
+	$url = isset($node->field_typeform_url[$lang][0]['value']) ? $node->field_typeform_url[$lang][0]['value'] : '';
+	$explode_url = explode('/', $url);
+    $form_id = $explode_url[4];
+	// Send Reports
+    if(isset($monthly) && $monthly = '1') {
+      //if((time() >= $time) && isset($monthly_recipients)) {
+	    $email_addresses = $monthly_recipients;
+	     _custom_tyform_data_report($form_id, $email_addresses);
+	    $monthly_time = variable_set(date('h:i',$time)+(30*24*60*60));
+	  //}
+    }
+  }*/
+  
+//}
+
+/**
+ * Implements hook_cronapi().
+ */
+function custom_typeform_cronapi($op, $job = NULL) {
+
+  $items['custom_typeform_daily_cron'] = array(
+    'description' => 'Daily send mail with typefrom reports',
+    'rule' => '4 0 * * *', // Every Day
+    // Note: don't need to define a callback, I'll use "custom_typeform_daily_cron"
+    // function
+  );
+
+  $items['custom_typeform_weekly_cron'] = array(
+    'description' => 'Weekly send mail with typefrom reports',
+    'rule' => '4 0 * * 0', // Every Week
+  );
+  $items['custom_typeform_monthly_cron'] = array(
+    'description' => 'Monthly send mail with typefrom reports',
+    'rule' => '4 0 1 * *', // Every Month
+  );
+
+  return $items;
+}
+
+/**
+ * Implemented function for Daily email of typefrom reports.
+ */
+function custom_typeform_daily_cron() {
+  module_load_include('inc','custom_typeform', 'custom_typeform.admin');
+  
+  // Daily email of typefrom reports
+  $daily = variable_get('daily');
+  $daily_time = variable_get('daily_time');
+  $daily_recipients = variable_get('daily_recipients');
+  $daily_typeform = variable_get('daily_typeform');
+  $time = strtotime($daily_time);
+  foreach ( $daily_typeform as $key => $val ) {
+    $node = node_load($val);
+    $lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
+	$url = isset($node->field_typeform_url[$lang][0]['value']) ? $node->field_typeform_url[$lang][0]['value'] : '';
+	$explode_url = explode('/', $url);
+    $form_id = $explode_url[4];
+	// Send Reports
+    if(isset($daily) && $daily = '1') {
+      //if((time() >= $time) && isset($daily_recipients)) {
+	    $email_addresses = $daily_recipients;
+	     _custom_tyform_data_report($form_id, $email_addresses);
+	    $daily_time = variable_set(date('h:i',$time)+(24*60*60));
+	 // }
+    }
+  }
+}
+
+/**
+ * Implemented function for weekly email of typefrom reports.
+ */
+function custom_typeform_weekly_cron() {
+  module_load_include('inc','custom_typeform', 'custom_typeform.admin');
+  
+  // Weekly mail of typefrom reports
+  $weekly = variable_get('weekly');
+  $weekly_time = variable_get('weekly_time');
+  $weekly_day = variable_get('weekly_day');
+  $weekly_recipients = variable_get('weekly_recipients');
+  $weekly_typeform = variable_get('weekly_typeform');
+  $time = strtotime($weekly_time);
+  foreach ( $weekly_typeform as $key => $val ) {
+    $node = node_load($val);
+    $lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
+	$url = isset($node->field_typeform_url[$lang][0]['value']) ? $node->field_typeform_url[$lang][0]['value'] : '';
+	$explode_url = explode('/', $url);
+    $form_id = $explode_url[4];
+	
+	// Send Reports
+    if(isset($weekly) && $weekly = '1') {
+      //if((time() >= $time) && isset($weekly_recipients)) {
+	    $email_addresses = $weekly_recipients;
+	     _custom_tyform_data_report($form_id, $email_addresses);
+	    $weekly_time = variable_set(date('h:i',$time)+(7*24*60*60));
+	  //}
+    }
+  }
+}
+
+/**
+ * Implemented function for monthly email of typefrom reports.
+ */
+function custom_typeform_monthly_cron() {
+  module_load_include('inc','custom_typeform', 'custom_typeform.admin');
+  
+  // Monthly mail of typefrom reports
+  $monthly = variable_get('monthly');
+  $monthly_time = variable_get('monthly_time');
+  $monthly_date = variable_get('monthly_date');
+  $monthly_recipients = variable_get('monthly_recipients');
+  $monthly_typeform = variable_get('monthly_typeform');
+  $time = strtotime($monthly_time);
+  foreach ( $monthly_typeform as $key => $val ) {
+    $node = node_load($val);
+    $lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
+	$url = isset($node->field_typeform_url[$lang][0]['value']) ? $node->field_typeform_url[$lang][0]['value'] : '';
+	$explode_url = explode('/', $url);
+    $form_id = $explode_url[4];
+	// Send Reports
+    if(isset($monthly) && $monthly = '1') {
+      //if((time() >= $time) && isset($monthly_recipients)) {
+	    $email_addresses = $monthly_recipients;
+	     _custom_tyform_data_report($form_id, $email_addresses);
+	    $monthly_time = variable_set(date('h:i',$time)+(30*24*60*60));
+	  //}
+    }
+  }
+}
