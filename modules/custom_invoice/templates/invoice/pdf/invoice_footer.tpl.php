@@ -1,0 +1,2 @@
+<?php print $invoice_footer = variable_get('invoice_footer_pdf', '<div class="wrp-main fnt12ftr printFooter"> Team Name &nbsp;I&nbsp; Address &nbsp;I&nbsp; City, State, Zip &nbsp;I&nbsp; Phone Number &nbsp;I&nbsp; Website  </div>'); ?>
+  

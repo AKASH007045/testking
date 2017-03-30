@@ -1,0 +1,210 @@
+<?php
+/**
+ * Implement common modules function inside this module.
+ */
+ 
+/**
+ * Implements hook_menu().
+ */
+function iom_color_picker_menu() {
+ $items = array();
+ $items['iom_color_form_submit'] = array(
+    'title' => 'Manage Site Branding',
+    'description' => 'Accept form fields',
+    'page callback' => array('iom_color_settings_form_submit'),
+    'access callback' => true,
+    'file' => 'iom_color_picker.admin.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/manage/site-branding'] = array(
+    'title' => 'Manage Site Branding',
+    'description' => 'Manage Site Branding',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('iom_color_settings_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'iom_color_picker.admin.inc',
+    'menu_name'=>'management',
+  );
+  $items['admin/manage/site-branding/brand-colors'] = array(
+    'title' => 'Brand colors',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10
+  );
+  $items['admin/manage/site-branding/desktop'] = array(
+    'title' => 'Desktop',
+    'description' => 'Manage Site Branding',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('iom_color_settings_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'iom_color_picker.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/manage/site-branding/fav-logo'] = array(
+    'title' => 'Desktop Fav & Logo',    
+    'description'=>'Logo and Favicon icon of the site can be updated from here.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('iom_color_settings_fav_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'iom_color_picker.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/manage/site-branding/footer'] = array(
+    'title' => 'Desktop Site Footer',
+    'description' => 'Configuration settings for Footer copyright & STP shield.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('iom_color_settings_copyright_form'),
+    'access arguments' => array('administer site settings'),
+    'file' => 'iom_color_picker.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+    $items['admin/manage/site-branding/metatag'] = array(
+        'title' => 'Desktop STP Meta Data',
+        'description' => 'Configuration settings for site meta data',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('iom_color_picker_metadata_settings'),
+        'access arguments' => array('administer site settings'),
+        'file' => 'iom_color_picker.admin.inc',
+        'type' => MENU_LOCAL_TASK,
+    );
+    /*$items['admin/manage/site-branding/mobile'] = array(
+        'title' => 'STP Mobile',
+        'type' => MENU_DEFAULT_LOCAL_TASK,
+    );*/
+    $items['admin/manage/site-branding/mobile'] = array(
+        'title' => 'Mobile',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('iom_color_picker_mobile_setting_form'),
+        'access arguments' => array('administer site settings'),
+        'file' => 'iom_color_picker.admin.inc',
+        'type' => MENU_LOCAL_TASK,
+    );
+
+  return $items;
+}
+
+
+
+/**
+ * Implements hook_theme().
+ */
+function iom_color_picker_theme($existing, $type, $theme, $path) {
+  $base = array(
+    'render element' => 'form',
+    'path' => drupal_get_path('module', 'iom_color_picker') . '/templates',
+  );
+
+  return array(
+    'iom_color_settings_form' => $base + array(
+      'template' => 'iom-color-settings-form',
+    ),
+  );
+}
+
+/**
+ * Implements hook_html_head_alter().
+ *
+ * Replaces the favicon.
+ *
+ * @param array $head_elements
+ */
+function iom_color_picker_html_head_alter(&$head_elements) {
+
+  foreach ($head_elements as $key => $element) {
+    if (1
+      // The array key can vary, depending on the original favicon setting.
+      && 0 === strpos($key, 'drupal_add_html_head_link:shortcut icon:')
+      && !empty($element['#attributes']['href'])
+      && 'shortcut icon' === $element['#attributes']['rel']
+    ) {
+ 
+      // Make sure to use a file that actually exists!
+      $fav_fid = variable_get('iom_color_favicon');
+      if ($fav_fid){
+      $favicon_path = file_load($fav_fid)->uri;
+      $favicon_url = file_create_url($favicon_path);
+      // If the favicon path came from a user-provided setting, we would also need drupal_strip_dangerous_protocols().
+      $element['#attributes']['href'] = $favicon_url;
+      //$element['#attributes']['type'] = 'image/png'; //Change if the image is png etc.
+      $head_elements[$key] = $element;
+      }
+    }
+  }
+}
+
+/**
+ * hook__preprocess_page().
+ * Purpose: custom logo updated from this module.
+ */
+function iom_color_picker_preprocess_page(&$variables) {
+  $fav_fid = variable_get('iom_color_logo');
+  if ($fav_fid){
+    $favicon_path = file_load($fav_fid)->uri;
+    $variables['logo'] = file_create_url($favicon_path);
+  }
+}
+
+/**
+  * hook_init().
+  * Purpose: we need to add theme level css which is creaed automatically.
+  */
+function iom_color_picker_init(){
+   if (isset($GLOBALS['theme']) && $GLOBALS['theme'] == 'sports'){
+     $options = array('weight' => 50, 'group' => CSS_THEME, 'preprocess' => TRUE);
+     module_load_include('inc', 'iom_color_picker', 'iom_color_picker.admin');
+     $path_to_public_file = '';
+     if (function_exists('iom_color_picker_get_files_path')) {
+       $path_to_public_file = iom_color_picker_get_files_path();
+     }
+     $css_file_auto = $path_to_public_file . '/theme-css.css';
+     if (file_exists($css_file_auto)){
+       drupal_add_css($css_file_auto, $options);
+     }
+     else {
+        //Get data from database and automatiallly create css file.
+        $select = db_select('tbl_manage_branding', 'tbs');  
+        $select->fields('tbs');//We need all field always.
+        $select->orderBy('cid', 'DESC');
+        $select->range(0,1);
+        $results = $select->execute()->fetchObject();
+        $row = unserialize($results->css); 
+        $form_state = array();
+        if ($row) {
+          $form_state['values'] = $row;           
+          $file_created = iom_color_settings_create_css($form_state['values']);
+          if ($file_created) {
+            drupal_set_message(t('A new css has been updated successfully'));
+            $css_file_auto = $path_to_public_file . '/theme-css.css';
+            drupal_add_css($css_file_auto, $options);
+          }
+        }
+        
+     }//Eof else
+
+     //Load deleted file for mobile.
+     $mobile_css_file_auto = $path_to_public_file."/mobile-theme.css";
+     
+     if (file_exists($mobile_css_file_auto)){
+      //Do nothing. api/configs will work for mobile.
+     }
+     else {
+      //Get data from database and automatiallly create css file.
+        $select = db_select('tbl_manage_branding_mobile', 'tbs');  
+        $select->fields('tbs');//We need all field always.
+        $select->orderBy('mid', 'DESC');
+        $select->range(0,1);
+        $results = $select->execute()->fetchObject();
+        $row = unserialize($results->css); 
+        $form_state = array(); 
+        if ($row) {
+          $form_state['values'] = $row;
+          $mob_file_created = iom_color_settings_create_mobile_css($form_state['values']);
+          if ($mob_file_created) {
+            drupal_set_message(t('A new css for mobile has been created successfully'));
+          }
+        }
+       
+     } //eoif
+     
+   }
+}
+

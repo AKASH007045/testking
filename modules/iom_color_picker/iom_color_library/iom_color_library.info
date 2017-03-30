@@ -1,0 +1,11 @@
+name = Color Picker Library
+description = Bootstrap Color Picker Library.
+package = Custom
+core = 7.x
+
+;Information added by drupal.org packaging script on 2016-12-01
+
+core = "7.x"
+project = "drupal"
+datestamp = "1359651687"
+

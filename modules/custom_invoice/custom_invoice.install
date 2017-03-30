@@ -1,0 +1,504 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the Invoice module.
+ */
+
+/**
+  * Implements hook_schema().
+  * Tables created when install:-
+  *  stp_invoice, stp_invoice_typeform, stp_invoice_details, stp_invoice_thankyou
+  */
+function custom_invoice_schema(){
+  $schema['stp_invoice'] = array(
+	'description' => t('table {stp_invoice} can store account information of a user.'),
+	'fields' =>array(
+      'id'=> array(
+        'description' => t('The Primary Identifier'),
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'invoice_type' => array(
+        'description'=> t('Invoice Type'),
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'invoice_field' => array(
+        'description'=> t('contains invoice fields'),
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'invoice_value' => array(
+         'description'=> t('contains invoice fields value'),
+         'type' => 'varchar',
+         'length' => '255',
+         'not null' => TRUE,
+       ),
+      'invoice_season' => array(
+        'description'=> t('contains invoice season'),
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'invoice_status' => array(
+        'description'=> t('Status'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'small' => 'small',
+        'default' => 0,
+        'not null' => TRUE,
+      ),
+      'invoice_en_typeform' => array(
+        'description'=> t('Enable Typeform'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'default' => 0,
+        'not null' => TRUE,
+       ),
+      'invoice_mail_body' => array(
+        'description'=> t('Mail Body'),
+        'type' => 'text',
+        'size'=>'medium',
+       ),       
+      'invoice_payment_subject' => array(
+        'description'=> t('Payment Subject'),
+        'type' => 'varchar',
+        'length' => '255',
+       ),
+      'invoice_payment_body' => array(
+        'description'=> t('Payment body'),
+        'type' => 'text',
+        'size' => 'medium',
+        ),
+      'invoice_en_terms' => array(
+        'description'=> t('terms enable?'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+       ),
+      'invoice_terms' => array(
+        'description'=> t('Terms and conditions.'),
+        'type' => 'text',
+        'size' => 'medium',
+      ),
+      'invoice_en_park' => array(
+        'description'=> t('Parking enable?'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+       ),       
+       'invoice_park_title' => array(
+         'description'=> t('Park Title'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'invoice_park_event' => array(
+         'description'=> t('Park Events'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'invoice_park_api_field' => array(
+         'description'=> t('Park API Fields.'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'invoice_en_hand' => array(
+         'description'=> t('Handling Fee enable?'),
+         'type' => 'int',
+         'unsigned' => TRUE,
+       ),
+       'invoice_hand_title' => array(
+         'description'=> t('Hand title.'),
+         'type' => 'varchar',
+         'length' => '255'
+       ),
+       'invoice_hand_event' => array(
+         'description'=> t('Hand event.'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'invoice_hand_api_field' => array(
+         'description'=> t('Hand API Fields.'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'invoice_total_title' => array(
+         'description'=> t('Park total title.'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'invoice_credits_title' => array(
+         'description'=> t('Credit title.'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'invoice_amount_desc' => array(
+        'description'=> t('Invoice amount description'),
+        'type' => 'varchar',
+        'length' => '255',
+        ),
+        'invoice_title' => array(
+         'description'=> t('Invoice title.'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'invoice_details_text' => array(
+         'description'=> t('details title.'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'invoice_other_info_text' => array(
+         'description'=> t('Other info.'),
+         'type' => 'text',
+         'size'=>'medium',
+       ),
+       'invoice_zipcode' => array(
+         'description'=> t('Zipcode.'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'invoice_city' => array(
+         'description'=> t('Invoice City.'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'invoice_surname' => array(
+         'description'=> t('Invoice Surname.'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+        'invoice_state' => array(
+         'description'=> t('Invoice State.'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'invoice_en_terms_pdf' => array(
+         'description'=> t('Pdfs terms.'),
+         'type' => 'int',
+         'unsigned' => TRUE,
+       ),
+       'invoice_template' => array(
+         'description'=> t('Invoice Template.'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'payment_template' => array(
+         'description'=> t('Invoice Payment Template.'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'invoice_en_fullpayment' => array(
+         'description'=> t('Enable Full Payment.'),
+         'type' => 'int',
+         'default' => 1,
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+       ),
+       'invoice_hide_enter_amount' => array(
+         'description'=> t('Hide Enter Amount box.'),
+         'type' => 'int',
+         'unsigned' => TRUE,
+       ),
+       'invoice_grey_enter_amount' => array(
+         'description'=> t('Gray Enter Amount box.'),
+         'type' => 'int',
+         'unsigned' => TRUE,
+       ),
+       'stp_invoice_filter' => array(
+         'description'=> t('Enable Invoice Filter.'),
+         'type' => 'int',
+         'unsigned' => TRUE,
+       ),
+        'invoice_en_partial_payment' => array(
+         'description'=> t('Enable Partial Payment.'),
+         'type' => 'int',
+         'unsigned' => TRUE,
+       ),
+       'invoice_en_suppress_dates' => array(
+         'description'=> t('Enable dates suppression on plans'),
+         'type' => 'int',
+         'default' => 0,
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+       ),
+        'invoice_en_suppress_amount' => array(
+         'description'=> t('Enable dates suppression on plans'),
+         'type' => 'int',
+         'default' => 0,
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+       ),
+       'invoice_terms_header' => array(
+         'description'=> t('Terms & Conditions Title'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'invoice_terms_prefix_text' => array(
+         'description'=> t('Terms & Conditions Prefix Text'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+        'invoice_terms_page_link' => array(
+         'description'=> t('Terms & Conditions Page Link'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+        'invoice_terms_suffix_text' => array(
+         'description'=> t('Terms & Conditions Suffix Text'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'stp_terms_filter' => array(
+         'description'=> t('Display Terms Filter.'),
+         'type' => 'int',
+         'default' => 0,
+         'unsigned' => TRUE,
+       ),
+    ),
+   'primary key' => array('id'),
+ );
+ $schema['stp_invoice_typeform'] = array(
+  'description' => t('Stores type form details.'),
+   'fields' =>array(     
+      'inv_conf_id' => array(
+         'description'=> t('Stores Typeform config ID.'),
+         'type' => 'int',
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+         'default' => 0,
+       ),
+       'acct_grp' => array(
+         'description'=> t('Users account group id.'),
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'typeform_nid' => array(
+         'description'=> t('Type for node ID.'),
+         'type' => 'int',
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+         'default' => 0,
+       ),
+   ),
+ );
+ $schema['stp_invoice_details'] = array(
+  'description' => t('Stores invoice details.'),
+   'fields' =>array(
+    'id'=> array(
+        'description' => t('The Primary Identifier'),
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'heading' => array(
+         'description'=> '',
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+      'title' => array(
+         'description'=> '',
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'field' => array(
+         'description'=> '',
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+       'class' => array(
+         'description'=> '',
+         'type' => 'varchar',
+         'length' => '255',
+       ),
+      'weight' => array(
+         'description'=> '',
+         'type' => 'int',
+         'small' => 'small',
+         'unsigned' => TRUE,
+       ),
+       'enable' => array(
+         'description'=> '',
+         'type' => 'int',
+         'small' => 'small',
+         'unsigned' => TRUE,        
+       ),
+       'mob_enable' => array(
+         'description'=> '',
+         'type' => 'int',
+         'small' => 'small',
+         'unsigned' => TRUE,        
+       ),
+       'inv_conf_id' => array(
+         'description'=> '',
+         'type' => 'int',
+         'unsigned' => TRUE,        
+       ),
+   ),
+  'primary key' => array('id'),
+ );
+ $schema['stp_invoice_thankyou'] = array(
+    'description' => t('Store invoice thank you messages.'),
+	'fields' =>array(
+     'inv_conf_id' => array(
+       'description'=> t('Invoice configuration ID.'),
+       'type' => 'int',
+       'unsigned' => TRUE,
+     ),
+    'acct_grp' => array(
+      'description'=> t('Type'),
+      'type' => 'varchar',
+      'length' => '255',
+    ),
+    'message' => array(
+      'description'=> t('Message'),
+      'type' => 'varchar',
+      'length' => '500',
+    ),
+  ),
+);
+$schema['tbl_manage_branding_invoice'] = array(
+    'description' => t('Manage branding details.'),
+    'fields' =>array(
+       'id'=> array(
+            'description' => t('The Primary Identifier'),
+            'type' => 'serial',
+            'unsigned' => TRUE,
+            'not null' => TRUE,            
+        ),
+        'site_title_color' => array(
+            'description'=> t('Contains html color code'),
+            'type' => 'varchar',
+            'length' => '255',
+         ),
+        'invoice_list_header_bg_color' => array(
+          'description'=> t('Contains html color code'),
+          'type' => 'varchar',
+          'length' => '255',
+         ),
+        'invoice_page_color' => array(
+          'description'=> t('Contains html color code'),
+          'type' => 'varchar',
+          'length' => '255',
+         ),
+         'invoice_reps_bg' => array(
+          'description'=> t('Contains html color code'),
+          'type' => 'varchar',
+          'length' => '255',
+         ),
+        'invoice_list_text_color' => array(
+          'description'=> t('Contains html color code'),
+          'type' => 'varchar',
+          'length' => '255',
+         ),
+        'buttons_color' => array(
+          'description'=> t('Contains html color code'),
+          'type' => 'varchar',
+          'length' => '255',
+        ),
+        'buttons_border_color' => array(
+          'description'=> t('Contains html color code'),
+          'type' => 'varchar',
+          'length' => '255',
+         ),
+        'dropdown_arrow_color' => array(
+            'description'=> t('Contains html color code'),
+            'type' => 'varchar',
+            'length' => '255',
+         ),
+
+        'buttons_back_hover_color' => array(
+          'description'=> t('Contains html color code'),
+          'type' => 'varchar',
+          'length' => '255',
+        ),
+        'buttons_back_hover_border_color' => array(
+            'description'=> t('Contains html color code'),
+            'type' => 'varchar',
+            'length' => '255'
+        ),
+        'buttons_default_color_gradiant' => array(
+            'description'=> t('Contains html color code'),
+            'type' => 'text',
+            'size' => 'medium'
+        ),
+        'email_button_bg_gradiant' => array(
+            'description'=> t('Contains html color code'),
+            'type' => 'text',
+            'size' => 'medium'
+        ),
+        'email_button_bg_hover' => array(
+            'description'=> t('Contains html color code'),
+            'type' => 'varchar',
+            'length' => '255'
+        ),
+        'email_button_border' => array(
+            'description'=> t('Contains html color code'),
+            'type' => 'varchar',
+            'length' => '255'
+        ),
+
+        'email_button_box_shadow' => array(
+            'description'=> t('Contains html color code'),
+            'type' => 'varchar',
+            'length' => '255'
+        ),
+        'email_buttons_color' => array(
+            'description'=> t('Contains html color code'),
+            'type' => 'varchar',
+            'length' => '255'
+        ),               
+        'timestamp' => array(
+            'description'=> t('Page created or updated Date.'),
+            'type' => 'varchar',
+            'length' => '250',
+        ),
+        'addtional_css_overwrite' => array(
+          'description' => 'Css contents.',
+          'type' => 'text',
+          'size' => 'medium',
+        ),
+        'status' => array(
+            'description'=> t('Active or De-active'),
+            'type' => 'int',
+            'default' => 0,
+            'not null' => TRUE,
+        ),
+        'uid' => array(
+            'description'=> t('User who created or edited the text.'),
+            'type' => 'int',
+            'default' => 0,
+            'not null' => TRUE,
+        ),
+      ),
+      'primary key' => array('id'),
+    );
+  return $schema;		
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function custom_invoice_uninstall() {
+ $file = DRUPAL_ROOT . '/' . drupal_get_path('module', 'custom_invoice') . "/custom_invoice.module";
+    if (is_file($file)) {
+      require_once $file;
+    }
+  custom_invoice_delete_content_type('stp_thankyou_page');//Delete all node and theirs content type.
+  custom_invoice_delete_content_type('email_template');
+}
+
+/**
+ * Implements hook_install().
+ */
+function custom_invoice_install() {
+    $files = file_scan_directory(drupal_get_path('module', 'custom_invoice') . '/bundle', '/.*\.inc$/');
+   // Add view to list of views
+   foreach ($files as $filepath => $file) {
+     require $filepath;
+     if (isset($data)) {
+      custom_invoice_bundle_copy_import($data);
+     }
+   } 
+}

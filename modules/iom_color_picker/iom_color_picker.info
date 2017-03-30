@@ -1,0 +1,8 @@
+name= IOMEDIA Site branding Settings
+description = IOMEDIA custom Module used for Color PICKER.
+version = VERSION
+package = Custom
+dependencies[] = iom_color_library
+core = 7.x
+project = "drupal"
+datestamp = "1352325309"

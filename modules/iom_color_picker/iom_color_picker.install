@@ -1,0 +1,164 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ * Create a table to store color info.
+ */
+function iom_color_picker_schema() {
+ $schema['tbl_manage_branding'] = array(
+    'description' => t('Manage branding details.'),
+    'fields' =>array(
+       'cid'=> array(
+            'description' => t('The Primary Identifier'),
+            'type' => 'serial',
+            'unsigned' => TRUE,
+            'not null' => TRUE,            
+        ),
+        'timestamp' => array(
+            'description'=> t('Page created or updated Date.'),
+            'type' => 'varchar',
+            'length' => '155',
+        ),
+        'css' => array(
+          'description' => 'Css contents.',
+          'type' => 'text',
+          'size' => 'medium',
+        ),
+        'status' => array(
+            'description'=> t('Active or De-active'),
+            'type' => 'int',
+            'default' => 0,
+            'not null' => TRUE,
+        ),
+        'uid' => array(
+            'description'=> t('User who created or edited the text.'),
+            'type' => 'int',
+            'default' => 0,
+            'not null' => TRUE,
+        ),
+      ),
+      'primary key' => array('cid'),
+    );
+   //49 field curr
+    $schema['tbl_manage_branding_mobile'] = array(
+    'description' => t('Manage branding details for mobile.'),
+    'fields' =>array(
+       'mid'=> array(
+            'description' => t('The Primary Identifier'),
+            'type' => 'serial',
+            'unsigned' => TRUE,
+            'not null' => TRUE,
+        ),
+        'en_mob_site' => array(
+            'description'=> t('Active or deactive'),
+            'type' => 'int',
+            'default' => 0,
+            'not null' => TRUE,
+        ),
+        'stp_mob_footer' => array(
+            'description'=> t('Contains site mobile footer text.'),
+            'type' => 'varchar',
+            'length' => '1000'
+        ),
+        'stp_buypage_url' => array(
+            'description'=> t('Mobile by URL.'),
+            'type' => 'varchar',
+            'length' => '155'
+        ),        
+        'account_manager_link' => array(
+            'description'=> t('Account Manager link URL.'),
+            'type' => 'varchar',
+            'length' => '155'
+        ),
+        'mob_domain' => array(
+            'description'=> t(''),
+            'type' => 'varchar',
+            'length' => '155'
+        ),
+        'css' => array(
+          'description' => 'Css contents.',
+          'type' => 'text',
+          'size' => 'medium',
+        ),
+        'timestamp' => array(
+            'description'=> t('Pge created or updated Date.'),
+            'type' => 'varchar',
+            'length' => '155',
+        ),
+        'uid' => array(
+            'description'=> t('User who created or edited this record.'),
+            'type' => 'int',
+            'default' => 0,
+            'not null' => TRUE,
+        ),
+      ),
+      'primary key' => array('mid'),
+    );
+  return $schema;
+}
+
+
+/**
+ * hook_install().
+ * we want to delete some variable set variable.
+ */
+function iom_color_picker_install() {
+    //Mobile settings variable
+    variable_del('stp_client_id');
+    variable_del('stp_client_secret');
+    variable_del('stp_api_passkey');
+    //variable_del('stp_mob_footer');
+    variable_del('brand-color');
+    variable_del('logo-top-position');
+    variable_del('logo-left-position');
+    variable_del('nav-left-position');
+    variable_del('nav-left-position-devices');
+    variable_del('site-color');
+    variable_del('nav-gradient');
+    variable_del('nav-gradient-hover');
+    variable_del('nav-drop-down-bg');
+    variable_del('nav-drop-down-item-hover');
+    variable_del('nav-box-shadow');
+    variable_del('nav-item-hover-shadow');
+    variable_del('nav-drop-down-item-box-shadow');
+    variable_del('brand-bx-shadow');
+    variable_del('default-button-gradient');
+    variable_del('default-button-hover');
+    variable_del('promo-tile-tilehead-bg');
+    variable_del('promo-tile-hover-bg');
+    variable_del('home-game-legend');
+    variable_del('away-game-legend');
+    variable_del('home-game-color');
+    variable_del('away-game-color');
+    variable_del('calendar-default-text-color');
+    variable_del('font-types');
+    variable_del('stp_calendar_mob_bg');
+    variable_del('stp_buypage_url');
+    //variable_del('stp_footer_logo');
+}
+
+/**
+ * hook_uninstall().
+ * we want to delete some variable set variable.
+ */
+function iom_color_picker_uninstall() {
+    //Mobile settings variable
+    variable_del('stp_buypage_url');
+    variable_del('stp_mob_footer');
+    variable_del('account_manager_link');
+    variable_del('en_mob_site');
+    variable_del('mob_domain');
+    variable_del('en_theater_calendar');    
+    $path_to_public_file = variable_get('file_public_path', conf_path() . '/files');
+    $css_file_auto = $path_to_public_file . '/theme-css.css';
+    $mobile_css_file_auto = $path_to_public_file."/mobile-theme.css";
+     
+     if (file_exists($mobile_css_file_auto)){
+      //do nothing.
+        unlink($mobile_css_file_auto);
+     }
+     if (file_exists($css_file_auto)){
+      //do nothing.
+        unlink($css_file_auto);
+     }
+}

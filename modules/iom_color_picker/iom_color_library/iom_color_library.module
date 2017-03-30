@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * @file
+ * Helper module for color picker
+ * Developed by IOmedia
+ */
+
+function iom_color_picker_add_reqired_js(){  
+  $path = drupal_get_path('module', 'iom_color_library');
+  $color_path = $path ."/color";
+  $js_options = array('cache'=> FALSE, 'preprocess'=> FALSE, 'requires_jquery'=> FALSE);
+  drupal_add_css($color_path."/css/bootstrap.min.css", array('cache'=> FALSE, 'preprocess'=> FALSE));
+  drupal_add_css($color_path."/dist/css/bootstrap-colorpicker.min.css", array('cache'=> FALSE, 'preprocess'=> FALSE));
+  drupal_add_js($color_path."/js/bootstrap.min.js", $js_options);
+  drupal_add_js($color_path."/dist/js/bootstrap-colorpicker.js", $js_options);
+  drupal_add_js($path."/js/colorjs.js", $js_options);
+}
+ 
+/**
+ * theme form textfields.
+ * Clone copy of theme_textfield().
+ * This hook is required to display the color picker inside the textbox.
+ */
+function sports_admin_textfield($variables) {
+  $element = $variables['element'];
+  $element['#attributes']['type'] = 'text';
+  element_set_attributes($element, array('id', 'name', 'value', 'size', 'maxlength'));
+  _form_set_class($element, array('form-text'));
+
+  $extra = '';
+  if ($element['#autocomplete_path'] && !empty($element['#autocomplete_input'])) {
+    drupal_add_library('system', 'drupal.autocomplete');
+    $element['#attributes']['class'][] = 'form-autocomplete';
+    $attributes = array();
+    $attributes['type'] = 'hidden';
+    $attributes['id'] = $element['#autocomplete_input']['#id'];
+    $attributes['value'] = $element['#autocomplete_input']['#url_value'];
+    $attributes['disabled'] = 'disabled';
+    $attributes['class'][] = 'autocomplete';
+    $extra = '<input' . drupal_attributes($attributes) . ' />';
+  }
+  $output = '<input' . drupal_attributes($element['#attributes']) . ' />';  
+  //Custom code for Desktop,Invoice and Mobile
+  $path = current_path();
+  $paths = array(
+    'admin/manage/site-branding',
+    'admin/manage/site-branding/mobile', 
+    'admin/manage/site-branding/desktop', 
+    'admin/manage/settings/invoice/manage-branding'
+    );
+  if (in_array($path, $paths) && ($element['#name'] == $element['#attributes']['id'])) {
+    $div_id = 'colorpicker_'.$element['#attributes']['id'];
+    $output = '<div class="input-group colorpicker-component" id="'.$div_id.'">';
+    $output .= '<input' . drupal_attributes($element['#attributes']) . ' />';
+    $output .= '<span class="input-group-addon"><i></i></span>';    
+    $output .= '</div>';
+  }  
+  return $output . $extra;
+}
+
+function iom_color_picker_get_files_path(){
+  return variable_get('file_public_path', conf_path() . '/files');
+}
