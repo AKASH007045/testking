@@ -1,0 +1,9 @@
+name= IOMEDIA Ticketmaster API
+description = IOMEDIA Custom module for ticketmaster apis
+version = VERSION
+package = Custom
+core = 7.x
+project = "drupal"
+stamp = "1352325357"
+
+configure = admin/ticketmaster/api_settings

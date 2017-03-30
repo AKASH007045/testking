@@ -1,0 +1,8 @@
+name= IOMEDIA Ticketmaster API Calls
+description = IOMEDIA custom module for ticketmaster APIs Helper
+version = VERSION
+package = Custom
+core = 7.x
+project = "drupal"
+stamp = "1352325357"
+dependencies[] = ticketmaster_api
