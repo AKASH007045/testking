@@ -91,7 +91,7 @@ if (isset($typeform['type']) && $typeform['type'] == 'invoice') {
   $destination = 'invoice/'. arg(1) .'/payment/'. arg(3);
 }
 else {
-  $lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
+	$lang = isset($node->language) ? $node->language : LANGUAGE_DEFAULT;
   $destination = isset($node->field_typeform_success_url[$lang][0]['value']) ? $node->field_typeform_success_url[$lang][0]['value'] : 'home';
 }
 ?>
@@ -116,12 +116,14 @@ else {
 }
 </style>
 <script type="text/javascript">
+  var promise;
   jQuery(window).on('message', function(ev) {
   if(ev.originalEvent.data === 'form-submit') {
 	jQuery('<div class="loadingBar"><img src="/sites/default/files/loader_big.gif" /></div>').prependTo('body');  
-    window.location="<?php print $url; ?>?destination=<?php print $destination; ?>";
+		window.location="<?php print $url; ?>?destination=<?php print $destination; ?>";   
   }
-});
+ });
+ 
 </script>
 <?php print render($content['body']);?>
 <?php if (isset($typeform['url']) && $typeform['url']) { ?>
