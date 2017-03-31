@@ -19,3 +19,5 @@
 .css3 .selectyzeValue:after{background: none;}
 .form-type-select .css3{z-index:99 !important;}
 .form-item-ctype .css3{z-index:0 !important;}
+
+.page-invoice-typeform .main-wrap .region-content .node{padding: 0px;background:none;min-height: inherit;margin: 0;}
