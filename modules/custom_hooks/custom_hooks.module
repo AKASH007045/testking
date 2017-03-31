@@ -37,6 +37,11 @@ function custom_hooks_query_weight_alter(QueryAlterableInterface $query) {
   $query->orderBy('w.weight', 'ASC');
 }
 
+
+
+
+
+
 /*
  * Implementation of hook_form-alter to alter web form
  */
@@ -551,14 +556,14 @@ function custom_hooks_theme($existing, $type, $theme, $path) {
   );
 }
 
+
 /**
  * Function which will return full name of user
  */
 function get_user_full_name($user) {
   if ($user->uid) {
-   $user_data = get_user_info($user->name);
-   //$user_info = (isset($user_data->customer) && $user_data->customer) ? (object)$user_data->customer : ''; 
-   $user_info = (isset($user_data) && $user_data) ? (object)$user_data : ''; 
+    $user_data = get_user_info($user->name);
+    $user_info = (isset($user_data->customer) && $user_data->customer) ? (object)$user_data->customer : '';
     if (isset($user_info->acct_id) && $user_info->acct_id) {
       if ($user_info->name_first) {
         $name = $user_info->name_first . ' ' . $user_info->name_last ;
@@ -574,7 +579,8 @@ function get_user_full_name($user) {
       }
       elseif (isset($user_info->name2_company) && $user_info->name2_company) {
         $name = $user_info->name2_company ;
-      }  
+      }
+//        $name = '<span class="user-name">' . $name . '</span>';
       return $name;
     }
     return $user->name;
