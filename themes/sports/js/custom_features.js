@@ -25,6 +25,7 @@ jQuery(document).ready(function(){
 		var check_existing_card	=	(invoice_pay_text == '- Select -' || invoice_pay_text == 'Add New Card') ? 0 : 1;
 		if(!check_existing_card){
 			jQuery('input#edit-cc-num').removeClass('required');
+			jQuery('.form-item-cc-num').removeClass('has-error');
 		}
 	});
 	
