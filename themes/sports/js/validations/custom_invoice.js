@@ -77,10 +77,10 @@ jQuery(document).ready(function() {
       },
       cc_num: {
         validators: {
-          creditCard: {
+          /*creditCard: {
             message: '&nbsp'
           },
-          /*notEmpty: {
+          notEmpty: {
             message: '&nbsp'
           },*/
         }

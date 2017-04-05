@@ -38,10 +38,10 @@ jQuery(document).ready(function() {
           validators: {
            /*notEmpty: {
               message: '&nbsp;'
-            },*/
+            },
             creditCard: {
               message: '&nbsp;'
-            }
+            }*/
           }
         },
       ctype: {
