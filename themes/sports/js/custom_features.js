@@ -19,4 +19,13 @@ jQuery(document).ready(function(){
 		}
 	}
 	
+	
+	var invoice_payment	=	jQuery('.page-invoice .form-item-choose-card select#edit-choose-card').on('change', function(){
+		var invoice_pay_text	=	jQuery('.page-invoice .form-item-choose-card .css3 a.selectyzeValue').text();
+		var check_existing_card	=	(invoice_pay_text == '- Select -' || invoice_pay_text == 'Add New Card') ? 0 : 1;
+		if(!check_existing_card){
+			jQuery('input#edit-cc-num').removeClass('required');
+		}
+	});
+	
 });

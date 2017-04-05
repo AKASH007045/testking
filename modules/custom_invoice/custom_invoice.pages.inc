@@ -448,7 +448,7 @@ function custom_invoice_payment_request($form, $form_state, $invoice_id, $stp_in
   $form['cc_num'] = array(
     '#type' => 'textfield',
     '#title' => t('Card Number'),
-    '#required' => TRUE,
+    //'#required' => TRUE,
     '#maxlength' => 16,
     //'#element_validate' => array('element_validate_integer_positive'), 
     '#attributes' => array('tabindex' => '7')
@@ -968,6 +968,7 @@ function filter_payment_plans($acct_id, $invoice_id, $plans) {
   ) {
     module_load_include('inc', 'tm_api', 'tm_api.helper');
     $pay_plans = tmapi_get_payment_plans_for_invoice($acct_id, $invoice_id);
+    //print_r($pay_plans);die();
     $payment_plans = explode(',', $pay_plans);
     //add default plan for full payment
     //comment the line below if you want to exclude
