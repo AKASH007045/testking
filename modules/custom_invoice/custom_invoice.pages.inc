@@ -447,7 +447,7 @@ function custom_invoice_payment_request($form, $form_state, $invoice_id, $stp_in
   );
   $form['cc_num'] = array(
     '#type' => 'textfield',
-    '#title' => t('Card Number'),
+    '#title' => t('Card Number *'),
     //'#required' => TRUE,
     '#maxlength' => 16,
     //'#element_validate' => array('element_validate_integer_positive'), 
