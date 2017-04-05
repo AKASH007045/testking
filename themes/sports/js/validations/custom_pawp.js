@@ -36,9 +36,9 @@ jQuery(document).ready(function() {
       fields: {
         cc_num: {
           validators: {
-            notEmpty: {
+           /*notEmpty: {
               message: '&nbsp;'
-            },
+            },*/
             creditCard: {
               message: '&nbsp;'
             }

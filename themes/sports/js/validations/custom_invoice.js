@@ -80,9 +80,9 @@ jQuery(document).ready(function() {
           creditCard: {
             message: '&nbsp'
           },
-          notEmpty: {
+          /*notEmpty: {
             message: '&nbsp'
-          },
+          },*/
         }
       },
       exp_date: {
