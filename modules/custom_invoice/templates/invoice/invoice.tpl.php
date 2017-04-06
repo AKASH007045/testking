@@ -11,12 +11,10 @@
         <?php print $credits_label;?>
       </div>
       <div class="contactInfoRight col-xs-5 text-right">  
-        <div class="row">
 	  <?php echo $total;?>
 	  <?php print $parking_fee; ?>
 	  <?php print $handling_fee;?>
 	  <?php echo $paid;?>
-        </div>
       </div>
     </section>
     <section class="clearfix amountduettl">
@@ -25,7 +23,7 @@
         <div class="deadlineTxt"><?php print $invoice_detail_desc;?></div>
       </div>  
       <div class="amountInfoRight col-xs-5 text-right">
-        <div class="row"><h2><?php echo $due_amount;?></h2></div>
+        <h2><?php echo $due_amount;?></h2>
       </div>
       <div class="pull-right">
         <a data-title="Click To Pay" href="<?php print $pay_btn;?>" class="btn btn-default btn-pay btn-light">Pay <i class="fa fa-chevron-right"></i></a> 
