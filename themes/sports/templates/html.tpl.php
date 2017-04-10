@@ -66,6 +66,7 @@
   
 </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
+<script id="_nbaScoutAnalytics" src="https://z.cdn.turner.com/nba/tmpl_asset/static/nba-cms3-base/latest/js/pkgAnalyticsScout-min.js"></script>
   <div id="skip-link">
     <a href="#main-content" class="element-invisible element-focusable"><?php print t('Skip to main content'); ?></a>
   </div>
@@ -74,7 +75,7 @@
   <?php print $page_bottom; ?>
   <!-- Latest compiled and minified JavaScript -->
 	  <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
-  <script id="_nbaScoutAnalytics" src="http://z.cdn.turner.com/nba/tmpl_asset/static/nba-cms3-base/latest/js/pkgAnalyticsScout-min.js"></script>
+  
 
   <script>
   ;(function _nbaSetAnalyticsOverrides(a) {
