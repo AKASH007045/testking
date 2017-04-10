@@ -74,5 +74,18 @@
   <?php print $page_bottom; ?>
   <!-- Latest compiled and minified JavaScript -->
 	  <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
+  <script id="_nbaScoutAnalytics" src="http://z.cdn.turner.com/nba/tmpl_asset/static/nba-cms3-base/latest/js/pkgAnalyticsScout-min.js"></script>
+
+  <script>
+  ;(function _nbaSetAnalyticsOverrides(a) {
+    if (a) {
+      /* NOTE: Set all analytics overrides below this line. */
+      a.setOverride("league","nba");
+      a.setOverride("team","sac_kings");
+      a.setGlobal("experience","responsive");
+    }
+  }((window._nba?window._nba.analytics:undefined)));
+  </script>
+
 </body>
 </html>
