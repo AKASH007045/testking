@@ -512,17 +512,36 @@ function custom_admin_login_authenticate_validate($form, &$form_state) {
   $acct_id = trim($form_state['values']['name']);
   if (!empty($form_state['values']['name']) && !empty($password)) {
     // validate user by name, status and is_tickectmaster_user.
-      $response = array();
-       $response['response_ok'] = 0;
-      $data = _tmapi_customer_query($acct_id, $password, 0);
-      
-      // $cmd = variable_get('tm_cmd', 'customer_query');
-      // customer query
-      //$param = tm_api_get_command_param($cmd, $acct_id);
-      //$param['command1']['pin'] = $password;
-     // $json = drupal_json_encode($param);
-//      $response = tm_api_call($json, 'ticketing_services.aspx');
-//      $data = drupal_json_decode($response['response']);
+    $uid = custom_admin_tm_authenticate($acct_id, $password);
+    if ($uid) {
+      $form_state['uid'] = $uid;
+    }
+    else {
+      user_login_authenticate_validate($form, $form_state);
+    }
+  }
+  
+  
+}
+
+/**
+ * A validate handler on the login form. Check supplied username/password
+ * against local users table. If successful, $form_state['uid']
+ * is set to the matching user ID.
+ */
+function custom_admin_tm_authenticate($acct_id, $password, $sso = FALSE) {
+  module_load_include('inc', 'tm_api', 'tm_api.helper');
+  $uid = 0;
+  if (variable_get('en_customer_query', 0) || (variable_get('amgr_sso_active', 0) &&  $sso)) {
+    $data = _tmapi_customer_query_without_password($acct_id, $password);
+  }
+  else {
+    $data = _tmapi_customer_query($acct_id, $password);
+  }
+        //$response = array();
+       //$response['response_ok'] = 0;
+      //$data = _tmapi_customer_query($acct_id, $password, 0);
+     
       
       if (!isset($data['error_detail']) && isset($data['result']) && $data['result'] == 0) {
           $response['response_ok'] = 1;
@@ -547,6 +566,11 @@ function custom_admin_login_authenticate_validate($form, &$form_state) {
             $_SESSION['plan_name11'][] = $plans['plan_name'];
           }
           if (!isset($data['error_detail']) && isset($data['result']) && $data['result'] == 0) {
+            // Uncomment the below code incase we need to allow a user to SSO from STP to AMGR
+            if (function_exists('amgr_sso_user_oauth_authentication') && variable_get('amgr_sso_active', 0)) {
+              $email = $data['customer']['email'];
+              $amgr_auth = amgr_sso_user_oauth_authentication($email, $password);
+            }
             $account = tmapi_data_account_update($acct_id, $data);
             $form_state['uid'] = $uid = $account->uid;
             $fail = 0;
@@ -613,9 +637,9 @@ function custom_admin_login_authenticate_validate($form, &$form_state) {
               $get_seats_hold_reserved = _get_seats_on_account_reserved($acct_id);
             }
            
-            if ($get_seats_hold) {
-              watchdog('TicketMaster', 'get_seats_on_account API Call Success for %name.', array('%name' => $acct_id));
-            }
+            // if ($get_seats_hold) {
+            //   watchdog('TicketMaster', 'get_seats_on_account API Call Success for %name.', array('%name' => $acct_id));
+            // }
            // $invoice = tmapi_get_sth_invoice($acct_id);
            // $seats = _tmapi_get_seats_on_account($acct_id);
           }
@@ -633,7 +657,7 @@ function custom_admin_login_authenticate_validate($form, &$form_state) {
     if (!$uid) {
       user_login_authenticate_validate($form, $form_state);
     }
-  }
+  return $uid;
 }
 
 

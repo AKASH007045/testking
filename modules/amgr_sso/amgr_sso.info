@@ -1,0 +1,11 @@
+name = Account Manager Single Signon
+description = Single signon addon for the account manager.
+core = 7.x
+package = SSO
+
+; Information added by drupal.org packaging script on 2017-07-01
+version = "7.x-2.2"
+core = "7.x"
+project = "amgr_sso"
+datestamp = "1373667969"
+

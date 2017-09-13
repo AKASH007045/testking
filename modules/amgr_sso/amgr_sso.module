@@ -1,0 +1,169 @@
+<?php
+
+/**
+ * @file
+ * Handle single sign-on functionality for the account manager
+ *
+ * This module allows you to add a link from your site to another site
+ * connected via oAuth and allow them to seamlessly login to the
+ * other site at the same time.
+ *
+ * It does not yet do single signon in the traditional sense (and probably
+ * never will) as logging in on one site does not actually log the user in to
+ * any of the other sites. For that they need to click on a special link.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function amgr_sso_menu() {
+  $items = array();
+  $items['sso'] = array(
+    'title' => 'Single Sign On',
+    'page callback' => 'amgr_sso_user_authenticate',
+    'access callback' => TRUE,
+    'file' => 'amgr_sso.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['classic-amgr'] = array(
+    'title' => 'Go to Account Manager',
+    'page callback' => 'amgr_sso_classic_account_manager',
+    'access arguments' => array('STH User'),
+    'file' => 'amgr_sso.pages.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['amgr'] = array(
+    'title' => 'Go to Account Manager',
+    'page callback' => 'amgr_sso_new_account_manager',
+    'access arguments' => array('STH User'),
+    'file' => 'amgr_sso.pages.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['admin/manage/amgr/sso'] = array(
+    'title' => 'AMGR API Configurations',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('amgr_sso_configs'),
+    'access arguments' => array('administer amgr sso'),
+    'file' => 'amgr_sso.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function amgr_sso_permission() {
+  return array(
+    'administer amgr sso' => array(
+      'title' => t('administer amgr sso'),
+      'description' => t('Administer amgr settings'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_user_logout
+ * @param $account integer Account ID of the user
+ */
+function amgr_sso_user_logout($account) {
+  if (variable_get('amgr_sso_active', 0) && variable_get('amgr_sso_logout', 0)) {
+    $token = $_SESSION['access_token'];
+    $amgr_url = variable_get('amgr_site_url', 'https://am.ticketmaster.com/');
+    $xclient = variable_get('amgr_x_client', '');
+    file_get_contents($amgr_url . '/amgr-secure-logout/' . $_SESSION['access_token'] .'?_format=json');
+    unset($_SESSION['access_token']);
+  }
+  unset($_SESSION['access_token']);
+}
+/**
+  * API function to authenticate using for oAuth Service
+ */
+function amgr_sso_user_oauth_authentication($email = NULL, $password = NULL) {
+  module_load_include('inc', 'amgr_sso', 'amgr_sso.api');
+  $authData = getAmgrAccessToken($email, $password);
+  if ($authData->code == 200) {
+    $apiResponse = json_decode($authData->data);
+    $_SESSION['access_token'] = $apiResponse->access_token;
+    $_SESSION['refresh_token'] = $apiResponse->refresh_token;
+    $_SESSION['access_token_expiry'] = time() + $apiResponse->expires_in;
+    watchdog('AMGR oAuth', 'oAuth: Successfully authorised for %email.', array('%email' => $email));
+  }
+  else {
+    watchdog('AMGR oAuth', 'oAuth: Unable to authorise for %email.', array('%email' => $email));
+  }
+}
+
+
+/**
+  * Auth Token service
+  */
+function amgr_sso_services_resources() {
+  return array(
+    'sso' => array(
+      'create' => array(
+        'help' => 'authtoken',
+        'callback' => 'amgr_sso_resource_login',
+        'access callback' => '_amgr_sso_access',
+        'file' => array('type' => 'inc', 'module' => 'amgr_sso', 'name' => 'amgr_sso.resource'),
+        'access arguments' => array('create'), 
+        'access arguments append' => TRUE,
+        'args' => array(
+          array(
+            'name' => 'accessToken',
+            'type' => 'string',
+            'description' => 'A valid accessToken',
+            'source' => array('data' => 'accessToken'),
+            'optional' => FALSE,
+          ),
+        ),
+      ),
+    ),
+    'generate-sso-url' => array(
+      'create' => array(
+        'help' => 'authtoken',
+        'callback' => 'amgr_sso_resource_generate_link',
+        'access callback' => '_amgr_sso_access',
+        'file' => array('type' => 'inc', 'module' => 'amgr_sso', 'name' => 'amgr_sso.resource'),
+        'access arguments' => array('create'), 
+        'access arguments append' => TRUE,
+        'args' => array(
+          array(
+            'name' => 'url',
+            'type' => 'string',
+            'description' => 'A valid accessToken',
+            'source' => array('data' => 'url'),
+            'optional' => FALSE,
+          ),
+        ),
+      ),
+    ),
+    'stp-secure-logout' => array(
+      'retrieve' => array(
+        'help' => 'authtoken',
+        'callback' => 'amgr_sso_resource_autologout',
+        'access callback' => '_amgr_sso_access',
+        'file' => array('type' => 'inc', 'module' => 'amgr_sso', 'name' => 'amgr_sso.resource'),
+        'access arguments append' => TRUE,
+        'args' => array(
+          array(
+            'name' => 'accessToken',
+            'type' => 'string',
+            'description' => 'A valid accessToken',
+            'source' => array('path' => 0),
+            'optional' => FALSE,
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+
+/**
+  * Access callback for mobile SSO Service
+  * @return TRUE
+  */
+function _amgr_sso_access($op = 'view', $args = array()) {
+  return TRUE;
+}
