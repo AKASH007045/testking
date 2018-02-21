@@ -459,6 +459,7 @@ function tmapi_data_account_update($acct_id = NULL, $data = NULL) {
        {
         $roles[NOT_R_19] = TRUE;
        }
+     $data_customer = isset($data['customer']) ? $data['customer'] : '';
      $users = db_select('users', 'u')
     ->fields('u', array('uid'))
     ->condition('u.name', $acct_id, '=')
@@ -471,9 +472,9 @@ function tmapi_data_account_update($acct_id = NULL, $data = NULL) {
     $account = user_load($users->uid);
      $account->roles = $roles;
     user_save($account);
-    if (isset($account->mail) && isset($data['email']) && $account->mail != $data['email'])
+    if (isset($account->mail) && isset($data_customer['email']) && $account->mail != $data_customer['email'])
     $edit = array();
-    $edit['mail'] = isset($data['email']) ? $data['email'] : $account->mail;
+    $edit['mail'] = isset($data_customer['email']) ? $data_customer['email'] : $account->mail;
     user_save($account, $edit);
     watchdog('tm_api', 'User updated with account id: %name and email: %email', array('%name' => $account->name, '%email' => $account->mail), WATCHDOG_INFO);
   }
@@ -483,9 +484,9 @@ function tmapi_data_account_update($acct_id = NULL, $data = NULL) {
     $pass = user_password();
     $new_user = array (
       'name' => $acct_id,
-      'mail' => $data['email'],
+      'mail' => $data_customer['email'],
       'pass' => $pass,
-      'init' => $data['email'],
+      'init' => $data_customer['email'],
       'status' => 1,
       'access' => REQUEST_TIME,
       'roles' => $roles,
