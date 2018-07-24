@@ -66,6 +66,7 @@ function custom_hooks_form_alter(&$form, &$form_state, $form_id) {
     $form['actions']['submit']['#value'] = 'Sign In';
     $form['name']['#attributes']['placeholder'] = t( 'Account ID' );
     $form['pass']['#attributes']['placeholder'] = t( 'Password' );
+    $form['pass']['#attributes']['autocomplete'] = 'off';
     drupal_set_title('Everything you need to know, one place.');
   }
   if(isset($form['#node']) && $form['#node']->type == "promo_tile" && $form['actions']['submit']['#value'] == 'Save') {
