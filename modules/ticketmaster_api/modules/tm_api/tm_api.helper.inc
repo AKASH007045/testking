@@ -357,7 +357,7 @@ function _tmapi_get_invoice_id($acct_id = NULL) {
   return 0;
 }
 
-function _tmapi_payment_request($data) {
+function _tmapi_payment_request_old($data) {
   global $user;
   $acct_id = isset($data['tmuser_info']['acct_id']) ? $data['tmuser_info']['acct_id'] : $user->name;
   $invoice_id = isset($data['tmuser_info']['invoice_id']) ? $data['tmuser_info']['invoice_id'] : '';
@@ -437,6 +437,126 @@ function _tmapi_payment_request($data) {
     return $response;
   }
   return 0;
+}
+
+/**
+ * Updated PCI code for payment request
+ */
+function _tmapi_payment_request($data) {
+  global $user;
+  $acct_id = isset($data['tmuser_info']['acct_id']) ? $data['tmuser_info']['acct_id'] : $user->name;
+  $invoice_id = isset($data['tmuser_info']['invoice_id']) ? $data['tmuser_info']['invoice_id'] : '';
+  $order_id = isset($data['tmuser_info']['order_num']) ? $data['tmuser_info']['order_num'] : '';
+
+  $param = tm_api_get_command_param('payment_request', $acct_id);
+  if ($invoice_id) {
+    $param['command1']['invoice_id'] = $invoice_id;
+    $param['command1']['calling_reason'] = 'P';
+    $param['command1']['cart_items']['order_line_item'] = 1;
+  }
+  elseif ($order_id) {
+    $param['command1']['order_num'] = $order_id;
+    $order_line_item = isset($data['tmuser_info']['order_line_item']) ? $data['tmuser_info']['order_line_item'] : 1;
+    $param['command1']['calling_reason'] = 'B';
+    $param['command1']['cart_items'] = $data['tmuser_info']['order_line_item'];
+    if (variable_get('enable_service_charge', '') != '') {
+      $param['command1']['service_charges'] = $data['tmuser_info']['service_charges'];
+    }
+  }
+
+  //if "default" payment plan id is selected then
+  //payment plan id will not be added in the TM request
+  if (isset($data['payment_plan_id']) && $data['payment_plan_id'] != 'default') {
+    $param['command1']['payment_plan_id'] = $data['payment_plan_id'];
+  }
+  // We will add the service_charges in case we receive them in user data and payment plan is full
+  /* elseif (isset($data['tmuser_info']['service_charges']) && $data['tmuser_info']['service_charges'] && $data['payment_plan_id'] == 'default') {
+    $param['command1']['service_charges'] = $data['tmuser_info']['service_charges'];
+  }*/
+
+  $customer_info = get_user_info($acct_id);
+  $customer = $customer_info->customer;
+  $customer['name_first'] = (isset($customer['name_first']) && $customer['name_first']) ? $customer['name_first'] : '';
+  $customer['name_last'] = (isset($customer['name_last']) && $customer['name_last']) ? $customer['name_last'] : '';
+  $customer['zip'] = (isset($customer['zip']) && $customer['zip']) ? $customer['zip'] : '';
+  $customer['address'] = (isset($customer['street_addr_1']) && $customer['street_addr_1']) ? $customer['street_addr_1'] : '';
+  //$param['command1']['calling_reason'] = 'P';
+  $param['command1']['mop'][0]['auth_mode'] = 'O';
+  $param['command1']['mop'][0]['amount'] = $data['amount'];
+  $param['command1']['mop'][0]['pmt_type'] = $data['ctype'];
+
+
+  if (isset($data['cc_num']) && is_numeric($data['cc_num'])) {
+    $encryption = encrypt_cc($data['cc_num']); //Encrypt credit card number
+    $masked_cc = mask_credit_card($data['cc_num']);
+  }
+//  $param['command1']['mop'][0]['credit_card']['cc_num'] = $data['cc_num'];
+  $param['command1']['mop'][0]['credit_card']['cc_num_mask'] = $masked_cc['cc_num_mask'];
+  $param['command1']['mop'][0]['credit_card']['cc_num_encrypted'] = $encryption['ccNumberEncrypted64'];
+  $param['command1']['mop'][0]['credit_card']['cc_num_hash'] = $encryption['cc_num_hash'];
+  $param['command1']['mop'][0]['credit_card']['certificate_name'] = basename($encryption['certificate_name']);
+
+
+  $param['command1']['mop'][0]['credit_card']['cin'] = $data['cin'];
+  $param['command1']['mop'][0]['credit_card']['exp_date'] = $data['exp_date'];
+  $param['command1']['mop'][0]['credit_card']['first_name'] = (isset($data['name_first']) && $data['name_first']) ? $data['name_first'] : $customer['name_first'];
+  $param['command1']['mop'][0]['credit_card']['last_name'] = (isset($data['name_last']) && $data['name_last']) ? $data['name_last'] :  $customer['name_last'];
+  $param['command1']['mop'][0]['credit_card']['Avs_address'] = (isset($data['address']) && $data['address']) ? $data['address']  : $customer['address'];
+  $param['command1']['mop'][0]['credit_card']['Avs_postal_code'] = (isset($data['zip']) && $data['zip']) ? $data['zip'] : $customer['zip'];
+
+  //params for stored credit card.
+  if (isset($data['choose_card']) && $data['choose_card'] != 'new_card') {
+    $stored_cc = _tmapi_cc_query();
+    $credit_card = $stored_cc['command1']['credit_card'];
+     if ($credit_card) {
+        $stored_cards = array();
+        foreach ($credit_card as $key => $card) {
+           if ($data['choose_card'].$data['ctype'] == $key . '_' . $card['data_mask'] . $card['cc_type']) {
+             $stored_cards = $card;
+             break;
+           }
+        }
+        if ($stored_cards) {
+          $param['command1']['mop'][0]['credit_card']['cc_num_mask'] = $stored_cards['data_mask'] ? $stored_cards['data_mask'] : '';
+          $param['command1']['mop'][0]['credit_card']['cc_num_encrypted'] = $stored_cards['encrypt_value'] ? $stored_cards['encrypt_value'] : '';
+          $param['command1']['mop'][0]['credit_card']['cc_num_hash'] = $stored_cards['hash_value'] ? $stored_cards['hash_value'] : '';
+          $param['command1']['mop'][0]['credit_card']['certificate_name'] = $stored_cards['cert_name'] ? $stored_cards['cert_name'] : '';
+        }
+        
+     }
+  }
+  $json = drupal_json_encode($param);
+  //$json = _tmapi_unicode2html($json); //parse the unicode to special char
+  $json = str_replace('&#x0027;', "'", html_entity_decode(_tmapi_unicode2html($json))); //parse the unicode to special char
+  $response = array();
+  $response = tm_api_call($json, 'ticketing_services.aspx');
+  //check for sth status and vali with response.
+  $result = 0;
+  if (isset($response['response_ok']) && $response['response_ok']) {
+    return $response;
+  }
+  return 0;
+}
+
+/**
+ * Get Encrypted Credit card number.
+ */
+function encrypt_cc($credit_card_number) {
+  module_load_include('php', 'tm_api', 'pts');
+  $certificate_name = '/IOM-STP/Certificate/paysys.0.us2048.6';
+  //$certificate_name = '/stp/core/encrypt_cc/cert/paysys.0.us2048.6';
+  $encrypt = pts::encrypt_credit_card_number($credit_card_number, $certificate_name);
+  return $encrypt;
+}
+
+/**
+ * Function to mask credit card number.
+ */
+function mask_credit_card($credit_card_number, $masking_character = 'X') {
+  $arr = array();
+  $arr['cc_bin_num'] = substr($credit_card_number, 0, 6);
+  $arr['cc_num_mask'] = $masking_character . substr($credit_card_number, -4);
+  return $arr;
 }
 
 /**

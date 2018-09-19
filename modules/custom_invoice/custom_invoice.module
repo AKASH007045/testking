@@ -302,6 +302,7 @@ function invoice_user_info_block($type = 1) {
   module_load_include('inc', 'custom_block', 'custom_block.block');
   global $user;
   $acct_id = $user->name;
+  cache_clear_all('user_info-' . $acct_id, 'cache_custom', $wildcard = FALSE);
   $cnt = 0;
   if (isset($acct_id)) {
     $name = get_user_full_name($user);

@@ -1,4 +1,5 @@
 <?php
+use Mpdf\Mpdf;
 /**
  * @file
  */
@@ -167,6 +168,25 @@ function custom_invoice_print($invoice_id, $stp_inv_id) {
   $footer = $data['footer'];
   $output = theme('invoice_page', array('output' => $data['output']));
   // Checking mPDF library existence.
+  require_once drupal_get_path('module','pdf_using_mpdf'). '/MPDF7/vendor/autoload.php';
+  //
+// Checking mPDF library existence.
+  // if (pdf_using_mpdf_library_exist() == TRUE) {
+  //   //user variable_get for sitename
+  //   $conf['pdf_using_mpdf_pdf_save_option'] = 0;
+  //   $filename = str_replace(' ', '-', $site_name) . "-Invoice_" . str_replace(' ', '-', $name);
+  //   // print "<pre>"; print_r($filename); die("test");
+  //   $pdf = _pdf_using_mpdf_generator($output, $filename, 'F', $name, $watermarkImage, $header, $footer);
+  //   if ($pdf) {
+  //     $file = file_directory_temp() . '/' . $filename . ".pdf";
+  //     // print "<pre>"; print_r($file); die("test");
+  //     return $base_url . '/' . $file;
+  //   }
+  // }
+
+  
+  //
+  // new \Mpdf\Mpdf();
   if (pdf_using_mpdf_library_exist() == TRUE) {
     $filename = str_replace(' ', '-', $site_name) . "-Invoice_" . str_replace(' ', '-', $name);
     $conf['pdf_using_mpdf_pdf_save_option'] = 0;
@@ -346,6 +366,7 @@ function custom_invoice_payment_request($form, $form_state, $invoice_id, $stp_in
       $user_name = get_user_full_name($user);
       $get_amount_info = custom_invoice_InvoiceList($acct_id, $invoice_id);
       //$get_amount_info =  $invoice_list[$invoice_id];
+      cache_clear_all('user_info-' . $acct_id, 'cache_custom', $wildcard = FALSE);
       $cust_info = get_user_info($acct_id);
       if (isset($get_amount_info['invoice_long_descriptions']) && $get_amount_info['invoice_long_descriptions']) {
         drupal_set_title($get_amount_info['invoice_long_descriptions']);
@@ -616,7 +637,7 @@ function custom_invoice_payment_request($form, $form_state, $invoice_id, $stp_in
  * Validate function for payment request form
  *
  */
-function custom_invoice_payment_request_validate(&$form, &$form_state, $invoice_id, $stp_inv_id) {
+function custom_invoice_payment_request_validate(&$form, &$form_state) {
   $ctype = array('VI' => 4, 'MC' => 5, 'AE' => 3, 'DI' => 6);
   $clength = array('VI' => 16, 'MC' => 16, 'AE' => 15, 'DI' => 16);
   $clength_stored = array('VI' => 5, 'MC' => 5, 'AE' => 5, 'DI' => 5);
@@ -646,7 +667,7 @@ function custom_invoice_payment_request_validate(&$form, &$form_state, $invoice_
   //validate stored cc
   else if ($data['choose_card'] && $data['choose_card'] != 'new_card' && isset($data['cc_num']) && $data['cc_num']) {
     if ((strlen($data['cc_num']) != $clength_stored[$type]) || is_float($clength_stored['cc_num'])) {
-      form_set_error('cc_num', 'Invalid Card Number test');
+      form_set_error('cc_num', 'Invalid Card Number');
     }    
   }
   //  CIN number validation
@@ -859,11 +880,11 @@ function failure_payment_admin_notification($data=array(), $cc_num=NULL, $site_m
       $to_array = explode(',', $to);
       $to_array = array_map('trim',$to_array);	 
       $to = implode(',', array_unique($to_array));
-    }
     $params['subject'] = t('Payment Request failed for Account -  %acct_id', array('%acct_id' => $data['tmuser_info']['acct_id']));
     $params['body'] = t('Payment Request has been failed for Acct_ID %acct_id with card ending in %cc_num<br/><br/>TM Raw Response: %response', array('%acct_id' => $data['tmuser_info']['acct_id'], '%cc_num' => $cc_num, '%response' => $data['tm_raw_response']));
     drupal_mail('custom_hooks', 'tm_payment_notify', $to, LANGUAGE_NONE, $params, $site_mail);
   }
+}
 }
 
 /**
@@ -879,11 +900,11 @@ function api_failure_mail($data=array(), $cc_num=NULL, $site_mail=NULL){
       $to_array = explode(',', $to);
       $to_array = array_map('trim',$to_array);	 
       $to = implode(',', array_unique($to_array));
-    }
     $params['subject'] = t('No TM Response: Payment Request failed for Account- %acct_id', array('%acct_id' => $data['tmuser_info']['acct_id']));
     $params['body'] = t('Payment Request has been failed for Acct_ID %acct_id with card ending in %cc_num<br/> Resaon: No TM Response', array('%acct_id' => $data['tmuser_info']['acct_id'], '%cc_num' => $cc_num));
     drupal_mail('custom_hooks', 'tm_payment_notify', $to, LANGUAGE_NONE, $params, $site_mail);
   }
+}
 }
 
 /**
@@ -968,7 +989,6 @@ function filter_payment_plans($acct_id, $invoice_id, $plans) {
   ) {
     module_load_include('inc', 'tm_api', 'tm_api.helper');
     $pay_plans = tmapi_get_payment_plans_for_invoice($acct_id, $invoice_id);
-    //print_r($pay_plans);die();
     $payment_plans = explode(',', $pay_plans);
     //add default plan for full payment
     //comment the line below if you want to exclude

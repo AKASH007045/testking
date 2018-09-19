@@ -1002,7 +1002,7 @@ function message_ajax_callback($form, &$form_state) {
 
 
 
-function custom_invoice_admin_invoice_form_submit($form, &$form_state, $id) {
+function custom_invoice_admin_invoice_form_submit($form, &$form_state, $id = NULL) {
   $data = $form_state['values'];
   $headings = array('TQTY', 'DESCRIPTION', 'SECTION', 'ROW', 'SEATS', 'PRICE PER ITEM', 'OTHER FIELD', 'CALCULATED FIELD', 'TOTAL COST');
   for ($i =0; $i<=8;$i++) {
