@@ -1,0 +1,53 @@
+.printWrapper{ width:100%;position:relative; font-family:Arial; font-size:12px; }
+.printHeader{width: 100%;padding:0 10px 10px;font-size:14px; display:inline-block;margin:0;}
+.printHeader .logo{ float:left; display:block; width:100px; text-align:center;margin-left: 20px;margin-bottom: 20px; }
+.head-cnt-mid {float:left; display:block; width:210px; padding-left: 40px;}
+.head-cnt-mid .teamname{ font-size:21px; color:#c91e25; margin-bottom:10px; font-weight: bolder;}
+.head-cnt-mid .teamdtl {
+  color: #666;
+}
+.head-cnt-rgt {float:right; display:block; width:290px; margin-right:0px; text-align: right;color:#666; }
+.head-cnt-rgt .date-tkt{ margin-top:0px; text-align:right;}
+.head-cnt-rgt .date-time{ text-align:right;}
+.wrp-main{padding:10px 0; width: 100%; display: inline-block;}
+.bdr3btn{ border-bottom:3px solid #b9babd;}
+.bdr2btn{ border-bottom:2px solid #b9babd;}
+.pdg5mrg{ padding-bottom:5px; margin-bottom:5px;}
+.lftblck{ width:150px; float: left;}
+.cmtblck{ display: inline-block; width:210px; font-family:Arial;float: left;}
+.rgtblck {float:right; width:260px; color:#666;}
+.rgtblck .tcwrp{color:#666; width:100%; float:left; padding-right:15px;}
+.rgtblck .tcwrp .tcnm{ float:left; width:64%;}
+.rgtblck .tcwrp .tcamt{ float:right; width:35%; text-align:right;}
+.bdr5lft{ padding-left:8px; margin-right:0;}
+
+.lftblck .actinf, .rgtblck .actinf {color:#c91e25; font-size:15px;}
+.cmtblck .addtl {color:#666; font-family:Arial; font-size:12px;}
+.rgtblck .ttlamtd {text-align:right; font-size:14px;float: right;}
+.rgtblck .ttlamtd .tlyl {color:#c91e25;}
+.fnt16glb { font-size:14px;}
+.fnt12ftr { font-size:11px; text-align:center; color:#666; font-family:Arial;}
+.pgbrk {page-break-after:always; height: 1px;}
+.tbl-chart { float:left; width:100%;}
+.ticketTable{ display: block; width:100%; float:left; padding:0; margin:0px 12px 0 12px;border-collapse:collapse; font-family:Arial;}
+.ticketTable tr.tbr td {color:#666;font-size: 13px;}
+.ticketTable tr.head td {color:#c91e25;}
+.ticketTable tr.head td.inv_table_th_invoiced_amount {
+	text-align: right;
+}
+.ticketDetailsFooterBlock {
+	height: 270px;border-top: 3px solid #b9babd; margin: 270px 0px 25px 0px;padding: 0px;
+}
+
+.ticketTable tr.head td{color:#c91e25; font-size:14px; padding:0 0px 5px 0px; text-align: left;}
+.ticketTable tr.head td.tqty {text-align:left;}
+.ticketTable tr.head td.decr{text-align:left;}
+
+.head-cnt-mid .teamname, .lftblck .actinf, .rgtblck .actinf, .rgtblck .ttlamtd .tlyl, .ticketTable tr.head td, .rgtblck .ttlamtd, .rgtblck .tcwrp .tcnm {font-family: "oswaldregular", Arial;}
+html .pagefooter{font-family:Arial,sans-serif;font-size:50px;}
+.teamdtl , .head-cnt-rgt{
+  font-family:Arial;
+}
+.printContent{padding:0; margin:0;}
+.inv_table_th_invoiced_amount,
+.inv_table_td_invoiced_amount { text-align: right;}

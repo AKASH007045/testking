@@ -17,7 +17,7 @@
    //$terms =  isset($footer1['value']) ? $footer1['value'] : '';
 ?>
 <style>
-      
+
      .printHeader{ border-bottom:5px solid <?php print $color; ?>;}
      .head-cnt-mid .teamname{ color:<?php print $color; ?>; }
      .bdr5lft{ border-left:5px solid <?php print $color; ?>; }
@@ -42,32 +42,34 @@
     <div class="lftblck"> <div class="actinf">Invoice Details</div></div>
     <div class="tbl-chart"> <?php print $invoice_table;?></div>
   </div>
-  <div class="wrp-main bdr2btn">
-    <div class="cmtblck">
-      <div class="addtl">
-        <?php print $invoice_other_info_text;?>  
+  <div class="wrp-main ticketDetailsFooterBlock">
+    <div class="wrp-main bdr2btn">
+      <div class="cmtblck">
+        <div class="addtl">
+          <?php print $invoice_other_info_text;?>
+        </div>
+      </div>
+      <div class="cmtblck">
+        <div class="addtl"></div>
+        <div class="addtl"></div>
+      </div>
+      <div class="rgtblck bdr5lft billing">
+        <?php print $total;?>
+        <?php print $parking_fee;?>
+        <?php print $handling_fee;?>
+        <?php print $paid;?>
+          <div class="tcwrp"><div class="tcnm fnt16glb">Total Amount Due:</div> <div class="tcamt actinf"><?php echo $due_amount;?></div></div>
       </div>
     </div>
-    <div class="cmtblck">
-      <div class="addtl"></div>
-      <div class="addtl"></div>
+    <?php if (!empty($rep_str)): ?>
+     <div class="wrp-main bdr2btn">
+       <div class="cmtblck">
+         <div class="addtl">For assistance please contact your Account Rep below:</div>
+            <?php print $acct_rep_info; ?>
+         </div>
+     </div>
+      <?php endif; ?>
     </div>
-    <div class="rgtblck bdr5lft billing">
-      <?php print $total;?>
-      <?php print $parking_fee;?>
-      <?php print $handling_fee;?>
-      <?php print $paid;?>
-        <div class="tcwrp"><div class="tcnm fnt16glb">Total Amount Due:</div> <div class="tcamt actinf"><?php echo $due_amount;?></div></div>
-    </div>
-  </div>
-  <?php if (!empty($rep_str)): ?>
-   <div class="wrp-main bdr2btn">
-     <div class="cmtblck">
-       <div class="addtl">For assistance please contact your Account Rep below:</div>
-          <?php print $acct_rep_info; ?>
-       </div>
-   </div>
-    <?php endif; ?>
 </div>
 
 <?php if (isset($terms) && !empty($terms)): ?>
@@ -76,5 +78,3 @@
    <?php print $terms;?>
 </div>
 <?php endif; ?>
-  
-

@@ -733,6 +733,26 @@ table#invoices-list-table th:last-child,
 .personal-info #plansloading {
     text-align: center;
 }
+.personal-info #plansloading {
+    text-align: center;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(19, 19, 19, 0.43);
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.personal-info #plansloading img{
+    position:absolute;
+    top:0;
+    bottom:0;
+    margin:auto;
+}
 
 @media only screen and (max-width: 1024px) {
     .personal-info .card-panel {
